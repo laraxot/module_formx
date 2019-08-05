@@ -48,7 +48,7 @@
 	
 @endphp
 <fieldset>
-	<legend><b>@lang($trad.'.'.$name)</b></legend>
+	<legend><b>@lang($trad.'.'.$name.'.title')</b></legend>
 	@foreach($all as $k => $v)
 		<div class="row">
 		@foreach($pivot_fields as $pf)

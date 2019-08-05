@@ -1,11 +1,12 @@
 @php
 	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
+	//ddd($field);
 	//checkbox($name, $value = 1, $checked = null, $options = [])
 @endphp
 {{-- [{{  \Route::currentRouteName() }}] container0.create --}}
 {{-- {{ $view_name }} extend::includes.components.form.text --}}
 {{--{{ $view }}--}}
-@component($blade_component,compact('name','value','attributes','comp_view','field'))
+@component($blade_component,get_defined_vars())
 	@slot('label')
 		<b>{{ Form::label($name, $field->label , ['class' => 'control-label']) }}</b>
 	@endslot
