@@ -1,5 +1,4 @@
 <?php
-
 namespace Modules\FormX\Providers;
 
 use Illuminate\Support\ServiceProvider;
