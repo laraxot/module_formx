@@ -122,6 +122,7 @@ class FormXService {
 
     public static function inputFreeze($params){
         extract($params);
+        /*
         switch($field->type){
             case 'Cell':return self::inputFreezeCell($params);
             case 'PivotFields':return self::inputFreezePivotFields($params);
@@ -132,13 +133,90 @@ class FormXService {
         $field_name=str_replace(['[',']'],['.',''],$field->name);
         $field_value=Arr::get($row,$field_name);
         return $field_value;
+        */
+        $field->name_dot=str_replace(['[',']'],['.',''],$field->name);
+        if(in_array('value',array_keys($params))) {  
+            $field->value=$value;
+        }else{            
+            $field->value=Arr::get($row,$field->name_dot);
+        }
+        if(isset($label)){
+            $field->label=$label;    
+        }
+
+        $tmp=Str::snake($field->type);
+        $tmp=str_replace('_','.',$tmp);
+        $view='formx::includes.components.freeze.'.$tmp;
+
+        $view_params=[];
+
+        $view_params['row']=$row;
+        $view_params['field']=$field;
+        //$row_methods=get_class_methods($row);
+        if(method_exists($row, $field->name)){
+            $rows=$row->{$field->name}();
+            /*
+            debug_getter_obj(['obj'=>$rows]);
+            getForeignPivotKeyName  post_id
+            getRelatedPivotKeyName  related_id
+            getMorphType    post_type
+            */
+            $fields_exclude=[];
+            $fields_exclude[]='id';
+            $fields_exclude[]=$rows->getForeignPivotKeyName();
+            $fields_exclude[]=$rows->getRelatedPivotKeyName();
+            $fields_exclude[]=$rows->getMorphType();
+            $fields_exclude[]='related_type'; //-- ??
+
+            $related=$rows->getRelated();
+            $related_pivot=ThemeService::panelModel($related);
+
+            $pivot_class=$rows->getPivotClass();
+            $pivot=new $pivot_class;
+            $pivot_panel=ThemeService::panelModel($pivot);
+            $pivot_fields=$pivot_panel->fields();
+            //--------
+            $view_params['rows']=$rows->get();   //->GroupBy('post_id');
+            $view_params['related']=$related->get();
+            $view_params['pivot_panel']=$pivot_panel;
+
+            $pivot_fields=collect($pivot_fields)->filter(function($item) use($fields_exclude) {
+                return !in_array($item->name,$fields_exclude);
+            })->all();
+            $view_params['pivot_fields']=$pivot_fields;
+        }
+        //------
+
+        return view($view)
+                ->with($view_params)
+        ;
+        //$method='inputFreeze'.$field->type;
+
+        //ddd($method);
+        //return self::$method($params);
     }
+
+    public static function inputFreezeText($params){
+        extract($params);
+        return $field->value;
+    }
+
+    public static function inputFreezeId($params){
+        extract($params);
+        return $field->value;
+    }
+
+    public static function inputFreezeInteger($params){
+        extract($params);
+        return $field->value;
+    }
+
 
     public static function inputFreezeColor($params){
         extract($params);
-        $field_name=str_replace(['[',']'],['.',''],$field->name);
-        $field_value=Arr::get($row,$field_name);
-        return '<div class="p-3 mb-2" style="background-color:'.$field_value.';">&nbsp;'.'</div>';
+        //$field_name=str_replace(['[',']'],['.',''],$field->name);
+        //$field_value=Arr::get($row,$field_name);
+        return '<div class="p-3 mb-2" style="background-color:'.$field->value.';">&nbsp;'.'</div>';
     }
 
 
@@ -182,8 +260,21 @@ class FormXService {
         $rows=$row->{$field->name}();
         $pivot_class=$rows->getPivotClass();
         $pivot=new $pivot_class;
+        //ddd(get_class($pivot));
+        //ddd(get_class($row));//Modules\Food\Models\Restaurant
+        //ddd($field->name);//ratings
         $pivot_panel=ThemeService::panelModel($pivot);
-        $pivot_fields=$pivot_panel->fields(); 
+        //ddd(get_class($pivot_panel));//ratings
+        $pivot_fields=$pivot_panel->fields();
+        $related=$rows->getRelated();
+        $all=$related->get();
+        $view='formx::includes.components.freeze.pivot.fields';
+        return view($view)
+                ->with('row',$row)
+                ->with('related',$all)
+                ->with('pivot_fields',$pivot_fields)
+                ;   
+        /* 
         $html='<table>';
         foreach($rows->get() as $v){
             ddd($v);
@@ -196,6 +287,7 @@ class FormXService {
         }
         $html.='</table>';
         return $html;
+        */
     }
 
 
