@@ -152,9 +152,10 @@ class FormXService {
 
         $view_params['row']=$row;
         $view_params['field']=$field;
-        //$row_methods=get_class_methods($row);
-        if(method_exists($row, $field->name)){
-            $rows=$row->{$field->name}();
+        $field->method=Str::camel($field->name);
+
+        if(method_exists($row, $field->method)){
+            $rows=$row->{$field->method}();
             /*
             debug_getter_obj(['obj'=>$rows]);
             getForeignPivotKeyName  post_id
@@ -196,6 +197,7 @@ class FormXService {
         //return self::$method($params);
     }
 
+    /*
     public static function inputFreezeText($params){
         extract($params);
         return $field->value;
@@ -274,21 +276,8 @@ class FormXService {
                 ->with('related',$all)
                 ->with('pivot_fields',$pivot_fields)
                 ;   
-        /* 
-        $html='<table>';
-        foreach($rows->get() as $v){
-            ddd($v);
-            $html.='<tr>';
-            foreach($pivot_fields as $pf){
-                $val=$v->{$pf->name};
-                $html.='<td>'. $pf->name .'</td><td>'.$val.'</td>';
-            }
-            $html.='</tr>';
-        }
-        $html.='</table>';
-        return $html;
-        */
     }
+    */
 
 
     public static function inputHtml($params){
