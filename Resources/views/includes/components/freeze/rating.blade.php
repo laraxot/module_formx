@@ -1,8 +1,11 @@
 @php
     $val=$field->value;
+    $rating=$val;
+    /*
 	$rating=$val->avg('pivot.rating');
     $rating_avg=$val->avg('pivot.rating');
     $rating_count=$val->count();
+    */
 @endphp
 <ul class="nav nav-inline">
 	<li class="nav-item ratings">
@@ -28,8 +31,9 @@
                 @endif
                 @php $rating--; @endphp
             @endforeach
-	       ({{ $rating_avg }}) {{ $rating_count }} votes 
+            ({{ $val }}) {{ $field->txt ?? '' }} votes
             {{--
+	       ({{ $rating_avg }}) {{ $rating_count }} votes 
 	       @if(isset($row->pivot))
 	      ( {{ Arr::get($row->pivot,$field->name_dot) }} )({{ $field->name_dot }})
 	      @endif

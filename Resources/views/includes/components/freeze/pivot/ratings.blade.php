@@ -39,10 +39,19 @@
 					$input_value=$v->title;
 				}
 				*/
-
+				/*
 				$rows=$rows->keyBy('post_id');
 				$value=Arr::get($rows,$name_dot);
-				//$value=$rows->where('post_id',$v->post_id); 
+				*/
+				if($pf->name=='rating'){
+					$val=$rows->where('post_id',$v->post_id); 
+					$value=$val->avg('pivot.rating');
+					$value_count=$val->count();
+					$pf->txt=$value_count;
+				}else{
+					$rows=$rows->keyBy('post_id');
+					$value=Arr::get($rows,$name_dot);	
+				}
 
 				/*
 				$rating_avg=$val->avg('pivot.rating');

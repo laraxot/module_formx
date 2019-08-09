@@ -148,7 +148,7 @@ class FormXService {
         $tmp=str_replace('_','.',$tmp);
         $view='formx::includes.components.freeze.'.$tmp;
 
-        $view_params=[];
+        $view_params=$params;
 
         $view_params['row']=$row;
         $view_params['field']=$field;

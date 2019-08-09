@@ -1,1 +1,1 @@
-ID: {{ $field->value }}
+<a href="#{{ $field->value }}">{{ $field->value }}</a>
