@@ -63,16 +63,31 @@
 				if(!isset($pf->attributes))  $pf->attributes=[];
 				$input_attrs=$pf->attributes;
 				$input_value=(isset($field->value)?$field->value:null);
+				$input_attrs['label']=$v->title;
+				$input_attrs['text']=$v->txt; 
 
-				if($pf->type=='Boolean'){
-					$input_attrs['label']=$v->title;
-					$input_attrs['text']=$v->txt; 
-				}
+				
+				//if($pf->type=='Boolean'){
+				//}
+				//$input_value=$v->{$pf->name};
+				//ddd($related->where('post_id',$v->post_id));
+				$name_sub=last(explode('.',$pf->name));
+				$input_value=$v->{$name_sub};
+				//echo '<br> GG['.$name_sub.']['.$input_value.']GG</hr>';
+				/*
 				if($pf->type=='Hidden' && $pf->name=='title'){ //forzatura
 					$input_value=$v->title;
 				}
+				*/
+				//if($pf->name==$k){
+					//ddd($pf); //title
+					//ddd('preso ['.$k.']');
+					//ddd($v);
+					//echo '<br> GG['.$pf->name.']['.$k.']GG</hr>';
+				//}
 
 			@endphp
+			
 			@if($input_type=='bsHidden')
 			{{ Form::$input_type($input_name,$input_value,$input_attrs) }}
 			@else
@@ -80,6 +95,7 @@
 			{{ Form::$input_type($input_name,$input_value,$input_attrs) }}
 			</div>
 			@endif
+			
 		@endforeach
 		</div>
 	@endforeach
