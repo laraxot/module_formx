@@ -13,7 +13,7 @@ class BtnCreateAttach{
         return function ($extra) {
     		$btns='';
     		$btns.=Form::bsBtnCreate($extra);
-    		$btns.=Form::bsBtnIndexAttach($extra);
+    		//$btns.=Form::bsBtnIndexAttach($extra); //per adesso crea solo confusione
     		return $btns;
 		}; //end function
 	}//end invoke

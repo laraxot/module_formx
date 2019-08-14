@@ -13,9 +13,11 @@
             'model'=>$model,
             'tips'=>'Add ['.$name.'] into protected $dates in '.$class,
         ];
-        ddd($msg);
+        //ddd($msg);
+        $val1=$val;
+    }else{
+        $val1=$val->format('d/m/Y H:i');
     }
-    $val1=$val->format('d/m/Y H:i');
 @endphp
 @component($blade_component,compact('name','value','attributes','comp_view','field'))
 	@slot('label')

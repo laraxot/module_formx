@@ -1,1 +1,1 @@
-<a href="#{{ $field->value }}">{{ $field->value }}</a>
+<a href="#{{ class_basename($row) }}-{{ $field->value }}">{{ $field->value }}</a>
