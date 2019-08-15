@@ -123,7 +123,7 @@ class FormXService {
 
     public static function fieldsExclude($params){
         extract($params);
-        $rows=$row->{$field->method}(); //cachare tutto per accellerare
+        
         $fields_exclude=[];
         $fields_exclude[]='id';
         if(method_exists($rows,'getForeignKeyName')){
@@ -145,18 +145,6 @@ class FormXService {
 
     public static function inputFreeze($params){
         extract($params);
-        //*
-        switch($field->type){ 
-            //case 'Cell':return 'cell'; //only 4 debug
-            //case 'PivotFields':return self::inputFreezePivotFields($params);
-            //case 'RelatedFields':return 'related_fields';
-            //case 'Color':return self::inputFreezeColor($params);
-        }
-        /*
-        $field_name=str_replace(['[',']'],['.',''],$field->name);
-        $field_value=Arr::get($row,$field_name);
-        return $field_value;
-        */
         $field->name_dot=str_replace(['[',']'],['.',''],$field->name);
         if(in_array('value',array_keys($params))) {  
             $field->value=$value;
@@ -166,11 +154,6 @@ class FormXService {
         if(isset($label)){
             $field->label=$label;    
         }
-
-        //if($field->type == 'RelatedFields'){
-            //$is_collection=($field->value instanceof Illuminate\Database\Eloquent\Collection);
-        
-        //}
 
         $tmp=Str::snake($field->type);
         $tmp=str_replace('_','.',$tmp);
@@ -188,32 +171,29 @@ class FormXService {
             $is_collection=false;
         }
         if($is_collection){
-
-            $related=$field->value->first();
+            $rows=$row->{$field->method}(); //cachare tutto per accellerare
+            $related=$rows->getRelated();
+            //$related=$field->value->first();
             /////////////////////////////////////
+            $params['rows']=$rows;
+            $view_params['rows']=$rows->get();
             $fields_exclude=FormXService::fieldsExclude($params);
-            //ddd(self::fields_exclude[class_basename($row)][]);
-            ///*/
-
-
             $related_panel=ThemeService::panelModel($related);
             if(is_object($related_panel)){
                 $related_fields=$related_panel->fields();
             }else{
                 $related_fields=[];
             }
-            //ddd($rows);
-            //ddd($related_fields);
-            //ddd($fields_exclude);
             $related_fields=collect($related_fields)->filter(function($item) use($fields_exclude){
                 return !in_array($item->name,$fields_exclude);
             })->all();
-            $view_params['related_fields']=$related_fields;
 
 
 
             $related_name=Str::singular($field->name);
+            $view_params['related']=$related->get();
             $view_params['related_name']=$related_name;
+            $view_params['related_fields']=$related_fields;
             
             $url=RouteService::urlRelated([
                 'row'=>$row,
@@ -224,6 +204,22 @@ class FormXService {
 
             
             $view_params['manage_url']=$url;
+
+
+            if(method_exists($rows,'getPivotClass')){
+                $pivot_class=$rows->getPivotClass();
+                $pivot=new $pivot_class;
+                $pivot_panel=ThemeService::panelModel($pivot);
+                $pivot_fields=$pivot_panel->fields();
+                $pivot_fields=collect($pivot_fields)->filter(function($item) use($fields_exclude) {
+                    return !in_array($item->name,$fields_exclude);
+                })->all();
+                $view_params['pivot']=$pivot;
+                $view_params['pivot_panel']=$pivot_panel;
+                $view_params['pivot_fields']=$pivot_fields;
+            }
+
+
             //ddd($field->fields);
             //$field->fields=$field->value;
         }
