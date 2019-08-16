@@ -10,7 +10,7 @@
 
 <div class="form-group"> 
     <label>{{ $label }}</label> {{-- url('it/image?_act=canvas') --}}
-    <div class="dropzone" data-width="400" data-height="400" data-url="{{ url('it/image?_act=canvas') }}"  style="width: 100%;" data-image="{{ $value }}">
+    <div class="dropzone" data-width="400" data-height="400" data-url="{{ url('it/image?_act=canvas') }}"  style="width: 100%;" data-image="{{ $value }}" data-name="{{ $name }}">
      	{{ Form::file($name.'_thumb', $value, array_merge(['id'=>$name.'_thumb', 'class' => 'form-control'], $attributes)) }}
 	</div>
 	{{ Form::text($name, $value, array_merge(['id'=>$name,'class' => 'form-control','placeholder'=>$placeholder], $attributes)) }}
