@@ -20,7 +20,7 @@
 		</div>
 		<div class="col-md-4">
 			@foreach($pivot_panel->actions() as $act)
-			{!! $act->btn() !!}
+			{!! $act->btn(['row'=>$row]) !!}
 			@endforeach
 		</div>
 	</div>
