@@ -7,38 +7,14 @@
 	$auth_user_id=is_object($user)?$user->auth_user_id:'NO-SET';
 	$rows=$model->$name();
 	//debug_getter_obj(['obj'=>$rows]);
-	/*
-	  "name" => "getMorphType"                          "ris" => "post_type"
-	  "name" => "getMorphClass"                         "ris" => "profile"
-	  "name" => "getInverse"                            "ris" => false
-	  "name" => "getPivotClass"                         "ris" => "Modules\Blog\Models\PrivacyMorph"
-	  "name" => "getResults"                            "ris" => Collection {#759 ▼        #items: []      }
-	  "name" => "get"                                   "ris" => Collection {#797 ▼        #items: []      }
-	  "name" => "getExistenceCompareKey"                "ris" => "privacy_morph.post_id"
-	  "name" => "getRelationCountHash"                  "ris" => "laravel_reserved_0"
-	  "name" => "getForeignPivotKeyName"                "ris" => "post_id"
-	  "name" => "getQualifiedForeignPivotKeyName"       "ris" => "privacy_morph.post_id"
-	  "name" => "getRelatedPivotKeyName"                "ris" => "related_id"
-	  "name" => "getQualifiedRelatedPivotKeyName"       "ris" => "privacy_morph.related_id"
-	  "name" => "getParentKeyName"                      "ris" => "post_id"
-	  "name" => "getQualifiedParentKeyName"             "ris" => "blog_post_profiles.post_id"
-	  "name" => "getRelatedKeyName"                     "ris" => "post_id"
-	  "name" => "getTable"                              "ris" => "privacy_morph"
-	  "name" => "getRelationName"                       "ris" => "privacies"
-	  "name" => "getPivotAccessor"                      "ris" => "pivot"
-	  "name" => "getEager"                              "ris" => Collection {#825 ▶}
-	  "name" => "getQuery"                              "ris" => Builder {#753 ▶}
-	  "name" => "getBaseQuery"                          "ris" => Builder {#752 ▶}
-	  "name" => "getParent"                             "ris" => Profile {#663 ▶}
-	  "name" => "getRelated"                            "ris" => Privacy {#669 ▶}
-	*/
-
-
 
 	$pivot_class=$rows->getPivotClass();
 	$pivot=new $pivot_class;
 	$pivot_panel=Theme::panelModel($pivot);
-	$pivot_fields=$pivot_panel->fields();
+	$pivot_panel->setRows($rows);
+	$pivot_fields=$pivot_panel->editFields();
+	//ddd(get_class($pivot_panel));//Modules\Blog\Models\Panels\RatingMorphPanel
+	//ddd($pivot_fields);
 	$val=$model->$name;
 	
 	$related=$rows->getRelated();
