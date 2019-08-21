@@ -1,4 +1,5 @@
 @php
+<<<<<<< HEAD
 	$view_noact=implode('.',array_slice(explode('.',$view),0,-1));
 	$label=isset($attributes['label'])?$attributes['label']:trans($view_noact.'.field.'.$name);
 	$placeholder=trans($view_noact.'.field.'.$name.'_placeholder');
@@ -19,3 +20,15 @@
 		@endif
 	</div>
 </div>
+=======
+$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
+@endphp
+@component($blade_component,get_defined_vars())
+	@slot('label')
+		{{ Form::label($name, $field->label , ['class' => 'control-label']) }}
+	@endslot
+	@slot('input')
+		{{ Form::number($name,$value, $field->attributes) }}
+    @endslot
+@endcomponent
+>>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492

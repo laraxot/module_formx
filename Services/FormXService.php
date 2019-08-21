@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Cache;
 use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Facades\View;
 
+<<<<<<< HEAD
+=======
+//---- services ---
+use Modules\Theme\Services\ThemeService;
+use Modules\Extend\Services\RouteService;
+>>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
 
 
 class FormXService {
@@ -80,6 +86,10 @@ class FormXService {
     	foreach($comps as $comp){
         	Form::component($comp->name, $comp->view,
                     ['name', 'value' => null,'attributes' => [],
+<<<<<<< HEAD
+=======
+                    'options' => [],
+>>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
                     //'lang'=>$lang,
                     'comp_view'=>$comp->view,
                     'comp_dir'=>realpath($comp->dir),
@@ -116,6 +126,7 @@ class FormXService {
     When the element is displayed after the call to freeze(), only its value is displayed without the input tags, thus the element cannot be edited. If persistant freeze is set, then hidden field containing the element value will be output, too.
     */
 
+<<<<<<< HEAD
     public static function inputFreeze($params){
         extract($params);
         if($field->type=='Cell'){
@@ -130,6 +141,243 @@ class FormXService {
         return $field_value;
     }
 
+=======
+
+    public static function fieldsExclude($params){
+        extract($params);
+        
+        $fields_exclude=[];
+        $fields_exclude[]='id';
+        if(method_exists($rows,'getForeignKeyName')){
+            $fields_exclude[]=$rows->getForeignKeyName();
+        }
+        if(method_exists($rows,'getForeignPivotKeyName')){
+            $fields_exclude[]=$rows->getForeignPivotKeyName();
+        }
+        if(method_exists($rows,'getRelatedPivotKeyName')){
+            $fields_exclude[]=$rows->getRelatedPivotKeyName();
+        }
+        if(method_exists($rows,'getMorphType')){
+            $fields_exclude[]=$rows->getMorphType();
+        }
+        //debug_getter_obj(['obj'=>$rows]);
+        $fields_exclude[]='related_type'; //-- ??
+        return $fields_exclude;
+    }         
+
+    public static function inputFreeze($params){
+        extract($params);
+        $field->name_dot=str_replace(['[',']'],['.',''],$field->name);
+        if(in_array('value',array_keys($params))) {  
+            $field->value=$value;
+        }else{            
+            $field->value=Arr::get($row,$field->name_dot);
+        }
+        if(isset($label)){
+            $field->label=$label;    
+        }
+
+        $tmp=Str::snake($field->type);
+        $tmp=str_replace('_','.',$tmp);
+        $view='formx::includes.components.freeze.'.$tmp;
+
+        $view_params=$params;
+
+        $view_params['row']=$row;
+        $view_params['field']=$field;
+        $field->method=Str::camel($field->name);
+
+        if(is_object($field->value)){
+            $is_collection=(get_class($field->value)=='Illuminate\Database\Eloquent\Collection');
+        }else{
+            $is_collection=false;
+        }
+        if($is_collection){
+            $rows=$row->{$field->method}(); //cachare tutto per accellerare
+            $related=$rows->getRelated();
+            //$related=$field->value->first();
+            /////////////////////////////////////
+            $params['rows']=$rows;
+            $view_params['rows']=$rows->get();
+            $fields_exclude=FormXService::fieldsExclude($params);
+            $related_panel=ThemeService::panelModel($related);
+            if(is_object($related_panel)){
+                $related_fields=$related_panel->fields();
+            }else{
+                $related_fields=[];
+            }
+            $related_fields=collect($related_fields)->filter(function($item) use($fields_exclude){
+                return !in_array($item->name,$fields_exclude);
+            })->all();
+
+
+
+            $related_name=Str::singular($field->name);
+            $view_params['related']=$related->get();
+            $view_params['related_name']=$related_name;
+            $view_params['related_fields']=$related_fields;
+            
+            $url=RouteService::urlRelated([
+                'row'=>$row,
+                'related'=>$related,
+                'related_name'=>$related_name,
+                'act'=>'index', 
+            ]);
+
+            
+            $view_params['manage_url']=$url;
+
+
+            if(method_exists($rows,'getPivotClass')){
+                $pivot_class=$rows->getPivotClass();
+                $pivot=new $pivot_class;
+                $pivot_panel=ThemeService::panelModel($pivot);
+                $pivot_fields=$pivot_panel->fields();
+                $pivot_fields=collect($pivot_fields)->filter(function($item) use($fields_exclude) {
+                    return !in_array($item->name,$fields_exclude);
+                })->all();
+                $view_params['pivot']=$pivot;
+                $view_params['pivot_panel']=$pivot_panel;
+                $view_params['pivot_fields']=$pivot_fields;
+            }
+
+
+            //ddd($field->fields);
+            //$field->fields=$field->value;
+        }
+        /*
+        if(method_exists($row, $field->method)){
+            $rows=$row->{$field->method}();
+            
+            //debug_getter_obj(['obj'=>$rows]);
+            //getForeignPivotKeyName  post_id
+            //getRelatedPivotKeyName  related_id
+            //getMorphType    post_type
+            
+            $fields_exclude=[];
+            $fields_exclude[]='id';
+            if(method_exists($rows,'getForeignPivotKeyName')){
+                $fields_exclude[]=$rows->getForeignPivotKeyName();
+            }
+            if(method_exists($rows,'getRelatedPivotKeyName')){
+                $fields_exclude[]=$rows->getRelatedPivotKeyName();
+            }
+            if(method_exists($rows,'getMorphType')){
+                $fields_exclude[]=$rows->getMorphType();
+            }
+            $fields_exclude[]='related_type'; //-- ??
+
+            $related=$rows->getRelated();
+            $related_pivot=ThemeService::panelModel($related);
+            if(method_exists($rows,'getPivotClass')){
+                $pivot_class=$rows->getPivotClass();
+                $pivot=new $pivot_class;
+                $pivot_panel=ThemeService::panelModel($pivot);
+                $pivot_fields=$pivot_panel->fields();
+                $view_params['pivot_panel']=$pivot_panel;
+                $pivot_fields=collect($pivot_fields)->filter(function($item) use($fields_exclude) {
+                    return !in_array($item->name,$fields_exclude);
+                })->all();
+                $view_params['pivot_fields']=$pivot_fields;
+            }
+            //--------
+            $view_params['rows']=$rows->get();   //->GroupBy('post_id');
+            $view_params['related']=$related->get();
+
+        }
+        */
+        //------
+        $view_params['field']=$field;
+        return view($view)
+                ->with($view_params)
+        ;
+       
+    }
+
+    /*
+    public static function inputFreezeText($params){
+        extract($params);
+        return $field->value;
+    }
+
+    public static function inputFreezeId($params){
+        extract($params);
+        return $field->value;
+    }
+
+    public static function inputFreezeInteger($params){
+        extract($params);
+        return $field->value;
+    }
+
+
+    public static function inputFreezeColor($params){
+        extract($params);
+        //$field_name=str_replace(['[',']'],['.',''],$field->name);
+        //$field_value=Arr::get($row,$field_name);
+        return '<div class="p-3 mb-2" style="background-color:'.$field->value.';">&nbsp;'.'</div>';
+    }
+
+
+    public static function inputFreezeCell($params){
+        extract($params);
+        $html='';
+        foreach($field->fields as $k=>$v){
+            $html.=self::inputFreeze(['row'=>$row,'field'=>$v]).'<br/>';
+        }
+        return $html;
+    }//end inputFreezeCell
+
+    public static function inputFreezeRelatedFields($params){
+        extract($params);
+        $rows=$row->{$field->name}();
+        $related=$rows->getRelated();
+        $related_pivot=ThemeService::panelModel($related);
+        $except=[$rows->getForeignKeyName()];
+        $related_fields=collect($related_pivot->fields())
+                ->filter(function($item) use ($except){
+                    return !in_array($item->name,$except);
+                })
+                ->all();
+        $url=RouteService::urlRelated([
+            'row'=>$row,
+            'related'=>$related,
+            'related_name'=>Str::singular($field->name),
+            'act'=>'index', 
+        ]);
+
+        $view='formx::includes.components.freeze.related';
+        return view($view)
+                ->with('rows',$rows->get())
+                ->with('fields',$related_fields)
+                ->with('manage_url',$url);
+                ;
+    }
+
+    public static function inputFreezePivotFields($params){
+        extract($params);
+        $rows=$row->{$field->name}();
+        $pivot_class=$rows->getPivotClass();
+        $pivot=new $pivot_class;
+        //ddd(get_class($pivot));
+        //ddd(get_class($row));//Modules\Food\Models\Restaurant
+        //ddd($field->name);//ratings
+        $pivot_panel=ThemeService::panelModel($pivot);
+        //ddd(get_class($pivot_panel));//ratings
+        $pivot_fields=$pivot_panel->fields();
+        $related=$rows->getRelated();
+        $all=$related->get();
+        $view='formx::includes.components.freeze.pivot.fields';
+        return view($view)
+                ->with('row',$row)
+                ->with('related',$all)
+                ->with('pivot_fields',$pivot_fields)
+                ;   
+    }
+    */
+
+
+>>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
     public static function inputHtml($params){
         extract($params);
         $input_type='bs'.studly_case($field->type);
@@ -145,10 +393,18 @@ class FormXService {
             $input_attrs['fields']=$field->fields;
         }
         $div_exludes=['Hidden','Cell'];
+<<<<<<< HEAD
         if(!in_array($field->type,$div_exludes)){
             return '<div class="col-sm-'.$col_bs_size.'">'.Form::$input_type($input_name,$input_value,$input_attrs).'</div>';
         }
         return Form::$input_type($input_name,$input_value,$input_attrs);
+=======
+        $input_opts=['field'=>$field];
+        if(!in_array($field->type,$div_exludes)){
+            return '<div class="col-sm-'.$col_bs_size.'">'.Form::$input_type($input_name,$input_value,$input_attrs,$input_opts).'</div>';
+        }
+        return Form::$input_type($input_name,$input_value,$input_attrs,$input_opts);
+>>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
 
     }
 

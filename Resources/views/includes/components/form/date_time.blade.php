@@ -3,7 +3,25 @@
 	$fields['attributes']['data-input']='data-input';
     $val=Form::getValueAttribute($name);
     if($val==null) $val=Carbon\Carbon::now();
+<<<<<<< HEAD
     $val1=$val->format('d/m/Y H:i');
+=======
+    if(!is_object($val)){
+        $model=Form::getModel();
+        $class=get_class($model);
+        $msg=[
+            'name'=>$name,
+            'val'=>$val,
+            'class'=>$class,
+            'model'=>$model,
+            'tips'=>'Add ['.$name.'] into protected $dates in '.$class,
+        ];
+        //ddd($msg);
+        $val1=$val;
+    }else{
+        $val1=$val->format('d/m/Y H:i');
+    }
+>>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
 @endphp
 @component($blade_component,compact('name','value','attributes','comp_view','field'))
 	@slot('label')

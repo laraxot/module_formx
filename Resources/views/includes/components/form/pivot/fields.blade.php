@@ -7,6 +7,7 @@
 	$auth_user_id=is_object($user)?$user->auth_user_id:'NO-SET';
 	$rows=$model->$name();
 	//debug_getter_obj(['obj'=>$rows]);
+<<<<<<< HEAD
 	/*
 	  "name" => "getMorphType"                          "ris" => "post_type"
 	  "name" => "getMorphClass"                         "ris" => "profile"
@@ -34,11 +35,20 @@
 	*/
 
 
+=======
+>>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
 
 	$pivot_class=$rows->getPivotClass();
 	$pivot=new $pivot_class;
 	$pivot_panel=Theme::panelModel($pivot);
+<<<<<<< HEAD
 	$pivot_fields=$pivot_panel->fields();
+=======
+	$pivot_panel->setRows($rows);
+	$pivot_fields=$pivot_panel->editFields();
+	//ddd(get_class($pivot_panel));//Modules\Blog\Models\Panels\RatingMorphPanel
+	//ddd($pivot_fields);
+>>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
 	$val=$model->$name;
 	
 	$related=$rows->getRelated();
@@ -63,6 +73,7 @@
 				if(!isset($pf->attributes))  $pf->attributes=[];
 				$input_attrs=$pf->attributes;
 				$input_value=(isset($field->value)?$field->value:null);
+<<<<<<< HEAD
 
 				if($pf->type=='Boolean'){
 					$input_attrs['label']=$v->title;
@@ -73,6 +84,33 @@
 				}
 
 			@endphp
+=======
+				$input_attrs['label']=$v->title;
+				$input_attrs['text']=$v->txt; 
+
+				
+				//if($pf->type=='Boolean'){
+				//}
+				//$input_value=$v->{$pf->name};
+				//ddd($related->where('post_id',$v->post_id));
+				$name_sub=last(explode('.',$pf->name));
+				$input_value=$v->{$name_sub};
+				//echo '<br> GG['.$name_sub.']['.$input_value.']GG</hr>';
+				/*
+				if($pf->type=='Hidden' && $pf->name=='title'){ //forzatura
+					$input_value=$v->title;
+				}
+				*/
+				//if($pf->name==$k){
+					//ddd($pf); //title
+					//ddd('preso ['.$k.']');
+					//ddd($v);
+					//echo '<br> GG['.$pf->name.']['.$k.']GG</hr>';
+				//}
+
+			@endphp
+			
+>>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
 			@if($input_type=='bsHidden')
 			{{ Form::$input_type($input_name,$input_value,$input_attrs) }}
 			@else
@@ -80,6 +118,10 @@
 			{{ Form::$input_type($input_name,$input_value,$input_attrs) }}
 			</div>
 			@endif
+<<<<<<< HEAD
+=======
+			
+>>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
 		@endforeach
 		</div>
 	@endforeach
