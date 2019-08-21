@@ -3,17 +3,10 @@
 	//Theme::add('extend::includes.components.form.html5upload/css/html5imageupload.css');
 	//Theme::add('extend::includes.components.form.html5upload/css/glyphicons.css');
 	//Theme::add('extend::includes.components.form.html5upload/css/style.css');
-<<<<<<< HEAD
-	Theme::add($comp_view.'/js/html5imageupload.js');
-	Theme::add($comp_view.'/css/html5imageupload.css');
-	Theme::add($comp_view.'/css/glyphicons.css');
-	Theme::add($comp_view.'/css/style.css'); 
-=======
 	//Theme::add($comp_view.'/js/html5imageupload.js');
 	//Theme::add($comp_view.'/css/html5imageupload.css');
 	//Theme::add($comp_view.'/css/glyphicons.css');
 	//Theme::add($comp_view.'/css/style.css'); 
->>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
 
 
 	$label=isset($attributes['label'])?$attributes['label']:trans($view.'.field.'.$name);
@@ -25,11 +18,7 @@
 
 <div class="form-group">
     <label>{{ $label }}</label>
-<<<<<<< HEAD
-    <div class="dropzone" data-width="400" data-height="400" data-url="{{ route('imgz.canvas') }}"  style="width: 100%;" data-image="{{ $val }}" data-field="{{ $name }}" data-updateurl="{{ $model->update_url }}">
-=======
     <div class="dropzone" data-width="400" data-height="400" data-url="{{ route('imgz.canvas') }}"  style="width: 100%;" data-image="{{ $val }}" data-field="{{ $name }}" data-updateurl="{{ $model->update_url }}" data-name="{{ $name }}">
->>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
      	{{ Form::file($name.'_thumb', $value, array_merge(['id'=>$name.'_thumb', 'class' => 'form-control'], $attributes)) }}
 	</div>
 	{{ Form::text($name, $value, array_merge(['id'=>$name,'class' => 'form-control','placeholder'=>$placeholder], $attributes)) }}
@@ -39,10 +28,7 @@
 		</span>
 	@endif
 </div>
-<<<<<<< HEAD
-=======
 {{-- 
->>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
 @push('scripts')
 <script>
 $(function () {
@@ -80,9 +66,5 @@ $(function () {
 	});
 });
 </script>
-<<<<<<< HEAD
-@endpush	    
-=======
 @endpush	    
 --}}
->>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492

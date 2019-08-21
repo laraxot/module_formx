@@ -15,12 +15,9 @@ use Illuminate\Support\Facades\Cache;
 use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Facades\View;
 
-<<<<<<< HEAD
-=======
 //---- services ---
 use Modules\Theme\Services\ThemeService;
 use Modules\Extend\Services\RouteService;
->>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
 
 
 class FormXService {
@@ -86,10 +83,7 @@ class FormXService {
     	foreach($comps as $comp){
         	Form::component($comp->name, $comp->view,
                     ['name', 'value' => null,'attributes' => [],
-<<<<<<< HEAD
-=======
                     'options' => [],
->>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
                     //'lang'=>$lang,
                     'comp_view'=>$comp->view,
                     'comp_dir'=>realpath($comp->dir),
@@ -126,22 +120,6 @@ class FormXService {
     When the element is displayed after the call to freeze(), only its value is displayed without the input tags, thus the element cannot be edited. If persistant freeze is set, then hidden field containing the element value will be output, too.
     */
 
-<<<<<<< HEAD
-    public static function inputFreeze($params){
-        extract($params);
-        if($field->type=='Cell'){
-            $html='';
-            foreach($field->fields as $k=>$v){
-                $html.=self::inputFreeze(['row'=>$row,'field'=>$v]).'<br/>';
-            }
-            return $html;
-        }
-        $field_name=str_replace(['[',']'],['.',''],$field->name);
-        $field_value=Arr::get($row,$field_name);
-        return $field_value;
-    }
-
-=======
 
     public static function fieldsExclude($params){
         extract($params);
@@ -377,7 +355,6 @@ class FormXService {
     */
 
 
->>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
     public static function inputHtml($params){
         extract($params);
         $input_type='bs'.studly_case($field->type);
@@ -393,18 +370,11 @@ class FormXService {
             $input_attrs['fields']=$field->fields;
         }
         $div_exludes=['Hidden','Cell'];
-<<<<<<< HEAD
-        if(!in_array($field->type,$div_exludes)){
-            return '<div class="col-sm-'.$col_bs_size.'">'.Form::$input_type($input_name,$input_value,$input_attrs).'</div>';
-        }
-        return Form::$input_type($input_name,$input_value,$input_attrs);
-=======
         $input_opts=['field'=>$field];
         if(!in_array($field->type,$div_exludes)){
             return '<div class="col-sm-'.$col_bs_size.'">'.Form::$input_type($input_name,$input_value,$input_attrs,$input_opts).'</div>';
         }
         return Form::$input_type($input_name,$input_value,$input_attrs,$input_opts);
->>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
 
     }
 

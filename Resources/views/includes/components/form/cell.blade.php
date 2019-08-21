@@ -1,13 +1,4 @@
 @php
-<<<<<<< HEAD
-	//ddd($field);
-	$fields=$attributes['fields'];
-	$model=Form::getModel(); 
-@endphp
-
-<fieldset class="form-group container-fluid" {{--  disabled --}} >
-    <legend class="col-form-label col-sm-2 pt-0"><h4>{{ $name }}</h4></legend>
-=======
 	$fields=$attributes['fields'];
 	$model=Form::getModel(); 
 	$disabled=isset($attributes['disabled'])?'disabled':'';
@@ -31,7 +22,6 @@
 
 <fieldset class="form-group container-fluid border p-2" {{-- $disabled --}} >
     <legend class="col-form-label col-sm-2 pt-0 w-auto"><h4>{{ $name }}</h4></legend>
->>>>>>> c3c3da7d7b6fba6d41f51ec8adeaed24848a2492
 	<div class="row">
     @foreach($fields as $k=>$field)
     	{!! Theme::inputHtml(['row'=>$model,'field'=>$field]) !!}
