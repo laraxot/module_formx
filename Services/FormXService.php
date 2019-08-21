@@ -176,7 +176,10 @@ class FormXService {
             //$related=$field->value->first();
             /////////////////////////////////////
             $params['rows']=$rows;
-            $view_params['rows']=$rows->get();
+
+            //$view_params['rows']=$rows->get();
+            $view_params['rows']=$field->value;
+            
             $fields_exclude=FormXService::fieldsExclude($params);
             $related_panel=ThemeService::panelModel($related);
             if(is_object($related_panel)){
@@ -191,7 +194,7 @@ class FormXService {
 
 
             $related_name=Str::singular($field->name);
-            $view_params['related']=$related->get();
+            //$view_params['related']=$related->get();
             $view_params['related_name']=$related_name;
             $view_params['related_fields']=$related_fields;
             
