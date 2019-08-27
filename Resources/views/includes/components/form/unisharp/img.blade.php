@@ -11,7 +11,7 @@
 	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
 @endphp
 
-@component($blade_component,compact('name','value','attributes','lang','comp_view','field'))
+@component($blade_component,get_defined_vars())
 	@slot('label')
 		{{ Form::label($name, $label , ['class' => 'control-label']) }}
 	@endslot

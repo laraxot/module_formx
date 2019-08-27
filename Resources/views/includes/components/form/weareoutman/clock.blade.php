@@ -1,14 +1,15 @@
 @php
-	Theme::add($comp_view.'/bc/clockpicker/dist/jquery-clockpicker.min.css');
+	
+	Theme::add($comp_ns.'/bc/clockpicker/dist/jquery-clockpicker.min.css');
 	//ddd($comp_view);//extend::includes.components.form.weareoutman.clock
-	Theme::add($comp_view.'/bc/clockpicker/dist/jquery-clockpicker.min.js');
-	Theme::add($comp_view.'/js/clockpicker.js');
+	Theme::add($comp_ns.'/bc/clockpicker/dist/jquery-clockpicker.min.js');
+	Theme::add($comp_ns.'/js/clockpicker.js');
 	$label=isset($attributes['label'])?$attributes['label']:trans($view.'.field.'.$name);
 	$placeholder=trans($view.'.field.'.$name.'_placeholder');
 	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
 @endphp
 
-@component($blade_component,compact('name','value','attributes','lang','comp_view','field'))
+@component($blade_component,get_defined_vars())
 	@slot('label')
 		{{ Form::label($name, $label , ['class' => 'control-label']) }}
 	@endslot
