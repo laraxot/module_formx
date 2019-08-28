@@ -1,4 +1,7 @@
 @php
+	if(!isset($related)){
+		return 'RELATED NOT SET ['.__LINE__.']['.__FILE__.']';
+	}
 @endphp
 <fieldset class="form-group container-fluid border p-2" {{-- $disabled --}} >
     <legend class="col-form-label col-sm-2 pt-0 w-auto">
