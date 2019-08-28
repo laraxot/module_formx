@@ -1,9 +1,7 @@
 @php
 	Theme::add('/vendor/laravel-filemanager/js/lfm.js');
 	Theme::add('/vendor/laravel-filemanager/css/lfm.css');
-	//Theme::add('backend::includes/components/form/unisharp/js/uploadimg.js');
 	Theme::add(str_replace('.','/',$comp_view).'/js/uploadimg.js');
-	//ddd($comp_view);//extend::includes.components.form.unisharp.img
 	$src=Form::getValueAttribute($name);
 	if($src=='') $src='/images/nophoto.png';
 	$label=isset($attributes['label'])?$attributes['label']:trans($view.'.field.'.$name);

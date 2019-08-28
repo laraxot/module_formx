@@ -17,13 +17,12 @@ use Illuminate\Support\Facades\View;
 
 //---- services ---
 use Modules\Theme\Services\ThemeService;
-use Modules\Extend\Services\RouteService;
+use Modules\Xot\Services\RouteService;
 
 
 class FormXService {
 
 	public static function registerComponents(){
-	    //$view_path=dirname(\View::getFinder()->find('extend::includes.components.form.text')); //devo dargli una view esistente di partenza
     	$view_path=__DIR__.'/../Resources/views/includes/components/form';
     	$blade_component='components.blade.input';
         $views=[];
@@ -37,24 +36,14 @@ class FormXService {
             $views[]='adm_theme::layouts.'.$blade_component;
             $views[]='themex::layouts.'.$blade_component;
         }
-        /*
-        non esistono perche' non sono registrati ancora i namespace
-        foreach($views as $view_check){
-            echo '<li>'.$view_check.'['. View::exists($view_check).']</li>';
-        }
-        
-        $blade_component=collect($views)->first(function ($view_check) { 
-            return View::exists($view_check);
-        });
-        */        
         $blade_component=$views[0];
-        /*
+        if(0){
     	if(in_admin()){  
     	    $blade_component='adm_theme::includes.'.$blade_component;
     	}else{
         	$blade_component='pub_theme::layouts.'.$blade_component;
    		}
-        */
+        }
     	if(!File::exists($view_path.'/_components.json')){
         	$files = File::allFiles($view_path);
         	$comps=[];
@@ -95,7 +84,6 @@ class FormXService {
 
 
     public static function registerMacros(){
-        //$macros_dir=extend::getPath().'/Form/Macros';
         $macros_dir=__DIR__.'/../Macros';
         Collection::make(glob($macros_dir.'/*.php'))
             ->mapWithKeys(function ($path) {
@@ -106,13 +94,9 @@ class FormXService {
             })
             ->each(function ($macro, $path) {
                 $class = '\\Modules\\FormX\\Macros\\'.$macro;
-                //app($class)();
-                //echo '<hr/>'.$class.'<br/>';
-                //\Form::macro(Str::camel($macro), app($class)());
                 if($macro!='BaseFormBtnMacro'){
                     Form::macro('bs'.Str::studly($macro), app($class)());
                 }
-                //ddd($path);
             });
     }//end function
 
@@ -138,7 +122,6 @@ class FormXService {
         if(method_exists($rows,'getMorphType')){
             $fields_exclude[]=$rows->getMorphType();
         }
-        //debug_getter_obj(['obj'=>$rows]);
         $fields_exclude[]='related_type'; //-- ??
         return $fields_exclude;
     }         
@@ -226,48 +209,7 @@ class FormXService {
             //ddd($field->fields);
             //$field->fields=$field->value;
         }
-        /*
-        if(method_exists($row, $field->method)){
-            $rows=$row->{$field->method}();
-            
-            //debug_getter_obj(['obj'=>$rows]);
-            //getForeignPivotKeyName  post_id
-            //getRelatedPivotKeyName  related_id
-            //getMorphType    post_type
-            
-            $fields_exclude=[];
-            $fields_exclude[]='id';
-            if(method_exists($rows,'getForeignPivotKeyName')){
-                $fields_exclude[]=$rows->getForeignPivotKeyName();
-            }
-            if(method_exists($rows,'getRelatedPivotKeyName')){
-                $fields_exclude[]=$rows->getRelatedPivotKeyName();
-            }
-            if(method_exists($rows,'getMorphType')){
-                $fields_exclude[]=$rows->getMorphType();
-            }
-            $fields_exclude[]='related_type'; //-- ??
-
-            $related=$rows->getRelated();
-            $related_pivot=ThemeService::panelModel($related);
-            if(method_exists($rows,'getPivotClass')){
-                $pivot_class=$rows->getPivotClass();
-                $pivot=new $pivot_class;
-                $pivot_panel=ThemeService::panelModel($pivot);
-                $pivot_fields=$pivot_panel->fields();
-                $view_params['pivot_panel']=$pivot_panel;
-                $pivot_fields=collect($pivot_fields)->filter(function($item) use($fields_exclude) {
-                    return !in_array($item->name,$fields_exclude);
-                })->all();
-                $view_params['pivot_fields']=$pivot_fields;
-            }
-            //--------
-            $view_params['rows']=$rows->get();   //->GroupBy('post_id');
-            $view_params['related']=$related->get();
-
-        }
-        */
-        //------
+      
         $view_params['field']=$field;
         return view($view)
                 ->with($view_params)
@@ -275,88 +217,7 @@ class FormXService {
        
     }
 
-    /*
-    public static function inputFreezeText($params){
-        extract($params);
-        return $field->value;
-    }
-
-    public static function inputFreezeId($params){
-        extract($params);
-        return $field->value;
-    }
-
-    public static function inputFreezeInteger($params){
-        extract($params);
-        return $field->value;
-    }
-
-
-    public static function inputFreezeColor($params){
-        extract($params);
-        //$field_name=str_replace(['[',']'],['.',''],$field->name);
-        //$field_value=Arr::get($row,$field_name);
-        return '<div class="p-3 mb-2" style="background-color:'.$field->value.';">&nbsp;'.'</div>';
-    }
-
-
-    public static function inputFreezeCell($params){
-        extract($params);
-        $html='';
-        foreach($field->fields as $k=>$v){
-            $html.=self::inputFreeze(['row'=>$row,'field'=>$v]).'<br/>';
-        }
-        return $html;
-    }//end inputFreezeCell
-
-    public static function inputFreezeRelatedFields($params){
-        extract($params);
-        $rows=$row->{$field->name}();
-        $related=$rows->getRelated();
-        $related_pivot=ThemeService::panelModel($related);
-        $except=[$rows->getForeignKeyName()];
-        $related_fields=collect($related_pivot->fields())
-                ->filter(function($item) use ($except){
-                    return !in_array($item->name,$except);
-                })
-                ->all();
-        $url=RouteService::urlRelated([
-            'row'=>$row,
-            'related'=>$related,
-            'related_name'=>Str::singular($field->name),
-            'act'=>'index', 
-        ]);
-
-        $view='formx::includes.components.freeze.related';
-        return view($view)
-                ->with('rows',$rows->get())
-                ->with('fields',$related_fields)
-                ->with('manage_url',$url);
-                ;
-    }
-
-    public static function inputFreezePivotFields($params){
-        extract($params);
-        $rows=$row->{$field->name}();
-        $pivot_class=$rows->getPivotClass();
-        $pivot=new $pivot_class;
-        //ddd(get_class($pivot));
-        //ddd(get_class($row));//Modules\Food\Models\Restaurant
-        //ddd($field->name);//ratings
-        $pivot_panel=ThemeService::panelModel($pivot);
-        //ddd(get_class($pivot_panel));//ratings
-        $pivot_fields=$pivot_panel->fields();
-        $related=$rows->getRelated();
-        $all=$related->get();
-        $view='formx::includes.components.freeze.pivot.fields';
-        return view($view)
-                ->with('row',$row)
-                ->with('related',$all)
-                ->with('pivot_fields',$pivot_fields)
-                ;   
-    }
-    */
-
+    
 
     public static function inputHtml($params){
         extract($params);

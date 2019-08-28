@@ -1,7 +1,5 @@
 @php
-	
 	Theme::add($comp_ns.'/bc/clockpicker/dist/jquery-clockpicker.min.css');
-	//ddd($comp_view);//extend::includes.components.form.weareoutman.clock
 	Theme::add($comp_ns.'/bc/clockpicker/dist/jquery-clockpicker.min.js');
 	Theme::add($comp_ns.'/js/clockpicker.js');
 	$label=isset($attributes['label'])?$attributes['label']:trans($view.'.field.'.$name);

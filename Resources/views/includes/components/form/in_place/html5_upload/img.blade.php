@@ -1,14 +1,4 @@
 @php
-	//Theme::add('extend::includes.components.form.html5upload/js/html5imageupload.js');
-	//Theme::add('extend::includes.components.form.html5upload/css/html5imageupload.css');
-	//Theme::add('extend::includes.components.form.html5upload/css/glyphicons.css');
-	//Theme::add('extend::includes.components.form.html5upload/css/style.css');
-	//Theme::add($comp_view.'/js/html5imageupload.js');
-	//Theme::add($comp_view.'/css/html5imageupload.css');
-	//Theme::add($comp_view.'/css/glyphicons.css');
-	//Theme::add($comp_view.'/css/style.css'); 
-
-
 	$label=isset($attributes['label'])?$attributes['label']:trans($view.'.field.'.$name);
 	$placeholder=isset($attributes['placeholder'])?$attributes['placeholder']:trans($view.'.field.'.$name.'_placeholder');
 	$val=Form::getValueAttribute($name);
@@ -28,43 +18,3 @@
 		</span>
 	@endif
 </div>
-{{-- 
-@push('scripts')
-<script>
-$(function () {
-	$.ajaxSetup({
-    	headers: {
-        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    	}
-	});
-	$('.dropzone').html5imageupload({
-		onAfterProcessImage: function() {
-			var $val=$(this.element).data('name');
-    		var $field = $(this.element).data('field');
-			var $token = $('meta[name="csrf-token"]').attr('content');
-			var $data = { _method: 'put', _token: $token };
-			var $ajax_url=$(this.element).data('updateurl');
-			$data[$field] = $val;
-			$('#{{ $name }}').val($val);
-			$.ajax({
-		        url: $ajax_url,
-		        type: 'post',
-		        dataType: 'json',
-		        data: $data,
-		    }).done(function (data) {
-		        //$this.replaceWith(viewableText);
-		        //viewableText.click(editInPlace);
-		        //modal.find('.form-msg').html('<div class="alert alert-success"><strong>Success </strong>'+data.msg+'</div>');
-		    }).fail(function (response) {
-		        //console.log(response.responseText);
-		        //$this.replaceWith(response.responseText);
-		    });
-		},
-		onAfterCancel: function() {
-			$('#{{ $name }}').val('');
-		}
-	});
-});
-</script>
-@endpush	    
---}}

@@ -1,7 +1,7 @@
 @php
 	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
 @endphp
-@component($blade_component,compact('name','value','attributes','comp_view','field'))
+@component($blade_component,get_defined_vars())
 	@slot('label')
 	<i class="fas fa-key" title="{{ $name }}"></i>
 	@endslot

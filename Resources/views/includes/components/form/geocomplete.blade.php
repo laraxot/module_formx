@@ -11,4 +11,4 @@
 	</div>
 </div>
 
-{{  Theme::addScript('extend::js/bsGeo.js') }}
+{{  Theme::addScript($comp_dir.'/js/bsGeo.js') }}

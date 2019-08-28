@@ -15,7 +15,7 @@
 	//ddd($field);
 @endphp
 
-@component($blade_component,compact('name','value','attributes','comp_view','field'))
+@component($blade_component,get_defined_vars())
 	@slot('label')
 	{{ Form::label($name, $field->label , ['class' => 'control-label']) }}
 	@endslot

@@ -7,10 +7,7 @@
 	Theme::add($comp_view.'/js/jqui_date.js');
 	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
 @endphp
-{{-- [{{  \Route::currentRouteName() }}] container0.create --}}
-{{-- {{ $view_name }} extend::includes.components.form.text --}}
-{{--{{ $view }}--}}
-@component($blade_component,compact('name','value','attributes','comp_view','field'))
+@component($blade_component,get_defined_vars())
 	@slot('label')
 		{{ Form::label($name, $label , ['class' => 'control-label']) }}
 	@endslot
@@ -23,7 +20,6 @@
             	</span>
         	</span>
         </div>
-        {{-- $comp_view extend::includes.components.form.jqueryui.date --}}
 		@if ( $errors->has($name) )
 			<span class="help-block">
 				<strong>{{ $errors->first($name) }}</strong>

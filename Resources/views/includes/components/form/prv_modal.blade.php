@@ -13,13 +13,7 @@ $placeholder=trans('food::privacy.'.$name1.'_placeholder');
 $help=trans('food::privacy.'.$name1.'_help');
 $modal_title=trans('food::privacy.'.$name1.'_title');
 $modal_txt=trans('food::privacy.'.$name1.'_txt');
-//Theme::add('theme/bc/iCheck/icheck.min.js');
-//Theme::add('theme/bc/iCheck/skins/all.css');
-//Theme::add('extend::js/icheck.js'); 
-//Theme::add('theme/bc/now-ui-kit/assets/css/now-ui-kit.min.css');
-//Theme::add('theme/bc/now-ui-kit/assets/js/now-ui-kit.min.js');
-Theme::add('extend::css/checkbox.css');
-//public function checkbox($name, $value = 1, $checked = null, $options = [])	
+Theme::add('theme::css/checkbox.css');
 @endphp
 <div class="form-group{{ $errors->has($name) ? ' has-error' : '' }}">
 	<div class="checkbox">
