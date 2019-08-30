@@ -30,7 +30,7 @@ function updateInPlace(e) {
     if (html == "") {
         e.preventDefault();
         var alertMessage = $this.data("null-error");
-        swal({
+        Swal.fire({
             title: alertMessage,
             text: "",
             type: "warning",
