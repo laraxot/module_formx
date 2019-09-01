@@ -1,15 +1,5 @@
 @php
-	/* --sweetaler2 e btnDelete messi nel webpack
-	Theme::add('theme/bc/sweetalert2/dist/sweetalert2.min.js');
-	Theme::add('theme/bc/sweetalert2/dist/sweetalert2.min.css');
-	Theme::add('formx::js/btnDeleteX2.js'); 
-	*/
-	//DestructiveAction
-/*
-<a class="{{ $btn_class }}" href="#" data-token="{{ csrf_token() }}" data-id="{{ $id }}" data-href="{{ $route }}" data-toggle="tooltip" title="Cancella">
-	<i class="far fa-trash-alt"></i>
-</a>
-*/
+
 @endphp
 @php
 	$tag_attr=[
