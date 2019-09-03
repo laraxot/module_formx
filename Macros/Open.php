@@ -39,7 +39,6 @@ class Open{
         $routename=str_replace('.'.$from, '.'.$to, $routename);
         $route=route($routename, $params);
     }
-    
 
     switch ($to) {
         case 'store':

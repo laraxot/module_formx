@@ -1,10 +1,19 @@
 @php
+	//ddd($view_comp_dir);// !! devo trovare uno standard
 	Theme::add($view_comp_dir.'/js/gear.js');
 	Theme::add($view_comp_dir.'/css/gear.css');
+			//------- da uri a view ..
+			//ddd($view);//pub_theme::restaurant.cuisine.index
+			//ddd($_SERVER['REQUEST_URI']);///it/restaurant/pizzeria-cicala-messina/cuisine
+	//$url_t=route('container0.index',['container0'=>'translation','uri'=>$_SERVER['REQUEST_URI'] ]);
+
 @endphp
 
 <div class="color-palate">
 	<div class="color-trigger">
+		{{--  
+		<i class="fa fa-gear"></i>
+		--}}
 		<i class="fas fa-cog fa-2x" style="color:white;"></i>
 	</div>
 	<div class="color-palate-head">
