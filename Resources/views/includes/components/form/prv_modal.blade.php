@@ -23,7 +23,7 @@ Theme::add('theme::css/checkbox.css');
 			{{-- Form::label($name, $label , ['class' => 'form-check-label']) --}}
 			{{ $label }}
 		</label>
-		<a href="#" data-toggle="modal" data-target="#modal_{{ str_slug($name1) }}">@lang('pub_theme::txt.read')</a>
+		<a href="#" data-toggle="modal" data-target="#modal_{{ Str::slug($name1) }}">@lang('pub_theme::txt.read')</a>
 	<small class="form-text text-muted">{{ $help }} </small> 
 	</div>
 	@if ( $errors->has($name) || $errors->has($input_id))
@@ -33,7 +33,7 @@ Theme::add('theme::css/checkbox.css');
 	</span>
 	@endif
 	<!-- Modal -->
-	<div class="modal fade" id="modal_{{ str_slug($name1) }}" tabindex="-1" role="dialog"
+	<div class="modal fade" id="modal_{{ Str::slug($name1) }}" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
