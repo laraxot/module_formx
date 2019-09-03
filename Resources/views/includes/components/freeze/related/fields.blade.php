@@ -20,4 +20,4 @@
 	</tr>
 @endforeach
 </table>
-<a href="{{ $manage_url }}" class="btn btn-warning"><i class="fas fa-wrench"></i>&nbsp;Manage</a>
+<a href="{{ url($manage_url) }}" class="btn btn-warning"><i class="fas fa-wrench"></i>&nbsp;Manage</a>
