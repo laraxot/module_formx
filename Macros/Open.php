@@ -1,75 +1,75 @@
 <?php
+
 namespace Modules\FormX\Macros;
-use Illuminate\Support\Facades\Request;
+
 //use Illuminate\Http\Request;
 
 use Collective\Html\FormFacade as Form;
+
 //----- services -----
-use Modules\Theme\Services\ThemeService;
 
+class Open {
+    public function __invoke() {
+        return function ($model, $from, $to = '', $params = null, $formName = 'theForm') {
+            if (null == $params) {
+                $params = \Route::current()->parameters();
+            }
+            $req_params = \Request::all();
 
-class Open{
-	public function __invoke(){
-        return function ($model, $from, $to='', $params = null, $formName="theForm") {
-    if ($params == null) {
-        $params=\Route::current()->parameters();
-    }
-    $req_params=\Request::all();
+            //if(is_array($req_params)) $params=array_merge($req_params,$params);
 
-    //if(is_array($req_params)) $params=array_merge($req_params,$params);
+            //dd($params);
 
-    //dd($params);
-
-    if ($to=='') {
-        $to=$from;
-        switch ($to) {
-            case 'update': $from='edit'; break;
-            case 'store': $from='create'; break;
+            if ('' == $to) {
+                $to = $from;
+                switch ($to) {
+            case 'update': $from = 'edit'; break;
+            case 'store': $from = 'create'; break;
         }
-    }
+            }
 
-    $act=$to.'_url';
-    try{
-        $route=$model->$act;
-    }catch(\Exception $e){
-        $route='';
-    }
-    if($route==''){
-        $routename=\Request::route()->getName();
-        $routename=str_replace('.'.$from, '.'.$to, $routename);
-        $route=route($routename, $params);
-    }
+            $act = $to.'_url';
+            try {
+                $route = $model->$act;
+            } catch (\Exception $e) {
+                $route = '';
+            }
+            if ('' == $route) {
+                $routename = \Request::route()->getName();
+                $routename = str_replace('.'.$from, '.'.$to, $routename);
+                $route = route($routename, $params);
+            }
 
-    switch ($to) {
+            switch ($to) {
         case 'store':
-            $method='POST';
+            $method = 'POST';
         break;
         case 'update':
-            $method='PUT'; //PUT/PATCH
+            $method = 'PUT'; //PUT/PATCH
         break;
         case 'destroy':
-            $method='DELETE';
+            $method = 'DELETE';
         break;
         default:
-            $method='POST';
+            $method = 'POST';
         break;
     }
-    if (isset($params['method'])) {
-        $method=$params['method'];
-    }
+            if (isset($params['method'])) {
+                $method = $params['method'];
+            }
 
-
-
-    //$parz=array_merge([$routename], array_values($params));
-    return Form::model($model, [
+            //$parz=array_merge([$routename], array_values($params));
+            return Form::model($model, [
     //'route' => $parz,
     'url' => $route,
     'name' => $formName,
-    'id' => $formName
+    'id' => $formName,
     //'action' => $route
     ])
     //.csrf_field()
     .method_field($method);
-};//end function 
-    }//end invoke
+        }; //end function
+    }
+
+    //end invoke
 }//end class

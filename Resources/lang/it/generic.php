@@ -1,7 +1,5 @@
 <?php
 
-
-
 return [
     'accepted' => ':attribute deve essere accettato.',
     'active_url' => ':attribute non contiene un indirizzo email valido.',

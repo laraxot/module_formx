@@ -1,7 +1,5 @@
 <?php
 
-
-
 return [
     'password.confirmed' => 'La password devono coincidere',
     'phone.regex' => 'Numero non valido',

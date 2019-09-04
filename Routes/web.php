@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('formx')->group(function() {
+Route::prefix('formx')->group(function () {
     Route::get('/', 'FormXController@index');
 });
