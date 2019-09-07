@@ -44,7 +44,7 @@ class FormXService {
                 if (ends_with($filename, $ext)) {
                     $base = substr(($filename), 0, -strlen($ext));
                     $name = str_replace(DIRECTORY_SEPARATOR, '_', $base);
-                    $name = 'bs'.studly_case($name);
+                    $name = 'bs'.Str::studly($name);
                     $comp_view = str_replace(DIRECTORY_SEPARATOR, '.', $base);
                     $comp_view = 'formx::includes.components.form.'.$comp_view;
                     $comp = new \StdClass();
@@ -209,7 +209,7 @@ class FormXService {
 
     public static function inputHtml($params) {
         extract($params);
-        $input_type = 'bs'.studly_case($field->type);
+        $input_type = 'bs'.Str::studly($field->type);
         $input_name = collect(explode('.', $field->name))->map(function ($v, $k) {
             return 0 == $k ? $v : '['.$v.']';
         })->implode('');
