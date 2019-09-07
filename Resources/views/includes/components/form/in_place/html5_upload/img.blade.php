@@ -4,6 +4,7 @@
 	$val=Form::getValueAttribute($name);
 	$model=Form::getModel();
 	//$canvas_url=route('imgz.canvas');
+	$lang=\App::getLocale();
 	$canvas_url=route('container0.store',['lang'=>$lang,'container0'=>'image','type'=>'canvas']);
 @endphp
 
