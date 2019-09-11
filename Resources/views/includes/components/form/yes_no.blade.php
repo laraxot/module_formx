@@ -14,6 +14,8 @@
 		@endif
 	</div>
 </div>
+{{--  
 {{ Theme::add('theme/bc/bootstrap-switch/dist/js/bootstrap-switch.min.js',50) }}
 {{ Theme::add('theme/bc/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',51) }}
-{{ Theme::add('backend::js/bsYesNo.js',52) }}
+{{ Theme::add('formx::js/bsYesNo.js',52) }}
+--}}
