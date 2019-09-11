@@ -1,5 +1,5 @@
 @php
-	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
+	$field=transFields(get_defined_vars());
 	$attr1=[
 		'class'=>'form-control col-md-2',
 		'readonly'=>'readonly',

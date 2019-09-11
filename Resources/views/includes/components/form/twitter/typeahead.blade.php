@@ -4,7 +4,7 @@
 	Theme::add('theme/bc/typeahead.js/dist/typeahead.bundle.js');
 	//Theme::add('backend::js/bsTypeahead.js');
 	Theme::add(str_replace('.','/',$comp_view).'/js/bsTypeahead.js');
-	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
+	$field=transFields(get_defined_vars());
 @endphp
 
 @component($blade_component,get_defined_vars())

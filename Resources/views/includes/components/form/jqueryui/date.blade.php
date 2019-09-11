@@ -5,7 +5,7 @@
 	Theme::addStyle('https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css');
 	Theme::addScript('theme/bc/jquery-ui/ui/i18n/datepicker-it.js');
 	Theme::add($comp_view.'/js/jqui_date.js');
-	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
+	$field=transFields(get_defined_vars());
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')

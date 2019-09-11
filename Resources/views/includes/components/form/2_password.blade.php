@@ -5,7 +5,7 @@
 	else
 		$label=trans($view.'.field.'.$name);
 	*/
-	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
+	$field=transFields(get_defined_vars());
 	if(Str::endsWith($name,']')){
 		$name_conf=substr($name,0,-1).'_confirmation]';
 	}else{

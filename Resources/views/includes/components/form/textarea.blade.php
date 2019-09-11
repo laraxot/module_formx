@@ -5,7 +5,7 @@
 	else
 		$label=trans($view.'.field.'.$name);
 	*/
-	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
+	$field=transFields(get_defined_vars());
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')

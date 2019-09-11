@@ -11,7 +11,7 @@
 	*/
 	$opts=$rows->all();
 	$field=transFields(get_defined_vars());
-	//$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
+	//$field=transFields(get_defined_vars());
 	//ddd($field);
 @endphp
 

@@ -2,17 +2,7 @@
 
 	$options=[];
 	extract($attributes);
-	/*
-	//ddd($options);
-	if(!isset($view)){
-		$view=$comp_view;
-	}
-	$label=isset($attributes['label'])?$attributes['label']:trans($view.'.field.'.$name);
-	$placeholder=trans($view.'.field.'.$name.'_placeholder');
-	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
-	*/
-	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
-	//ddd($field->attributes);
+	$field=transFields(get_defined_vars());
 @endphp
 
 @component($blade_component,get_defined_vars())

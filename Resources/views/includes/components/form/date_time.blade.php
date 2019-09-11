@@ -1,5 +1,5 @@
 @php
-	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
+	$field=transFields(get_defined_vars());
 	$fields['attributes']['data-input']='data-input';
     $val=Form::getValueAttribute($name);
     if($val==null) $val=Carbon\Carbon::now();

@@ -3,7 +3,7 @@
 	$placeholder=trans($view.'.field.'.$name.'_placeholder');
 	Theme::add($comp_ns.'/js/simple-rating.js');
 	Theme::add($comp_ns.'/js/bsRatingStar.js');
-	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
+	$field=transFields(get_defined_vars());
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')

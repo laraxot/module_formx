@@ -6,7 +6,7 @@
 	if($src=='') $src='/images/nophoto.png';
 	$label=isset($attributes['label'])?$attributes['label']:trans($view.'.field.'.$name);
 	$placeholder=trans($view.'.field.'.$name.'_placeholder');
-	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
+	$field=transFields(get_defined_vars());
 @endphp
 
 @component($blade_component,get_defined_vars())

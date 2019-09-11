@@ -1,7 +1,7 @@
 @php
 	$related_class=($options['field']->related_class);
 	//ddd(get_defined_vars());
-	$field=transFields(array_merge($attributes,['view'=>$view,'name'=>$name]));
+	$field=transFields(get_defined_vars());
 	//Category::pluck('name', 'id')
 	//$opts=['1'=>'test','2'=>'prova'];
 	$opts=$related_class::pluck('nome','id');
