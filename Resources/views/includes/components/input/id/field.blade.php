@@ -3,9 +3,9 @@
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')
-		{{ Form::label($name, $field->label , ['class' => 'control-label']) }}
+	<i class="fas fa-key" title="{{ $name }}"></i>
 	@endslot
 	@slot('input')
-		{{ Form::password($name, $value, $field->attributes) }}
+	{{ Form::getValueAttribute($name) }}
 	@endslot
 @endcomponent
