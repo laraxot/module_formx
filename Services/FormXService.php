@@ -14,6 +14,43 @@ use Modules\Xot\Services\RouteService;
 
 class FormXService {
     public static function registerComponents() {
+        $view_path = realpath(__DIR__.'/../Resources/views/includes/components/input');
+        $comps = [];
+        $dirs = File::directories($view_path);
+        foreach($dirs as $k=>$v){
+            $comp = new \StdClass();
+            $comp->dir=$v;
+            $name=Str::after($v,$view_path.DIRECTORY_SEPARATOR);    
+            $comp->view = 'formx::includes.components.input.'.$name.'.field';
+            $name = 'bs'.Str::studly($name);
+            $comp->name=$name;
+            $comps[]=$comp;
+        }
+
+        $blade_component = 'components.blade.input';
+        if (in_admin()) {
+            $blade_component='adm_theme::layouts.'.$blade_component;
+        }else{
+            $blade_component='pub_theme::layouts.'.$blade_component;
+        }
+
+        foreach ($comps as $comp) {
+            Form::component(
+                $comp->name,
+                $comp->view,
+                ['name', 'value' => null, 'attributes' => [],
+                    'options' => [],
+                    'comp_view' => $comp->view,
+                    'comp_dir' => realpath($comp->dir),
+                    'comp_ns' => implode('.', array_slice(explode('.', $comp->view), 0, -1)),
+                    'blade_component' => $blade_component, ]
+            );
+        }//end foreach
+
+
+    }
+
+    public static function registerComponents_old() {
         $view_path = __DIR__.'/../Resources/views/includes/components/form';
         $blade_component = 'components.blade.input';
         $views = [];
