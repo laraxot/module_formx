@@ -1,11 +1,6 @@
 @php
 	$field=transFields(get_defined_vars());
+	if(!isset($field->sub_type)) $field->sub_type='default';
+	$include=$comp_view.'_'.$field->sub_type;
 @endphp
-@component($blade_component,get_defined_vars())
-	@slot('label')
-		{{ Form::label($name, $field->label , ['class' => 'control-label']) }}
-	@endslot
-	@slot('input')
-		{{ Form::password($name, $field->attributes) }} 
-	@endslot
-@endcomponent
+@include($include)
