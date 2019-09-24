@@ -171,9 +171,17 @@ class FormXService {
         }
 
         $tmp = Str::snake($field->type);
-        $tmp = str_replace('_', '.', $tmp);
-        $view = 'formx::includes.components.freeze.'.$tmp;
-
+        if(0){ //vecio
+            $tmp = str_replace('_', '.', $tmp);
+            $view = 'formx::includes.components.freeze.'.$tmp;
+        }else{
+            $view = 'formx::includes.components.input.'.$tmp.'.freeze';
+        }
+        if(!View::exists($view)){
+            //echo '<h1>['.$view.'] NOT EXISTS !!</h1>';
+            return ('<span style="color:#d60021">['.$view.'] NOT EXISTS !!</span>');
+        }
+        
         $view_params = $params;
 
         $view_params['row'] = $row;
@@ -236,7 +244,10 @@ class FormXService {
             //ddd($field->fields);
             //$field->fields=$field->value;
         }
-
+        if(!isset($field->sub_type)){
+            $field->sub_type='default';
+        }
+        $field->view=$view;
         $view_params['field'] = $field;
 
         return view($view)

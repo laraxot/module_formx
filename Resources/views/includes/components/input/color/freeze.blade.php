@@ -1,1 +1,1 @@
-{{ $field->value }}
+<div class="p-3 mb-2" style="background-color:{{ $field->value}}">&nbsp;</div>
