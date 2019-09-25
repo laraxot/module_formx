@@ -25,8 +25,21 @@ class FormXService {
             $name = 'bs'.Str::studly($name);
             $comp->name=$name;
             $comps[]=$comp;
+            //--- 2' LEVEL ---
+            $parent=$comp;
+            $files=File::files($v);
+            foreach ($files as $file) {
+                $filename = $file->getRelativePathname();
+                if(Str::startsWith($filename,'field_') && Str::endsWith($filename,'.blade.php')){
+                    $comp = new \StdClass();
+                    $comp->dir=$parent->dir;
+                    $comp->view = $parent->view.Str::after(Str::before($filename,'.blade.php'),'field');
+                    $sub_name=Str::before(Str::after($filename,'field_'),'.blade.php');
+                    $comp->name=$parent->name.Str::studly($sub_name);
+                    $comps[]=$comp;
+                }
+            }
         }
-
         $blade_component = 'components.blade.input';
         if (in_admin()) {
             $blade_component='adm_theme::layouts.'.$blade_component;
@@ -170,12 +183,16 @@ class FormXService {
             $field->label = $label;
         }
 
+
         $tmp = Str::snake($field->type);
         if(0){ //vecio
             $tmp = str_replace('_', '.', $tmp);
             $view = 'formx::includes.components.freeze.'.$tmp;
         }else{
             $view = 'formx::includes.components.input.'.$tmp.'.freeze';
+            if(isset($field->sub_type)){
+                $view.='_'.Str::snake($field->sub_type);
+            }
         }
         if(!View::exists($view)){
             //echo '<h1>['.$view.'] NOT EXISTS !!</h1>';
@@ -244,9 +261,11 @@ class FormXService {
             //ddd($field->fields);
             //$field->fields=$field->value;
         }
+        /*
         if(!isset($field->sub_type)){
-            $field->sub_type='default';
+            $field->sub_type='';
         }
+        */
         $field->view=$view;
         $view_params['field'] = $field;
 
@@ -257,7 +276,12 @@ class FormXService {
 
     public static function inputHtml($params) {
         extract($params);
+        
         $input_type = 'bs'.Str::studly($field->type);
+        if(isset($field->sub_type)){
+            $input_type.=Str::studly($field->sub_type); 
+        }
+
         $input_name = collect(explode('.', $field->name))->map(function ($v, $k) {
             return 0 == $k ? $v : '['.$v.']';
         })->implode('');
