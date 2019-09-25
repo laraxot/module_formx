@@ -7,6 +7,7 @@
         $val=Form::getValueAttribute($name);
     }
     if($val==null) $val=Carbon\Carbon::now();
+    /*
     if(!is_object($val)){
         $model=Form::getModel();
         $class=get_class($model);
@@ -22,6 +23,8 @@
     }else{
         $val1=$val->format('H:i');
     }
+    */
+    $val1=$val;
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')

@@ -16,11 +16,13 @@
 	//ddd(get_class($pivot_panel));//Modules\Blog\Models\Panels\RatingMorphPanel
 	//ddd($pivot_fields);
 	$val=$model->$name;
+
+
 	
 	$related=$rows->getRelated();
 	$_panel=Theme::panelModel($related);
 	$all=$related->get();
-	//ddd($all);
+	
 @endphp
 <fieldset>
 	<legend><b>@lang($trad.'.'.$name.'.title')</b></legend>
@@ -32,6 +34,9 @@
 				$input_name=$name.'.'.$v->post_id.'.pivot.'.$pf->name.'';
 				$input_name=dottedToBrackets($input_name);
 				$input_type='bs'.$pf->type;
+				if(isset($pf->sub_type)){
+					$input_type.=$pf->sub_type;
+				}
 
 				//$input_value=(isset($field->value)?$field->value:null); 
 				if(!isset($pf->col_bs_size)) $pf->col_bs_size=12;
@@ -40,14 +45,12 @@
 				$input_value=(isset($field->value)?$field->value:null);
 				$input_attrs['label']=$v->title;
 				$input_attrs['text']=$v->txt; 
-
-				
-				//if($pf->type=='Boolean'){
-				//}
-				//$input_value=$v->{$pf->name};
-				//ddd($related->where('post_id',$v->post_id));
+				//ddd($v->pivot);
 				$name_sub=last(explode('.',$pf->name));
-				$input_value=$v->{$name_sub};
+				$vv=($val->where('post_id',$v->post_id)->first()->toArray());
+				//ddd(Arr::get($vv,'pivot.rating'));
+				//$input_value=$v->{$name_sub};
+				$input_value=Arr::get($vv,'pivot.'.$pf->name);
 				//echo '<br> GG['.$name_sub.']['.$input_value.']GG</hr>';
 				/*
 				if($pf->type=='Hidden' && $pf->name=='title'){ //forzatura
