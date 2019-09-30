@@ -1,4 +1,4 @@
-<form class="form" method="GET" action="{{ $action }}" >
+<form class="form" method="GET" action="{{ $action }}" data-url="{{ $action }}" id="formaddress">
 	<div style="display:none">
 		<input type="text" name="city" >
   		<input type="text" name="lat" >
@@ -36,7 +36,6 @@
 		window.AlgoliaPlaces = window.AlgoliaPlaces || {};
 
 		$('[data-address]').each(function(){
-
 			var $this      = $(this),
 			$addressConfig = $this.data('address'),
 			$field = $('[name="'+$addressConfig.field+'"]'),
@@ -52,32 +51,38 @@
 				}
 			}
 
-			
+			$place.on('change', function(e){
+				//console.log(e.suggestion);
+				var result = JSON.parse(JSON.stringify(e.suggestion));
+				$form=$('#formaddress');
 
-				$place.on('change', function(e){
-					console.log(e.suggestion);
-					var result = JSON.parse(JSON.stringify(e.suggestion));
-					$('input[name=lat]').val(result.latlng.lat);
-					$('input[name=lng]').val(result.latlng.lng);
-					$('input[name=city]').val(result.city);
-					
-					delete(result.highlight); delete(result.hit); delete(result.hitIndex);
-					delete(result.rawAnswer); delete(result.query);
-					
-					$field.val( JSON.stringify(result) );
+				var $url=$form.data('url')+'#'+result.latlng.lat+','+result.latlng.lng+',13z';
+				$form.attr('action',$url);
 
-				});
+				$('input[name=lat]').val(result.latlng.lat);
+				$('input[name=lng]').val(result.latlng.lng);
+				$('input[name=city]').val(result.city);
+				
+				delete(result.highlight); delete(result.hit); delete(result.hitIndex);
+				delete(result.rawAnswer); delete(result.query);
+				
+				$field.val( JSON.stringify(result) );
 
-				$this.on('change blur', clearInput);
-				$place.on('clear', clearInput);
+			});
 
-				if( $field.val().length ){
-					var existingData = JSON.parse($field.val());
-					$this.val(existingData.value);
-				}
-			
+			$this.on('change blur', clearInput);
+			$place.on('clear', clearInput);
+
+			if( $field.val().length ){
+				var existingData = JSON.parse($field.val());
+				$this.val(existingData.value);
+			}
 
 			window.AlgoliaPlaces[ $addressConfig.field ] = $place;
+
+
+
+
 		});
 	});
 </script>
