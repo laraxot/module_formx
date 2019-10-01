@@ -6,7 +6,10 @@
 	if($val==null) $val=Carbon\Carbon::now();
 	$val1=$val->format('d/m/Y H:i');
 @endphp
-{{ Form::bsHidden($name,$val1) }}
+
+<div style="display:none">
+{{ Form::bsText($name,$val1) }}
+</div>
 <div class="row">
 	<div class="col-sm-6">{{ Form::bsDate($name_date,$val) }}</div>
 	<div class="col-sm-6">{{ Form::bsTime($name_time,$val) }}</div>
