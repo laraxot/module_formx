@@ -25,8 +25,12 @@ abstract class BaseFormBtnMacro {
         extract($params);
         if (! $user->can($act, $row) && ! in_array($act, ['gear'])) {
             $error_msg = '[not can '.$act.']['.get_class($row).']';
-
-            return ['error' => 1, 'error_msg' => $error_msg];
+            //ddd(App::environment('local'));
+            if(env('APP_ENV')=='local'){
+                return ['error' => 1, 'error_msg' => $error_msg];
+            }else{
+                return ['error' => 1, 'error_msg' => ''];
+            }
         }
         if (! isset($row->pivot) && 'detach' == $act) {
             return ['error' => 1, 'error_msg' => '[Not Pivot]'];

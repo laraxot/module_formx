@@ -1,1 +1,4 @@
-<a href="#{{ class_basename($row) }}-{{ $field->value }}">{{ $field->value }}</a>
+@php
+	$node=class_basename($row).'-'.$field->value;
+@endphp
+<a href="#{{ $node }}" id="{{ $node }}">{{ $field->value }}</a>
