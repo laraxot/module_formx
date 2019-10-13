@@ -47,7 +47,13 @@
 				$input_attrs['text']=$v->txt; 
 				//ddd($v->pivot);
 				$name_sub=last(explode('.',$pf->name));
-				$vv=($val->where('post_id',$v->post_id)->first()->toArray());
+				$vv=$val->where('post_id',$v->post_id)->first();
+				if($vv==null){
+					$vv=[];
+				}else{
+					$vv=$vv->toArray();
+				}
+				//$vv=($val_post->toArray());
 				//ddd(Arr::get($vv,'pivot.rating'));
 				//$input_value=$v->{$name_sub};
 				$input_value=Arr::get($vv,'pivot.'.$pf->name);
