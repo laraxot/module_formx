@@ -45,7 +45,6 @@
 				$input_value=(isset($field->value)?$field->value:null);
 				$input_attrs['label']=$v->title;
 				$input_attrs['text']=$v->txt; 
-				//ddd($v->pivot);
 				$name_sub=last(explode('.',$pf->name));
 				$vv=$val->where('post_id',$v->post_id)->first();
 				if($vv==null){
@@ -53,23 +52,13 @@
 				}else{
 					$vv=$vv->toArray();
 				}
-				//$vv=($val_post->toArray());
-				//ddd(Arr::get($vv,'pivot.rating'));
-				//$input_value=$v->{$name_sub};
-				$input_value=Arr::get($vv,'pivot.'.$pf->name);
-				//echo '<br> GG['.$name_sub.']['.$input_value.']GG</hr>';
-				/*
-				if($pf->type=='Hidden' && $pf->name=='title'){ //forzatura
-					$input_value=$v->title;
-				}
-				*/
-				//if($pf->name==$k){
-					//ddd($pf); //title
-					//ddd('preso ['.$k.']');
-					//ddd($v);
-					//echo '<br> GG['.$pf->name.']['.$k.']GG</hr>';
-				//}
 
+				$input_value=Arr::get($vv,'pivot.'.$pf->name);
+				
+				if($vv==[] && $input_value==''){ //forzatura
+					$input_value=$v->{$pf->name};
+				}
+				
 			@endphp
 			
 			@if($input_type=='bsHidden')
