@@ -9,7 +9,7 @@ namespace Modules\FormX\Macros;
 
 class BtnDelete extends BaseFormBtnMacro {
     public function __invoke() {
-        return function ($extra, $from = 'index', $to = 'edit') {
+        return function ($extra) {
             $class = __CLASS__;
             $vars = $class::before($extra);
             if ($vars['error']) {

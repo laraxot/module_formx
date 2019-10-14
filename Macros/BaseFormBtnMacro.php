@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 
 //----- services -----
+use Modules\Xot\Services\PanelService as Panel;
+
 
 abstract class BaseFormBtnMacro {
     public static function before($params) {
@@ -36,17 +38,19 @@ abstract class BaseFormBtnMacro {
             return ['error' => 1, 'error_msg' => '[Not Pivot]'];
         }
         $act_route = Str::snake($act);
+        /*
         $mutator = $act_route.'_url';
         try {
             $route = $row->$mutator;
         } catch (\Exception $e) {
             $route = '#';
         }
+        */
         $route_action = \Route::currentRouteAction();
         $old_act = Str::snake(Str::after($route_action, '@'));
         $routename = Request::route()->getName();
         $old_act_route = last(explode('.', $routename));
-
+        /*
         $routename_act = Str::before($routename, $old_act_route).''.$act_route;
         $route_params = \Route::current()->parameters();
         if (\Route::has($routename_act)) {
@@ -55,6 +59,10 @@ abstract class BaseFormBtnMacro {
         } else {
             $route = '#'.$routename_act;
         }
+        */
+        $panel=Panel::get($row);
+        $route=$panel->{$act.'Url'}();
+
         $view_comp_dir = 'formx::includes.components.btn';
         $view_comp = $view_comp_dir.'.'.$act_route;
         $data = [
@@ -69,7 +77,7 @@ abstract class BaseFormBtnMacro {
             'old_act_route' => $old_act_route,
             'row' => $row,
             'id' => 2,
-            'routename_act' => $routename_act,
+            //'routename_act' => $routename_act,
             'route' => $route,
             'btn_class' => 'btn btn-small btn-info',
             'view_comp' => $view_comp,
