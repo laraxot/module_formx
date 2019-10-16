@@ -1,22 +1,17 @@
-{{-- \Request::getRequestUri() --}}
-{{-- request()->fullUrl() 
-	action="{{ request()->fullUrl() }}"
-	--}}
 @php
-	$qs=collect(request()->query())->except(['q'])->all();
+	$qs=collect(request()->query())->except(['sort'])->all();
+	$sort_by_attributes=[];
+	$sort_by_attributes['options']=['id'=>'id','updated_at'=>'updated_at'];
+	$sort_by_attributes['label']=' ';
+	$sort_order_attributes=[];
+	$sort_order_attributes['options']=['desc'=>'desc','asc'=>'asc'];
+	$sort_order_attributes['label']=' ';
 @endphp
-<form  class="{{-- d-none --}} d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search float-right" method="get">
+<form  class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search float-right" method="get">
 	<div class="input-group">
-		<select class="form-control" name="sort[by]">
-			<option value="id">id</option>
-			<option value="updated_at">updated_at</option>
-		</select>
-		<select class="form-control" name="sort[order]">
-			<option  value="desc">Desc</option>
-			<option value="asc">Asc</option>
-		</select>
+		{{ Form::bsSelect('sort[by]', Request::input('sort.by'),$sort_by_attributes) }}
+		{{ Form::bsSelect('sort[order]', Request::input('sort.order'),$sort_order_attributes) }}
 		@foreach($qs as $k=>$v)
-		
 			@if(is_array($v))
 				@php
 					$a=[$k=>$v];
