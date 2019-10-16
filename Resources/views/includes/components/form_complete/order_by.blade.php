@@ -3,9 +3,11 @@
 	$sort_by_attributes=[];
 	$sort_by_attributes['options']=['id'=>'id','updated_at'=>'updated_at'];
 	$sort_by_attributes['label']=' ';
+	$sort_by_attributes['placeholder']=' ';
 	$sort_order_attributes=[];
 	$sort_order_attributes['options']=['desc'=>'desc','asc'=>'asc'];
 	$sort_order_attributes['label']=' ';
+	$sort_order_attributes['placeholder']=' ';
 @endphp
 <form  class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search float-right" method="get">
 	<div class="input-group">
