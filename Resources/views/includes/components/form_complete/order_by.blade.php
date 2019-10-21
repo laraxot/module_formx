@@ -1,7 +1,7 @@
 @php
 	$qs=collect(request()->query())->except(['sort'])->all();
 	$sort_by_attributes=[];
-	$sort_by_attributes['options']=['id'=>'id','updated_at'=>'updated_at'];
+	$sort_by_attributes['options']=array_combine($_panel->orderBy(),$_panel->orderBy());
 	$sort_by_attributes['label']=' ';
 	$sort_by_attributes['placeholder']=' ';
 	$sort_order_attributes=[];
