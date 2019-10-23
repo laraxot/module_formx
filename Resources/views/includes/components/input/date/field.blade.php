@@ -7,7 +7,11 @@
         $val=Form::getValueAttribute($name);
     }
 
-    if($val==null) $val=Carbon\Carbon::now();
+    //if($val==null) $val=Carbon\Carbon::now();
+    //ddd($name);
+    //
+    //    ddd($val->year);
+    //}
     if(!is_object($val)){
         $model=Form::getModel();
         $class=get_class($model);
@@ -21,7 +25,11 @@
         //ddd($msg);
         $val1=$val;
     }else{
-        $val1=$val->format('d/m/Y');
+        if($val->year<1){
+            $val1='';
+        }else{
+            $val1=$val->format('d/m/Y');
+        }
     }
 @endphp
 @component($blade_component,get_defined_vars())
@@ -35,6 +43,7 @@
 		<div class="date_flatpickr input-group mb-3">
     		{{--
     		<input type="text" placeholder="Select Date.." data-input class="form-control" > <!-- input is mandatory -->
+            [{{ $val1 }}]
     		--}}
     		{{ Form::text($name, $val1, ['data-input','class'=>"form-control"] ) }}
     		<div class="input-group-append">
