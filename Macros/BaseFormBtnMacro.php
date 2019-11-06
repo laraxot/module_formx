@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 //----- services -----
 use Modules\Xot\Services\PanelService as Panel;
+use Modules\Xot\Services\StubService;
 
 
 abstract class BaseFormBtnMacro {
@@ -26,6 +27,7 @@ abstract class BaseFormBtnMacro {
         $act = Str::camel($btn);
         extract($params);
         if (! $user->can($act, $row) && ! in_array($act, ['gear'])) {
+            $policy = StubService::getByModel($row, 'policy', $create = true);
             $error_msg = '[not can '.$act.']['.get_class($row).']';
             //ddd(App::environment('local'));
             if(env('APP_ENV')=='local'){
