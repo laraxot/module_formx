@@ -1,12 +1,11 @@
 @php
 	$options=[];
 	extract($attributes);
-	//ddd(get_defined_vars());
 	$field=transFields(get_defined_vars());
 	$row=Form::getModel();
 	$row_panel=Panel::get($row);
-	//ddd($row_panel);
-	//ddd($row_panel->rows([]) );
+	$row_panel->setRows($row);
+	/*
 	$options=$row->get()->map(function($item) use ($row_panel){
 		return [
 			'id'=>$row_panel->optionId($item),
@@ -27,14 +26,9 @@
 			$tmp[]=$son;
 		}
 	}
-	/*
-	->pluck('title','id')
-	->prepend('Root',0)
-	->all();
-	*/
-	//$options[0]='Root';
 	$options=collect($tmp)->pluck('title','id')->prepend('Root',0);
-
+	*/
+	$options=$row_panel->optionsTree();
 @endphp
 
 @component($blade_component,get_defined_vars())
