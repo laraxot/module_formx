@@ -1,5 +1,6 @@
 @php
-	Theme::add('pub_theme::dist/js/form.js');
+	Theme::add('formx::dist/js/app.js');
+	Theme::add('formx::dist/css/app.css');
 	$field=transFields(get_defined_vars());
 	$field->attributes['class']='form-control tinymce'
 @endphp
