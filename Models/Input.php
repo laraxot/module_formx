@@ -19,6 +19,6 @@ class Input extends XotBaseModel {
     protected $appends = [];
     protected $casts = [];
     protected $dates = ['created_at', 'updated_at'];
-    protected $primaryKey = 'post_id';
+    //protected $primaryKey = 'id';
     public $incrementing = true;
 }

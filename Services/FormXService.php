@@ -13,7 +13,8 @@ use Modules\Theme\Services\ThemeService;
 use Modules\Xot\Services\RouteService;
 
 class FormXService {
-    public static function registerComponents() {
+
+    public static function getComponents(){
         $view_path = realpath(__DIR__.'/../Resources/views/includes/components/input');
         $comps = [];
         $dirs = File::directories($view_path);
@@ -39,7 +40,13 @@ class FormXService {
                     $comps[]=$comp;
                 }
             }
-        }
+        }    
+        return $comps;
+    }
+
+
+    public static function registerComponents() {
+        $comps=self::getComponents();
         $blade_component = 'components.blade.input';
         if (in_admin()) {
             $blade_component='adm_theme::layouts.'.$blade_component;
@@ -59,73 +66,11 @@ class FormXService {
                     'blade_component' => $blade_component, ]
             );
         }//end foreach
+    }//end function
 
 
-    }
 
-    public static function registerComponents_old() {
-        $view_path = __DIR__.'/../Resources/views/includes/components/form';
-        $blade_component = 'components.blade.input';
-        $views = [];
 
-        if (in_admin()) {
-            $views[] = 'adm_theme::layouts.'.$blade_component;
-            $views[] = 'pub_theme::layouts.'.$blade_component;
-            $views[] = 'themex::layouts.'.$blade_component;
-        } else {
-            $views[] = 'pub_theme::layouts.'.$blade_component;
-            $views[] = 'adm_theme::layouts.'.$blade_component;
-            $views[] = 'themex::layouts.'.$blade_component;
-        }
-        $blade_component = $views[0];
-        if (0) {
-            if (in_admin()) {
-                $blade_component = 'adm_theme::includes.'.$blade_component;
-            } else {
-                $blade_component = 'pub_theme::layouts.'.$blade_component;
-            }
-        }
-        if (! File::exists($view_path.'/_components.json')) {
-            $files = File::allFiles($view_path);
-            $comps = [];
-            foreach ($files as $file) {
-                $filename = $file->getRelativePathname();
-                $ext = '.blade.php';
-                if (Str::endsWith($filename, $ext)) {
-                    $base = substr(($filename), 0, -strlen($ext));
-                    $name = str_replace(DIRECTORY_SEPARATOR, '_', $base);
-                    $name = 'bs'.Str::studly($name);
-                    $comp_view = str_replace(DIRECTORY_SEPARATOR, '.', $base);
-                    $comp_view = 'formx::includes.components.form.'.$comp_view;
-                    $comp = new \StdClass();
-                    $comp->name = $name;
-                    $comp->view = $comp_view;
-                    $comp->base = $base;
-                    $comp->dir = realpath($file->getPath());
-                    $comps[] = $comp;
-                }//endif
-            }//end foreach
-            File::put($view_path.'/_components.json', json_encode($comps));
-        } else {
-            $comps = File::get($view_path.'/_components.json');
-            $comps = json_decode($comps);
-        }
-        foreach ($comps as $comp) {
-            Form::component(
-                $comp->name,
-                $comp->view,
-                ['name', 'value' => null, 'attributes' => [],
-                    'options' => [],
-                    //'lang'=>$lang,
-                    'comp_view' => $comp->view,
-                    'comp_dir' => realpath($comp->dir),
-                    'comp_ns' => implode('.', array_slice(explode('.', $comp->view), 0, -1)),
-                    'blade_component' => $blade_component, ]
-            );
-        }//end foreach
-    }
-
-    //end function
 
     public static function registerMacros() {
         $macros_dir = __DIR__.'/../Macros';

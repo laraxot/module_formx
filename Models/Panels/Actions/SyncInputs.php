@@ -5,6 +5,7 @@ namespace Modules\FormX\Models\Panels\Actions;
 //-------- models -----------
 use Modules\FormX\Models\Input;
 //-------- services --------
+use Modules\FormX\Services\FormXService;
 //-------- bases -----------
 use Modules\Xot\Models\Panels\Actions\XotBasePanelAction;
 
@@ -14,6 +15,11 @@ class SyncInputs extends XotBasePanelAction {
     public $name='sync_inputs';
 
     public function handle(){
-    	return 'preso';
+    	$comps=FormXService::getComponents();
+    	foreach($comps as $comp){
+    		$parz=['type'=>$comp->name];
+    		$row=Input::firstOrCreate($parz);
+    	}
+    	//return 'preso';
     }
 }

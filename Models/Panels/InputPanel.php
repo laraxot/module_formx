@@ -32,8 +32,7 @@ class InputPanel extends XotBasePanel {
 	 *
 	 * @var array
 	 */
-	public static $search = array (
-) ;
+	public static $search = [];
 
 	/**
 	* The relationships that should be eager loaded on index queries.
@@ -113,27 +112,23 @@ class InputPanel extends XotBasePanel {
 
 
 	public static function fields(){
-		return array (
-  0 => 
-  (object)(array(
-     'type' => 'Id',
-     'name' => 'id',
-     'rules' => 'required',
-     'comment' => NULL,
-  )),
-  1 => 
-  (object)(array(
-     'type' => 'String',
-     'name' => 'type',
-     'comment' => NULL,
-  )),
-  2 => 
-  (object)(array(
-     'type' => 'String',
-     'name' => 'sub_type',
-     'comment' => NULL,
-  )),
-);
+		return [
+  			(object)[
+     			'type' => 'Id',
+     			'name' => 'id',
+     			'comment' => NULL,
+  			],
+  			(object)[
+     			'type' => 'String',
+     			'name' => 'type',
+     			'comment' => NULL,
+  			],
+  			(object)[
+     			'type' => 'String',
+     			'name' => 'sub_type',
+     			'comment' => NULL,
+  			],
+		];
 	}
 	 
 	/**
