@@ -8,6 +8,8 @@
 	@slot('input')
 		{{ Form::hidden($name, $value) }}
 		<input type="text" data-google-address="{&quot;field&quot;: &quot;{{$name}}&quot;}"  class="form-control" autocomplete="off" />
+        <div id="{{$name}}_fields">
+        </div>
 	@endslot
 @endcomponent
 @push('styles')
@@ -24,12 +26,13 @@
     function initAutocomplete() {
 
         $('[data-google-address]').each(function () {
-
             var $this = $(this),
                 $addressConfig = $this.data('google-address'),
                 $field = $('[name="' + $addressConfig.field + '"]');
+            var $extra_fields=$('#'+$addressConfig.field+'_fields');
 
             if ($field.val().length) {
+                //console.log($field.val());
                 var existingData = JSON.parse($field.val());
                 $this.val(existingData.value);
             }
@@ -51,7 +54,26 @@
                     data[addressType] = place.address_components[i]['long_name'];
                     data[addressType+'_short'] = place.address_components[i]['short_name'];
 
+                    $('<input>').attr({
+                        'type':'text',
+                        'name': addressType,
+                        'value': data[addressType]
+                    }).appendTo($extra_fields);
                 }
+
+                $('<input>').attr({
+                        'type':'text',
+                        'name': 'latitude',
+                        'value': latlng.lat,
+                }).appendTo($extra_fields);
+                $('<input>').attr({
+                        'type':'text',
+                        'name': 'longitude',
+                        'value': latlng.lng,
+                }).appendTo($extra_fields);
+
+
+
                 $field.val(JSON.stringify(data));
 
             });
@@ -60,6 +82,7 @@
                 if (!$this.val().length) {
                     $field.val("");
                 }
+                $extra_fields.empty();
             });
 
 
