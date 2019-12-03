@@ -12,6 +12,7 @@
     //
     //    ddd($val->year);
     //}
+
     if(!is_object($val)){
         $model=Form::getModel();
         $class=get_class($model);
@@ -24,6 +25,13 @@
         ];
         //ddd($msg);
         $val1=$val;
+        if($val1!=null){  
+            try{
+                $val1=Carbon\Carbon::parse($val)->format('d/m/Y');
+            }catch(\Exception $e){
+                $val1=Carbon\Carbon::createFromFormat('d/m/Y',$val)->format('d/m/Y');
+            }
+        }
     }else{
         if($val->year<1){
             $val1='';
@@ -39,6 +47,7 @@
 	@slot('input')
 		{{--
 		{{ Form::text($name, $value, $field->attributes) }}
+        [{{ $val }}][{{ $val1 }}]
 		--}}
 		<div class="date_flatpickr input-group mb-3">
     		{{--
