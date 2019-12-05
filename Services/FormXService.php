@@ -13,45 +13,44 @@ use Modules\Theme\Services\ThemeService;
 use Modules\Xot\Services\RouteService;
 
 class FormXService {
-
-    public static function getComponents(){
+    public static function getComponents() {
         $view_path = realpath(__DIR__.'/../Resources/views/includes/components/input');
         $comps = [];
         $dirs = File::directories($view_path);
-        foreach($dirs as $k=>$v){
+        foreach ($dirs as $k => $v) {
             $comp = new \StdClass();
-            $comp->dir=$v;
-            $name=Str::after($v,$view_path.DIRECTORY_SEPARATOR);    
+            $comp->dir = $v;
+            $name = Str::after($v, $view_path.DIRECTORY_SEPARATOR);
             $comp->view = 'formx::includes.components.input.'.$name.'.field';
             $name = 'bs'.Str::studly($name);
-            $comp->name=$name;
-            $comps[]=$comp;
+            $comp->name = $name;
+            $comps[] = $comp;
             //--- 2' LEVEL ---
-            $parent=$comp;
-            $files=File::files($v);
+            $parent = $comp;
+            $files = File::files($v);
             foreach ($files as $file) {
                 $filename = $file->getRelativePathname();
-                if(Str::startsWith($filename,'field_') && Str::endsWith($filename,'.blade.php')){
+                if (Str::startsWith($filename, 'field_') && Str::endsWith($filename, '.blade.php')) {
                     $comp = new \StdClass();
-                    $comp->dir=$parent->dir;
-                    $comp->view = $parent->view.Str::after(Str::before($filename,'.blade.php'),'field');
-                    $sub_name=Str::before(Str::after($filename,'field_'),'.blade.php');
-                    $comp->name=$parent->name.Str::studly($sub_name);
-                    $comps[]=$comp;
+                    $comp->dir = $parent->dir;
+                    $comp->view = $parent->view.Str::after(Str::before($filename, '.blade.php'), 'field');
+                    $sub_name = Str::before(Str::after($filename, 'field_'), '.blade.php');
+                    $comp->name = $parent->name.Str::studly($sub_name);
+                    $comps[] = $comp;
                 }
             }
-        }    
+        }
+
         return $comps;
     }
 
-
     public static function registerComponents() {
-        $comps=self::getComponents();
+        $comps = self::getComponents();
         $blade_component = 'components.blade.input';
         if (in_admin()) {
-            $blade_component='adm_theme::layouts.'.$blade_component;
-        }else{
-            $blade_component='pub_theme::layouts.'.$blade_component;
+            $blade_component = 'adm_theme::layouts.'.$blade_component;
+        } else {
+            $blade_component = 'pub_theme::layouts.'.$blade_component;
         }
 
         foreach ($comps as $comp) {
@@ -66,11 +65,9 @@ class FormXService {
                     'blade_component' => $blade_component, ]
             );
         }//end foreach
-    }//end function
+    }
 
-
-
-
+    //end function
 
     public static function registerMacros() {
         $macros_dir = __DIR__.'/../Macros';
@@ -128,22 +125,21 @@ class FormXService {
             $field->label = $label;
         }
 
-
         $tmp = Str::snake($field->type);
-        if(0){ //vecio
+        if (0) { //vecio
             $tmp = str_replace('_', '.', $tmp);
             $view = 'formx::includes.components.freeze.'.$tmp;
-        }else{
+        } else {
             $view = 'formx::includes.components.input.'.$tmp.'.freeze';
-            if(isset($field->sub_type)){
-                $view.='_'.Str::snake($field->sub_type);
+            if (isset($field->sub_type)) {
+                $view .= '_'.Str::snake($field->sub_type);
             }
         }
-        if(!View::exists($view)){
+        if (! View::exists($view)) {
             //echo '<h1>['.$view.'] NOT EXISTS !!</h1>';
-            return ('<span style="color:#d60021">['.$view.'] NOT EXISTS !!</span>');
+            return '<span style="color:#d60021">['.$view.'] NOT EXISTS !!</span>';
         }
-        
+
         $view_params = $params;
 
         $view_params['row'] = $row;
@@ -211,7 +207,7 @@ class FormXService {
             $field->sub_type='';
         }
         */
-        $field->view=$view;
+        $field->view = $view;
         $view_params['field'] = $field;
 
         return view($view)
@@ -221,10 +217,10 @@ class FormXService {
 
     public static function inputHtml($params) {
         extract($params);
-        
+
         $input_type = 'bs'.Str::studly($field->type);
-        if(isset($field->sub_type)){
-            $input_type.=Str::studly($field->sub_type); 
+        if (isset($field->sub_type)) {
+            $input_type .= Str::studly($field->sub_type);
         }
 
         $input_name = collect(explode('.', $field->name))->map(function ($v, $k) {

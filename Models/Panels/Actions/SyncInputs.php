@@ -11,15 +11,15 @@ use Modules\Xot\Models\Panels\Actions\XotBasePanelAction;
 
 class SyncInputs extends XotBasePanelAction {
     public $onContainer = true; //onlyContainer
-    public $icon='<i class="fas fa-sync"></i>';
-    public $name='sync_inputs';
+    public $icon = '<i class="fas fa-sync"></i>';
+    public $name = 'sync_inputs';
 
-    public function handle(){
-    	$comps=FormXService::getComponents();
-    	foreach($comps as $comp){
-    		$parz=['type'=>$comp->name];
-    		$row=Input::firstOrCreate($parz);
-    	}
-    	//return 'preso';
+    public function handle() {
+        $comps = FormXService::getComponents();
+        foreach ($comps as $comp) {
+            $parz = ['type' => $comp->name];
+            $row = Input::firstOrCreate($parz);
+        }
+        //return 'preso';
     }
 }

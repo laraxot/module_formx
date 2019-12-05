@@ -17,7 +17,8 @@ class BtnCrud {
             $btns .= Form::bsBtnDetach($extra);
             $btns .= Form::bsBtnShow($extra);
             //$btns.=Form::bsBtnClone($extra);
-            $btns .='</div>';
+            $btns .= '</div>';
+
             return $btns;
         }; //end function
     }

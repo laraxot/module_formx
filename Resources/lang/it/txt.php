@@ -1,8 +1,8 @@
 <?php
 
 return [
-	'update'=>'modifica',
-	'day_names' => [
+    'update' => 'modifica',
+    'day_names' => [
     'sun' => 'Domenica',
     'mon' => 'Lunedi',
     'tue' => 'Martedi',

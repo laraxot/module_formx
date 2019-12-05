@@ -11,9 +11,9 @@ class CreateInputsTable extends Migration {
     }
 
     public function up() {
-        /** 
+        /*
         * create
-        **/  
+        **/
         if (! Schema::hasTable($this->getTable())) {
             Schema::create($this->getTable(), function (Blueprint $table) {
                 $table->increments('id');
@@ -25,9 +25,9 @@ class CreateInputsTable extends Migration {
                 $table->timestamps();
             });
         }
-        /**
+        /*
         * update
-        **/  
+        **/
         Schema::table($this->getTable(), function (Blueprint $table) {
             /*
             if (! Schema::hasColumn($this->getTable(), 'updated_by')) {

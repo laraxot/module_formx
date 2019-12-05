@@ -5,11 +5,9 @@ namespace Modules\FormX\Macros;
 use Illuminate\Support\Facades\Request;
 //use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
 //----- services -----
 use Modules\Xot\Services\PanelService as Panel;
 use Modules\Xot\Services\StubService;
-
 
 abstract class BaseFormBtnMacro {
     public static function before($params) {
@@ -30,9 +28,9 @@ abstract class BaseFormBtnMacro {
             $policy = StubService::getByModel($row, 'policy', $create = true);
             $error_msg = '[not can '.$act.']['.get_class($row).']';
             //ddd(App::environment('local'));
-            if(env('APP_ENV')=='local'){
+            if ('local' == env('APP_ENV')) {
                 return ['error' => 1, 'error_msg' => $error_msg];
-            }else{
+            } else {
                 return ['error' => 1, 'error_msg' => ''];
             }
         }
@@ -62,8 +60,8 @@ abstract class BaseFormBtnMacro {
             $route = '#'.$routename_act;
         }
         */
-        $panel=Panel::get($row);
-        $route=$panel->{$act.'Url'}();
+        $panel = Panel::get($row);
+        $route = $panel->{$act.'Url'}();
 
         $view_comp_dir = 'formx::includes.components.btn';
         $view_comp = $view_comp_dir.'.'.$act_route;
