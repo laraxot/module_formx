@@ -1,5 +1,7 @@
 @php
 	$field=transFields(get_defined_vars());
+    $val=Form::getValueAttribute($name);
+    
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')
@@ -59,6 +61,13 @@
                         'name': addressType,
                         'value': data[addressType]
                     }).appendTo($extra_fields);
+
+                    $('<input>').attr({
+                        'type':'text',
+                        'name': addressType+'_short',
+                        'value': data[addressType+'_short']
+                    }).appendTo($extra_fields);
+
                 }
 
                 $('<input>').attr({
