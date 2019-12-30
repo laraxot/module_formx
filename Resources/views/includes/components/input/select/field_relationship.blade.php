@@ -5,11 +5,16 @@
 	//$opts=$
 	$field=$options['field'];
 	$rows=$row->{$field->relationship}();
-	/*
 	$related=$rows->getRelated();
+	$related_panel=Panel::get($related);
+	$related_panel->setRows($related->all());
+	//ddd($related_panel->optionsSelect());
+	//ddd($related->all());
+	/*
 	ddd($related);
-	*/
 	$opts=$rows->all();
+	*/
+	$opts=$related_panel->optionsSelect();
 	$field=transFields(get_defined_vars());
 	//$field=transFields(get_defined_vars());
 	//ddd($field);

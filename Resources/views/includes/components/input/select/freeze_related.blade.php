@@ -5,6 +5,11 @@
 		if(!is_object($obj)){
 			$obj=new \stdClass();
 			$obj->nome='Not Exists ['.$class.']['.$field->value.']';
+		}else{
+			if($obj->nome==''){
+				$obj_panel=Panel::get($obj);
+				$obj->nome=$obj_panel->optionLabel($obj);
+			}
 		}
 	}else{
 		$obj=new \stdClass();
