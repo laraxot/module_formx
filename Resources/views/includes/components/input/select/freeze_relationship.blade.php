@@ -1,11 +1,17 @@
 @php
 	//ddd();
-	$opts=$row->{$field->relationship}();
+	$label='---';
+	$obj=$row->{$field->relationship};
+	$panel=Panel::get($obj);
+	$label=$panel->optionLabel($obj);
+	//$label=$opts->title;
+	/*
 	if(isset($opts[$field->value])){
 		$label=$opts[$field->value];
 	}else{
-		$label='---';
+		
 	}
+	*/
 	//$label=isset($opts[$field->value])?'SI':'NO';
 	//{{ $field->value }}]
 @endphp
