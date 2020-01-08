@@ -4,9 +4,13 @@
     if(isset($value)){
         $val=$value;
     }else{
-        $val=Form::getValueAttribute($name);
+        //ddd(get_defined_vars());
+        //$row=Form::getModel();
+        //ddd($row->{$field->name});
+        //ddd($field->name);
+        $val=Form::getValueAttribute($field->name);
     }
-
+    
     //if($val==null) $val=Carbon\Carbon::now();
     //ddd($name);
     //
@@ -25,6 +29,7 @@
         ];
         //ddd($msg);
         $val1=$val;
+
         if($val1!=null){  
             try{
                 $val1=Carbon\Carbon::parse($val)->format('d/m/Y');
@@ -38,6 +43,9 @@
         }else{
             $val1=$val->format('d/m/Y');
         }
+    }
+    if($val1==null){
+        $val1='';
     }
 @endphp
 @component($blade_component,get_defined_vars())
