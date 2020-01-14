@@ -119,10 +119,10 @@ class FormXService {
         if (in_array('value', array_keys($params))) {
             $field->value = $value;
         } else {
-            try{
+            try {
                 $field->value = Arr::get($row, $field->name_dot);
                 //$field->value = $row->{$field->name_dot};
-            }catch(\exception $e){
+            } catch (\exception $e) {
                 $field->value = '---['.$field->name_dot.']--';
             }
         }
