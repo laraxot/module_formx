@@ -7,9 +7,10 @@
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')
-		{{ Form::label($name, $field->label , ['class' => 'control-label']) }}TAGS
+		{{ Form::label($name, $field->label , ['class' => 'control-label']) }}
 	@endslot
 	@slot('input')
+	    <br/><br/>
 		{{ Form::text($name, $value, $field->attributes) }} 
 	@endslot
 @endcomponent

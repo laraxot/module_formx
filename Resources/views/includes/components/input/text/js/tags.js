@@ -68,7 +68,7 @@ jQuery.fn.tag = function(options) {
 				if (!item){
 					//degerini sifirla ve genisligini kucult
 					jQuery(input).val('');
-					//jQuery(input).width(8);
+					jQuery(input).width(8);
 				}else {
 					//eger ekleyebildiyse inputun bulundugu li'den once ekle
 					jQuery(input).closest('li').before(item);
@@ -138,9 +138,8 @@ jQuery.fn.tag = function(options) {
 			list.append(input_container);
 
 			//shadow'u kullanarak input'u gercek boyutuna cekiyoruz
-			/*
-			var auto_width = function(input)
-			{
+			
+			var auto_width = function(input){
 				//shadow'un icini dolduruyoruz, space'leri nbsp yapmamiz gerekiyor, sondaki ve bastaki bosluklar gelmiyor yoksa.
 				shadow.html(jQuery(input).val().replace(/\s/g,'&nbsp;'));
 				//sonda ne kadar free alan eklenecek? bosken 8 doluyken 10 iyi.
@@ -148,7 +147,7 @@ jQuery.fn.tag = function(options) {
 				//width'i uygula
 				jQuery(input).width(shadow.width() + zone);
 			};
-			*/
+			
 
 			//onkeyup'da yalnizca width'i ayarla
 			add.bind('keyup',function(){
