@@ -233,6 +233,7 @@ class FormXService {
         })->implode('');
         $input_value = (isset($field->value) ? $field->value : null);
         $col_bs_size = isset($field->col_bs_size) ? $field->col_bs_size : 12;
+        $field->col_bs_size=$col_bs_size;
 
         if (! isset($field->attributes) || ! is_array($field->attributes)) {
             $field->attributes = [];
@@ -243,9 +244,9 @@ class FormXService {
         }
         $div_exludes = ['Hidden', 'Cell'];
         $input_opts = ['field' => $field];
-        if (! in_array($field->type, $div_exludes)) {
-            return '<div class="col-sm-'.$col_bs_size.'">'.Form::$input_type($input_name, $input_value, $input_attrs, $input_opts).'</div>';
-        }
+        //if (! in_array($field->type, $div_exludes)) {
+        //    return '<div class="col-sm-'.$col_bs_size.'">'.Form::$input_type($input_name, $input_value, $input_attrs, $input_opts).'</div>';
+        //}
 
         return Form::$input_type($input_name, $input_value, $input_attrs, $input_opts);
     }
