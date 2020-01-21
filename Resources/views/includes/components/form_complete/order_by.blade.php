@@ -8,11 +8,17 @@
 	$sort_order_attributes['options']=['desc'=>'desc','asc'=>'asc'];
 	$sort_order_attributes['label']=' ';
 	$sort_order_attributes['placeholder']=' ';
+	if(!isset($form_class)){
+		$form_class="{{-- d-none --}} d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search float-right";
+	}
+	$common_attrs=[];
+	$common_attrs=['placeholder'=>' ','class'=>'form-control'];
+
 @endphp
-<form  class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search float-right" method="get">
+<form  class="{{ $form_class }}" method="get">
 	<div class="input-group">
-		{{ Form::bsSelect('sort[by]', Request::input('sort.by'),$sort_by_attributes) }}
-		{{ Form::bsSelect('sort[order]', Request::input('sort.order'),$sort_order_attributes) }}
+		{{ Form::select('sort[by]', $sort_by_attributes['options'],Request::input('sort.by'),$common_attrs) }}
+		{{ Form::select('sort[order]', $sort_order_attributes['options'],Request::input('sort.order'),$common_attrs) }}
 		@foreach($qs as $k=>$v)
 			@if(is_array($v))
 				@php
