@@ -2,8 +2,8 @@
 	$field=transFields(get_defined_vars());
 	$src=Form::getValueAttribute($name);
 	if($src=='') $src=asset('/img/nophoto.jpg');
-	Theme::add('/vendor/laravel-filemanager/js/lfm.js');
-	Theme::add('/vendor/laravel-filemanager/css/lfm.css');
+	Theme::add('/dist/laravel-filemanager/js/lfm.js');
+	Theme::add('/dist/laravel-filemanager/css/lfm.css');
 	//Theme::add($comp_ns.'/js/stand-alone-button.js');
 	Theme::add($comp_ns.'/js/uploadimg.js');
 	$field->attributes['id']='post_image_src';

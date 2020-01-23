@@ -3,11 +3,13 @@
 	$name_conf=bracketsToDotted($name).'_confirmation';
 	$name_conf=dottedToBrackets($name_conf);
 @endphp
-<div class="row">
-<div class="col-sm-6">
+<div class="row col-md-12" >
+	<div class="col-md-6">
 	{{ Form::bsPassword($name) }}
 </div>
-<div class="col-sm-6">
+<div class="col-md-6">
 	{{ Form::bsPassword($name_conf) }}
 </div>
 </div>
+
+	
