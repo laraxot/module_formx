@@ -21,7 +21,7 @@ class simpleRating{
 
 	init(){
 		let $val=($(this.obj).val());
-		var html='<div class="simple-rating star-rating">';
+		var html='<div class="simple-rating star-rating" style="font-size:1.2em;color:orange;">';
 		for(var i=0;i<$val;i++){
 			//html+='<i class="fa fa-star" data-rating="'+(i+1)+'"></i>'; 
 			html+='<i class="fas fa-star" data-rating="'+(i+1)+'"></i>'; 
