@@ -6,6 +6,8 @@
 	//Theme::addScript('/theme/bc/multiselect/dist/js/multiselect.js'); 
     $model=Form::getModel();
     $val=$model->$name;
+    //$rows=$model->$name();
+    //ddd($rows);
     //$all=$model->{'all_'.$name};
     $model_linked=Theme::xotModel(Str::singular($name));
     $_panel=Theme::panelModel($model_linked);
@@ -14,7 +16,9 @@
 @endphp
 
 <br style="clear:both"/>
-  <p>{{ trans('lu::help.nota_multiselect') }}</p><br/>
+  <p>{{ trans('lu::help.nota_multiselect') }}</p>
+  <br/>
+  <br style="clear:both"/>
 <div class="row">
   <br style="clear:both"/>
     <div class="col-sm-5">

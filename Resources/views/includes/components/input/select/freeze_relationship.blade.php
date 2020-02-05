@@ -1,9 +1,13 @@
 @php
 	//ddd();
 	$label='---';
+	try{
 	$obj=$row->{$field->relationship};
 	$panel=Panel::get($obj);
 	$label=$panel->optionLabel($obj);
+	}catch(\Exception $e){
+		
+	}
 	//$label=$opts->title;
 	/*
 	if(isset($opts[$field->value])){
