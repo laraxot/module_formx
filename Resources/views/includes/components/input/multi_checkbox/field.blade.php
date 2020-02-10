@@ -1,9 +1,9 @@
 @php
     /**
-     * https://github.com/crlcu/multiselect 
+     * https://github.com/crlcu/multiselect
      * bower install multiselect-two-sides
      */
-	//Theme::addScript('/theme/bc/multiselect/dist/js/multiselect.js'); 
+	//Theme::addScript('/theme/bc/multiselect/dist/js/multiselect.js');
     $model=Form::getModel();
     $val=$model->$name;
     //$rows=$model->$name();
@@ -46,7 +46,7 @@
              <i class="fas fa-angle-double-left"></i>
         </button>
     </div>
-      
+
     <div class="col-sm-5">
         <select name="{{$name}}[to][]" id="multiselect_to" class="form-control" size="8" multiple="multiple">
             @foreach($val as $k => $v)
@@ -57,7 +57,7 @@
             @endforeach
         </select>
     </div>
-    
+
 </div>
 {{--
 @push('scripts')
