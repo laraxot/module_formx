@@ -61,11 +61,11 @@ class Open {
             //$parz=array_merge([$routename], array_values($params));
             return Form::model($model,
                 [
-                //'route' => $parz,
-                'url' => $route,
-                'name' => $formName,
-                'id' => $formName,
-                //'action' => $route
+                    //'route' => $parz,
+                    'url' => $route,
+                    'name' => $formName,
+                    'id' => $formName,
+                    //'action' => $route
                 ]
             )
             .method_field($method);

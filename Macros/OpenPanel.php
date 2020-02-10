@@ -2,11 +2,10 @@
 
 namespace Modules\FormX\Macros;
 
-use Illuminate\Support\Str;
-
+use Collective\Html\FormFacade as Form;
 //use Illuminate\Http\Request;
 
-use Collective\Html\FormFacade as Form;
+use Illuminate\Support\Str;
 
 //----- services -----
 
@@ -33,20 +32,19 @@ class OpenPanel {
             if (isset($params['method'])) {
                 $method = $params['method'];
             }
-            $form_name='form_'.$act;
+            $form_name = 'form_'.$act;
             if (isset($params['form_name'])) {
                 $form_name = $params['form_name'];
             }
-            $func=Str::camel($act).'Url';
+            $func = Str::camel($act).'Url';
 
-            $url=$panel->$func();
-            
+            $url = $panel->$func();
+
             return Form::model($panel->row,
                 [
-                'url' => $url,
-                'name' => $form_name,
-                'id' => $form_name,
-                
+                    'url' => $url,
+                    'name' => $form_name,
+                    'id' => $form_name,
                 ]
             )
             .method_field($method);

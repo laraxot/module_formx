@@ -233,7 +233,7 @@ class FormXService {
         })->implode('');
         $input_value = (isset($field->value) ? $field->value : null);
         $col_bs_size = isset($field->col_bs_size) ? $field->col_bs_size : 12;
-        $field->col_bs_size=$col_bs_size;
+        $field->col_bs_size = $col_bs_size;
 
         if (! isset($field->attributes) || ! is_array($field->attributes)) {
             $field->attributes = [];

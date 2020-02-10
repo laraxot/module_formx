@@ -57,7 +57,7 @@ class BtnGear extends BaseFormBtnMacro {
             if (true) {
                 $tmp = [];
                 $tmp['title'] = 'Gestisti Traduzioni';
-                $tmp['url'] = route('container0.index', ['container0' => 'translation', 'uri' => req_uri(),'lang'=>\App::getLocale()]);
+                $tmp['url'] = route('container0.index', ['container0' => 'translation', 'uri' => req_uri(), 'lang' => \App::getLocale()]);
                 $tmp['icon'] = 'fas fa-language fa-2x';
                 $tmp['modal'] = 1;
                 $btns[] = (object) $tmp;
