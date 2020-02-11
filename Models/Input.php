@@ -9,7 +9,8 @@ namespace Modules\FormX\Models;
 //--- bases ---
 use Modules\Xot\Models\XotBaseModel;
 
-class Input extends XotBaseModel {
+class Input extends XotBaseModel
+{
     protected $fillable = ['id', 'type', 'sub_type'];
     protected $appends = [];
     protected $casts = [];
