@@ -1,7 +1,10 @@
 @php
 	$field=transFields(get_defined_vars());
     $val=Form::getValueAttribute($name);
-    
+    if(is_object($val)){
+        $val=json_encode($val);
+    };
+    $value=$val;
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')
@@ -19,7 +22,7 @@
     .ap-input-icon.ap-icon-pin { right: 5px !important; }
     .ap-input-icon.ap-icon-clear { right: 10px !important;}
 </style>
-@endpush  
+@endpush
 
 @push('scripts')
 <script>
