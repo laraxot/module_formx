@@ -5,7 +5,8 @@
 	@slot('label')
 		{{ Form::label($name, $field->label , ['class' => 'control-label']) }}
 	@endslot
-	@slot('input')
-		{{ Form::checkbox($name, 1,$value, $field->attributes) }}
+    @slot('input')
+        {{ Form::bsHidden($name,0) }}  {{-- se non selezionato restituisce 0 al posto di null --}}
+        {{ Form::checkbox($name, 1,$value, $field->attributes) }}
 	@endslot
 @endcomponent
