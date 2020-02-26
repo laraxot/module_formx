@@ -1,3 +1,6 @@
+{{--
+    passiamo a quello compilato
+--}}
 @verbatim
     <v-app id="inspire">
           <input type="text" id="rating" value="3">
@@ -8,7 +11,6 @@
             half-icon='fas fa-star-half-alt  fa-3x'
             color="yellow darken-3"
             background-color="grey darken-1"
-            empty-icon="$ratingFull"
             half-increments
             hover
           ></v-rating>
