@@ -14,7 +14,7 @@
 {{ Theme::add('theme/bc/sweetalert2/dist/sweetalert2.min.css') }}
 @push('scripts')
 <script>
-$(document).ready(function(){	
+$(document).ready(function(){
 	Swal({!! json_encode(session('swal')) !!});
 });
 </script>
@@ -24,3 +24,12 @@ $(document).ready(function(){
 	https://github.com/laracasts/flash/blob/master/src/views/message.blade.php
 
  --}}
+ @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
