@@ -13,7 +13,7 @@
             data-rateit-min="0" data-rateit-max="10">tt
         </div>
         --}}
-        <span class="rateit" data-rateit-backingfld="#{{ $field->attributes['id'] }}" data-rateit-resetable="false" step="0.5">
+        <span class="rateit_test" data-rateit-backingfld="#{{ $field->attributes['id'] }}" data-rateit-resetable="false" step="0.5">
         </span>
 	@endslot
 @endcomponent
