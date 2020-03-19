@@ -7,9 +7,13 @@
 @foreach($rating_objectives as $ro)
     {{-- $ro --}}
     @php
+        $name='myRatings';
+        //$input_name=$name.'.'.$ro->post_id.'.pivot.'.'rating';
         $input_name=$name.'.'.$ro->post_id.'.pivot.'.'rating';
         $input_name=dottedToBrackets($input_name);
     @endphp
     <rating-one name="{{ $input_name }}" value="{{ $ro->rating_my }}" title="{{ $ro->title }}"></rating-one>
+    {{--
     <input type="hidden" name="{{ $name }}[{{ $ro->post_id }}][pivot][auth_user_id]" value="{{ Auth::id() }}" />
+        --}}
 @endforeach
