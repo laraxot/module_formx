@@ -14,6 +14,7 @@
     @endphp
     <rating-one name="{{ $input_name }}" value="{{ $ro->rating_my }}" title="{{ $ro->title }}"></rating-one>
     {{--
-    <input type="hidden" name="{{ $name }}[{{ $ro->post_id }}][pivot][auth_user_id]" value="{{ Auth::id() }}" />
+        nel update e' una repitizione, ma nella creazione cosa obbligatoria
         --}}
+    <input type="hidden" name="{{ $name }}[{{ $ro->post_id }}][pivot][auth_user_id]" value="{{ Auth::id() }}" />
 @endforeach
