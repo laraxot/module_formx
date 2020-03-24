@@ -1,11 +1,11 @@
 {{-- \Request::getRequestUri() --}}
-{{-- request()->fullUrl() 
+{{-- request()->fullUrl()
 	action="{{ request()->fullUrl() }}"
 	--}}
 @php
 	$qs=collect(request()->query())->except(['q'])->all();
 	if(!isset($form_class)){
-		$form_class="{{-- d-none --}} d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search float-right";
+		$form_class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search float-right";
 	}
 @endphp
 <form  class="{{ $form_class }}" method="get">

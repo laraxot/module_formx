@@ -9,7 +9,7 @@
 	$sort_order_attributes['label']=' ';
 	$sort_order_attributes['placeholder']=' ';
 	if(!isset($form_class)){
-		$form_class="{{-- d-none --}} d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search float-right";
+		$form_class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search float-right";
 	}
 	$common_attrs=[];
 	$common_attrs=['placeholder'=>' ','class'=>'form-control'];
