@@ -1,13 +1,17 @@
 @php
-	$field=transFields(get_defined_vars());
+    $field=transFields(get_defined_vars());
+    $label_class='control-label';
+    if(isset($attributes['label_class'])){
+        $label_class=$attributes['label_class'];
+    }
 @endphp
 @component($blade_component,get_defined_vars())
-	@slot('label')
-		{{ Form::label($name, $field->label , ['class' => 'control-label']) }}
-	@endslot
+    @slot('label')
+            {{ Form::label($name, $field->label , ['class' => $label_class]) }}
+        @endslot
 	@slot('input')
 		{{ Form::hidden($name, $value) }}
-		<input type="text" data-address="{&quot;field&quot;: &quot;{{$name}}&quot;}"  class="form-control" autocomplete="off" />
+		<input type="text" data-address="{&quot;field&quot;: &quot;{{$name}}&quot;}"  class="form-control border-0 shadow-0" autocomplete="off" />
 	@endslot
 @endcomponent
 @push('styles')
@@ -20,7 +24,7 @@
 .ap-suggestion { color:darkblue; text-align:left; border-bottom: 1px solid #efefef; }
 .ap-address { color:darkgreen; }
 </style>
-@endpush  
+@endpush
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/places.js@1.11.0"></script>
@@ -45,7 +49,7 @@
 				}
 			}
 
-			
+
 
 			$place.on('change', function(e){
 				console.log(e.suggestion);
@@ -53,10 +57,10 @@
 				$('input[name=lat]').val(result.latlng.lat);
 				$('input[name=lng]').val(result.latlng.lng);
 				$('input[name=city]').val(result.city);
-				
+
 				delete(result.highlight); delete(result.hit); delete(result.hitIndex);
 				delete(result.rawAnswer); delete(result.query);
-				
+
 				$field.val( JSON.stringify(result) );
 
 			});
@@ -68,7 +72,7 @@
 				var existingData = JSON.parse($field.val());
 				$this.val(existingData.value);
 			}
-			
+
 
 			window.AlgoliaPlaces[ $addressConfig.field ] = $place;
 		});
