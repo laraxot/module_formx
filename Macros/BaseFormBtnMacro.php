@@ -38,29 +38,23 @@ abstract class BaseFormBtnMacro {
             return ['error' => 1, 'error_msg' => '[Not Pivot]'];
         }
         $act_route = Str::snake($act);
-        /*
-        $mutator = $act_route.'_url';
-        try {
-            $route = $row->$mutator;
-        } catch (\Exception $e) {
-            $route = '#';
-        }
-        */
+
         $route_action = \Route::currentRouteAction();
         $old_act = Str::snake(Str::after($route_action, '@'));
         $routename = Request::route()->getName();
         $old_act_route = last(explode('.', $routename));
+
+        $panel = Panel::get($row);
         /*
-        $routename_act = Str::before($routename, $old_act_route).''.$act_route;
         $route_params = \Route::current()->parameters();
-        if (\Route::has($routename_act)) {
-            $parz = array_merge($route_params, [$row]);
-            $route = route($routename_act, $parz);
-        } else {
-            $route = '#'.$routename_act;
+        [$containers,$items] = params2ContainerItem($route_params);
+
+        if(count($containers)>count($items)){
+            $panel_parent=Panel::get(last($items));
+            $panel->setParent($panel_parent);
+
         }
         */
-        $panel = Panel::get($row);
         $route = $panel->{$act.'Url'}();
 
         $view_comp_dir = 'formx::includes.components.btn';
