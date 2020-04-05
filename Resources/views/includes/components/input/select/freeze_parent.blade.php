@@ -3,7 +3,10 @@
 	if($field->value!=0){
 		$class=get_class($row);
 		$r=$class::where('post_id',$field->value)->first();
-		$field->title=$r->title;
+		$field->title='-- sconosciuto o cancellato --';
+		if(is_object($r)){
+			$field->title=$r->title;
+		}
 	}
 @endphp
 {{ $field->value }}] {{ $field->title }}
