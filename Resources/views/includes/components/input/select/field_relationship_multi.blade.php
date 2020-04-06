@@ -8,7 +8,16 @@
 
     $field=transFields(get_defined_vars());//in xot helper
 
-    $name1=$name.'[post_id]'; //da rendere dinamico
+    $name1=$name.'[]'; //da rendere dinamico
+
+    $field->attributes['data-style']='btn-selectpicker';
+    $field->attributes['data-live-search']='true';
+    $field->attributes['class']="selectpicker form-control";
+    $field->attributes['data-max-options']="3";
+
+    $field->attributes['name']=$name1;
+    $field->attributes[]='multiple';
+
 @endphp
 
 @component($blade_component,get_defined_vars())
@@ -19,5 +28,4 @@
 		{{ Form::select($name1,$opts,$value, $field->attributes) }}
 	@endslot
 @endcomponent
-
 
