@@ -29,3 +29,10 @@
 	@endslot
 @endcomponent
 
+@push('styles')
+<style>
+    .bootstrap-select.btn-group .dropdown-menu {
+    z-index: 2000;
+}
+</style>
+@endpush

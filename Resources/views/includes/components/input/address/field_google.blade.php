@@ -21,6 +21,10 @@
 <style>
     .ap-input-icon.ap-icon-pin { right: 5px !important; }
     .ap-input-icon.ap-icon-clear { right: 10px !important;}
+    .pac-container {
+        z-index: 10000 !important;
+    }
+
 </style>
 @endpush
 
