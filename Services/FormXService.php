@@ -115,17 +115,24 @@ class FormXService {
 
     public static function inputFreeze($params) {
         extract($params);
-        $field->name_dot = str_replace(['[', ']'], ['.', ''], $field->name);
+
+        //$field->name_dot = str_replace(['[', ']'], ['.', ''], $field->name);
+        $field->name_dot = bracketsToDotted($field->name);
+
         if (in_array('value', array_keys($params))) {
             $field->value = $value;
         } else {
             try {
                 $field->value = Arr::get($row, $field->name_dot);
                 //$field->value = $row->{$field->name_dot};
-            } catch (\exception $e) {
+                //$field->value = 'test['.$field->name_dot.']'.Arr::get($row, 'nome_diri');
+            } catch (\Exception $e) {
                 $field->value = '---['.$field->name_dot.']--';
             }
         }
+
+        //return '['.__LINE__.__FILE__.']';
+
         if (isset($label)) {
             $field->label = $label;
         }
@@ -173,9 +180,13 @@ class FormXService {
             } else {
                 $related_fields = [];
             }
-            $related_fields = collect($related_fields)->filter(function ($item) use ($fields_exclude) {
-                return ! in_array($item->name, $fields_exclude);
-            })->all();
+            $related_fields = collect($related_fields)
+                ->filter(
+                    function ($item) use ($fields_exclude) {
+                        return ! in_array($item->name, $fields_exclude);
+                    }
+                )
+                ->all();
 
             $related_name = Str::singular($field->name);
             //$view_params['related']=$related->get();
@@ -188,6 +199,8 @@ class FormXService {
                 'related_name' => $related_name,
                 'act' => 'index',
             ]);
+
+            $url = '#';
 
             $view_params['manage_url'] = $url;
 
@@ -207,11 +220,7 @@ class FormXService {
             //ddd($field->fields);
             //$field->fields=$field->value;
         }
-        /*
-        if(!isset($field->sub_type)){
-            $field->sub_type='';
-        }
-        */
+
         $field->view = $view;
         $view_params['field'] = $field;
 
