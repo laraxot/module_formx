@@ -65,7 +65,7 @@ abstract class BaseFormBtnMacro {
             'row' => $row,
             'id' => 2,
             //'routename_act' => $routename_act,
-            'route' => $route.'?format=iframe',
+            'route' => $route,
             'btn_class' => 'btn btn-small btn-info',
             'view_comp' => $view_comp,
             'view_comp_dir' => $view_comp_dir,
