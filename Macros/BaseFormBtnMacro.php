@@ -43,18 +43,11 @@ abstract class BaseFormBtnMacro {
         $old_act = Str::snake(Str::after($route_action, '@'));
         $routename = Request::route()->getName();
         $old_act_route = last(explode('.', $routename));
-
-        $panel = Panel::get($row);
-        /*
-        $route_params = \Route::current()->parameters();
-        [$containers,$items] = params2ContainerItem($route_params);
-
-        if(count($containers)>count($items)){
-            $panel_parent=Panel::get(last($items));
-            $panel->setParent($panel_parent);
-
+        
+        if(!isset($panel)){
+            $panel = Panel::get($row);
         }
-        */
+        
         $route = $panel->{$act.'Url'}();
 
         $view_comp_dir = 'formx::includes.components.btn';
@@ -72,7 +65,7 @@ abstract class BaseFormBtnMacro {
             'row' => $row,
             'id' => 2,
             //'routename_act' => $routename_act,
-            'route' => $route,
+            'route' => $route.'?format=iframe',
             'btn_class' => 'btn btn-small btn-info',
             'view_comp' => $view_comp,
             'view_comp_dir' => $view_comp_dir,
