@@ -15,11 +15,23 @@ use Modules\Xot\Services\RouteService;
 class FormXService {
     public static function getComponents() {
         $view_path = realpath(__DIR__.'/../Resources/views/includes/components/input');
+        $components_json = $view_path.'/components.json';
+        $components_json = str_replace(['/', '\\'], [DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR], $components_json);
+        //dddx([$components_json, DIRECTORY_SEPARATOR]);
+        $exists = File::exists($components_json);
+        if ($exists) {
+            $content = File::get($components_json);
+            $json = json_decode($content);
+            //dddx($json);
+
+            return $json;
+        }
+
         $comps = [];
         $dirs = File::directories($view_path);
         foreach ($dirs as $k => $v) {
             $comp = new \StdClass();
-            $comp->dir = $v;
+            //$comp->dir = $v;
             $name = Str::after($v, $view_path.DIRECTORY_SEPARATOR);
             $comp->view = 'formx::includes.components.input.'.$name.'.field';
             $name = 'bs'.Str::studly($name);
@@ -32,7 +44,7 @@ class FormXService {
                 $filename = $file->getRelativePathname();
                 if (Str::startsWith($filename, 'field_') && Str::endsWith($filename, '.blade.php')) {
                     $comp = new \StdClass();
-                    $comp->dir = $parent->dir;
+                    //$comp->dir = $parent->dir;
                     $comp->view = $parent->view.Str::after(Str::before($filename, '.blade.php'), 'field');
                     $sub_name = Str::before(Str::after($filename, 'field_'), '.blade.php');
                     $comp->name = $parent->name.Str::studly($sub_name);
@@ -40,6 +52,8 @@ class FormXService {
                 }
             }
         }
+        $content = json_encode($comps);
+        File::put($components_json, $content);
 
         return $comps;
     }
@@ -60,7 +74,7 @@ class FormXService {
                 ['name', 'value' => null, 'attributes' => [],
                     'options' => [],
                     'comp_view' => $comp->view,
-                    'comp_dir' => realpath($comp->dir),
+                    //'comp_dir' => realpath($comp->dir),
                     'comp_ns' => implode('.', array_slice(explode('.', $comp->view), 0, -1)),
                     'blade_component' => $blade_component, ]
             );

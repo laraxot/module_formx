@@ -13,7 +13,11 @@ class FormXServiceProvider extends XotBaseServiceProvider {
     public $module_name = 'formx'; //lower del nome
 
     public function bootCallback() {
+        //\Debugbar::addMeasure('now', LARAVEL_START, microtime(true));
+        //\Debugbar::addMessage('Another message', 'mylabel');
+
         FormXService::registerComponents();
+
         FormXService::registerMacros();
     }
 }
