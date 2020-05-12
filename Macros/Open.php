@@ -3,8 +3,9 @@
 namespace Modules\FormX\Macros;
 
 //use Illuminate\Http\Request;
-
 use Collective\Html\FormFacade as Form;
+use Illuminate\Support\Str;
+use Modules\Xot\Services\PanelService as Panel;
 
 //----- services -----
 
@@ -27,7 +28,7 @@ class Open {
                     case 'store': $from = 'create'; break;
                 }
             }
-
+            /*
             $act = $to.'_url';
             try {
                 $route = $model->$act;
@@ -39,6 +40,12 @@ class Open {
                 $routename = str_replace('.'.$from, '.'.$to, $routename);
                 $route = route($routename, array_merge($params, $req_params));
             }
+            */
+            $panel = Panel::get($model);
+
+            $func = Str::camel($to).'Url';
+
+            $url = $panel->$func();
 
             switch ($to) {
                 case 'store':
@@ -62,7 +69,7 @@ class Open {
             return Form::model($model,
                 [
                     //'route' => $parz,
-                    'url' => $route,
+                    'url' => $url,
                     'name' => $formName,
                     'id' => $formName,
                     //'action' => $route
