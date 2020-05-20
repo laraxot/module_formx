@@ -6,9 +6,10 @@ use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 //---- services ---
+use Illuminate\Support\Str;
 use Modules\Theme\Services\ThemeService;
 use Modules\Xot\Services\RouteService;
 
@@ -272,5 +273,77 @@ class FormXService {
         //}
 
         return Form::$input_type($input_name, $input_value, $input_attrs, $input_opts);
+    }
+
+    public static function btnHtml($params) {
+        $class = 'btn btn-primary mb-2';
+        $icon = '';
+        $label = '';
+        $data_title = '';
+        $title = '';
+        $lang = \App::getLocale();
+        $error_label = $icon;
+
+        extract($params);
+        $row = $panel->row;
+        $module_name = getModuleNameFromModel($row);
+
+        //$url = RouteService::urlPanel(['panel' => $panel, 'act' => $act]);
+        //$method = Str::camel($act);
+
+        if (in_array($act, ['destroy', 'delete', 'detach'])) {
+            $class .= ' btn-confirm-delete';
+        }
+        if (! Gate::allows($method, $row)) {
+            $html = '<button type="button" class="'.$class.'" data-toggle="tooltip" title="not can '.$data_title.'" disabled>'.$error_label.' - '.$method.'</button>';
+            if (false === $error_label) {
+                return null;
+            }
+
+            return $html;
+        } //else {
+        //  return '['.get_class($row).']['.$method.']';
+        //}
+
+        if (isset($modal)) {
+            if ('' == $data_title) {
+                $title = trans($module_name.'::'.strtolower(class_basename($row)).'.act.'.$act);
+            }
+        }
+
+        if (isset($guest_url) && ! \Auth::check()) {
+            $url = $guest_url;
+        }
+        if (isset($guest_notice) && $guest_notice && ! \Auth::check()) {
+            $url = route('login.notice', ['lang' => $lang, 'referrer' => $url]);
+        }
+
+        if (isset($modal)) {
+            switch ($modal) {
+                case 'iframe':
+                    return
+                    '<button type="button" data-title="'.$data_title.'"
+                    data-href="'.$url.'" data-toggle="modal" class="'.$class.'"
+                    data-target="#myModalIframe">
+                    '.$icon.' '.$title.'
+                    </button>';
+                break;
+                case 'ajax':
+                    return
+                    '<button type="button" data-title="'.$data_title.'"
+                    data-href="'.$url.'" data-toggle="modal" class="'.$class.'"
+                    data-target="#myModalAjax">
+                    '.$icon.' '.$title.'
+                    </button>';
+                break;
+            }
+        }
+        // data-href serve per le chiamate ajax
+        return '<a href="'.$url.'"
+                    data-href="'.$url.'"
+                    title="'.$title.'"
+                    class="'.$class.'">
+                    '.$icon.' '.$title.'
+                </a>';
     }
 }//end class
