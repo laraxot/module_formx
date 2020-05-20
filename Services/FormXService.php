@@ -277,15 +277,18 @@ class FormXService {
 
     public static function btnHtml($params) {
         $class = 'btn btn-primary mb-2';
-        $icon = '';
+        $icon = '';       // icona a sx del titolo
         $label = '';
-        $data_title = '';
-        $title = '';
+        $data_title = ''; // titolo del modal e tooltip
+        $title = '';      // stringa che appare nel tasto
         $lang = \App::getLocale();
-        $error_label = $icon;
+        $error_label = 'default';
 
         extract($params);
         $row = $panel->row;
+        if ('default' == $error_label) {
+            $error_label = '['.get_class($row).']['.$method.']';
+        }
         $module_name = getModuleNameFromModel($row);
 
         //$url = RouteService::urlPanel(['panel' => $panel, 'act' => $act]);
@@ -295,7 +298,7 @@ class FormXService {
             $class .= ' btn-confirm-delete';
         }
         if (! Gate::allows($method, $row)) {
-            $html = '<button type="button" class="'.$class.'" data-toggle="tooltip" title="not can '.$data_title.'" disabled>'.$error_label.' - '.$method.'</button>';
+            $html = '<button type="button" class="'.$class.'" data-toggle="tooltip" title="not can '.$data_title.'" disabled >'.$error_label.'</button>';
             if (false === $error_label) {
                 return null;
             }
@@ -341,8 +344,10 @@ class FormXService {
         // data-href serve per le chiamate ajax
         return '<a href="'.$url.'"
                     data-href="'.$url.'"
+                    data-title="'.$data_title.'"
                     title="'.$title.'"
-                    class="'.$class.'">
+                    class="'.$class.'"
+                    data-toggle="tooltip">
                     '.$icon.' '.$title.'
                 </a>';
     }
