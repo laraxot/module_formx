@@ -3,9 +3,10 @@
     //$rows=$row->$name; //risultati per l'edit ..
     $related=$row->$name()->getRelated(); // model cuisineCat
     $related_panel=Panel::get($related);
-    $related_panel->setRows($related->all());
+    $rows=$related->get()->load('post');
+    $related_panel->setRows($rows);
     $opts=$related_panel->optionsSelect();
-
+    //dddx($rows->pluck('post.title','id'));
     $field=transFields(get_defined_vars());//in xot helper
 
     $name1=$name.'[]'; //da rendere dinamico
