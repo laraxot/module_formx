@@ -5,7 +5,7 @@
 	Theme::add('/dist/laravel-filemanager/js/lfm.js');
 	Theme::add('/dist/laravel-filemanager/css/lfm.css');
 	//Theme::add($comp_ns.'/js/stand-alone-button.js');
-	Theme::add($comp_ns.'/js/uploadimg.js');
+	Theme::add($comp_ns.'/js/uploadimgv1.js');
 	$field->attributes['id']='post_image_src';
 @endphp
 @component($blade_component,get_defined_vars())
