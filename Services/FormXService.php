@@ -290,7 +290,7 @@ class FormXService {
             $error_label = '['.get_class($row).']['.$method.']';
         }
         $module_name = getModuleNameFromModel($row);
-
+        $tooltip = trans(strtolower($module_name.'::'.class_basename($row)).'.btn.'.$data_title);
         //$url = RouteService::urlPanel(['panel' => $panel, 'act' => $act]);
         //$method = Str::camel($act);
 
@@ -325,19 +325,24 @@ class FormXService {
             switch ($modal) {
                 case 'iframe':
                     return
-                    '<button type="button" data-title="'.$data_title.'"
+                    '<span data-toggle="tooltip" title="'.$tooltip.'">
+                    <button type="button" data-title="'.$data_title.'"
                     data-href="'.$url.'" data-toggle="modal" class="'.$class.'"
                     data-target="#myModalIframe">
                     '.$icon.' '.$title.'
-                    </button>';
+                    </button>
+                    </span>
+                    ';
                 break;
                 case 'ajax':
                     return
-                    '<button type="button" data-title="'.$data_title.'"
+                    '<span data-toggle="tooltip" title="'.$data_title.'">
+                    <button type="button" data-title="'.$data_title.'"
                     data-href="'.$url.'" data-toggle="modal" class="'.$class.'"
                     data-target="#myModalAjax">
                     '.$icon.' '.$title.'
-                    </button>';
+                    </button>
+                    </span>';
                 break;
             }
         }
