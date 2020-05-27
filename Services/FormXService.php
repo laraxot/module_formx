@@ -322,29 +322,20 @@ class FormXService {
         }
 
         if (isset($modal)) {
+            $url = url_queries(['format' => $modal], $url);
             switch ($modal) {
-                case 'iframe':
-                    return
+                case 'iframe':  $target = 'myModalIframe'; break;
+                case 'ajax':    $target = 'myModalAjax'; break;
+            }
+
+            return
                     '<span data-toggle="tooltip" title="'.$tooltip.'">
-                    <button type="button" data-title="'.$data_title.'"
+                    <button type="button" data-title="'.$tooltip.'"
                     data-href="'.$url.'" data-toggle="modal" class="'.$class.'"
-                    data-target="#myModalIframe">
-                    '.$icon.' '.$title.'
-                    </button>
-                    </span>
-                    ';
-                break;
-                case 'ajax':
-                    return
-                    '<span data-toggle="tooltip" title="'.$data_title.'">
-                    <button type="button" data-title="'.$data_title.'"
-                    data-href="'.$url.'" data-toggle="modal" class="'.$class.'"
-                    data-target="#myModalAjax">
+                    data-target="#'.$target.'">
                     '.$icon.' '.$title.'
                     </button>
                     </span>';
-                break;
-            }
         }
         // data-href serve per le chiamate ajax
         return '<a href="'.$url.'"
