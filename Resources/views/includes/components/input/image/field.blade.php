@@ -4,7 +4,8 @@
 	if($src=='') $src=asset('/img/nophoto.jpg');
     //Theme::add('/dist/laravel-filemanager/js/stand-alone-button.js');
     Theme::add($comp_ns.'/js/uploadimgv2.js');
-    $field->attributes['id']='post_image_src';
+	$field->attributes['id']='post_image_src';
+	//dddx(get_defined_vars());
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')
@@ -24,7 +25,8 @@
    						<span class="input-group-btn">
                              <a id="lfm" data-input="{{ $field->attributes['id'] }}"
                                 data-preview="holder" class="btn btn-primary text-white">
-       							<i class="fa fa-picture-o"></i> Choose
+								   <i class="fa fa-picture-o"></i> 
+								   Choose
      						</a>
    						</span>
 						{{ Form::text($name, $value, $field->attributes) }}
