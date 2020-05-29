@@ -281,7 +281,7 @@ class FormXService {
         $label = '';
         $data_title = ''; // titolo del modal e tooltip
         $title = '';      // stringa che appare nel tasto
-        $lang = \App::getLocale();
+        $lang = app()->getLocale();
         $error_label = 'default';
 
         extract($params);

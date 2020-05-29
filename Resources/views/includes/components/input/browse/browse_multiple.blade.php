@@ -81,7 +81,7 @@ if (!$multiple && is_array($value)) {
         <script src="{{ asset('vendor/backpack/colorbox/jquery.colorbox-min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('packages/barryvdh/elfinder/js/elfinder.min.js') }}"></script>
         {{-- <script type="text/javascript" src="{{ asset('packages/barryvdh/elfinder/js/extras/editors.default.min.js') }}"></script> --}}
-        @if (($locale = \App::getLocale()) != 'en')
+        @if (($locale = app()->getLocale()) != 'en')
             <script type="text/javascript" src="{{ asset("packages/barryvdh/elfinder/js/i18n/elfinder.{$locale}.js") }}"></script>
         @endif
     @endpush
@@ -100,7 +100,7 @@ if (!$multiple && is_array($value)) {
 
                 var div = $('<div>');
                 div.elfinder({
-                    lang: '{{ \App::getLocale() }}',
+                    lang: '{{ app()->getLocale() }}',
                     customData: {
                         _token: '{{ csrf_token() }}'
                     },

@@ -7,7 +7,7 @@ if (isset($field['value']) && ($field['value'] instanceof \Carbon\CarbonInterfac
     $field['value'] = $field['value']->format('Y-m-d H:i:s');
 }
 
-    $field_language = isset($field['datetime_picker_options']['language']) ? $field['datetime_picker_options']['language'] : \App::getLocale();
+    $field_language = isset($field['datetime_picker_options']['language']) ? $field['datetime_picker_options']['language'] : app()->getLocale();
 ?>
 
 <div @include('crud::inc.field_wrapper_attributes') >

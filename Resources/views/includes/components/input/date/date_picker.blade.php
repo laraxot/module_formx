@@ -7,7 +7,7 @@
         $field['value'] = $field['value']->format('Y-m-d');
     }
 
-    $field_language = isset($field['date_picker_options']['language']) ? $field['date_picker_options']['language'] : \App::getLocale();
+    $field_language = isset($field['date_picker_options']['language']) ? $field['date_picker_options']['language'] : app()->getLocale();
 
     if (! isset($field['attributes']['style'])) {
         $field['attributes']['style'] = 'background-color: white!important;';
