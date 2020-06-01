@@ -1,4 +1,9 @@
 @php
+
+    /*
+        input utilizzato con la tabella places
+    */
+
 	$field=transFields(get_defined_vars());
     $val=Form::getValueAttribute($name);
     /*
