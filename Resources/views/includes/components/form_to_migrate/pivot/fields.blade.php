@@ -13,15 +13,14 @@
 	$pivot_panel=Theme::panelModel($pivot);
 	$pivot_panel->setRows($rows);
 	$pivot_fields=$pivot_panel->editFields();
-	//ddd(get_class($pivot_panel));//Modules\Blog\Models\Panels\RatingMorphPanel
-	//ddd($pivot_fields);
+
 	$val=$model->$name;
-	
+
 	$related=$rows->getRelated();
 	$_panel=Theme::panelModel($related);
 	$all=$related->get();
 	//ddd($all);
-	
+
 @endphp
 <fieldset>
 	<legend><b>@lang($trad.'.'.$name.'.title')</b></legend>
@@ -34,15 +33,15 @@
 				$input_name=dottedToBrackets($input_name);
 				$input_type='bs'.$pf->type;
 
-				//$input_value=(isset($field->value)?$field->value:null); 
+				//$input_value=(isset($field->value)?$field->value:null);
 				if(!isset($pf->col_bs_size)) $pf->col_bs_size=12;
 				if(!isset($pf->attributes))  $pf->attributes=[];
 				$input_attrs=$pf->attributes;
 				$input_value=(isset($field->value)?$field->value:null);
 				$input_attrs['label']=$v->title;
-				$input_attrs['text']=$v->txt; 
+				$input_attrs['text']=$v->txt;
 
-				
+
 				//if($pf->type=='Boolean'){
 				//}
 				//$input_value=$v->{$pf->name};
@@ -63,7 +62,7 @@
 				//}
 
 			@endphp
-			
+
 			@if($input_type=='bsHidden')
 			{{ Form::$input_type($input_name,$input_value,$input_attrs) }}
 			@else
@@ -71,7 +70,7 @@
 			{{ Form::$input_type($input_name,$input_value,$input_attrs) }}
 			</div>
 			@endif
-			
+
 		@endforeach
 		</div>
 	@endforeach

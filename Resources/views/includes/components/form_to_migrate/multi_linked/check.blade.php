@@ -7,42 +7,7 @@
     }
     $user=Auth::user();
     $auth_user_id=is_object($user)?$user->auth_user_id:'NO-SET';
-    /*
-    $methods=get_class_methods($model->$name());//getMorphClass, getInverse, getPivotClass
-    $getter=collect($methods)->filter(function($item){
-    	//return Str::startsWith($item,'get');
-    	//return Str::contains($item,'Pivot');
-    })
-    //->dd()
-    ;
-    */
-    //$tmp=$model->$name();
 
-    //ddd($tmp->getMorphType());//post_type
-    //ddd($tmp->getMorphClass());// profile
-    //ddd($tmp->getInverse()); //false
-    //ddd($tmp->getPivotClass());//Modules\Blog\Models\PrivacyMorph
-    //ddd($tmp->getResults());// come get ?? collection etc etc
-    // ddd($tmp->get()); // sembra uguale
-     //ddd($tmp->getRelationExistenceQueryForSelfJoin()); // mancano argomenti
-    //ddd($tmp->getExistenceCompareKey()); //privacy_morph.post_id
-     //ddd($tmp->getForeignPivotKeyName());// post_id
-	//ddd($tmp->getQualifiedForeignPivotKeyName());// privacy_morph.post_id
-	//ddd($tmp->getRelatedPivotKeyName());//related_id
-     //ddd($tmp->getQualifiedRelatedPivotKeyName());//privacy_morph.related_id
-     //ddd($tmp->getParentKeyName());//post_id
- 	//ddd($tmp->getQualifiedParentKeyName());//blog_post_profiles.post_id
-	//ddd($tmp->getRelatedKeyName());//post_id
-    //ddd($tmp->getTable());//privacy_morph
-    //ddd($tmp->getRelationName());//privacies
-    //ddd($tmp->getPivotAccessor());//pivot
-    //ddd($tmp->getEager());//sembra il get
-    //ddd($tmp->getRelationExistenceCountQuery()); // mancano argomenti
-    //ddd($tmp->getQuery());// oggetto Builder
-    //ddd($tmp->getBaseQuery()); // oggetto builder
-    //ddd($tmp->getParent());//ogetto profile
-    //ddd($tmp->getRelated());//oggetto provacy
-    //ddd($tmp->getMorphedModel()); // mancano argomenti
     $pivot_class=$model->$name()->getPivotClass();
     $pivot=new $pivot_class;
     $pivot_panel=Theme::panelModel($pivot);
