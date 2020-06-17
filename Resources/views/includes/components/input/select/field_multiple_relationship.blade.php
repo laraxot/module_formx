@@ -1,6 +1,6 @@
 @php
-    //da finire
 
+    //installare https://select2.org/
 
     $row=Form::getModel();
     //$rows=$row->$name; //risultati per l'edit ..
@@ -11,22 +11,32 @@
     $opts=$related_panel->optionsSelect();
     //dddx($opts);
     $field=transFields(get_defined_vars());
-    $field->attributes['multiple']=true;
+    $field->attributes['multiple']='multiple';
+    $field->attributes['class'].=' select2';
+
+    $name1=$name.'[]'; //da rendere dinamico
+    $field->attributes['name']=$name1;
 @endphp
 
-{{-- Form::select($name.'[id]',$opts,$value,$field->attributes) --}}
 
-<select class="js-example-basic-single" name="state">
-  <option value="AL">Alabama</option>
-    ...
-  <option value="WY">Wyoming</option>
-</select>
+@component($blade_component,get_defined_vars())
+	@slot('label')
+	{{ Form::label($name1, $field->label , ['class' => 'control-label form-label']) }} {{-- $field->label_attributes --}}
+	@endslot
+	@slot('input')
+		{{ Form::select($name1,$opts,$value,$field->attributes) }}
+	@endslot
+@endcomponent
 
-@push('script')
+@push('scripts')
 <script>
 // In your Javascript (external .js resource or <script> tag)
 $(document).ready(function() {
-    $('.js-example-basic-single').select2();
+    $('.select2').select2({
+      theme: "bootstrap",
+        tags: "true",
+        allowClear: true
+   });
 });
 </script>
 @endpush
