@@ -26,7 +26,7 @@
                              <a id="lfm" data-input="{{ $field->attributes['id'] }}"
                                 data-preview="holder" class="btn btn-primary text-white">
 								   <i class="fa fa-picture-o"></i> 
-								   Choose
+								   @lang('formx::txt.select')
      						</a>
    						</span>
 						{{ Form::text($name, $value, $field->attributes) }}

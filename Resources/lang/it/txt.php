@@ -3,6 +3,7 @@
 return [
     'update' => 'modifica',
     'save' => 'salva',
+    'select' => 'seleziona',
     'day_names' => [
         'sun' => 'Domenica',
         'mon' => 'Lunedi',
