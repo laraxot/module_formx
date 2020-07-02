@@ -1,6 +1,7 @@
 @php
 
     //installare https://select2.org/
+    //installare anche select2-theme-bootstrap4 (da verificare, su miniblog funziona ed è installato)
 
     $row=Form::getModel();
     //$rows=$row->$name; //risultati per l'edit ..
