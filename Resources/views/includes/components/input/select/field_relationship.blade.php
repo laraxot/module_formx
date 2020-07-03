@@ -1,6 +1,6 @@
 @php
 	$row=Form::getModel();
-	//ddd(get_defined_vars());
+	dddx(get_defined_vars());
 	//dd(get_defined_vars()['__data']);
 	//$opts=$
 	$field=$options['field'];

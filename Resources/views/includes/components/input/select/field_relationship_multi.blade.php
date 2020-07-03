@@ -1,4 +1,15 @@
 @php
+    /*
+    funzionante, MA....
+    SI VISUALIZZA MALE per colpa dei css (credo classe dropdown-toggle di button)
+
+    funziona in base al nome della relazione inserito nel campo 'name' del fields del pannello
+    visualizza elenc di tutti gli elementi già esistenti della relazione (esempio tag, category), 
+    permette la selezione multipla
+
+     utilizzabile anche nei custom form?????
+    */
+
     $row=Form::getModel();
     //$rows=$row->$name; //risultati per l'edit ..
     $related=$row->$name()->getRelated(); // model cuisineCat
