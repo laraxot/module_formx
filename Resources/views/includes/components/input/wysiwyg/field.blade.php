@@ -1,4 +1,8 @@
 @php
+	//funzionante, da mettere in documentazione!!!
+
+	//ps: però come si installa???
+
 	Theme::add('formx::dist/js/app.js');
 	Theme::add('formx::dist/css/app.css');
 	$field=transFields(get_defined_vars());
