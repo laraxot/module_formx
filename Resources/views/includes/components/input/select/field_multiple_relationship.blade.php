@@ -16,6 +16,9 @@
     utilizzabile anche nei custom form?????
     */
 
+    //Theme::add('formx::plugin\select2\select2.min.css');
+    //Theme::add('formx::plugin\select2\select2.min.js');
+
     $row=Form::getModel();
     //$rows=$row->$name; //risultati per l'edit ..
     $related=$row->$name()->getRelated(); 
