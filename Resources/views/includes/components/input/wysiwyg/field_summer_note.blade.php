@@ -16,14 +16,17 @@
 	<div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
 	</div>
 </div> 
-	 --}}
+   --}}
+   aaaaaaaaaaaaaaaaaaaaaa
 <textarea id="summernote" name="editordata"></textarea>
+bbbbbbbbbbbbbbbbb
 
-
-@push('script')
+@push('scripts')
 
 
     <script>
+      (function ( $ ) { 
+        $.noConflict();
       $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
         tabsize: 2,
@@ -38,5 +41,6 @@
           ['view', ['fullscreen', 'codeview', 'help']]
         ]
       });
+   }( jQuery ));
     </script>
 @endpush

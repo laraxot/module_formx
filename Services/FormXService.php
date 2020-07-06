@@ -153,18 +153,25 @@ class FormXService {
         }
 
         $tmp = Str::snake($field->type);
-        if (0) { //vecio
-            $tmp = str_replace('_', '.', $tmp);
-            $view = 'formx::includes.components.freeze.'.$tmp;
-        } else {
-            $view = 'formx::includes.components.input.'.$tmp.'.freeze';
-            if (isset($field->sub_type)) {
-                $view .= '_'.Str::snake($field->sub_type);
-            }
+
+        $view = 'formx::includes.components.input.'.$tmp.'.freeze';
+        if (isset($field->sub_type)) {
+            $view .= '_'.Str::snake($field->sub_type);
         }
+
+        //formx::includes.components.input.select_relationship_multi.freeze //
+        //formx::includes.components.input.select.freeze_relationship_multi
+
         if (! View::exists($view)) {
-            //echo '<h1>['.$view.'] NOT EXISTS !!</h1>';
-            return '<span style="color:#d60021">['.$view.'] NOT EXISTS !!</span>';
+            //return '<span style="color:#d60021">['.$view.'] NOT EXISTS !!</span>';
+            $tmp1 = Str::before($tmp, '_');
+            $tmp2 = Str::after($tmp, '_');
+            $view1 = 'formx::includes.components.input.'.$tmp1.'.freeze_'.$tmp2;
+            if (! View::exists($view1)) {
+                return '<span style="color:#d60021">['.$view.']['.$view1.'] NOT EXISTS !!</span>';
+            }
+
+            $view = $view1;
         }
 
         $view_params = $params;
