@@ -7,7 +7,7 @@
     NB: DA FINIRE!!! NON RIESCO A DARE IL VALORE CHECKED/UNCHECKED DI DEFAULT
     */
     $field=transFields(get_defined_vars());
-    dddx($field);
+    //dddx($field);
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')
