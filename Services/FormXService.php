@@ -345,6 +345,7 @@ class FormXService {
                     </span>';
         }
         // data-href serve per le chiamate ajax
+
         return '<a href="'.$url.'"
                     data-href="'.$url.'"
                     data-title="'.$data_title.'"
