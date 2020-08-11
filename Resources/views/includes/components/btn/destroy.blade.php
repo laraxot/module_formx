@@ -13,6 +13,10 @@
 //dddx(get_defined_vars());
 @endphp
 @php
+	if(!isset($title)){
+		$title='Destroy';
+		//trans($trad.'.'.$title)
+	}
 	$tag_attr=[
 		'class'=>$btn_class.' btn-confirm-delete btn-danger',
 		'href'=>"#",
@@ -20,7 +24,7 @@
 		'data-id'=>$id,
 		'data-href'=>$route,
 		'data-toggle'=>"tooltip",
-		'title'=>trans($trad.'.'.$title),
+		'title'=>$title,
 
 	];
 	//ddd(http_build_query($tag_attr, '', ' '));//no
