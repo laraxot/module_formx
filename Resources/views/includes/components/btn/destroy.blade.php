@@ -10,6 +10,7 @@
 	<i class="far fa-trash-alt"></i>
 </a>
 */
+//dddx(get_defined_vars());
 @endphp
 @php
 	$tag_attr=[
@@ -19,7 +20,8 @@
 		'data-id'=>$id,
 		'data-href'=>$route,
 		'data-toggle'=>"tooltip",
-		'title'=>"Destroy",
+		'title'=>trans($trad.'.'.$title),
+
 	];
 	//ddd(http_build_query($tag_attr, '', ' '));//no
 	$tag_attr=collect($tag_attr)->map(function($v,$k){
