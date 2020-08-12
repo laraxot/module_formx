@@ -16,6 +16,8 @@
 	if(!isset($title)){
 		$title='Destroy';
 		//trans($trad.'.'.$title)
+	}else{
+		$title = trans($trad.'.'.$title);
 	}
 	$tag_attr=[
 		'class'=>$btn_class.' btn-confirm-delete btn-danger',
