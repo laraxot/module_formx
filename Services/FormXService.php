@@ -125,6 +125,7 @@ class FormXService {
             $fields_exclude[] = $rows->getMorphType();
         }
         $fields_exclude[] = 'related_type'; //-- ??
+
         return $fields_exclude;
     }
 
@@ -290,14 +291,19 @@ class FormXService {
         $title = '';      // stringa che appare nel tasto
         $lang = app()->getLocale();
         $error_label = 'default';
-
+        $tooltip = '';
         extract($params);
+        if ('' == $data_title) {
+            $data_title = $title;
+        }
         $row = $panel->row;
         if ('default' == $error_label) {
             $error_label = '['.get_class($row).']['.$method.']';
         }
         $module_name = getModuleNameFromModel($row);
-        $tooltip = trans(strtolower($module_name.'::'.class_basename($row)).'.btn.'.$data_title);
+        if ('' == $tooltip) {
+            $tooltip = trans(strtolower($module_name.'::'.class_basename($row)).'.btn.'.$data_title);
+        }
         //$url = RouteService::urlPanel(['panel' => $panel, 'act' => $act]);
         //$method = Str::camel($act);
 
