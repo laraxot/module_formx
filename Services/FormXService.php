@@ -284,6 +284,7 @@ class FormXService {
     }
 
     public static function btnHtml($params) {
+        //dddx('preso');
         $class = 'btn btn-primary mb-2';
         $icon = '';       // icona a sx del titolo
         $label = '';
