@@ -284,7 +284,6 @@ class FormXService {
     }
 
     public static function btnHtml($params) {
-        //dddx('preso');
         $class = 'btn btn-primary mb-2';
         $icon = '';       // icona a sx del titolo
         $label = '';
@@ -293,6 +292,7 @@ class FormXService {
         $lang = app()->getLocale();
         $error_label = 'default';
         $tooltip = '';
+
         extract($params);
         if ('' == $data_title) {
             $data_title = $title;
@@ -352,6 +352,9 @@ class FormXService {
                     </span>';
         }
         // data-href serve per le chiamate ajax
+        //ddd($params, $title, $data_title);
+        $title = trans(strtolower($module_name.'::'.class_basename($row)).'.act.'.$title);
+        $data_title = $title;
 
         return '<a href="'.$url.'"
                     data-href="'.$url.'"
