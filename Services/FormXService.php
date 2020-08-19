@@ -285,16 +285,16 @@ class FormXService {
 
     public static function btnHtml($params) {
         $class = 'btn btn-primary mb-2';
-        $icon = '';       // icona a sx del titolo
-        $label = '';
-        $data_title = ''; // titolo del modal e tooltip
-        $title = '';      // stringa che appare nel tasto
+        $icon = null;       // icona a sx del titolo
+        $label = null;
+        $data_title = null; // titolo del modal e tooltip
+        $title = null;      // stringa che appare nel tasto
         $lang = app()->getLocale();
         $error_label = 'default';
-        $tooltip = '';
+        $tooltip = null;
 
         extract($params);
-        if ('' == $data_title) {
+        if (null == $data_title) {
             $data_title = $title;
         }
         $row = $panel->row;
@@ -302,7 +302,7 @@ class FormXService {
             $error_label = '['.get_class($row).']['.$method.']';
         }
         $module_name = getModuleNameFromModel($row);
-        if ('' == $tooltip) {
+        if (null == $tooltip) {
             $tooltip = trans(strtolower($module_name.'::'.class_basename($row)).'.btn.'.$data_title);
         }
         //$url = RouteService::urlPanel(['panel' => $panel, 'act' => $act]);
@@ -353,8 +353,8 @@ class FormXService {
         }
         // data-href serve per le chiamate ajax
         //ddd($params, $title, $data_title);
-        $title = trans(strtolower($module_name.'::'.class_basename($row)).'.act.'.$title);
-        $data_title = $title;
+        //$title = trans(strtolower($module_name.'::'.class_basename($row)).'.act.'.$title);
+        //$data_title = $title;
 
         return '<a href="'.$url.'"
                     data-href="'.$url.'"
