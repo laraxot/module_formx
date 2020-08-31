@@ -1,7 +1,9 @@
 @php
-    //ddd(get_defined_vars());
+    //dd(get_defined_vars());
+    //$v->$related_fields[1]->name
 @endphp
-{{-- $field->value --}}
 @foreach($rows as $k=>$v)
-    <span class="badge badge-secondary">{{ $v->{$related_fields[1]->name} }}</span>
+    <span class="badge badge-secondary">
+        {{ Panel::get($v)->optionLabel($v) }}
+    </span>
 @endforeach
