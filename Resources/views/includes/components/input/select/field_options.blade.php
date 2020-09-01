@@ -1,5 +1,5 @@
 @php
-	//ddd(get_defined_vars());
+	//dddx(get_defined_vars());
 
 
 	$field=transFields(get_defined_vars());
