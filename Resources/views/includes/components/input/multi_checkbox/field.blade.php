@@ -1,5 +1,6 @@
 @php
 /**
+* https://crlcu.github.io/multiselect/examples/multiple.html
 * https://github.com/crlcu/multiselect
 * bower install multiselect-two-sides
 */
@@ -40,16 +41,16 @@ $all=$_panel->options();
 		</select>
 	</div>
 	<div class="col-sm-2">
-		<button type="button" id="multiselect_rightAll" class="btn btn-block">
+		<button type="button" id="{{ $name }}_rightAll" class="btn btn-block">
 		<i class="fas fa-angle-double-right"></i>
 		</button>
-		<button type="button" id="multiselect_rightSelected" class="btn btn-block">
+		<button type="button" id="{{ $name }}_rightSelected" class="btn btn-block">
 		<i class="fas fa-chevron-right"></i>
 		</button>
-		<button type="button" id="multiselect_leftSelected" class="btn btn-block">
+		<button type="button" id="{{ $name }}_leftSelected" class="btn btn-block">
 		<i class="fas fa-chevron-left"></i>
 		</button>
-		<button type="button" id="multiselect_leftAll" class="btn btn-block">
+		<button type="button" id="{{ $name }}_leftAll" class="btn btn-block">
 		<i class="fas fa-angle-double-left"></i>
 		</button>
 	</div>
