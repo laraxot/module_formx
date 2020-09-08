@@ -3,6 +3,8 @@
     $field=transFields(get_defined_vars());
     $rows=$model->$name();
     $name1=$rows->getLocalKeyName();
+    //$field->name=$name1;
+    $field->attributes['name']=$name1;
     $related=$rows->getRelated();
     $related_panel=Panel::get($related);
     $opts=$related_panel->optionsSelect();
