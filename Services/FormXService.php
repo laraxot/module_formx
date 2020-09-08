@@ -312,6 +312,9 @@ class FormXService {
             $class .= ' btn-confirm-delete';
         }
         if (! Gate::allows($method, $row)) {
+            if(env('APP_ENV')==='production'){
+                 $error_label = false;
+            }
             $html = '<button type="button" class="'.$class.'" data-toggle="tooltip" title="not can '.$data_title.'" disabled >'.$error_label.'</button>';
             if (false === $error_label) {
                 return null;
