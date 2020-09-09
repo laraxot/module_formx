@@ -143,7 +143,7 @@ class FormXService {
                 //$field->value = $row->{$field->name_dot};
                 //$field->value = 'test['.$field->name_dot.']'.Arr::get($row, 'nome_diri');
             } catch (\Exception $e) {
-                $field->value = '---['.$field->name_dot.']--';
+                $field->value = '---!['.$field->name_dot.']!--';
             }
         }
 
@@ -312,8 +312,8 @@ class FormXService {
             $class .= ' btn-confirm-delete';
         }
         if (! Gate::allows($method, $row)) {
-            if(env('APP_ENV')==='production'){
-                 $error_label = false;
+            if ('production' === env('APP_ENV')) {
+                $error_label = false;
             }
             $html = '<button type="button" class="'.$class.'" data-toggle="tooltip" title="not can '.$data_title.'" disabled >'.$error_label.'</button>';
             if (false === $error_label) {
