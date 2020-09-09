@@ -1,4 +1,5 @@
 <div class="select-none">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@1.x.x/dist/tailwind.min.css" rel="stylesheet">
     <div class="flex justify-between items-center mb-8">
         <button
             type="button"
@@ -84,4 +85,7 @@
 
         </div>
     @endforeach
+    [{{ $selectedDay }}/{{ $selectedMonth }}/{{ $selectedYear }}]
+    <input type="text"  class="form-control" placeholder="Search" wire:model="guest_num" />
+    numero tavoli {{ $items->count() }}
 </div>

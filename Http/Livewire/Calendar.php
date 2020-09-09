@@ -5,43 +5,49 @@ namespace Modules\FormX\Http\Livewire;
 use Illuminate\Session\SessionManager;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
+//use Modules\Cart\Models\BookingItem;
 
 /**
  * full calendar
  * https://github.com/asantibanez/livewire-calendar
  * https://github.com/stijnvanouplines/livewire-calendar/blob/master/app/Http/Livewire/Calendar.php.
  */
-class Calendar extends Component {
-    public $minDate;
+class Calendar extends Component
+{
+    public $minDate, $maxDate;
 
-    public $maxDate;
+    public $selectedDay, $selectedMonth, $selectedYear;
 
-    public $selectedDay;
+    public $currentMonth, $currentYear;
+    //----------------------------------
+    public $guest_num;
 
-    public $selectedMonth;
+    public $containers, $items, $last_item;
 
-    public $selectedYear;
-
-    public $currentMonth;
-
-    public $currentYear;
-
-    public function mount(SessionManager $session, string $minDate = null, string $maxDate = null) {
+    public function mount(SessionManager $session, string $minDate = null, string $maxDate = null)
+    {
         $session->put('calendar.now', now());
 
         $this->minDate = $minDate;
         $this->maxDate = $maxDate;
 
+        $this->guest_num = 1;
+
         $this->setDate();
+
+        [$this->containers, $this->items] = params2ContainerItem();
+        $this->last_item = last($this->items);
     }
 
-    private function setDate(): void {
+    private function setDate(): void
+    {
         $this->selectedDay = session('calendar.now')->day;
         $this->selectedMonth = $this->currentMonth = session('calendar.now')->month;
         $this->selectedYear = $this->currentYear = session('calendar.now')->year;
     }
 
-    public function calendar(): array {
+    public function calendar(): array
+    {
         $days = [];
 
         $startOfMonthDay = Carbon::createFromDate($this->currentYear, $this->currentMonth)->startOfMonth()->isoWeekday();
@@ -67,12 +73,13 @@ class Calendar extends Component {
                 'disabled' => $this->isDayDisabled($day),
             ];
         })
-        ->toArray();
+            ->toArray();
 
         return array_chunk($daysArray, 7);
     }
 
-    private function isCurrentDay(int $day = null): bool {
+    private function isCurrentDay(int $day = null): bool
+    {
         if ($day !== session('calendar.now')->day) {
             return false;
         }
@@ -88,7 +95,8 @@ class Calendar extends Component {
         return true;
     }
 
-    private function isDaySelected(int $day = null): bool {
+    private function isDaySelected(int $day = null): bool
+    {
         if ($day !== $this->selectedDay) {
             return false;
         }
@@ -104,7 +112,8 @@ class Calendar extends Component {
         return true;
     }
 
-    private function isDayDisabled(int $day = null): bool {
+    private function isDayDisabled(int $day = null): bool
+    {
         if (null === $day) {
             return true;
         }
@@ -128,7 +137,8 @@ class Calendar extends Component {
         return false;
     }
 
-    public function setByMonth(int $month): void {
+    public function setByMonth(int $month): void
+    {
         if ($month > 12) {
             $this->currentYear = $this->currentYear + 1;
 
@@ -148,7 +158,8 @@ class Calendar extends Component {
         $this->currentMonth = $month;
     }
 
-    public function setByDay(int $day = null): void {
+    public function setByDay(int $day = null): void
+    {
         if (is_null($day)) {
             return;
         }
@@ -158,8 +169,9 @@ class Calendar extends Component {
         $this->selectedDay = $day;
     }
 
-    public function showPreviousArrow(): bool {
-        if (! $this->minDate) {
+    public function showPreviousArrow(): bool
+    {
+        if (!$this->minDate) {
             return true;
         }
 
@@ -173,8 +185,9 @@ class Calendar extends Component {
         return true;
     }
 
-    public function showNextArrow(): bool {
-        if (! $this->maxDate) {
+    public function showNextArrow(): bool
+    {
+        if (!$this->maxDate) {
             return true;
         }
 
@@ -188,9 +201,15 @@ class Calendar extends Component {
         return true;
     }
 
-    public function render() {
+    public function render()
+    {
+
+        $guest_num = (int)$this->guest_num;
+        //-- da vedere come passare i parametri
+        $this->items = $this->last_item->bookingItems()->whereRaw($guest_num . ' between min_capacity and max_capacity')->get();
         return view('formx::livewire.calendar', [
             'calendar' => $this->calendar(),
+            'items' => $this->items,
         ]);
     }
 }
