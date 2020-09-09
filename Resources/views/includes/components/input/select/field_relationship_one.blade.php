@@ -2,9 +2,39 @@
     $model=Form::getModel();
     $field=transFields(get_defined_vars());
     $rows=$model->$name();
-    //dddx(get_class_methods($rows));
-    $name1=$rows->getForeignKeyName();
-    //$name1=$rows->getLocalKeyName();
+    /*//--- questa collezione sotto mi serve per vedere se le altre relazioni han bisogno di altro
+    $tmp=collect(get_class_methods($rows))
+        ->filter(
+            function($item){
+                return (Str::startsWith($item,'get')
+                    && !in_array($item,
+                    [
+                        'getRelationExistenceQuery',
+                        'getRelationExistenceQueryForSelfRelation',
+                        'getRelationExistenceCountQuery',
+                        'getMorphedModel',
+                    ]));
+        }
+    )->map(
+        function($item) use($rows){
+            return [$item=>$rows->{$item}()];
+        }
+    )->collapse();
+    */
+    //dddx($rows->getRelationName());
+
+    /*
+      "getForeignKeyName" => "valutatore_id"
+      "getQualifiedForeignKeyName" => "schede.valutatore_id"
+      "getOwnerKeyName" => "id"
+      "getQualifiedOwnerKeyName" => "stabi_dirigente.id"
+      "getRelationName" => "valutatore"
+    */
+    if(method_exists($rows,'getLocalKeyName')){
+        $name1=$rows->getLocalKeyName();
+    }else{
+        $name1=$rows->getForeignKeyName();
+    }
     //$field->name=$name1;
     $field->attributes['name']=$name1;
     $related=$rows->getRelated();
