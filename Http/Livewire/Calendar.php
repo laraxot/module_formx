@@ -20,6 +20,9 @@ class Calendar extends Component {
     public $selectedDay;
     public $selectedMonth;
     public $selectedYear;
+    //public $selectedDate;
+    public $weekDay;
+    public $selectedTime;
 
     public $currentMonth;
     public $currentYear;
@@ -28,7 +31,7 @@ class Calendar extends Component {
 
     public $containers;
     public $items;
-    public $last_item;
+    public $shop;
 
     public function mount(SessionManager $session, string $minDate = null, string $maxDate = null) {
         $session->put('calendar.now', now());
@@ -41,13 +44,19 @@ class Calendar extends Component {
         $this->setDate();
 
         [$this->containers, $this->items] = params2ContainerItem();
-        $this->last_item = last($this->items);
+        $this->shop = last($this->items);
+        $this->selectedTime = null;
     }
 
     private function setDate(): void {
+        /*
         $this->selectedDay = session('calendar.now')->day;
         $this->selectedMonth = $this->currentMonth = session('calendar.now')->month;
         $this->selectedYear = $this->currentYear = session('calendar.now')->year;
+        */
+        $this->currentMonth = session('calendar.now')->month;
+        $this->currentYear = session('calendar.now')->year;
+        $this->setByDay(session('calendar.now')->day);
     }
 
     public function calendar(): array {
@@ -165,6 +174,19 @@ class Calendar extends Component {
         $this->selectedYear = $this->currentYear;
         $this->selectedMonth = $this->currentMonth;
         $this->selectedDay = $day;
+
+        $this->selectedDate = Carbon::create($this->selectedYear, $this->selectedMonth, $this->selectedDay);
+        //Carbon::weekday Get/set the weekday from 0 (Sunday) to 6 (Saturday).
+        //Carbon::isoWeekday Get/set the ISO weekday from 1 (Monday) to 7 (Sunday).
+        $this->weekDay = $this->selectedDate->weekday();
+    }
+
+    public function setByTime($time = null): void {
+        /*if (is_null($time)) {
+            return;
+        }
+        */
+        $this->selectedTime = $time;
     }
 
     public function showPreviousArrow(): bool {
@@ -197,15 +219,57 @@ class Calendar extends Component {
         return true;
     }
 
+    public function bookingTimes() {
+        $guest_num = (int) $this->guest_num;
+        $this->selectedDate = Carbon::create($this->selectedYear, $this->selectedMonth, $this->selectedDay);
+        $this->opening_hours = $this->shop->openingHours()->where('day_of_week', $this->weekDay)->get();
+        $bookings = $this->shop->bookings()->where('reserve_date', $this->selectedDate)->get();
+        $items = $this->shop->bookingItems()->whereRaw($guest_num.' between min_capacity and max_capacity')->get();
+        $data = [];
+        if (null == $items) {
+            return $data;
+        }
+        foreach ($this->opening_hours as $opening_hour) {
+            $open_at = Carbon::createFromTimeString($opening_hour->open_at);
+            $close_at = Carbon::createFromTimeString($opening_hour->close_at);
+
+            for ($curr_at = $open_at; $curr_at < $close_at; $curr_at->addMinutes(15)) {
+                $bookings_taken = $bookings->filter(
+                    function ($item) use ($curr_at) {
+                        $reserve_time = Carbon::createFromTimeString($item->reserve_time);
+
+                        return $reserve_time->between($curr_at->copy()->subHours(2), $curr_at->copy()->addHours(2));
+                    }
+                );
+                $booking_items_taken = $bookings_taken->pluck('booking_item_id')->all();
+                $items_free = $items->filter(function ($item) use ($booking_items_taken) {
+                    return ! in_array($item->id, $booking_items_taken);
+                })->all();
+
+                $data[] = (object) [
+                    'time' => $curr_at->format('H:i'),
+                    'bookings_count' => $bookings_taken->count(),
+                    'items_free_count' => count($items_free),
+                ];
+            }
+        }
+
+        return $data;
+    }
+
     public function render() {
         $guest_num = (int) $this->guest_num;
         //-- da vedere come passare i parametri
-        $this->items = $this->last_item->bookingItems()->whereRaw($guest_num.' between min_capacity and max_capacity')->get();
-        $this->opening_hours = $this->last_item->openingHours;
+        $this->items = $this->shop->bookingItems()->whereRaw($guest_num.' between min_capacity and max_capacity')->get();
+        $this->opening_hours = $this->shop->openingHours()->where('day_of_week', $this->weekDay)->get();
 
         return view('formx::livewire.calendar', [
             'calendar' => $this->calendar(),
             'items' => $this->items,
+            'opening_hours' => $this->opening_hours,
+            'booking_times' => $this->bookingTimes(),
+            //'selectedDate' => $this->selectedDate,
+            'selectedTime' => $this->selectedTime,
         ]);
     }
 }

@@ -85,7 +85,26 @@
 
         </div>
     @endforeach
-    [{{ $selectedDay }}/{{ $selectedMonth }}/{{ $selectedYear }}]
+    {{--
+    [{{ $selectedDay }}/{{ $selectedMonth }}/{{ $selectedYear }}]-[{{ $weekDay }}]<br/>
+        $selectedDate
+    --}}
     <input type="text"  class="form-control" placeholder="Search" wire:model="guest_num" />
-    numero tavoli {{ $items->count() }}
+    {{--
+        numero tavoli {{ $items->count() }}
+        <h4>Booking Times</h4>
+    --}}
+    @foreach($booking_times as $booking_time)
+        <button
+            type="button"
+            wire:click='setByTime("{{ $booking_time->time }}")'
+            class="btn btn-secondary border border-white rounded-full" >
+            {{ $booking_time->time }}
+            <span class="badge badge-light">{{ $booking_time->items_free_count }}</span> !
+        </button>
+
+    @endforeach
+    [{{ $selectedTime }}]
+
+
 </div>
