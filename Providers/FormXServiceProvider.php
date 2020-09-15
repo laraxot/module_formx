@@ -3,10 +3,7 @@
 namespace Modules\FormX\Providers;
 
 //---- bases ----
-use Livewire\Livewire;
 //---- services --
-use Modules\FormX\Http\Livewire\Calendar;
-use Modules\FormX\Http\Livewire\Numberer;
 use Modules\FormX\Services\FormXService;
 use Modules\Xot\Providers\XotBaseServiceProvider;
 
@@ -24,12 +21,5 @@ class FormXServiceProvider extends XotBaseServiceProvider {
         FormXService::registerMacros();
 
         $this->registerLivewireComponents();
-    }
-
-    public function registerLivewireComponents() {
-        if (class_exists("Livewire\Livewire")) {
-            Livewire::component($this->module_name.'::calendar', Calendar::class);
-            Livewire::component($this->module_name.'::numberer', Numberer::class);
-        }
     }
 }
