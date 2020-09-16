@@ -215,14 +215,14 @@ class FormXService {
             //$view_params['related']=$related->get();
             $view_params['related_name'] = $related_name;
             $view_params['related_fields'] = $related_fields;
-
+            /*
             $url = RouteService::urlRelated([
                 'row' => $row,
                 'related' => $related,
                 'related_name' => $related_name,
                 'act' => 'index',
             ]);
-
+                */
             $url = '#';
 
             $view_params['manage_url'] = $url;
@@ -311,7 +311,7 @@ class FormXService {
         if (in_array($act, ['destroy', 'delete', 'detach'])) {
             $class .= ' btn-danger btn-confirm-delete';
         }
-        if (! Gate::allows($method, $row)) {
+        if (! Gate::allows($method, $panel)) {
             if ('production' === env('APP_ENV')) {
                 $error_label = false;
             }
