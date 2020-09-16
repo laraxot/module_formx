@@ -309,7 +309,7 @@ class FormXService {
         //$method = Str::camel($act);
 
         if (in_array($act, ['destroy', 'delete', 'detach'])) {
-            $class .= ' btn-confirm-delete';
+            $class .= ' btn-danger btn-confirm-delete';
         }
         if (! Gate::allows($method, $row)) {
             if ('production' === env('APP_ENV')) {
