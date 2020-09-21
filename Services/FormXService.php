@@ -308,9 +308,12 @@ class FormXService {
         //$url = RouteService::urlPanel(['panel' => $panel, 'act' => $act]);
         //$method = Str::camel($act);
 
-        if (in_array($act, ['destroy', 'delete', 'detach'])) {
+        if (in_array($act, ['destroy', 'delete', 'detach']))
+
+        {
             $class .= ' btn-danger btn-confirm-delete';
         }
+        /*
             }
             if (false === $error_label) {
                 return null;
@@ -318,6 +321,7 @@ class FormXService {
 
             return $html;
         } //else {
+            */
         //  return '['.get_class($row).']['.$method.']';
         //}
 
