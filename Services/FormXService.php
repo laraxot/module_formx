@@ -2,16 +2,17 @@
 
 namespace Modules\FormX\Services;
 
-use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\View;
 //---- services ---
-use Illuminate\Support\Str;
-use Modules\Theme\Services\ThemeService;
+use Illuminate\Support\Facades\View;
 use Modules\Xot\Services\RouteService;
+use Collective\Html\FormFacade as Form;
+use Modules\Theme\Services\ThemeService;
 
 class FormXService {
     public static function getComponents() {
@@ -314,6 +315,10 @@ class FormXService {
 
         if (! Gate::allows($method, $panel)) {
             if (false === $error_label) {
+                return null;
+            }
+            if(App::environment()=='production'){
+
                 return null;
             }
 
