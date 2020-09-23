@@ -33,6 +33,12 @@ class Datagrid extends Component {
             return "'".$item."'";
         })->all();
         $this->sql = str_replace(explode(',', str_repeat('?,', 10)), $bindings, $sql);
+        /*
+
+        $sql = str_replace(['?'], ['\'%s\''], $sql);
+        $sql = vsprintf($sql, $bindings);
+
+        */
         if (Str::contains($this->sql, ' where ')) {
             $this->where = Str::after($this->sql, 'where');
         }
