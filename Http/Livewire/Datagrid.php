@@ -5,7 +5,6 @@ namespace Modules\FormX\Http\Livewire;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Modules\LU\Models\User;
 use Modules\Theme\Services\ThemeService;
 
 //use Modules\Cart\Models\BookingItem;
@@ -20,11 +19,13 @@ class Datagrid extends Component {
     public $index_fields = []; //private lo perde,protected anche
     public $sql = '';
     public $where = '';
+    public $model_class;
 
     /**
      * Livewire component's [modules.form-x.http.livewire.datagrid] public property [rows] must be of type: [numeric, string, array, null, or boolean]. Only protected or private properties can be set as other types because JavaScript doesn't need to access them.
      */
     public function mount($_panel) {
+        $this->model_class = get_class($_panel->row);
         $index_fields = $_panel->indexFields();
         $this->index_fields = $index_fields;
         $rows = $_panel->rows();
@@ -44,22 +45,39 @@ class Datagrid extends Component {
         }
     }
 
+    /*
     public function printf_array($format, $arr) {
         return call_user_func_array('printf', array_merge((array) $format, $arr));
     }
+    */
 
     public function render() {
         $view = 'formx::livewire.datagrid';
-        $model = new User();
-        //newQuery(); Builder $query
-        $rows = $model->newQuery();
-        //$rows = $model; //perche' usare newQuery ?
-        //$rows = $rows->selectRaw($this->sql);
-        //*
-        if ('' != $this->where) {
-            $rows = $rows->whereRaw($this->where);
+        $model = new $this->model_class();
+
+        $select = Str::between($this->sql, 'select', 'from');
+        $join = '';
+        if (Str::contains($this->sql, 'join')) {
+            $join = Str::between($this->sql, 'join', 'where');
+            $join_table = trim(Str::before($join, 'on'));
+            $join_table = str_replace(['`'], [''], $join_table);
+            $join_on = trim(Str::after($join, 'on'));
         }
-        //*/
+        $where = '';
+        if (Str::contains($this->sql, 'where')) {
+            $where = Str::between($this->sql, 'where', 'limit');
+        }
+
+        $rows = $model->newQuery();
+        $rows = $rows->selectRaw($select);
+        if ('' != $join) {
+            $rows = $rows->join($join_table, function ($query) use ($join_on) {
+                $query->whereRaw($join_on);
+            });
+        }
+        if ('' != $where) {
+            $rows = $rows->whereRaw($where);
+        }
         $rows = $rows->paginate(10);
 
         $view_params = [
