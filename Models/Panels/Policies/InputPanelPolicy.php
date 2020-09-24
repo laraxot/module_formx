@@ -2,7 +2,7 @@
 
 namespace Modules\FormX\Models\Panels\Policies;
 
-use Modules\Xot\Models\Policies\XotBasePolicy;
+use Modules\Xot\Models\Panels\Policies\XotBasePanelPolicy;
 
-class InputPanelPolicy extends XotBasePolicy {
+class InputPanelPolicy extends XotBasePanelPolicy {
 }
