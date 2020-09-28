@@ -8,8 +8,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
-//---- services ---
 use Illuminate\Support\Str;
+//---- services ---
 use Modules\Theme\Services\ThemeService;
 use Modules\Xot\Services\RouteService;
 
@@ -311,11 +311,7 @@ class FormXService {
         if (in_array($act, ['destroy', 'delete', 'detach'])) {
             $class .= ' btn-danger btn-confirm-delete';
         }
-        if (! Gate::allows($method, $panel)) {
-            if ('production' === env('APP_ENV')) {
-                $error_label = false;
             }
-            $html = '<button type="button" class="'.$class.'" data-toggle="tooltip" title="not can '.$data_title.'" disabled >'.$error_label.'</button>';
             if (false === $error_label) {
                 return null;
             }
