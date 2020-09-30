@@ -2,22 +2,20 @@
 
 namespace Modules\FormX\Services;
 
+use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 //---- services ---
 use Illuminate\Support\Facades\View;
-use Modules\Xot\Services\RouteService;
-use Collective\Html\FormFacade as Form;
+use Illuminate\Support\Str;
 use Modules\Theme\Services\ThemeService;
+use Modules\Xot\Services\RouteService;
 
-class FormXService
-{
-    public static function getComponents()
-    {
+class FormXService {
+    public static function getComponents() {
         $view_path = realpath(__DIR__.'/../Resources/views/includes/components/input');
         $components_json = $view_path.'/components.json';
         $components_json = str_replace(['/', '\\'], [DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR], $components_json);
@@ -62,8 +60,7 @@ class FormXService
         return $comps;
     }
 
-    public static function registerComponents()
-    {
+    public static function registerComponents() {
         $comps = self::getComponents();
         $blade_component = 'components.blade.input';
         if (in_admin()) {
@@ -88,8 +85,7 @@ class FormXService
 
     //end function
 
-    public static function registerMacros()
-    {
+    public static function registerMacros() {
         $macros_dir = __DIR__.'/../Macros';
         Collection::make(glob($macros_dir.'/*.php'))
             ->mapWithKeys(function ($path) {
@@ -112,8 +108,7 @@ class FormXService
     When the element is displayed after the call to freeze(), only its value is displayed without the input tags, thus the element cannot be edited. If persistant freeze is set, then hidden field containing the element value will be output, too.
     */
 
-    public static function fieldsExclude($params)
-    {
+    public static function fieldsExclude($params) {
         extract($params);
 
         $fields_exclude = [];
@@ -135,11 +130,10 @@ class FormXService
         return $fields_exclude;
     }
 
-    public static function inputFreeze($params)
-    {
+    public static function inputFreeze($params) {
         extract($params);
-        if (!is_object($field) && is_array($field)) { //livewire bug
-            $field=(object)$field;
+        if (! is_object($field) && is_array($field)) { //livewire bug
+            $field = (object) $field;
         }
         $field->name_dot = bracketsToDotted($field->name);
 
@@ -260,8 +254,7 @@ class FormXService
         ;
     }
 
-    public static function inputHtml($params)
-    {
+    public static function inputHtml($params) {
         extract($params);
 
         $input_type = 'bs'.Str::studly($field->type);
@@ -292,8 +285,7 @@ class FormXService
         return Form::$input_type($input_name, $input_value, $input_attrs, $input_opts);
     }
 
-    public static function btnHtml($params)
-    {
+    public static function btnHtml($params) {
         $class = 'btn btn-primary mb-2';
         $icon = null;       // icona a sx del titolo
         $label = null;
@@ -326,11 +318,11 @@ class FormXService
             if (false === $error_label) {
                 return null;
             }
-            if (App::environment()=='production') {
+            if ('production' == App::environment()) {
                 return null;
             }
 
-            return '['.get_class($row).']['.$method.']';
+            return '['.get_class($panel).']['.$method.']';
         }
 
         if (isset($modal)) {
