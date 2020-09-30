@@ -31,7 +31,7 @@ $all=$_panel->options();
 	</div>
 	<br style="clear:both"/>
 	<div class="col-sm-5">
-		<select name="{{$name}}[from][]" id="multiselect" class="form-control" size="8" multiple="multiple">
+		<select name="{{$name}}[from][]" id="multiselect{{ $name }}" class="form-control multiselect" size="8" multiple="multiple">
 			@foreach($all as $k => $v)
 			{{--
 			<option value="{{ $v->opt_key }}" >{{ $v->opt_label }}</option>
@@ -55,7 +55,7 @@ $all=$_panel->options();
 		</button>
 	</div>
 	<div class="col-sm-5">
-		<select name="{{$name}}[to][]" id="multiselect_to" class="form-control" size="8" multiple="multiple">
+		<select name="{{$name}}[to][]" id="multiselect{{ $name }}_to" class="form-control" size="8" multiple="multiple">
 			@foreach($val as $k => $v)
 			{{--
 			<option value="{{ $v->opt_key }}" >{{ $v->opt_label }}</option>
@@ -66,12 +66,15 @@ $all=$_panel->options();
 	</div>
 </div>
 </fieldset>
-{{--
+
 @push('scripts')
 <script type="text/javascript">
-	jQuery(document).ready(function($) {
-	    $('#multiselect').multiselect();
-	});
+    //jQuery is not a function
+	//jQuery(document).ready(function($) {
+    $(function() {
+	    $('.multiselect').multiselect();
+
+    });
 </script>
 @endpush
---}}
+
