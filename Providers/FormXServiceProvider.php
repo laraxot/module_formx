@@ -20,6 +20,6 @@ class FormXServiceProvider extends XotBaseServiceProvider {
 
         FormXService::registerMacros();
 
-        $this->registerLivewireComponents();
+        //$this->registerLivewireComponents();
     }
 }
