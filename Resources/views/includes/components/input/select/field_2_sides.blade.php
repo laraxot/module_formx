@@ -1,15 +1,15 @@
 @php
 	/**
-     * https://github.com/crlcu/multiselect 
+     * https://github.com/crlcu/multiselect
      * bower install multiselect-two-sides
      */
-	//Theme::addScript('/theme/bc/multiselect/dist/js/multiselect.js'); 
+	//Theme::addScript('/theme/bc/multiselect/dist/js/multiselect.js');
 	$options=[];
 	extract($attributes);
 	$field=transFields(get_defined_vars());
 	//ddd(get_defined_vars());
 
-	$model=Form::getModel(); 
+	$model=Form::getModel();
 	$val=$model->$name;
 	//ddd($model);
 	//$user=Auth::user();
@@ -31,7 +31,7 @@
 	{{ Form::label($name, $field->label , ['class' => 'control-label']) }}
 	@endslot
 	@slot('input')
-		Form::text($name,$options,$value, $field->attributes) 
+		Form::text($name,$options,$value, $field->attributes)
 	@endslot
 @endcomponent
 --}}
@@ -41,7 +41,7 @@
 <div class="row">
   <br style="clear:both"/>
     <div class="col-sm-5">
-        <select name="{{$name}}[from][]" id="multiselect" class="form-control" size="8" multiple="multiple">
+        <select name="{{$name}}[from][]" id="multiselect" class="form-control multiselect" size="8" multiple="multiple">
             @foreach($all as $k => $v)
             <option value="{{ $_panel->optionId($v) }}" >{{ $_panel->optionLabel($v) }}</option>
             @endforeach
@@ -62,7 +62,7 @@
              <i class="fas fa-angle-double-left"></i>
         </button>
     </div>
-      
+
     <div class="col-sm-5">
         <select name="{{$name}}[to][]" id="multiselect_to" class="form-control" size="8" multiple="multiple">
             @foreach($val as $k => $v)
@@ -70,7 +70,7 @@
             @endforeach
         </select>
     </div>
-    
+
 </div>
 {{-- --}}
 {{--
@@ -82,3 +82,13 @@ jQuery(document).ready(function($) {
 </script>
 @endpush
 --}}
+@push('scripts')
+<script type="text/javascript">
+    //jQuery is not a function
+	//jQuery(document).ready(function($) {
+    $(function() {
+	    $('.multiselect').multiselect();
+
+    });
+</script>
+@endpush
