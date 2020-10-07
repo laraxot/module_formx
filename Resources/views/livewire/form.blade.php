@@ -1,11 +1,15 @@
 <div>
     <div class="card">
         <div class="card-body">
-            @foreach($fields as $field)
-                @if($field->view)
+            @foreach ($fields as $field)
+                @if ($field->view)
                     @include($field->view)
                 @else
+                    {{--
+                    dddx($field)
                     @include('formx::livewire.fields.' . $field->type)
+                    --}}
+                    {!! $field->html() !!}
                 @endif
             @endforeach
 
@@ -24,7 +28,7 @@
         // Code is inspired by Pastor Ryan Hayden
         // https://github.com/livewire/livewire/issues/106
         // Thank you, sir!
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('input[type="file"]').forEach(file => {
                 file.addEventListener('input', event => {
                     let form_data = new FormData();
@@ -33,13 +37,19 @@
                     for (let i = 0; i < event.target.files.length; i++) {
                         form_data.append('files[]', event.target.files[i]);
                     }
-                    axios.post('{{-- route('laravel-livewire-forms.file-upload') --}}', form_data, {
-                        headers: {'Content-Type': 'multipart/form-data'}
-                    }).then(response => {
-                        window.livewire.emit('fileUpdate', response.data.field_name, response.data.uploaded_files);
+                    axios.post('{{-- route('
+                        laravel - livewire - forms.file -
+                        upload ') --}}', form_data, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }).then(response => {
+                        window.livewire.emit('fileUpdate', response.data.field_name,
+                            response.data.uploaded_files);
                     });
                 })
             });
         });
+
     </script>
 @endpush

@@ -27,6 +27,16 @@ class FieldService extends BaseFieldService {
         return $this;
     }
 
+    public function html() {//@XOT
+        $view = 'formx::livewire.fields.'.$this->type.'.field';
+        $view_params = [
+            'view' => $view,
+            'field' => $this,
+        ];
+
+        return view($view, $view_params);
+    }
+
     public function file() {
         $this->type = 'file';
 
