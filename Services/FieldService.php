@@ -28,7 +28,34 @@ class FieldService extends BaseFieldService {
     }
 
     public function html() {//@XOT
-        $view = 'formx::livewire.fields.'.$this->type.'.field';
+        //$view = 'formx::livewire.fields.'.$this->type.'.field';
+        $type = Str::snake($this->type);
+        $start = 'formx::livewire.fields.';
+        $views = [];
+        $pieces = explode('_', $type);
+        $pieces_count = count($pieces);
+        for ($i = $pieces_count; $i > 0; --$i) {
+            $a = array_slice($pieces, 0, $i);
+            $b = array_slice($pieces, $i);
+            $views[] = $start.implode('_', $a).'.'.implode('_', array_merge(['field'], $b));
+        }
+        $view = collect($views)->first(function ($view_check) {
+            return \View::exists($view_check);
+        });
+        if (false == $view) {
+            $ddd_msg =
+                [
+                    'err' => 'Not Exists ..',
+                    'line' => __LINE__,
+                    'file' => __FILE__,
+                    'pub_theme' => config('xra.pub_theme'),
+                    'adm_theme' => config('xra.adm_theme'),
+                    //'view0_dir' => self::viewNamespaceToDir($views[0]),
+                    'views' => $views,
+                ];
+            dddx($ddd_msg);
+        }
+
         $view_params = [
             'view' => $view,
             'field' => $this,
