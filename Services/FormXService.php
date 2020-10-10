@@ -304,9 +304,14 @@ class FormXService {
         if (in_array($act, ['destroy', 'delete', 'detach'])) {
             $class .= ' btn-confirm-delete';
         }
+<<<<<<< HEAD
         if (! Gate::allows($method, $panel)) {
             $html = '<button type="button" class="'.$class.'"
             data-toggle="tooltip" title="not can '.$data_title.'" disabled >'.$error_label.'</button>';
+=======
+        if (! Gate::allows($method, $row)) {
+            $html = '<button type="button" class="'.$class.'" data-toggle="tooltip" title="not can '.$data_title.'" disabled >'.$error_label.'</button>';
+>>>>>>> .
             if (false === $error_label) {
                 return null;
             }
