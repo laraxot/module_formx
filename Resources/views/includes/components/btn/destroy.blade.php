@@ -10,15 +10,8 @@
 	<i class="far fa-trash-alt"></i>
 </a>
 */
-//dddx(get_defined_vars());
 @endphp
 @php
-	if(!isset($title)){
-		$title='Destroy';
-		//trans($trad.'.'.$title)
-	}else{
-		$title = trans($trad.'.'.$title);
-	}
 	$tag_attr=[
 		'class'=>$btn_class.' btn-confirm-delete btn-danger',
 		'href'=>"#",
@@ -26,8 +19,7 @@
 		'data-id'=>$id,
 		'data-href'=>$route,
 		'data-toggle'=>"tooltip",
-		'title'=>$title,
-
+		'title'=>"Destroy",
 	];
 	//ddd(http_build_query($tag_attr, '', ' '));//no
 	$tag_attr=collect($tag_attr)->map(function($v,$k){

@@ -1,0 +1,107 @@
+git-lfs/2.5.1 (GitHub; windows amd64; go 1.10.3; git e1628484)
+
+
+$ git-lfs.exe filter-process
+Error downloading object: Resources/views/plugins/datatables/extensions/TableTools/images/psd/collection.psd (bb4f406): Smudge error: Error downloading Resources/views/plugins/datatables/extensions/TableTools/images/psd/collection.psd (bb4f4066014a43f12d9490e25ccd2d250fb65081321bcdcd80cf78b7230a6b59): batch request: missing protocol: ""
+
+missing protocol: ""
+batch request
+github.com/git-lfs/git-lfs/errors.newWrappedError
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/errors/types.go:184
+github.com/git-lfs/git-lfs/errors.Wrap
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/errors/errors.go:74
+github.com/git-lfs/git-lfs/tq.(*tqClient).Batch
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/tq/api.go:62
+github.com/git-lfs/git-lfs/tq.Batch
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/tq/api.go:39
+github.com/git-lfs/git-lfs/tq.(*TransferQueue).enqueueAndCollectRetriesFor
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/tq/transfer_queue.go:438
+github.com/git-lfs/git-lfs/tq.(*TransferQueue).collectBatches.func1
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/tq/transfer_queue.go:360
+runtime.goexit
+	C:/Go/src/runtime/asm_amd64.s:2361
+Error downloading Resources/views/plugins/datatables/extensions/TableTools/images/psd/collection.psd (bb4f4066014a43f12d9490e25ccd2d250fb65081321bcdcd80cf78b7230a6b59)
+github.com/git-lfs/git-lfs/errors.newWrappedError
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/errors/types.go:184
+github.com/git-lfs/git-lfs/errors.Wrapf
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/errors/errors.go:85
+github.com/git-lfs/git-lfs/lfs.(*GitFilter).downloadFile
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/lfs/gitfilter_smudge.go:110
+github.com/git-lfs/git-lfs/lfs.(*GitFilter).Smudge
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/lfs/gitfilter_smudge.go:71
+github.com/git-lfs/git-lfs/commands.smudge
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/commands/command_smudge.go:127
+github.com/git-lfs/git-lfs/commands.filterCommand
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/commands/command_filter_process.go:118
+github.com/git-lfs/git-lfs/vendor/github.com/spf13/cobra.(*Command).execute
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/vendor/github.com/spf13/cobra/command.go:477
+github.com/git-lfs/git-lfs/vendor/github.com/spf13/cobra.(*Command).Execute
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/vendor/github.com/spf13/cobra/command.go:551
+github.com/git-lfs/git-lfs/commands.Run
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/commands/run.go:77
+main.main
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/git-lfs.go:35
+runtime.main
+	C:/Go/src/runtime/proc.go:198
+runtime.goexit
+	C:/Go/src/runtime/asm_amd64.s:2361
+Smudge error
+github.com/git-lfs/git-lfs/errors.newWrappedError
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/errors/types.go:184
+github.com/git-lfs/git-lfs/errors.NewSmudgeError
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/errors/types.go:270
+github.com/git-lfs/git-lfs/lfs.(*GitFilter).Smudge
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/lfs/gitfilter_smudge.go:80
+github.com/git-lfs/git-lfs/commands.smudge
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/commands/command_smudge.go:127
+github.com/git-lfs/git-lfs/commands.filterCommand
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/commands/command_filter_process.go:118
+github.com/git-lfs/git-lfs/vendor/github.com/spf13/cobra.(*Command).execute
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/vendor/github.com/spf13/cobra/command.go:477
+github.com/git-lfs/git-lfs/vendor/github.com/spf13/cobra.(*Command).Execute
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/vendor/github.com/spf13/cobra/command.go:551
+github.com/git-lfs/git-lfs/commands.Run
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/commands/run.go:77
+main.main
+	C:/Users/prebe/go/src/github.com/git-lfs/git-lfs/git-lfs.go:35
+runtime.main
+	C:/Go/src/runtime/proc.go:198
+runtime.goexit
+	C:/Go/src/runtime/asm_amd64.s:2361
+
+Current time in UTC: 
+2020-10-10 17:41:23
+
+ENV:
+LocalWorkingDir=
+LocalGitDir=
+LocalGitStorageDir=
+LocalMediaDir=lfs\objects
+LocalReferenceDirs=
+TempDir=lfs\tmp
+ConcurrentTransfers=3
+TusTransfers=false
+BasicTransfersOnly=false
+SkipDownloadErrors=false
+FetchRecentAlways=false
+FetchRecentRefsDays=7
+FetchRecentCommitsDays=0
+FetchRecentRefsIncludeRemotes=true
+PruneOffsetDays=3
+PruneVerifyRemoteAlways=false
+PruneRemoteName=origin
+LfsStorageDir=lfs
+AccessDownload=none
+AccessUpload=none
+DownloadTransfers=basic
+UploadTransfers=basic
+GIT_COMMIT=9f6459530d3445be326b43447671f06273ff9d12
+GIT_DIR=E:/phpWorkspace/food_tribu_project/base_ew/.git/modules/laravel/Modules/FormX
+GIT_EXEC_PATH=C:/Program Files/Git/mingw64/libexec/git-core
+GIT_INTERNAL_GETTEXT_SH_SCHEME=fallthrough
+GIT_INTERNAL_SUPER_PREFIX=laravel/Modules/FormX/
+GIT_PREFIX=
+
+Client IP addresses:
+fe80::c525:bfa:cc17:ce29 192.168.1.3
+fe80::7108:72d2:a689:6a37 192.168.10.1

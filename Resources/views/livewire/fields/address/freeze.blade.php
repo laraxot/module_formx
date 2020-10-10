@@ -1,1 +1,0 @@
-{{ $row->full_address }}

@@ -9,10 +9,8 @@ use Modules\Xot\Services\PanelService as Panel;
 
 //----- services -----
 
-class Open
-{
-    public function __invoke()
-    {
+class Open {
+    public function __invoke() {
         return function ($model, $from, $to = '', $params = null, $formName = 'theForm') {
             if (null == $params) {
                 $params = \Route::current()->parameters();
@@ -43,19 +41,11 @@ class Open
                 $route = route($routename, array_merge($params, $req_params));
             }
             */
-            $panel=null;
-            if ($model!=null) {
-                $panel = Panel::get($model);
-            }
+            $panel = Panel::get($model);
 
             $func = Str::camel($to).'Url';
-            if (is_object($panel)) {
-                $url = $panel->$func();
-            } else {
-                $routename = \Request::route()->getName();
-                $routename = str_replace('.'.$from, '.'.$to, $routename);
-                $url = route($routename, array_merge($params, $req_params));
-            }
+
+            $url = $panel->$func();
 
             switch ($to) {
                 case 'store':
@@ -76,8 +66,7 @@ class Open
             }
 
             //$parz=array_merge([$routename], array_values($params));
-            return Form::model(
-                $model,
+            return Form::model($model,
                 [
                     //'route' => $parz,
                     'url' => $url,

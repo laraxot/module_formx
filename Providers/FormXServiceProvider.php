@@ -3,8 +3,8 @@
 namespace Modules\FormX\Providers;
 
 //---- bases ----
-//---- services --
 use Modules\FormX\Services\FormXService;
+//---- services --
 use Modules\Xot\Providers\XotBaseServiceProvider;
 
 class FormXServiceProvider extends XotBaseServiceProvider {
@@ -19,7 +19,5 @@ class FormXServiceProvider extends XotBaseServiceProvider {
         FormXService::registerComponents();
 
         FormXService::registerMacros();
-
-        //$this->registerLivewireComponents();
     }
 }

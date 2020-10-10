@@ -5,11 +5,10 @@ namespace Modules\FormX\Services;
 use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
-//---- services ---
 use Illuminate\Support\Facades\View;
+//---- services ---
 use Illuminate\Support\Str;
 use Modules\Theme\Services\ThemeService;
 use Modules\Xot\Services\RouteService;
@@ -126,15 +125,13 @@ class FormXService {
             $fields_exclude[] = $rows->getMorphType();
         }
         $fields_exclude[] = 'related_type'; //-- ??
-
         return $fields_exclude;
     }
 
     public static function inputFreeze($params) {
         extract($params);
-        if (! is_object($field) && is_array($field)) { //livewire bug
-            $field = (object) $field;
-        }
+
+        //$field->name_dot = str_replace(['[', ']'], ['.', ''], $field->name);
         $field->name_dot = bracketsToDotted($field->name);
 
         if (in_array('value', array_keys($params))) {
@@ -145,7 +142,7 @@ class FormXService {
                 //$field->value = $row->{$field->name_dot};
                 //$field->value = 'test['.$field->name_dot.']'.Arr::get($row, 'nome_diri');
             } catch (\Exception $e) {
-                $field->value = '---!['.$field->name_dot.']!--';
+                $field->value = '---['.$field->name_dot.']--';
             }
         }
 
@@ -217,14 +214,14 @@ class FormXService {
             //$view_params['related']=$related->get();
             $view_params['related_name'] = $related_name;
             $view_params['related_fields'] = $related_fields;
-            /*
+
             $url = RouteService::urlRelated([
                 'row' => $row,
                 'related' => $related,
                 'related_name' => $related_name,
                 'act' => 'index',
             ]);
-                */
+
             $url = '#';
 
             $view_params['manage_url'] = $url;
@@ -287,43 +284,36 @@ class FormXService {
 
     public static function btnHtml($params) {
         $class = 'btn btn-primary mb-2';
-        $icon = null;       // icona a sx del titolo
-        $label = null;
-        $data_title = null; // titolo del modal e tooltip
-        $title = null;      // stringa che appare nel tasto
+        $icon = '';       // icona a sx del titolo
+        $label = '';
+        $data_title = ''; // titolo del modal e tooltip
+        $title = '';      // stringa che appare nel tasto
         $lang = app()->getLocale();
         $error_label = 'default';
-        $tooltip = null;
 
         extract($params);
-        if (null == $data_title) {
-            $data_title = $title;
-        }
         $row = $panel->row;
         if ('default' == $error_label) {
             $error_label = '['.get_class($row).']['.$method.']';
         }
         $module_name = getModuleNameFromModel($row);
-        if (null == $tooltip) {
-            $tooltip = trans(strtolower($module_name.'::'.class_basename($row)).'.btn.'.$data_title);
-        }
+        $tooltip = trans(strtolower($module_name.'::'.class_basename($row)).'.btn.'.$data_title);
         //$url = RouteService::urlPanel(['panel' => $panel, 'act' => $act]);
         //$method = Str::camel($act);
 
         if (in_array($act, ['destroy', 'delete', 'detach'])) {
-            $class .= ' btn-danger btn-confirm-delete';
+            $class .= ' btn-confirm-delete';
         }
-
-        if (! Gate::allows($method, $panel)) {
+        if (! Gate::allows($method, $row)) {
+            $html = '<button type="button" class="'.$class.'" data-toggle="tooltip" title="not can '.$data_title.'" disabled >'.$error_label.'</button>';
             if (false === $error_label) {
                 return null;
             }
-            if ('production' == App::environment()) {
-                return null;
-            }
 
-            return '['.get_class($panel).']['.$method.']';
-        }
+            return $html;
+        } //else {
+        //  return '['.get_class($row).']['.$method.']';
+        //}
 
         if (isset($modal)) {
             if ('' == $data_title) {
@@ -355,10 +345,6 @@ class FormXService {
                     </span>';
         }
         // data-href serve per le chiamate ajax
-        //ddd($params, $title, $data_title);
-        //$title = trans(strtolower($module_name.'::'.class_basename($row)).'.act.'.$title);
-        //$data_title = $title;
-
         return '<a href="'.$url.'"
                     data-href="'.$url.'"
                     data-title="'.$data_title.'"

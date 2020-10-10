@@ -1,9 +1,4 @@
 @php
-
-     if (config('xra.notUsePanelMiddleware')) {
-         return ; //devo fixare
-     }
-
 	$qs=collect(request()->query())->except(['sort'])->all();
 	$sort_by_attributes=[];
 	$sort_by_attributes['options']=array_combine($_panel->orderBy(),$_panel->orderBy());
@@ -20,7 +15,6 @@
 	$common_attrs=['placeholder'=>' ','class'=>'form-control'];
 
 @endphp
-{{--
 <form  class="{{ $form_class }}" method="get">
 	<div class="input-group">
 		{{ Form::select('sort[by]', $sort_by_attributes['options'],Request::input('sort.by'),$common_attrs) }}
@@ -44,5 +38,4 @@
 		</div>
 	</div>
 </form>
---}}
 

@@ -1,14 +1,11 @@
 @php
 	$row=Form::getModel();
-    //dddx(get_defined_vars());
-    return '';
+	dddx(get_defined_vars());
 	//dd(get_defined_vars()['__data']);
 	//$opts=$
 	$field=$options['field'];
 	$rows=$row->{$field->relationship}();
-    //dddx($rows);
-
-    $related=$rows->getRelated();
+	$related=$rows->getRelated();
 	$related_panel=Panel::get($related);
 	$related_panel->setRows($related->all());
 	//ddd($related_panel->optionsSelect());
