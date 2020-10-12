@@ -69,12 +69,12 @@ abstract class XotBaseFormComponent extends Component {
     }
 
     public function updated($field) {
-        $this->validateOnly($field, $this->rules(true));
+        //$this->validateOnly($field, $this->rules(true));
     }
 
     public function submit() {
-        $this->validate($this->rules());
-
+        //$this->validate($this->rules());
+        dddx($this->form_data);
         $field_names = [];
         foreach ($this->fields() as $field) {
             $field_names[] = $field->name;
@@ -89,9 +89,9 @@ abstract class XotBaseFormComponent extends Component {
     }
 
     public function success() {
-        $this->form_data['password'] = bcrypt($this->form_data['password']);
-
-        \App\User::create($this->form_data);
+        //$this->form_data['password'] = bcrypt($this->form_data['password']);
+        //\App\User::create($this->form_data);
+        dddx($this->form_data);
     }
 
     public function saveAndStay() {

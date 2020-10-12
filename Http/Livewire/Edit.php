@@ -22,6 +22,10 @@ class Edit extends XotBaseFormComponent {
         return PanelService::getByParams($this->route_params);
     }
 
+    public function rules($param = null) {
+        return [];
+    }
+
     public function fields() {
         $panel_fields = $this->panel->editFields();
         $fields = [];
