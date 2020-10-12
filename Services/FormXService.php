@@ -294,7 +294,7 @@ class FormXService {
         extract($params);
         $row = $panel->row;
         if ('default' == $error_label) {
-            $error_label = '['.get_class($row).']['.$method.']';
+            $error_label = '['.get_class($panel).']['.$method.']';
         }
         $module_name = getModuleNameFromModel($row);
         $tooltip = trans(strtolower($module_name.'::'.class_basename($row)).'.btn.'.$data_title);
@@ -304,8 +304,9 @@ class FormXService {
         if (in_array($act, ['destroy', 'delete', 'detach'])) {
             $class .= ' btn-confirm-delete';
         }
-        if (! Gate::allows($method, $row)) {
-            $html = '<button type="button" class="'.$class.'" data-toggle="tooltip" title="not can '.$data_title.'" disabled >'.$error_label.'</button>';
+        if (! Gate::allows($method, $panel)) {
+            $html = '<button type="button" class="'.$class.'"
+            data-toggle="tooltip" title="not can '.$data_title.'" disabled >'.$error_label.'</button>';
             if (false === $error_label) {
                 return null;
             }
