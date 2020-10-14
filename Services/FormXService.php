@@ -362,7 +362,7 @@ class FormXService {
         return '<a href="'.$url.'"
                     data-href="'.$url.'"
                     data-title="'.$data_title.'"
-                    title="'.$title.'"
+                    title="'.$tooltip.'"
                     class="'.$class.'"
                     data-toggle="tooltip">
                     '.$icon.' '.$title.'
