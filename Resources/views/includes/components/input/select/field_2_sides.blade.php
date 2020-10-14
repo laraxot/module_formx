@@ -5,26 +5,16 @@
      */
 	//Theme::addScript('/theme/bc/multiselect/dist/js/multiselect.js');
 	$options=[];
-	extract($attributes);
-	$field=transFields(get_defined_vars());
-	//ddd(get_defined_vars());
+	//extract($attributes);
+    $field=transFields(get_defined_vars());
 
 	$model=Form::getModel();
 	$val=$model->$name;
-	//ddd($model);
-	//$user=Auth::user();
-	//$auth_user_id=is_object($user)?$user->auth_user_id:'NO-SET';
 	$model_linked=$model->$name()->getRelated();
 	$_panel=Theme::panelModel($model_linked);
 	$_panel->setRows($model_linked);
-	//$all=$_panel->options();
-	/*
+    $all=$_panel->options();
 
-	$data=request()->all();
-	$all=$_panel->rows($data)->get();
-	//*/
-	$all=$_panel->options();
-	//ddd(get_class($_panel));//Modules\Progressioni\Models\Panels\SchedePanel
 @endphp
 {{--  @component($blade_component,get_defined_vars())
 	@slot('label')
@@ -35,7 +25,7 @@
 	@endslot
 @endcomponent
 --}}
-{{--  --}}
+
 <br style="clear:both"/>
   <p>{{ trans('lu::help.nota_multiselect') }}</p><br/>
 <div class="row">
@@ -72,16 +62,8 @@
     </div>
 
 </div>
-{{-- --}}
-{{--
-@push('scripts')
-<script type="text/javascript">
-jQuery(document).ready(function($) {
-    $('#multiselect').multiselect();
-});
-</script>
-@endpush
---}}
+
+
 @push('scripts')
 <script type="text/javascript">
     //jQuery is not a function
