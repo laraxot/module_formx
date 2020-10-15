@@ -1,4 +1,5 @@
 @php
+   //dddx(get_defined_vars()); //4 debug
    $txt='---';
    $value=$field->value;
    if(is_object($value)){
