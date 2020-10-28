@@ -7,6 +7,7 @@ namespace Modules\FormX\Http\Livewire;
  */
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Modules\FormX\Services\FieldService;
 use Modules\FormX\Traits\FollowsRules;
@@ -41,6 +42,16 @@ abstract class XotBaseFormComponent extends Component {
             if (! isset($this->form_data[$field->name])) {
                 $array = in_array($field->type, ['checkbox', 'file']);
                 $this->form_data[$field->name] = $field->default ?? ($array ? [] : null);
+                if (Str::contains($field->name, '.')) {
+                    [$rel,$rel_field] = explode('.', $field->name);
+
+                    $rel_val = '';
+                    try {
+                        $rel_val = $this->model->$rel->$rel_field;
+                    } catch (\Exception $e) {
+                    }
+                    $this->form_data[$field->name] = $rel_val;
+                }
             }
         }
     }

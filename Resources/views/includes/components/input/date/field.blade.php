@@ -4,13 +4,13 @@
     if(isset($value)){
         $val=$value;
     }else{
-        //ddd(get_defined_vars());
+
         //$row=Form::getModel();
         //ddd($row->{$field->name});
         //ddd($field->name);
         $val=Form::getValueAttribute($field->name);
     }
-    
+
     //if($val==null) $val=Carbon\Carbon::now();
     //ddd($name);
     //
@@ -30,7 +30,7 @@
         //ddd($msg);
         $val1=$val;
 
-        if($val1!=null){  
+        if($val1!=null){
             try{
                 $val1=Carbon\Carbon::parse($val)->format('d/m/Y');
             }catch(\Exception $e){
