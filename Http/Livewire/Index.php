@@ -16,6 +16,7 @@ class Index extends XotBaseTableComponent {
         $this->route_params = request()->route()->parameters();
         $this->data = request()->all();
         $this->setTableProperties();
+        $this->sort_attribute = $this->panel->row->getKeyName();
     }
 
     public function getPanelProperty() {
