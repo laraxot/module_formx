@@ -1,5 +1,6 @@
 @php
 	$field=transFields(get_defined_vars());
+	//dddx([$field,get_defined_vars()]);
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')
@@ -8,7 +9,8 @@
 	@slot('input')
 		<br />
 		<textarea readonly="readonly" class="form-control" rows="6">
-			{{ $attributes['text'] }}
+			{{-- $attributes['text'] --}}
+			{{ !isset($attributes['text']) ??'' }}
 		</textarea>
 		<div class="row">
 		<div class="col-md-6 pull-right">
