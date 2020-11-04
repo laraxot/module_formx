@@ -125,6 +125,7 @@ class FormXService {
             $fields_exclude[] = $rows->getMorphType();
         }
         $fields_exclude[] = 'related_type'; //-- ??
+
         return $fields_exclude;
     }
 
@@ -214,14 +215,14 @@ class FormXService {
             //$view_params['related']=$related->get();
             $view_params['related_name'] = $related_name;
             $view_params['related_fields'] = $related_fields;
-
+            /*
             $url = RouteService::urlRelated([
                 'row' => $row,
                 'related' => $related,
                 'related_name' => $related_name,
                 'act' => 'index',
             ]);
-
+            */
             $url = '#';
 
             $view_params['manage_url'] = $url;
