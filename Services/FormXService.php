@@ -5,6 +5,7 @@ namespace Modules\FormX\Services;
 use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
@@ -13,8 +14,10 @@ use Illuminate\Support\Str;
 use Modules\Theme\Services\ThemeService;
 use Modules\Xot\Services\RouteService;
 
-class FormXService {
-    public static function getComponents() {
+class FormXService
+{
+    public static function getComponents()
+    {
         $view_path = realpath(__DIR__.'/../Resources/views/includes/components/input');
         $components_json = $view_path.'/components.json';
         $components_json = str_replace(['/', '\\'], [DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR], $components_json);
@@ -59,7 +62,8 @@ class FormXService {
         return $comps;
     }
 
-    public static function registerComponents() {
+    public static function registerComponents()
+    {
         $comps = self::getComponents();
         $blade_component = 'components.blade.input';
         if (in_admin()) {
@@ -84,7 +88,8 @@ class FormXService {
 
     //end function
 
-    public static function registerMacros() {
+    public static function registerMacros()
+    {
         $macros_dir = __DIR__.'/../Macros';
         Collection::make(glob($macros_dir.'/*.php'))
             ->mapWithKeys(function ($path) {
@@ -107,7 +112,8 @@ class FormXService {
     When the element is displayed after the call to freeze(), only its value is displayed without the input tags, thus the element cannot be edited. If persistant freeze is set, then hidden field containing the element value will be output, too.
     */
 
-    public static function fieldsExclude($params) {
+    public static function fieldsExclude($params)
+    {
         extract($params);
 
         $fields_exclude = [];
@@ -129,7 +135,8 @@ class FormXService {
         return $fields_exclude;
     }
 
-    public static function inputFreeze($params) {
+    public static function inputFreeze($params)
+    {
         extract($params);
 
         //$field->name_dot = str_replace(['[', ']'], ['.', ''], $field->name);
@@ -252,7 +259,8 @@ class FormXService {
         ;
     }
 
-    public static function inputHtml($params) {
+    public static function inputHtml($params)
+    {
         extract($params);
 
         $input_type = 'bs'.Str::studly($field->type);
@@ -283,39 +291,46 @@ class FormXService {
         return Form::$input_type($input_name, $input_value, $input_attrs, $input_opts);
     }
 
-    public static function btnHtml($params) {
+    public static function btnHtml($params)
+    {
         $class = 'btn btn-primary mb-2';
-        $icon = '';       // icona a sx del titolo
-        $label = '';
-        $data_title = ''; // titolo del modal e tooltip
-        $title = '';      // stringa che appare nel tasto
+        $icon = null;       // icona a sx del titolo
+        $label = null;
+        $data_title = null; // titolo del modal e tooltip
+        $title = null;      // stringa che appare nel tasto
         $lang = app()->getLocale();
         $error_label = 'default';
+        $tooltip = null;
 
         extract($params);
+        if (null == $data_title) {
+            $data_title = $title;
+        }
         $row = $panel->row;
         if ('default' == $error_label) {
-            $error_label = '['.get_class($panel).']['.$method.']';
+            $error_label = '['.get_class($row).']['.$method.']';
         }
         $module_name = getModuleNameFromModel($row);
-        $tooltip = trans(strtolower($module_name.'::'.class_basename($row)).'.btn.'.$data_title);
+        if (null == $tooltip) {
+            $tooltip = trans(strtolower($module_name.'::'.class_basename($row)).'.btn.'.$data_title);
+        }
         //$url = RouteService::urlPanel(['panel' => $panel, 'act' => $act]);
         //$method = Str::camel($act);
 
         if (in_array($act, ['destroy', 'delete', 'detach'])) {
-            $class .= ' btn-confirm-delete';
+            $class .= ' btn-danger btn-confirm-delete';
         }
+
         if (! Gate::allows($method, $panel)) {
-            $html = '<button type="button" class="'.$class.'"
-            data-toggle="tooltip" title="not can '.$data_title.'" disabled >'.$error_label.'</button>';
             if (false === $error_label) {
                 return null;
             }
+            if ('production' == App::environment()) {
+                return null;
+            }
 
-            return $html;
-        } //else {
-        //  return '['.get_class($row).']['.$method.']';
-        //}
+            return '['.get_class($panel).']['.$method.']';
+        }
 
         if (isset($modal)) {
             if ('' == $data_title) {
@@ -347,10 +362,14 @@ class FormXService {
                     </span>';
         }
         // data-href serve per le chiamate ajax
+        //ddd($params, $title, $data_title);
+        //$title = trans(strtolower($module_name.'::'.class_basename($row)).'.act.'.$title);
+        //$data_title = $title;
+
         return '<a href="'.$url.'"
                     data-href="'.$url.'"
                     data-title="'.$data_title.'"
-                    title="'.$tooltip.'"
+                    title="'.$title.'"
                     class="'.$class.'"
                     data-toggle="tooltip">
                     '.$icon.' '.$title.'
