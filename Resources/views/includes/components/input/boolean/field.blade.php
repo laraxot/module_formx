@@ -1,24 +1,12 @@
 @php
 	$field=transFields(get_defined_vars());
-	//dddx([$field,get_defined_vars()]);
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')
-		<b>{{ Form::label($name, $field->label , ['class' => 'control-label']) }}</b>
+		{{ Form::label($name, $field->label , ['class' => 'control-label form-label']) }}
 	@endslot
 	@slot('input')
-		<br />
-		<textarea readonly="readonly" class="form-control" rows="6">
-			{{-- $attributes['text'] --}}
-			{{ !isset($attributes['text']) ??'' }}
-		</textarea>
-		<div class="row">
-		<div class="col-md-6 pull-right">
-			Accetto {{$field->label}}
-		</div>
-		<div class="col-md-6">
-		{{ Form::checkbox($name, 1, $value,$field->attributes) }}
-		</div>
-		</div>
+		 {{ Form::bsHidden($name,0) }}  {{-- se non selezionato restituisce 0 al posto di null --}}
+        {{ Form::checkbox($name, 1,$value, $field->attributes) }}
 	@endslot
 @endcomponent
