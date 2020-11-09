@@ -18,8 +18,10 @@ class IndexOrder extends Component {
     public function mount($rows) {
         $tmp = [];
         foreach ($rows as $row) {
-            $tmp[] = ['id' => $row->id, 'title' => $row->treeLabel()];
+            $tmp[$row->posizione] = ['id' => $row->id, 'title' => $row->treeLabel()];
         }
+        asort($tmp);
+
         $this->rows = $this->fix($tmp);
         //dddx([$tmp, $this->rows]);
     }
