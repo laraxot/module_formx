@@ -48,3 +48,13 @@
         });
     </script>
 @endpush
+
+
+{{-- esempio per inviare il jason  
+https://stackoverflow.com/questions/40900548/how-do-i-save-a-new-jstree-after-drag-and-drop
+
+
+evento change del json?
+https://www.jstree.com/docs/events/
+
+--}}
