@@ -52,7 +52,7 @@ class IndexOrder extends Component {
     }
     */
     public function render() {
-        $view = 'formx::livewire.crud.index_order';
+        $view = 'formx::livewire.crud.index_order.jstree';
         $view_params = [
             'view' => $view,
             //'rows' => $this->panel->rows()->get(),
