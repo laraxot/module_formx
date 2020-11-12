@@ -7,7 +7,8 @@
 <div id="jstree_demo_div">
 
 
-
+    {{-- 
+    
     <ul>
       <li>Root node 1
         <ul>
@@ -22,7 +23,7 @@
       </li>
       <li>Root node 2</li>
     </ul>
-
+    --}}
     
 </div>
 @push('scripts')
@@ -31,18 +32,32 @@
         $(function () {
             $("#jstree_demo_div").jstree({
                 "core" : {
-                "check_callback" : true
-                /* per disabilitare il drag&drop da un livello ad un altro inserire un if
-                'check_callback' : function (operation, node, node_parent, node_position, more) {
-                    if (operation === 'move_node' && node.parent !== node_parent.id) {
-                        return false;
-                    }
-                    
-                    return true;
-                */
+                    'data' : [
+                        'Simple root node',
+                        {
+                            'text' : 'Root node 2',
+                            'state' : {
+                            'opened' : true,
+                            'selected' : true
+                            },
+                            'children' : [
+                            { 'text' : 'Child 1' },
+                            'Child 2'
+                            ]
+                        }
+                    ],
+                    "check_callback" : true,
+                    /* per disabilitare il drag&drop da un livello ad un altro inserire un if
+                    'check_callback' : function (operation, node, node_parent, node_position, more) {
+                        if (operation === 'move_node' && node.parent !== node_parent.id) {
+                            return false;
+                        }
+                        
+                        return true;
+                    */
 
 
-                },
+                    },
                 "plugins" : [ "dnd" ]
             });
         });
