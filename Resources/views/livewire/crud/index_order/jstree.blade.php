@@ -4,6 +4,12 @@
 
     
 @endphp
+<div>
+     @if (session()->has('message'))
+        <div class="alert alert-success" style="margin-top:30px;">x
+          {{ session('message') }}
+        </div>
+    @endif
 <div id="jstree_demo_div">
 
 
@@ -26,40 +32,54 @@
     --}}
     
 </div>
+</div>
 @push('scripts')
     <script>
         //$(function () { $('#jstree_demo_div').jstree(); });
         $(function () {
             $("#jstree_demo_div").jstree({
                 "core" : {
-                    'data' : [
-                        'Simple root node',
-                        {
-                            'text' : 'Root node 2',
-                            'state' : {
-                            'opened' : true,
-                            'selected' : true
-                            },
-                            'children' : [
-                            { 'text' : 'Child 1' },
-                            'Child 2'
-                            ]
-                        }
-                    ],
-                    "check_callback" : true,
-                    /* per disabilitare il drag&drop da un livello ad un altro inserire un if
-                    'check_callback' : function (operation, node, node_parent, node_position, more) {
-                        if (operation === 'move_node' && node.parent !== node_parent.id) {
-                            return false;
-                        }
-                        
-                        return true;
-                    */
-
-
-                    },
+                    'data' : {!! json_encode($tree_nodes_jstree) !!},
+                    'check_callback' : mycheck,
+                },
                 "plugins" : [ "dnd" ]
             });
+
+            function mycheck(operation, node, node_parent, node_position, more) {
+                //alert(operation);
+                //var res = window.livewire.emit('check_callback', operation, node, node_parent, node_position, more);
+                //alert(res);
+                return false;
+                /*
+                console.log('node');
+                console.log(node);
+                console.log('more');
+                console.log(more);
+                console.log('operation');
+                console.log(operation);
+                console.log('node_parent');
+                console.log(node_parent);
+                console.log('node_position');
+                console.log(node_position);
+                */
+                /*
+                if (operation === 'move_node' && node.parent !== node_parent.id ) {
+                    return false;
+                }else{
+                    return true;
+                }
+                */
+                //return false
+                //return Livewire.emit('check_callback', operation, node, node_parent, node_position, more)
+                /*
+                if(operation === 'move_node'){
+                    Livewire.emit('mode_node');
+                }
+                */
+
+            }
+
+
         });
     </script>
 @endpush

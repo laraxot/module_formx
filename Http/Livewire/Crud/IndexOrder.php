@@ -14,6 +14,8 @@ class IndexOrder extends Component {
     public $route_params;
     public $data;
     public $tree_nodes = [];
+    public $tree_nodes_jstree = [];
+    protected $listeners = ['check_callback'];
 
     /*
 
@@ -25,6 +27,13 @@ class IndexOrder extends Component {
         ); //->all();
     }
     */
+    public function check_callback($operation, $node, $node_parent, $node_position, $more) {
+        session()->flash('message', 'Users Created Successfully.');
+        dddx([$operation, $node, $node_parent, $node_position, $more]);
+
+        return false;
+    }
+
     public function addMissingVars($item, $parent = null) {
         $panel = PanelService::get($item);
         if (null == $panel) {
@@ -44,42 +53,18 @@ class IndexOrder extends Component {
         $item['tree_id'] = $model->getKey();
 
         //$item['sons'] = [];
-        //$item['have_sons'] = $model->treeSonsCount();
 
-        if ($model->treeSonsCount()) {
-            /*
-            foreach ($model->treeSons() as $sons) {
-                foreach ($sons as $son) {
-                    dddx($son);
-                }
-            }
-            */
-        }
-        //dddx($item);
+        $item['sons'] = $model->treeSons();
+
+        $item['have_sons'] = $model->treeSonsCount();
 
         return $item;
-    }
-
-    public function getSons($model) {
-        $sons = [];
-        foreach ($model->treeSons() as $k => $v) {
-            $res = $v->map(
-                function ($item) use ($panel) {
-                    return $this->addMissingVars($item, $panel);
-                }
-            )
-            ->keyBy('tree_id')
-            ->all();
-
-            $sons[$k] = $res;
-        }
-
-        return $sons;
     }
 
     public function mount(SessionManager $session, $model = null) {
         $this->route_params = request()->route()->parameters();
         $this->data = request()->all();
+
         extract($this->route_params);
 
         $model_name = $container0;
@@ -95,38 +80,41 @@ class IndexOrder extends Component {
             })
             ->keyBy('tree_id')
             ->all();
-        dddx($nodes);
-        //$this->tree_nodes = [$model_name => $nodes];
+        //dddx($nodes);
+        $this->tree_nodes = [$model_name => $nodes];
 
-        //dddx($this->tree_nodes);
+        $this->tree_nodes_jstree = $this->createJson($this->tree_nodes);
     }
 
     public function getPanelProperty() {
         return PanelService::getByParams($this->route_params);
     }
 
-    /*
-    public function mount($rows) {
-
-
-
-        $tmp = [];
-        foreach ($rows as $row) {
-            $name_tmp = 'task-'.$row->id;
-            $tmp[$name_tmp] = [
-                'id' => $row->id,
-                'title' => $row->treeLabel(),
-                'pos' => $row->posizione,
-                'sons' => $row->treeSons(),
-            ];
+    public function createJson($tree_nodes) {
+        $data = [];
+        if (! is_array($tree_nodes)) {
+            //return [];
         }
-        //asort($tmp);
-        $tmp = collect($tmp)->sortBy('pos')->all();
-        $this->rows = $this->fix($tmp);
-        dddx([$tmp, $this->rows]);
 
+        foreach ($tree_nodes as $v_type => $tree_node) {
+            foreach ($tree_node as $node) {
+                $tmp = [];
+                $tmp['id'] = $v_type.'-'.$node->id;
+                $tmp['model_name'] = $v_type;
+                //$tmp['icon'] = $node->icon;
+                $tmp['text'] = $node->treeLabel();
+                if (isset($node->sons)) {
+                    //$tmp['children'] = $this->createJson($node->sons);
+                } else {
+                    //dddx('node sons non esiste');
+                }
+                $data[] = $tmp;
+            }
+        }
+
+        return $data;
     }
-    */
+
     public function render() {
         $view = 'formx::livewire.crud.index_order.jstree';
         $view_params = [
