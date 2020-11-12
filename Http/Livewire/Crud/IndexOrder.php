@@ -15,7 +15,8 @@ class IndexOrder extends Component {
     public $data;
     public $tree_nodes = [];
     public $tree_nodes_jstree = [];
-    protected $listeners = ['check_callback'];
+    public $tree_types = [];
+    //protected $listeners = ['check_callback' => 'checkCallback'];
 
     /*
 
@@ -27,9 +28,14 @@ class IndexOrder extends Component {
         ); //->all();
     }
     */
-    public function check_callback($operation, $node, $node_parent, $node_position, $more) {
+    public function test($operation, $node, $node_parent, $node_position) {
         session()->flash('message', 'Users Created Successfully.');
-        dddx([$operation, $node, $node_parent, $node_position, $more]);
+        dddx([$operation, $node, $node_parent, $node_position]);
+    }
+
+    public function checkCallback($operation, $node, $node_parent, $node_position) {
+        session()->flash('message', 'posizione ['.$node_position.']');
+        //dddx([$operation, $node, $node_parent, $node_position]);
 
         return false;
     }
@@ -93,7 +99,7 @@ class IndexOrder extends Component {
     public function createJson($tree_nodes) {
         $data = [];
         if (! is_array($tree_nodes)) {
-            //return [];
+            return [];
         }
 
         foreach ($tree_nodes as $v_type => $tree_node) {
@@ -101,13 +107,16 @@ class IndexOrder extends Component {
                 $tmp = [];
                 $tmp['id'] = $v_type.'-'.$node->id;
                 $tmp['model_name'] = $v_type;
+                $tmp['type'] = $v_type;
+
+                $icon = TenantService::config('icons.tree.'.$v_type);
+                //$item['icon'] = ThemeService::renderIcon($icon);
+                $this->tree_types[$v_type]['icon'] = 'fa fa-edit'; //ThemeService::renderIcon($icon);
+                //$this->tree_types[$v_type]['valid_children'] = ['default'];
+
                 //$tmp['icon'] = $node->icon;
-                $tmp['text'] = $node->treeLabel();
-                if (isset($node->sons)) {
-                    //$tmp['children'] = $this->createJson($node->sons);
-                } else {
-                    //dddx('node sons non esiste');
-                }
+                $tmp['text'] = $node->treeLabel().'('.substr($v_type, 0, 1).')';
+                $tmp['children'] = $this->createJson($node->treeSons());
                 $data[] = $tmp;
             }
         }
@@ -116,7 +125,13 @@ class IndexOrder extends Component {
     }
 
     public function render() {
-        $view = 'formx::livewire.crud.index_order.jstree';
+        $opts = [
+            'jstree',
+            'fancytree',
+            'jquery_sortable',
+        ];
+
+        $view = 'formx::livewire.crud.index_order.'.$opts[0];
         $view_params = [
             'view' => $view,
             //'rows' => $this->panel->rows()->get(),
