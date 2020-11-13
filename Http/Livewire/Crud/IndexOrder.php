@@ -4,6 +4,10 @@ namespace Modules\FormX\Http\Livewire\Crud;
 
 use Illuminate\Session\SessionManager;
 use Livewire\Component;
+use Modules\Ew\Models\Area;
+use Modules\Ew\Models\Menu;
+use Modules\Ew\Models\NotiziaCat;
+use Modules\Ew\Models\PhotoCat;
 use Modules\Theme\Services\ThemeService;
 use Modules\Xot\Services\PanelService;
 use Modules\Xot\Services\TenantService;
@@ -16,6 +20,7 @@ class IndexOrder extends Component {
     public $tree_nodes = [];
     public $tree_nodes_jstree = [];
     public $tree_types = [];
+
     //protected $listeners = ['check_callback' => 'checkCallback'];
 
     /*
@@ -34,10 +39,62 @@ class IndexOrder extends Component {
     }
 
     public function checkCallback($operation, $node, $node_parent, $node_position) {
-        session()->flash('message', 'posizione ['.$node_position.']');
-        //dddx([$operation, $node, $node_parent, $node_position]);
+        session()->flash('message', 'posizione ['.$node_position.'] '.
+                ' operation ['.$operation.']'.
+                'node  ['.$node['type'].'] '.
+                'node_parent  ['.$node_parent['type'].'] '.
+                'node_position  ['.$node_position.'] '
+                );
+        dddx([$operation, $node, $node_parent, $node_position]);
+        /*
+        if ('move_node' == $operation) {
+            if ('area' == $node['type']) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        */
 
-        return false;
+        /*
+        if ('drop_finish' == $operation) {
+            if ('area' == $node['type']) {
+                if ('#' == $node_parent['type']) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        */
+
+        //return true;
+    }
+
+    public function getCheckProperty() {
+        $html = '';
+        $html .= "
+        if (operation == 'move_node' && node.type) {
+            if ('area' == node.type && '#' == node_parent.type) {
+                return ".method_exists(Area::class, 'menus').";
+            }
+            if ('menu' == node.type && 'area' == node_parent.type) {
+                return ".method_exists(Menu::class, 'pages').";
+            }
+            if ('page' == node.type && 'menu' == node_parent.type) {
+                return true;
+            }
+            if ('notizia' == node.type && 'notizia_cat' == node_parent.type) {
+                return ".method_exists(NotiziaCat::class, 'notizias').";
+            }
+            if ('page' == node.type && 'photo_cat' == node_parent.type) {
+                return ".method_exists(PhotoCat::class, 'pages').';
+            }
+        }
+
+        return false;';
+
+        return $html;
     }
 
     public function addMissingVars($item, $parent = null) {
@@ -61,6 +118,7 @@ class IndexOrder extends Component {
         //$item['sons'] = [];
 
         $item['sons'] = $model->treeSons();
+        //dddx($item['sons']);
 
         $item['have_sons'] = $model->treeSonsCount();
 
@@ -78,6 +136,8 @@ class IndexOrder extends Component {
 
         if (in_array('id_tbl_lingua', $model->getFillable())) {
             $nodes = $this->panel->rows()->where('id_tbl_lingua', 4);
+        } else {
+            $nodes = $this->panel->rows()->first();
         }
         $nodes = $nodes
             ->get()
@@ -115,7 +175,9 @@ class IndexOrder extends Component {
                 //$this->tree_types[$v_type]['valid_children'] = ['default'];
 
                 //$tmp['icon'] = $node->icon;
-                $tmp['text'] = $node->treeLabel().'('.substr($v_type, 0, 1).')';
+                //$tmp['text'] = $node->treeLabel().'('.substr($v_type, 0, 1).')';
+                $tmp['text'] = $node->treeLabel().'('.$v_type.')';
+
                 $tmp['children'] = $this->createJson($node->treeSons());
                 $data[] = $tmp;
             }

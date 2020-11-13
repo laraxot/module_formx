@@ -8,6 +8,7 @@
           {{ session('message') }}
         </div>
     @endif
+
     <div id="jstree" wire:ignore>
         <ul>
       <li>Root node 1
@@ -31,16 +32,38 @@
             $("#jstree").jstree({
                 "core" : {
                     'data' : {!! json_encode($tree_nodes_jstree) !!},
-                    'check_callback' : mycheck,
+                    //'check_callback' : mycheck,
+                    /*
+                    
+                    'check_callback' : function (operation, node, node_parent, node_position) {
+                      if (operation == "move_node" && node.type) {
+                        if ('area' == node.type && node_parent.type == '#') {
+                          return true;
+                        }
+                        if ('menu' == node.type && node_parent.type == 'area') {
+                          return true;
+                        }
+                        if ('page' == node.type && node_parent.type == 'menu') {
+                          return true;
+                        }
+                      }
+                      return false;
+                    }
+                    */
+                    'check_callback' : function (operation, node, node_parent, node_position) {
+                      {!! $this->check !!}
+                    },
+
+
                 },
                 "types":{!! json_encode($tree_types) !!},
                 "plugins" : [ "dnd", "state", "types" ]
             });
 
             function mycheck(operation, node, node_parent, node_position) {
-                @this.checkCallback(operation, node, node_parent, node_position);
+                return @this.checkCallback(operation, node, node_parent, node_position);
                 //@this.test(operation, node, node_parent, node_position);
-                return false;
+                //return false;
             }
 
         });
