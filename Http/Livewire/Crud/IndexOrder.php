@@ -33,19 +33,39 @@ class IndexOrder extends Component {
         ); //->all();
     }
     */
+    public function save($node, $node_parent, $node_position) {
+        //dddx(['node' => $node, 'node_parent' => $node_parent, 'node_position' => $node_position]);
+        if ('#' == $node_parent['type']) {
+            $model = TenantService::model($node['type']);
+            [$type,$id] = explode('-', $node['id']);
+            $row = $model->find($id);
+            $row->posizione = $node_position;
+            $row->save();
+        }
+    }
+
     public function test($operation, $node, $node_parent, $node_position) {
         session()->flash('message', 'Users Created Successfully.');
         dddx([$operation, $node, $node_parent, $node_position]);
     }
 
     public function checkCallback($operation, $node, $node_parent, $node_position) {
-        session()->flash('message', 'posizione ['.$node_position.'] '.
+        if ('move_node' != $operation) {
+            session()->flash('message', 'posizione ['.$node_position.'] '.
                 ' operation ['.$operation.']'.
                 'node  ['.$node['type'].'] '.
                 'node_parent  ['.$node_parent['type'].'] '.
                 'node_position  ['.$node_position.'] '
                 );
-        dddx([$operation, $node, $node_parent, $node_position]);
+        }
+        if ('move_node' == $operation) {
+            if ('area' == $node['type'] && '#' == $node_parent['type']) {
+                return true;
+            }
+
+            return false;
+        }
+
         /*
         if ('move_node' == $operation) {
             if ('area' == $node['type']) {
@@ -140,6 +160,7 @@ class IndexOrder extends Component {
             $nodes = $this->panel->rows()->first();
         }
         $nodes = $nodes
+            ->orderBy('posizione')
             ->get()
             ->map(function ($item) {
                 return $this->addMissingVars($item);
@@ -163,6 +184,7 @@ class IndexOrder extends Component {
         }
 
         foreach ($tree_nodes as $v_type => $tree_node) {
+            $tree_node = collect($tree_node)->sortBy('posizione')->all();
             foreach ($tree_node as $node) {
                 $tmp = [];
                 $tmp['id'] = $v_type.'-'.$node->id;
@@ -176,7 +198,7 @@ class IndexOrder extends Component {
 
                 //$tmp['icon'] = $node->icon;
                 //$tmp['text'] = $node->treeLabel().'('.substr($v_type, 0, 1).')';
-                $tmp['text'] = $node->treeLabel().'('.$v_type.')';
+                $tmp['text'] = $node->treeLabel().'('.$v_type.')('.$node->posizione.')';
 
                 $tmp['children'] = $this->createJson($node->treeSons());
                 $data[] = $tmp;
