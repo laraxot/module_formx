@@ -81,7 +81,7 @@
                 @this.save(node, node_parent, node_position);
             });
 
-            async function mycheck(operation, node, node_parent, node_position) {
+            function mycheck(operation, node, node_parent, node_position) {
                 $('#jstree').data('node',node);
                 $('#jstree').data('node_parent',node_parent);
                 $('#jstree').data('node_position',node_position);
@@ -101,18 +101,40 @@
                 //console.log($res);
                 //@this.test(operation, node, node_parent, node_position);
                 //return false;
+                /*
                 check['#-area']=true;
                 check['area-area']=false;
                 check['menu-area']=false;
                 check['page-area']=false;
-
+                */
                 check_key=node_parent.type+'-'+node.type;
                 res=check[check_key];
-                /*
+                //console.log(check_key);
+                //console.log(res);
+                //*
                 if(res==undefined){
+                    check[check_key]='loading';
+                    @this.checkCallback(operation, node, node_parent, node_position).then(function(res){
+                        check[check_key]=res;
+                        console.log('-------------');
+                        console.log(check_key);
+                        console.log(res);
+                    });
+                    //res=check[check_key];
+                    //console.log('up live');
+                    //console.log(check[check_key])
+                    return false;
+                }
+                if(res=='loading'){
+                    return false;
+                }
+                /*
+                if(res instanceof Promise){
+                    console.log('promise');
                     return false;
                 }
                 */
+                //*/
                 console.log(check_key);
                 console.log(res);
                 return res;

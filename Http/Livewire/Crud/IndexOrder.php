@@ -185,6 +185,7 @@ class IndexOrder extends Component {
 
         foreach ($tree_nodes as $v_type => $tree_node) {
             $tree_node = collect($tree_node)->sortBy('posizione')->all();
+            $i = 0;
             foreach ($tree_node as $node) {
                 $tmp = [];
                 $tmp['id'] = $v_type.'-'.$node->id;
@@ -193,15 +194,30 @@ class IndexOrder extends Component {
 
                 $icon = TenantService::config('icons.tree.'.$v_type);
                 //$item['icon'] = ThemeService::renderIcon($icon);
-                $this->tree_types[$v_type]['icon'] = 'fa fa-edit'; //ThemeService::renderIcon($icon);
+                //$this->tree_types[$v_type]['icon'] = 'fa fa-edit'; //ThemeService::renderIcon($icon);
+                $this->tree_types[$v_type]['icon'] = '/'.$icon;
                 //$this->tree_types[$v_type]['valid_children'] = ['default'];
 
                 //$tmp['icon'] = $node->icon;
                 //$tmp['text'] = $node->treeLabel().'('.substr($v_type, 0, 1).')';
-                $tmp['text'] = $node->treeLabel().'('.$v_type.')('.$node->posizione.')';
+                if ($node->posizione != $i) {
+                    $node->posizione = $i;
+                    unset($node->model_name,
+                        $node->sons,
+                        $node->have_sons,
+                        $node->icon,
+                        $node->dropdown_submenu,
+                        $node->tree_id
+                    );
+
+                    $node->update(['posizione' => $i]);
+                }
+
+                $tmp['text'] = $node->treeLabel().'('.$v_type.')('.$node->posizione.')('.$i.')';
 
                 $tmp['children'] = $this->createJson($node->treeSons());
                 $data[] = $tmp;
+                ++$i;
             }
         }
 
