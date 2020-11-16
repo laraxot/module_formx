@@ -10,15 +10,9 @@
     @endif
 
     <div id="jstree" wire:ignore>
-        <ul>
-      <li>Root node 1
-        <ul>
-          <li id="child_node_1">Child node 1</li>
-          <li>Child node 2</li>
-        </ul>
-      </li>
-      <li>Root node 2</li>
-    </ul>
+        <div class="spinner-border text-success" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
     </div>
 </div>
 @push('scripts')
@@ -33,30 +27,6 @@
                 "core" : {
                     'data' : {!! json_encode($tree_nodes_jstree) !!},
                     'check_callback' : mycheck,
-                    /*
-
-                    'check_callback' : function (operation, node, node_parent, node_position) {
-                      if (operation == "move_node" && node.type) {
-                        if ('area' == node.type && node_parent.type == '#') {
-                          return true;
-                        }
-                        if ('menu' == node.type && node_parent.type == 'area') {
-                          return true;
-                        }
-                        if ('page' == node.type && node_parent.type == 'menu') {
-                          return true;
-                        }
-                      }
-                      return false;
-                    }
-                    */
-                    /*
-                    'check_callback' : function (operation, node, node_parent, node_position) {
-                      {!! $this->check !!}
-                    },
-                    */
-
-
                 },
                 "types":{!! json_encode($tree_types) !!},
                 "plugins" : [ "dnd", "state", "types" ]
@@ -74,6 +44,11 @@
                 console.log( $('#jstree').data('node_parent'));
                 console.log( $('#jstree').data('node_position'));
                 */
+
+                var r = confirm("Press a button!");
+                if (!r == true) {
+                  location.reload();
+                } 
                 var operation = 'dnd_stop.vakata';
                 var node= $('#jstree').data('node');
                 var node_parent= $('#jstree').data('node_parent');
@@ -85,56 +60,29 @@
                 $('#jstree').data('node',node);
                 $('#jstree').data('node_parent',node_parent);
                 $('#jstree').data('node_position',node_position);
-                /*
-                let $res=  @this.checkCallback(operation, node, node_parent, node_position);
-                $res.then(function(res){
-                    return res;
-                });
-                */
-                /*
-                try {
-                    return await @this.checkCallback(operation, node, node_parent, node_position);
-                }catch(e){
-                    return false;
-                };
-                */
-                //console.log($res);
-                //@this.test(operation, node, node_parent, node_position);
-                //return false;
-                /*
-                check['#-area']=true;
-                check['area-area']=false;
-                check['menu-area']=false;
-                check['page-area']=false;
-                */
+                
+                check['area-menu']=true;
+                check['menu-menu']=true;
+                check['menu-page']=true;
+                check['photo_cat-photo'] = true;
                 check_key=node_parent.type+'-'+node.type;
                 res=check[check_key];
-                //console.log(check_key);
-                //console.log(res);
-                //*
+
+
                 if(res==undefined){
                     check[check_key]='loading';
-                    @this.checkCallback(operation, node, node_parent, node_position).then(function(res){
+                    @this.checkCallback(operation, node, node_parent, node_position)
+                      .then(
+                      function(res){
                         check[check_key]=res;
-                        console.log('-------------');
-                        console.log(check_key);
-                        console.log(res);
-                    });
-                    //res=check[check_key];
-                    //console.log('up live');
-                    //console.log(check[check_key])
+                      }
+                      );
                     return false;
                 }
                 if(res=='loading'){
                     return false;
                 }
-                /*
-                if(res instanceof Promise){
-                    console.log('promise');
-                    return false;
-                }
-                */
-                //*/
+                
                 console.log(check_key);
                 console.log(res);
                 return res;
