@@ -3,6 +3,7 @@
 namespace Modules\FormX\Http\Livewire\Crud;
 
 use Illuminate\Session\SessionManager;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Modules\Ew\Models\Area;
 use Modules\Ew\Models\Menu;
@@ -41,7 +42,51 @@ class IndexOrder extends Component {
             $row = $model->find($id);
             $row->posizione = $node_position;
             $row->save();
+
+            return;
         }
+        $model = TenantService::model($node_parent['type']);
+        [$type,$parent_id] = explode('-', $node_parent['id']);
+        $row_parent = $model->find($parent_id);
+        $types = Str::plural($node['type']);
+
+        $model = TenantService::model($node['type']);
+        [$type,$id] = explode('-', $node['id']);
+        $row = $model->find($id);
+
+        if (null == $row_parent) {
+            dddx(['node' => $node, 'node_parent' => $node_parent, 'node_position' => $node_position]);
+            dddx($msg);
+        }
+        if (null == $row) {
+            dddx(['node' => $node, 'node_parent' => $node_parent, 'node_position' => $node_position]);
+            dddx($msg);
+        }
+
+        $rows = $row_parent->$types();
+
+        $up = [
+            'posizione' => $node_position,
+            //$rows->getForeignKeyName() => $parent_id,
+        ];
+        if (method_exists($rows, 'getForeignKeyName')) {
+            $k = $rows->getForeignKeyName();
+            $up[$k] = $parent_id;
+        }
+
+        if (in_array('id_padre', $row->getFillable()) && $node_parent['type'] != $node['type']) {
+            $up['id_padre'] = 0;
+        }
+
+        //dddx([get_class_methods($rows), $rows->getParentKey(), $rows->getForeignKeyName(), $rows->getLocalKeyName()]);
+
+        //dddx($up);
+        $row->update($up);
+        /*
+        $row->posizione = $node_position;
+        $row->{$rows->getForeignKeyName()} = $parent_id;
+        $row->save();
+        */
     }
 
     public function test($operation, $node, $node_parent, $node_position) {
@@ -59,7 +104,15 @@ class IndexOrder extends Component {
                 );
         }
         if ('move_node' == $operation) {
-            if ('area' == $node['type'] && '#' == $node_parent['type']) {
+            if ('#' == $node_parent['type'] && 'area' == $node['type']) {
+                return true;
+            }
+
+            if ('area' == $node_parent['type'] && 'menu' == $node['type']) {
+                return true;
+            }
+
+            if ('menu' == $node_parent['type'] && 'menu' == $node['type']) {
                 return true;
             }
 
@@ -91,6 +144,7 @@ class IndexOrder extends Component {
         //return true;
     }
 
+    /*
     public function getCheckProperty() {
         $html = '';
         $html .= "
@@ -116,7 +170,7 @@ class IndexOrder extends Component {
 
         return $html;
     }
-
+    */
     public function addMissingVars($item, $parent = null) {
         $panel = PanelService::get($item);
         if (null == $panel) {
@@ -160,12 +214,13 @@ class IndexOrder extends Component {
             $nodes = $this->panel->rows()->first();
         }
         $nodes = $nodes
-            ->orderBy('posizione')
+            //->orderBy('posizione')
             ->get()
             ->map(function ($item) {
                 return $this->addMissingVars($item);
             })
             ->keyBy('tree_id')
+            ->sortBy('posizione')
             ->all();
         //dddx($nodes);
         $this->tree_nodes = [$model_name => $nodes];
@@ -185,7 +240,7 @@ class IndexOrder extends Component {
 
         foreach ($tree_nodes as $v_type => $tree_node) {
             $tree_node = collect($tree_node)->sortBy('posizione')->all();
-            $i = 0;
+            $i = 1;
             foreach ($tree_node as $node) {
                 $tmp = [];
                 $tmp['id'] = $v_type.'-'.$node->id;
@@ -209,11 +264,14 @@ class IndexOrder extends Component {
                         $node->dropdown_submenu,
                         $node->tree_id
                     );
-
-                    $node->update(['posizione' => $i]);
+                    if (in_array('posizione', $node->getFillable())) {
+                        $node->update(['posizione' => $i]);
+                    }
                 }
 
                 $tmp['text'] = $node->treeLabel().'('.$v_type.')('.$node->posizione.')('.$i.')';
+                $tmp['text'] = str_replace('<br/>', '', $tmp['text']);
+                //$tmp['text'] = nl2br($tmp['text']);
 
                 $tmp['children'] = $this->createJson($node->treeSons());
                 $data[] = $tmp;
