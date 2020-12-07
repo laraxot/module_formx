@@ -1,0 +1,8 @@
+
+
+willvincent\Rateable\Rating
+
+
+http://plugins.krajee.com/star-rating
+
+

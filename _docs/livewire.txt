@@ -23,3 +23,7 @@ https://devdojo.com/tnylea/create-a-blog-in-laravel-and-livewire
 
 //--- How to create a Contact Us form with Livewire
 https://devdojo.com/thinkverse/how-to-create-a-contact-us-form-with-livewire
+
+
+//---- setup WIZARD
+https://mettle.io/blog/using-laravel-livewire-create-setup-wizard
