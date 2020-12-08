@@ -23,6 +23,8 @@ abstract class XotBaseFormComponent extends Component {
 
     public $model;
     public $form_data;
+    public $daynames = [];
+
     private static $storage_disk;
     private static $storage_path;
 
@@ -30,6 +32,19 @@ abstract class XotBaseFormComponent extends Component {
 
     public function mount($model = null) {
         $this->setFormProperties($model);
+        $this->setDaynames();
+    }
+
+    public function setDaynames() {
+        $this->daynames = [
+            trans('formx::txt.day_names.sun'),
+            trans('formx::txt.day_names.mon'),
+            trans('formx::txt.day_names.tue'),
+            trans('formx::txt.day_names.wed'),
+            trans('formx::txt.day_names.thu'),
+            trans('formx::txt.day_names.fri'),
+            trans('formx::txt.day_names.sat'),
+        ];
     }
 
     public function setFormProperties($model = null) {
@@ -85,7 +100,7 @@ abstract class XotBaseFormComponent extends Component {
 
     public function submit() {
         //$this->validate($this->rules());
-        dddx($this->form_data);
+        dddx(['form_data' => $this->form_data]);
         $field_names = [];
         foreach ($this->fields() as $field) {
             $field_names[] = $field->name;
