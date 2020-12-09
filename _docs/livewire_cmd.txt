@@ -1,0 +1,8 @@
+<div wire:root-id="{{ $id }}">
+
+wire:sync
+
+livewire websocket
+
+wire:hook="add-button"
+
