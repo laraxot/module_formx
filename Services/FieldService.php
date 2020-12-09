@@ -27,6 +27,12 @@ class FieldService extends BaseFieldService {
         return $this;
     }
 
+    public function setPrefix($prefix) {
+        $this->key = $prefix.'.'.$this->name;
+
+        return $this;
+    }
+
     public function html() {//@XOT
         //$view = 'formx::livewire.fields.'.$this->type.'.field';
         $type = Str::snake($this->type);
