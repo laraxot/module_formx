@@ -22,6 +22,13 @@ https://www.tutsmake.com/laravel-livewire-image-upload-from-scratch/
 https://github.com/livewire/livewire/issues/106
 
 
+!!!!!!!!!!!
+https://spatie.be/docs/laravel-medialibrary/v9/handling-uploads-with-media-library-pro/handling-uploads-with-blade
+
+
+
+
+
 
 
 
