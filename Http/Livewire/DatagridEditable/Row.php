@@ -36,7 +36,7 @@ class Row extends XotBaseComponent {
         $view = $this->getView();
         $view_params = [
             'view' => $view,
-            //'form_data' => $this->form_data,
+            'form_data' => $this->form_data,
             'fields' => $this->fields(),
         ];
 

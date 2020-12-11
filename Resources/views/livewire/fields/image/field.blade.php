@@ -1,62 +1,21 @@
-<div class="form-group row">
 @php
-    //dddx(get_defined_vars());
+    //dddx([get_defined_vars(), $form_data['img']]);
 @endphp
-
+<div class="form-group row">
     <label for="{{ $field->name }}" class="col-md-2 col-form-label text-md-right">
         {{ $field->label }}
     </label>
 
     <div class="col-md">
-        <div class="custom-file">
-            <input
-                id="{{ $field->name }}"
-                type="file"
-                class="custom-file-input @error($field->key) is-invalid @enderror"
-                {{ $field->file_multiple ? 'multiple' : '' }}>
+        {{ $form_data['img'] }}
+        <input
+            id="{{ $field->name }}"
+            type="file"
+            class="form-control @error($field->key) is-invalid @enderror"
+            autocomplete="{{ $field->autocomplete }}"
+            placeholder="{{ $field->placeholder }}"
+            wire:model.lazy="{{ $field->key }}">
 
-            <label class="custom-file-label" for="{{ $field->name }}">
-                {{ $field->placeholder }}
-            </label>
-        </div>
-
-        @if($form_data[$field->name])
-            <ul class="list-group mt-2">
-                @php
-                    //dddx([$form_data, $field, $field->name, $form_data[$field->name]]);
-                    $value = $form_data[$field->name];
-                    $key = $field->name;
-                    //dddx(Storage::url($form_data[$field->name]));
-
-                @endphp
-                {{-- @foreach($form_data[$field->name]as$key=>$value) --}}
-                    <li class="list-group-item p-2">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                {{-- 
-                                    <a href="{{ Storage::url($value['file']) }}" target="_blank">
-                                        <i class="fa fa-fw {{ $this->fileIcon($value['mime_type']) }} mr-1"></i>
-                                        {{ $value['name'] }}
-                                    </a>
-                                --}}
-                                <a href="{{ Storage::url($form_data[$field->name]) }}" target="_blank">
-                                    <i class="fa fa-fw mr-1"></i>
-                                    {{ $field->name }}
-                                </a>
-                            </div>
-                            <div class="col-auto">
-                                <button class="btn btn-sm btn-danger"
-                                        onclick="confirm('{{ __('Are you sure?') }}') || event.stopImmediatePropagation();"
-                                        wire:click="arrayRemove('{{ $field->name }}', '{{ $key }}')">
-                                    <i class="fa fa-trash-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                {{-- @endforeach --}}
-            </ul>
-        @endif
-
-        @include('laravel-livewire-forms::fields.error-help')
+        @include('formx::livewire.fields.error-help')
     </div>
 </div>

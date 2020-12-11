@@ -4,6 +4,7 @@ namespace Modules\FormX\Http\Livewire;
 
 use Illuminate\Support\Collection;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Modules\EwPhoto\Models\Photo;
 use Modules\FormX\Services\FieldService;
 use Modules\FormX\Traits\HandlesArrays;
@@ -11,6 +12,7 @@ use Modules\FormX\Traits\UploadsFiles;
 use Modules\Xot\Services\PanelService;
 
 class DatagridEditable extends Component {
+    use WithFileUploads;
     use UploadsFiles;
     use HandlesArrays;
     public $index_fields = [];
@@ -93,12 +95,12 @@ class DatagridEditable extends Component {
     public function rowsUpdate() {
         $data = $this->validate();
         $data = $data['rows'];
-        //dddx($data);
+        dddx($data);
         //dddx($this->rules());
         //dddx([$data, $this->rules(), inAdmin(), $this->in_admin, $this->panel, $this->panel->in_admin, $this->route_params]);
+        $func = '\Modules\Xot\Jobs\PanelCrud\UpdateJob';
         foreach ($this->rows as $k => $row) {
             // $row->save();
-            $func = '\Modules\Xot\Jobs\PanelCrud\UpdateJob';
             //$func->setData($data[$k]);
             //$request = request();
             $func::dispatch($data[$k], PanelService::get($row));
