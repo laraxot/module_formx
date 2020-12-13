@@ -3,6 +3,7 @@
 namespace Modules\FormX\Http\Livewire\DatagridEditable;
 
 use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
 use Modules\FormX\Services\FieldService;
 use Modules\FormX\Traits\HandlesArrays;
 use Modules\FormX\Traits\UploadsFiles;
@@ -10,6 +11,7 @@ use Modules\Xot\Http\Livewire\XotBaseComponent;
 use Modules\Xot\Services\PanelService;
 
 class Row extends XotBaseComponent {
+    use WithFileUploads;
     use UploadsFiles;
     use HandlesArrays;
     public $index_fields = [];

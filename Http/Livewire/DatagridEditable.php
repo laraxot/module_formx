@@ -95,7 +95,7 @@ class DatagridEditable extends Component {
     public function rowsUpdate() {
         $data = $this->validate();
         $data = $data['rows'];
-        dddx($data);
+        //dddx($data);
         //dddx($this->rules());
         //dddx([$data, $this->rules(), inAdmin(), $this->in_admin, $this->panel, $this->panel->in_admin, $this->route_params]);
         $func = '\Modules\Xot\Jobs\PanelCrud\UpdateJob';

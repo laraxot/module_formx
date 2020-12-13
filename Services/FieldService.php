@@ -33,7 +33,7 @@ class FieldService extends BaseFieldService {
         return $this;
     }
 
-    public function html($form_data = null) {//@XOT //$form_data non dovrebbe servire
+    public function html($form_data = null, $row = null) {//@XOT //$form_data non dovrebbe servire
         //$view = 'formx::livewire.fields.'.$this->type.'.field';
         $type = Str::snake($this->type);
         $start = 'formx::livewire.fields.';
@@ -66,6 +66,7 @@ class FieldService extends BaseFieldService {
             'view' => $view,
             'field' => $this,
             'form_data' => $form_data,
+            'row' => $row,
         ];
 
         return view($view, $view_params);
