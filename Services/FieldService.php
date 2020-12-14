@@ -10,6 +10,7 @@ class FieldService extends BaseFieldService {
     protected $file_multiple;
     protected $array_fields = [];
     protected $array_sortable = false;
+    protected $input_component = 'formx::components.label_input.default';
 
     public function __construct($label, $name) {
         $this->label = $label;
@@ -29,6 +30,12 @@ class FieldService extends BaseFieldService {
 
     public function setPrefix($prefix) {
         $this->key = $prefix.'.'.$this->name;
+
+        return $this;
+    }
+
+    public function setInputComponent($input_component) {
+        $this->input_component = 'formx::components.label_input.'.$input_component;
 
         return $this;
     }

@@ -1,4 +1,8 @@
 <div>
+    @php
+        //dddx($rows);
+    @endphp
+    <h3>page:{{ $page }} total:{{ $total }}</h3>
 <table class="table table-bordered" wire:ignore>
     <form wire:submit.prevent="rowsUpdate">
         @if ($errors->any())
@@ -17,28 +21,28 @@
             </div>
         @endif
 
-        
+
         @if (session()->has('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
         @endif
-        
+
         @foreach ($rows as $index => $row)
+            @if($loop->first)
+                <tr>
+                    @livewire('formx::datagrid_editable.head',['row'=>$row,'index'=>$index],key($row->id))
+                </tr>
+            @endif
             <tr>
-            @livewire('formx::datagrid_editable.row',['row'=>$row,'index'=>$index],key($row->id))
-            {{--  
-            @foreach($fields as $field)
-                <td> {{ $field->setPrefix('rows.'.$index)->html() }}</td>
-            @endforeach
-            --}}
+                @livewire('formx::datagrid_editable.row',['row'=>$row,'index'=>$index],key($row->id))
             </tr>
         @endforeach
 
-        {{--  
+        {{--
         @foreach ($rows as $index => $row)
             <tr wire:key="row-field-{{ $row->id }}">
-               
+
                 <td>
                     <input type="text" wire:model="rows.{{ $index }}.img" class="form-control">
                     @error("rows.".$index.".img") <span class="alert-danger">{{ $message }}</span> @enderror
@@ -53,4 +57,12 @@
         <button type="submit">Save</button>
     </form>
 </table>
+{{--
+{!! $rows->links() !!}
+--}}
+@component('theme::components.pagination.simple',['page'=>$page,'per_page'=>$per_page,'total'=>$total])
+
+@endcomponent
+
+
 </div>

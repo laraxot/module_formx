@@ -10,7 +10,7 @@ use Modules\FormX\Traits\UploadsFiles;
 use Modules\Xot\Http\Livewire\XotBaseComponent;
 use Modules\Xot\Services\PanelService;
 
-class Row extends XotBaseComponent {
+class Head extends XotBaseComponent {
     use WithFileUploads;
     use UploadsFiles;
     use HandlesArrays;
