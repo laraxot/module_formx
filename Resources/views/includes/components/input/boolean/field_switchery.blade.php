@@ -1,6 +1,11 @@
 @php
+
+    //https://www.javascripting.com/view/switchery
+    //https://abpetkov.github.io/switchery/
+
     $field=transFields(get_defined_vars());
-    $field->attributes['class']='js-switch';
+    //dddx($field);
+    $field->attributes['class']=' form-control js-switch';
     Theme::add($comp_ns.'/switchery/switchery.min.css');
     Theme::add($comp_ns.'/switchery/switchery.min.js');
     
