@@ -3,59 +3,38 @@
 namespace Modules\FormX\Http\Livewire;
 
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Livewire\WithPagination;
-//use Modules\EwPhoto\Models\Photo;
-//use Modules\FormX\Services\FieldService;
 use Modules\FormX\Traits\HandlesArrays;
 use Modules\FormX\Traits\UploadsFiles;
+use Modules\Xot\Models\Panels\XotBasePanel;
 use Modules\Xot\Services\PanelService;
 
 class DatagridEditable extends Component {
-    //use WithPagination;
     use WithFileUploads;
     use UploadsFiles;
     use HandlesArrays;
-    protected $paginationTheme = 'bootstrap';
-    public $index_fields = [];
-    public $route_params = [];
-    public $in_admin;
-    public $per_page = 10;
-    public $total;
-    public $page;
+    //protected $paginationTheme = 'bootstrap';
+    public array $route_params = [];
+    public bool $in_admin;
+    public int $per_page = 10;
+    public int $total;
+    public int $page;
     public Collection $rows;
-    //protected $rows;
-    //protected $data = [];
-    //protected $rules = [];
-    //protected $panel_fields;
-    //protected $fields;
-
-    //protected $rules = [];
-
-    //protected $rules = [
-    //'posts.*.title' => 'required|string|min:6',
-    //'posts.*.content' => 'required|string|max:500',
-    //'rows.*.img' => 'required|string|max:500',
-    //'rows.*.post.title' => 'string|max:500',
-    //];
 
     public function mount() {
         $this->route_params = request()->route()->parameters();
         $this->data = request()->all();
         $this->in_admin = inAdmin();
         $this->route_params['in_admin'] = $this->in_admin;
-
-        //$this->rows = Photo::with('post')->limit(20)->get();
-        //$this->rows = $this->query()->paginate(20);
-
         $this->total = $this->query()->count();
         $this->page = request()->input('page', 1);
         $offset = ($this->page - 1) * $this->per_page;
         $this->rows = $this->query()->offset($offset)->limit($this->per_page)->get();
     }
 
-    public function rules() {
+    public function rules(): array {
         $tmp = $this->panel->rules(['act' => 'update']);
         $rules = [];
         foreach ($tmp as $k => $v) {
@@ -66,9 +45,7 @@ class DatagridEditable extends Component {
         return $rules;
     }
 
-    //*/
-
-    public function getPanelProperty() {
+    public function getPanelProperty(): XotBasePanel {
         return PanelService::getByParams($this->route_params);
     }
 
@@ -76,37 +53,19 @@ class DatagridEditable extends Component {
         return $this->panel->rows($this->data);
     }
 
-    public function render() {
+    public function render(): View {
         $view = 'formx::livewire.datagrid_editable';
-        //$this->rows = $this->query()->paginate(20);
-        //$this->rows = $this->query()->limit(10)->get();
-        //dddx($rows);
-
         $view_params = [
             'view' => $view,
-            //'rows' => $this->query()->paginate(5),
-            // 'fields' => $this->fields(),
         ];
-        //dddx([inAdmin(), $this->in_admin, $this->route_params]);
 
         return view($view, $view_params);
     }
 
-    /*
-    public function fields() {
-        $this->panel_fields = $this->panel->editFields();
-
-        $fields = [];
-        foreach ($this->panel_fields as $field) {
-            $fields[] = FieldService::make($field->name)->type($field->type);
-        }
-
-        return $fields;
-    }
-    */
-
-    public static function errorMessage($err) {
+    public static function errorMessage($err): string {
         session()->flash('error_message', $err);
+
+        return $err;
     }
 
     public function rowsUpdate() {
