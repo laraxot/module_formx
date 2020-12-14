@@ -1,6 +1,11 @@
 @php
+
+    //https://www.javascripting.com/view/switchery
+    //https://abpetkov.github.io/switchery/
+
     $field=transFields(get_defined_vars());
-    $field->attributes['class']='js-switch';
+    //dddx($field);
+    $field->attributes['class']=' form-control js-switch';
     Theme::add($comp_ns.'/switchery/switchery.min.css');
     Theme::add($comp_ns.'/switchery/switchery.min.js');
     
@@ -24,7 +29,8 @@
             {{ $value ? 'checked' : '' }}
             />
             --}}
-        {{ Form::bsHidden($name,0) }}  {{-- se non selezionato restituisce 0 al posto di null --}}
+        {{-- Form::bsHidden($name,0) --}}  {{-- se non selezionato restituisce 0 al posto di null --}}
+        <input type="hidden" name="{{ $name }}" value="0"> 
         {{ Form::checkbox($name, 1,$value, $field->attributes) }}
 
 
@@ -33,8 +39,6 @@
 
 @push('scripts')
 <script>
-    /*
-    */
     if(!elems){
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
         elems.forEach(function(html) {
