@@ -35,9 +35,7 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
-  $(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
-  });
+  $('.js-example-basic-multiple').select2();
 });
 </script>
 @endpush
