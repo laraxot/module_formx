@@ -20,12 +20,15 @@
 
     $name1=$name.'[]'; //da rendere dinamico
     $field->attributes['name']=$name1;
+
+
+    //dddx($field);
 @endphp
 
 
 @component($blade_component,get_defined_vars())
 	@slot('label')
-	{{ Form::label($name1, $field->label , ['class' => 'control-label form-label']) }} {{-- $field->label_attributes --}}
+	  {{ Form::label($name1, $field->label , ['class' => 'control-label form-label']) }} {{-- $field->label_attributes --}}
 	@endslot
 	@slot('input')
 		{{ Form::select($name1,$opts,$value,$field->attributes) }}
