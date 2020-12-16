@@ -1,4 +1,6 @@
 @php
+//sembra non funzionare, in caso di non selezione di nessun file, ritorna null, salvando null
+
 //dddx($value);
 $field=transFields(get_defined_vars());
 @endphp
