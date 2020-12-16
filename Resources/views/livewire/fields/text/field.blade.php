@@ -10,7 +10,8 @@
 	@slot('input')
     <div class="col-md">
         <input
-            id="{{ $field->name }}"
+            {{--id="{{ $field->name }}"--}}
+            id="{{ $field->key }}"
             type="text"
             class="form-control @error($field->key) is-invalid @enderror"
             autocomplete="{{ $field->autocomplete }}"
