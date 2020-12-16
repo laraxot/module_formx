@@ -1,5 +1,8 @@
 @php
     //dddx([get_defined_vars(), $form_data['img']]);
+    //$value=$form_data[$field->name];
+    //Theme::add('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css');
+    //Theme::add('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js');
 @endphp
 {{--
 <div class="form-group row">
@@ -10,16 +13,11 @@
         {{ $field->label }}
     </label>
     @endslot
-	@slot('input')
+    @slot('input')
+
     <div class="col-md">
-        {{ $form_data['img'] }}
-        <input
-            id="{{ $field->name }}"
-            type="file"
-            class="form-control @error($field->key) is-invalid @enderror"
-            autocomplete="{{ $field->autocomplete }}"
-            placeholder="{{ $field->placeholder }}"
-            wire:model.lazy="{{ $field->key }}">
+
+        <input type="file" class="form-control" id="exampleInputName" placeholder="Enter title" wire:model="{{ $field->key }}">
 
         @include('formx::livewire.fields.error-help')
     </div>

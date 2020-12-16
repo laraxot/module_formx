@@ -10,6 +10,7 @@ class FieldService extends BaseFieldService {
     protected $file_multiple;
     protected $array_fields = [];
     protected $array_sortable = false;
+    protected $input_component = 'formx::components.label_input.default';
 
     public function __construct($label, $name) {
         $this->label = $label;
@@ -27,7 +28,19 @@ class FieldService extends BaseFieldService {
         return $this;
     }
 
-    public function html() {//@XOT
+    public function setPrefix($prefix) {
+        $this->key = $prefix.'.'.$this->name;
+
+        return $this;
+    }
+
+    public function setInputComponent($input_component) {
+        $this->input_component = 'formx::components.label_input.'.$input_component;
+
+        return $this;
+    }
+
+    public function html($form_data = null, $row = null) {//@XOT //$form_data non dovrebbe servire
         //$view = 'formx::livewire.fields.'.$this->type.'.field';
         $type = Str::snake($this->type);
         $start = 'formx::livewire.fields.';
@@ -59,6 +72,8 @@ class FieldService extends BaseFieldService {
         $view_params = [
             'view' => $view,
             'field' => $this,
+            'form_data' => $form_data,
+            'row' => $row,
         ];
 
         return view($view, $view_params);
