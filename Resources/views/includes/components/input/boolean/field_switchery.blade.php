@@ -6,8 +6,8 @@
     $field=transFields(get_defined_vars());
     //dddx($field);
     $field->attributes['class']=' form-control js-switch';
-    Theme::add($comp_ns.'/switchery/switchery.min.css');
-    Theme::add($comp_ns.'/switchery/switchery.min.js');
+    Theme::add('formx::plugins/switchery/switchery.min.css');
+    Theme::add('formx::plugins/switchery/switchery.min.js');
     
     //volevo inserire lo snippet qui dentro per non controllare l'esistenza di elems
     //nel caso questo field venisse chiamato più volte
