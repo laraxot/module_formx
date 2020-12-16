@@ -6,6 +6,7 @@
     Theme::add($comp_ns.'/js/uploadimgv2.js');
 	$field->attributes['id']='post_image_src';
 	//dddx(get_defined_vars());
+
 @endphp
 @component($blade_component,get_defined_vars())
 	@slot('label')
