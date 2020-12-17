@@ -85,4 +85,8 @@ class Row extends XotBaseComponent {
             }
         }
     }
+
+    public function carica() {
+        dddx($this->form_data['tmp']);
+    }
 }
