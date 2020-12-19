@@ -29,14 +29,24 @@
         @endif
 
         @foreach ($rows as $index => $row)
+            
             @if($loop->first)
                 <tr>
                     @livewire('formx::datagrid_editable.head',['row'=>$row,'index'=>$index],key($row->id))
                 </tr>
             @endif
-            <tr>
+            <tr wire:key="row-field-{{ $index }}">
                 @livewire('formx::datagrid_editable.row',['row'=>$row,'index'=>$index],key($row->id))
             </tr>
+            
+
+            {{-- 
+            <div wire:key="row-field-{{ $row->id }}">
+                <input type="text" wire:model="rows.{{ $index }}.img">
+
+                <textarea wire:model="rows.{{ $index }}.post.title"></textarea>
+            </div>
+            --}}
         @endforeach
 
         {{--

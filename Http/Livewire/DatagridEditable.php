@@ -50,6 +50,8 @@ class DatagridEditable extends Component {
     }
 
     public function query() {
+        //dddx([$this->panel->rows($this->data), $this->panel->rows, $this->panel, $this->data]);
+
         return $this->panel->rows($this->data);
     }
 
@@ -58,6 +60,8 @@ class DatagridEditable extends Component {
         $view_params = [
             'view' => $view,
         ];
+
+        //dddx($this->rows);
 
         return view($view, $view_params);
     }
@@ -71,10 +75,16 @@ class DatagridEditable extends Component {
     public function rowsUpdate() {
         $data = $this->validate();
         $data = $data['rows'];
+        //dddx($data);
         $func = '\Modules\Xot\Jobs\PanelCrud\UpdateJob';
         foreach ($this->rows as $k => $row) {
             $func::dispatch($data[$k], PanelService::get($row));
         }
         session()->flash('message', 'Post successfully updated.');
+    }
+
+    public function carica() {
+        dddx('funzione carica di datatable');
+        //dddx($this->rows);
     }
 }

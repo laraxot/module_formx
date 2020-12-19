@@ -41,6 +41,7 @@ class Row extends XotBaseComponent {
             'form_data' => $this->form_data,
             'fields' => $this->fields(),
         ];
+        //dddx($this->row);
 
         return view($view, $view_params);
     }
@@ -87,6 +88,8 @@ class Row extends XotBaseComponent {
     }
 
     public function carica() {
-        dddx($this->form_data['tmp']);
+        dddx('funzione carica di row');
+
+        //dddx($this->form_data['tmp']);
     }
 }

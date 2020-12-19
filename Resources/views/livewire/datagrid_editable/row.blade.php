@@ -4,7 +4,7 @@
 @endphp
 <div>
     @foreach($fields as $field)
-        <td wire:key="row-field-{{ $index }}">
+        <td>
             {{ $field->setPrefix('rows.'.$index)->html($form_data, $row) }}
         </td>
     @endforeach
