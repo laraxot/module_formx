@@ -3,7 +3,7 @@
     $src=Form::getValueAttribute($name);
 	if($src=='') $src=asset('/img/nophoto.jpg');
     //Theme::add('/dist/laravel-filemanager/js/stand-alone-button.js');
-    Theme::add($comp_ns.'/js/uploadimgv_docs.js');
+    Theme::add($comp_ns.'/js/upload_doc.js');
 	$field->attributes['id']='post_image_src';
 	//dddx(get_defined_vars());
 @endphp
@@ -23,7 +23,7 @@
  <div class="input-group">
    <span class="input-group-btn">
         <a data-input="{{ $field->attributes['id'] }}"
-            data-preview="holder" class="btn btn-primary text-white">
+            data-preview="holder" class="btn btn-primary text-white lfm_file">
                 <i class="fa fa-picture-o"></i> 
                 @lang('formx::txt.select')
         </a>
