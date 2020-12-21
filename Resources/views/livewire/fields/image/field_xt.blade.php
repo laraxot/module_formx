@@ -3,7 +3,7 @@
     <label class="col-xl-3 col-lg-3 col-form-label text-right">Example Label</label>
     @endslot
 	@slot('input')
-    <div class="col-lg-9 col-xl-6">
+    <div class="col-lg-9 col-xl-6" wire:ignore>
         <div class="image-input image-input-empty image-input-outline" style="background-image: url({{ $form_data[$field->name] }})">
             <div class="image-input-wrapper"></div>
             <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change">

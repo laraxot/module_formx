@@ -2,7 +2,9 @@
 
 namespace Modules\FormX\Http\Livewire\DatagridEditable;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 use Livewire\WithFileUploads;
 use Modules\FormX\Services\FieldService;
 use Modules\FormX\Traits\HandlesArrays;
@@ -87,9 +89,14 @@ class Row extends XotBaseComponent {
         }
     }
 
-    public function carica() {
-        dddx('funzione carica di row');
+    public function carica($index, $file_name, $file_type, $data) {
+        //dddx('funzione carica di row');
 
         //dddx($this->form_data['tmp']);
+        $img = Image::make($data);
+
+        $path = Storage::disk('public_html')->path('/uploads/gallery/'.$file_name);
+
+        $img->save($path, 75); //75 quality
     }
 }
