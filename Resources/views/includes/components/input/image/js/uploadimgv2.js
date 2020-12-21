@@ -33,5 +33,5 @@ $(function () {
       }
 
 
-	$('#lfm').filemanager('image',{prefix: '/filemanager',acceptedFiles :'.jpg,.png,.gif'});
+	$('.lfm_image').filemanager('image',{prefix: '/filemanager',acceptedFiles :'.jpg,.png,.gif'});
 });

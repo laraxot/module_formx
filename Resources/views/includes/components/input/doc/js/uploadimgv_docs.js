@@ -33,5 +33,5 @@ $(function () {
       }
 
 
-	$('#lfm').filemanager('file',{prefix: '/filemanager',acceptedFiles :'.txt,.pdf,.doc'});
+	$('.ehhhsi').filemanager('file',{prefix: '/filemanager',acceptedFiles :'.txt,.pdf,.doc'});
 });

@@ -22,7 +22,7 @@
 
  <div class="input-group">
    <span class="input-group-btn">
-        <a id="lfm" data-input="{{ $field->attributes['id'] }}"
+        <a data-input="{{ $field->attributes['id'] }}"
             data-preview="holder" class="btn btn-primary text-white">
                 <i class="fa fa-picture-o"></i> 
                 @lang('formx::txt.select')
