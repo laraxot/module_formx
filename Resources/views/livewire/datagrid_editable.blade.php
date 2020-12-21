@@ -3,7 +3,22 @@
         //dddx($rows);
     @endphp
     <h3>page:{{ $page }} total:{{ $total }}</h3>
-<table class="table table-bordered" wire:ignore>
+@foreach($route_params as $k=>$v)
+<br/>{{ $k }} : {{ $v }}
+@endforeach
+count : {{ $rows->count() }}
+<table class="table table-bordered" >
+@foreach($rows as $k=>$v)
+<tr>
+    <td> {{ $k }} </td><td> {{ $v->id }}</td>
+    <td><livewire:formx::test.row  :row="$v" :index="$loop->index" :key="$v->id" /></td>
+
+</tr>
+@endforeach
+</table>
+
+<table class="table table-bordered" >
+    {{--  
     <form wire:submit.prevent="rowsUpdate">
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -27,16 +42,22 @@
                 {{ session('status') }}
             </div>
         @endif
-
+        --}}
         @foreach ($rows as $index => $row)
             
             @if($loop->first)
                 <tr>
+                    {{--  
                     @livewire('formx::datagrid_editable.head',['row'=>$row,'index'=>$index],key($row->id))
+                    --}}
+                    <livewire:formx::datagrid_editable.head :row="$row" :index="$index" :key="$row->id" />
                 </tr>
             @endif
-            <tr wire:key="row-field-{{ $index }}">
+            <tr {{-- wire:key="row-field-{{ $index }}" --}} >
+                {{--  
                 @livewire('formx::datagrid_editable.row',['row'=>$row,'index'=>$index],key($row->id))
+                --}}
+                <livewire:formx::datagrid_editable.row :row="$row" :index="$index" :key="$row->id" />
             </tr>
             
 
@@ -64,8 +85,11 @@
             </tr>
         @endforeach
         --}}
+
+        {{--  
         <button type="submit">Save</button>
     </form>
+    --}}
 </table>
 {{--
 {!! $rows->links() !!}

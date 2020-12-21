@@ -31,7 +31,10 @@ class DatagridEditable extends Component {
         $this->total = $this->query()->count();
         $this->page = request()->input('page', 1);
         $offset = ($this->page - 1) * $this->per_page;
-        $this->rows = $this->query()->offset($offset)->limit($this->per_page)->get();
+        $rows = $this->query()->offset($offset)->limit($this->per_page)->get();
+        //$rows = collect($rows->toArray());
+        $this->rows = $rows;
+        //dddx($this->rows);
     }
 
     public function rules(): array {

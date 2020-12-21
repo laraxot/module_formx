@@ -6,7 +6,7 @@
     <div class="col-md">
         <div class="form-check">
             <input
-                id="{{ $field->name }}"
+                id="{{ $field->key }}"
                 type="checkbox"
                 class="form-check-input @error($field->key) is-invalid @enderror"
                 wire:model.lazy="{{ $field->key }}">
