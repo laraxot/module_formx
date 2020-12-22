@@ -1,10 +1,10 @@
 {
-    "name": "nwidart/formx",
+    "name": "laraxot/formx",
     "description": "",
     "authors": [
         {
-            "name": "Nicolas Widart",
-            "email": "n.widart@gmail.com"
+            "name": "Laraxot",
+            "email": "marco.sottana@gmail.com"
         }
     ],
     "extra": {
@@ -13,7 +13,7 @@
                 "Modules\\FormX\\Providers\\FormXServiceProvider"
             ],
             "aliases": {
-                
+
             }
         }
     },
