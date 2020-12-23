@@ -284,6 +284,11 @@ class FormXService {
         //if (! in_array($field->type, $div_exludes)) {
         //    return '<div class="col-sm-'.$col_bs_size.'">'.Form::$input_type($input_name, $input_value, $input_attrs, $input_opts).'</div>';
         //}
+        //dddx([$field, $input_opts]);
+        if (isset($field->label)) {
+            $input_attrs['label'] = $field->label;
+            //$input_attrs['field'] = $field;
+        }
 
         return Form::$input_type($input_name, $input_value, $input_attrs, $input_opts);
     }
