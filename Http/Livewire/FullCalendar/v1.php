@@ -7,10 +7,14 @@ namespace Modules\FormX\Http\Livewire\FullCalendar;
 
  */
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Livewire\Component;
+use Modules\Customer\Models\Customer;
+use Modules\Xot\Http\Livewire\XotBaseComponent;
 
-class V1 extends Component {
+class V1 extends XotBaseComponent {
+    private $model = Customer::class;
+
     public $name = 'Barry';
     public $events = []; //non sono gli eventi in calendario ma le azioni
     public $form_data = [];
@@ -41,8 +45,17 @@ class V1 extends Component {
         ];
     }
 
-    public function getEvents() {
+    public function getEvents($info) {
+        //dddx($info);
+        /*
+        "start" => "2020-11-28T23:00:00.000Z"
+    "end" => "2021-01-09T23:00:00.000Z"
+    "startStr" => "2020-11-29T00:00:00+01:00"
+    "endStr" => "2021-01-10T00:00:00+01:00"
+    "timeZone" => "local"
+    */
         //dddx('preso');
+        /*
         $name = 'Barry'; // $request->get('name');
 
         $events = [];
@@ -53,7 +66,23 @@ class V1 extends Component {
                 'start' => now()->addDay(random_int(-10, 10))->toDateString(),
             ];
         }
-        //$this->events = $events;
+        return $events;
+        */
+        $events = app($this->model)->query()
+            ->whereDate('date_next_check', '>=', $info['startStr'])
+            ->whereDate('date_next_check', '<=', $info['endStr'])
+            ->get()
+            ->map(function (Model $model) {
+                return [
+                    'id' => $model->id,
+                    'title' => $model->title,
+                    'description' => '', //$model->note,
+                    'start' => $model->date_next_check,
+                    //'start' => '2020-12-09T12:30:00',
+                ];
+            })->all();
+        //dddx(['events' => $events]);
+
         return $events;
     }
 
@@ -75,11 +104,20 @@ class V1 extends Component {
     }
 
     public function eventDrop($event, $oldEvent) {
-        $this->events[] = 'eventDrop: '.print_r($oldEvent, true).' -> '.print_r($event, true);
+        //$this->events[] = 'eventDrop: '.print_r($oldEvent, true).' -> '.print_r($event, true);
+        session()->flash('message', '['.$event['id'].'] '.$event['title'].' spostato da '.$oldEvent['start'].' a '.$event['start']);
+        $row = app($this->model)->find($event['id']);
+        $row->date_next_check = $event['start'];
+        $row->save();
     }
 
     public function render() {
-        return view('formx::livewire.full_calendar');
+        $view = $this->getView();
+        $view_params = [
+            'view' => $view,
+        ];
+
+        return view($view, $view_params);
     }
 
     public function edit($calEvent) {
