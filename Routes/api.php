@@ -17,3 +17,18 @@ Route::middleware('auth:api')->get('/formx', function (Request $request) {
     return $request->user();
 });
 */
+
+Route::get('calendar/events', function (Request $request) {
+    $name = $request->get('name');
+
+    $events = [];
+    foreach (range(0, 6) as $i) {
+        $events[] = [
+            'id' => uniqid(),
+            'title' => \Str::random(4).$name,
+            'start' => now()->addDay(random_int(-10, 10))->toDateString(),
+        ];
+    }
+
+    return $events;
+});
