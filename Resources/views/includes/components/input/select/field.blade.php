@@ -3,7 +3,7 @@
 	$options=[];
 	extract($attributes);
 	$field=transFields(get_defined_vars());
-	dddx($field->label);
+	//dddx($field->label);
 @endphp
 
 @component($blade_component,get_defined_vars())
