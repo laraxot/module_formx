@@ -1,11 +1,18 @@
 @php
-    //dddx([$form_data, $fields]);
+    //dddx($row);
 
 @endphp
 <div>
-    @foreach($fields as $field)
+
+    @foreach($this->fields as $field)
+        @php
+            //dddx($field);
+        @endphp
         <td>
-            {{ $field->setPrefix('rows.'.$index)->html($form_data, $row) }}
+            {{ $field->type }} - 
+            {{ $index }}
+            {{-- $field->setPrefix('rows.'.$index)->html($form_data,$row) --}}
+            {{ $field->setPrefix('rows.'.$index)->html($row) }}
         </td>
     @endforeach
 </div>

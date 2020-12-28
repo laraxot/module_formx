@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Modules\FormX\Services\FieldService;
 use Modules\FormX\Traits\HandlesArrays;
 use Modules\FormX\Traits\UploadsFiles;
 use Modules\Xot\Models\Panels\XotBasePanel;
@@ -34,7 +33,6 @@ class DatagridEditable extends Component {
         $offset = ($this->page - 1) * $this->per_page;
         $rows = $this->query()->offset($offset)->limit($this->per_page)->get();
         //$rows = collect($rows->toArray());
-        //dddx($rows);
         $this->rows = $rows;
         //dddx($this->rows);
     }
@@ -56,10 +54,8 @@ class DatagridEditable extends Component {
 
     public function query() {
         //dddx([$this->panel->rows($this->data), $this->panel->rows, $this->panel, $this->data]);
-        //dddx($this->panel->rows($this->data)->with('post')->get());
 
-        //return $this->panel->rows($this->data);
-        return $this->panel->rows($this->data)->with('post');
+        return $this->panel->rows($this->data);
     }
 
     public function render(): View {
@@ -73,12 +69,6 @@ class DatagridEditable extends Component {
         return view($view, $view_params);
     }
 
-    public static function makeField($field_name, $field_type) {
-        return FieldService::make($field_name)
-                    ->type($field_type)
-                    ->setInputComponent('nolabel');
-    }
-
     public static function errorMessage($err): string {
         session()->flash('error_message', $err);
 
@@ -88,7 +78,7 @@ class DatagridEditable extends Component {
     public function rowsUpdate() {
         $data = $this->validate();
         $data = $data['rows'];
-        //dddx($data);
+        dddx($data);
         $func = '\Modules\Xot\Jobs\PanelCrud\UpdateJob';
         foreach ($this->rows as $k => $row) {
             $func::dispatch($data[$k], PanelService::get($row));

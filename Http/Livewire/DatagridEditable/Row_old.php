@@ -21,6 +21,7 @@ class Row extends XotBaseComponent {
     public $in_admin;
     public $row;
     public $index;
+    //public $fields;
     public $form_data = [];
 
     public function mount($row, $index) {
@@ -32,14 +33,26 @@ class Row extends XotBaseComponent {
         $this->row = $row;
         $this->index = $index;
         //$this->fields = $fields;
-        //$this->setFormProperties($row);
+        $this->setFormProperties($row);
     }
 
-    public function getFieldsProperty() {
-        $panel_fields = $this->panel->editFields();
+    public function render() {
+        $view = $this->getView();
+        $view_params = [
+            'view' => $view,
+            'form_data' => $this->form_data,
+            'fields' => $this->fields(),
+        ];
+        //dddx($this->row);
+
+        return view($view, $view_params);
+    }
+
+    public function fields() {
+        $this->panel_fields = $this->panel->editFields();
 
         $fields = [];
-        foreach ($panel_fields as $field) {
+        foreach ($this->panel_fields as $field) {
             $fields[] = FieldService::make($field->name)
                 ->type($field->type)
                 ->setInputComponent('nolabel');
@@ -52,15 +65,13 @@ class Row extends XotBaseComponent {
         return PanelService::getByParams($this->route_params);
     }
 
-    /*
-
     public function setFormProperties($model = null) {
         //$this->model = $model;
         if ($model) {
             $this->form_data = $model->toArray();
         }
 
-        foreach ($this->fields as $field) {
+        foreach ($this->fields() as $field) {
             if (! isset($this->form_data[$field->name])) {
                 $array = in_array($field->type, ['checkbox', 'file']);
                 $this->form_data[$field->name] = $field->default ?? ($array ? [] : null);
@@ -76,16 +87,6 @@ class Row extends XotBaseComponent {
                 }
             }
         }
-    }
-
-     */
-
-    public function render() {
-        $view = $this->getView();
-
-        //dddx($view);
-
-        return view($view);
     }
 
     public function carica($index, $file_name, $file_type, $data) {

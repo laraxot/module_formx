@@ -2,9 +2,7 @@
 
 namespace Modules\FormX\Http\Livewire\DatagridEditable;
 
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 use Livewire\WithFileUploads;
 use Modules\FormX\Services\FieldService;
 use Modules\FormX\Traits\HandlesArrays;
@@ -12,7 +10,7 @@ use Modules\FormX\Traits\UploadsFiles;
 use Modules\Xot\Http\Livewire\XotBaseComponent;
 use Modules\Xot\Services\PanelService;
 
-class Row extends XotBaseComponent {
+class Head extends XotBaseComponent {
     use WithFileUploads;
     use UploadsFiles;
     use HandlesArrays;
@@ -21,6 +19,7 @@ class Row extends XotBaseComponent {
     public $in_admin;
     public $row;
     public $index;
+    //public $fields;
     public $form_data = [];
 
     public function mount($row, $index) {
@@ -32,14 +31,25 @@ class Row extends XotBaseComponent {
         $this->row = $row;
         $this->index = $index;
         //$this->fields = $fields;
-        //$this->setFormProperties($row);
+        $this->setFormProperties($row);
     }
 
-    public function getFieldsProperty() {
-        $panel_fields = $this->panel->editFields();
+    public function render() {
+        $view = $this->getView();
+        $view_params = [
+            'view' => $view,
+            'form_data' => $this->form_data,
+            'fields' => $this->fields(),
+        ];
+
+        return view($view, $view_params);
+    }
+
+    public function fields() {
+        $this->panel_fields = $this->panel->editFields();
 
         $fields = [];
-        foreach ($panel_fields as $field) {
+        foreach ($this->panel_fields as $field) {
             $fields[] = FieldService::make($field->name)
                 ->type($field->type)
                 ->setInputComponent('nolabel');
@@ -52,15 +62,13 @@ class Row extends XotBaseComponent {
         return PanelService::getByParams($this->route_params);
     }
 
-    /*
-
     public function setFormProperties($model = null) {
         //$this->model = $model;
         if ($model) {
             $this->form_data = $model->toArray();
         }
 
-        foreach ($this->fields as $field) {
+        foreach ($this->fields() as $field) {
             if (! isset($this->form_data[$field->name])) {
                 $array = in_array($field->type, ['checkbox', 'file']);
                 $this->form_data[$field->name] = $field->default ?? ($array ? [] : null);
@@ -76,26 +84,5 @@ class Row extends XotBaseComponent {
                 }
             }
         }
-    }
-
-     */
-
-    public function render() {
-        $view = $this->getView();
-
-        //dddx($view);
-
-        return view($view);
-    }
-
-    public function carica($index, $file_name, $file_type, $data) {
-        //dddx('funzione carica di row');
-
-        //dddx($this->form_data['tmp']);
-        $img = Image::make($data);
-
-        $path = Storage::disk('public_html')->path('/uploads/gallery/'.$file_name);
-
-        $img->save($path, 75); //75 quality
     }
 }

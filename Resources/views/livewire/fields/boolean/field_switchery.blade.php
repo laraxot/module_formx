@@ -16,19 +16,22 @@
 @endphp
 @component($field->input_component,get_defined_vars())
     @slot('input')
-        <div class="col-md">
+        <div class="col-md" wire:ignore>
+            {{-- 
             <input type="hidden" 
                 name="{{ $field->key }}" 
                 value="0"
                 wire:model.lazy="{{ $field->key }}"
                 > 
-            {{-- Form::checkbox($field->key,1,$form_data[$field->label],$attributes) --}}
-
+             --}}
+            {{ Form::checkbox($field->key,1,$form_data[$field->label],$attributes) }}
+            {{-- 
             <input
                 id="{{ $field->key }}"
                 type="checkbox"
                 class="form-check-input @error($field->key) is-invalid @enderror js-switch"
                 wire:model.lazy="{{ $field->key }}">
+             --}}
         </div>
 	@endslot
 @endcomponent
@@ -38,7 +41,7 @@
     if(!elems){
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
         elems.forEach(function(html) {
-        //    var switchery = new Switchery(html);
+            var switchery = new Switchery(html);
         });
     }
 </script>
