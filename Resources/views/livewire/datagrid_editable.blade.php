@@ -2,8 +2,9 @@
     @php
         //dddx($rows);
     @endphp
-{{-- 
-<h3>page:{{ $page }} total:{{ $total }}</h3>
+
+<h3>page:{{ $page }} total records:{{ $total }}</h3>
+{{--
 @foreach($route_params as $k=>$v)
 <br/>{{ $k }} : {{ $v }}
 @endforeach
@@ -29,27 +30,30 @@ count : {{ $rows->count() }}
             }
         @endphp
         @if($loop->first)
+
+
+                <livewire:formx::datagrid_editable.head :row="$v" :index="$loop->index" :key="'head-'.$v->id"/>
+            {{--
             <tr>
-                {{-- <livewire:formx::datagrid_editable.head:row="$v":index="$loop->index":key="$v->id"/> --}}
                 @foreach($fields as $field)
                     <th>
                         {{ $field->label }}
                     </th>
                 @endforeach
             </tr>
+            --}}
         @endif
+        <livewire:formx::datagrid_editable.row :row="$v" :index="$loop->index" :key="'row-'.$v->id"/>
+        {{--
         <tr>
 
             @foreach($fields as $field)
                 <td wire:key="row-field-{{ $v->id }}">
                     {{ $field->setPrefix('rows.'.$k)->html($v) }}
-                    {{-- 
-                    <input type="text" wire:model="rows.{{ $k }}.post.subtitle">
-                    --}}
                 </td>
             @endforeach
-
         </tr>
+        --}}
     @endforeach
     <button type="submit">Save</button>
     </form>

@@ -3,31 +3,33 @@
 namespace Modules\FormX\Http\Livewire\DatagridEditable;
 
 use Illuminate\Support\Str;
-use Livewire\WithFileUploads;
+//use Livewire\WithFileUploads;
 use Modules\FormX\Services\FieldService;
-use Modules\FormX\Traits\HandlesArrays;
-use Modules\FormX\Traits\UploadsFiles;
+//use Modules\FormX\Traits\HandlesArrays;
+//use Modules\FormX\Traits\UploadsFiles;
 use Modules\Xot\Http\Livewire\XotBaseComponent;
 use Modules\Xot\Services\PanelService;
 
 class Head extends XotBaseComponent {
-    use WithFileUploads;
-    use UploadsFiles;
-    use HandlesArrays;
-    public $index_fields = [];
-    public $route_params = [];
-    public $in_admin;
+    //  use WithFileUploads;
+    //  use UploadsFiles;
+    //  use HandlesArrays;
+    //public $index_fields = [];
+    //public $route_params = [];
+    //public $data =  [];
+    //public $in_admin;
     public $row;
     public $index;
     //public $fields;
     public $form_data = [];
 
     public function mount($row, $index) {
+        /*
         $this->route_params = request()->route()->parameters();
         $this->data = request()->all();
         $this->in_admin = inAdmin();
         $this->route_params['in_admin'] = $this->in_admin;
-
+        */
         $this->row = $row;
         $this->index = $index;
         //$this->fields = $fields;
@@ -46,10 +48,10 @@ class Head extends XotBaseComponent {
     }
 
     public function fields() {
-        $this->panel_fields = $this->panel->editFields();
+        $index_fields = $this->panel->indexFields();
 
         $fields = [];
-        foreach ($this->panel_fields as $field) {
+        foreach ($index_fields as $field) {
             $fields[] = FieldService::make($field->name)
                 ->type($field->type)
                 ->setInputComponent('nolabel');
@@ -59,7 +61,7 @@ class Head extends XotBaseComponent {
     }
 
     public function getPanelProperty() {
-        return PanelService::getByParams($this->route_params);
+        return PanelService::get($this->row);
     }
 
     public function setFormProperties($model = null) {

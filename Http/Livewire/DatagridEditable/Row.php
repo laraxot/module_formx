@@ -22,6 +22,7 @@ class Row extends XotBaseComponent {
     public $row;
     public $index;
     public $form_data = [];
+    public $rows = [];
 
     public function mount($row, $index) {
         $this->route_params = request()->route()->parameters();
@@ -32,17 +33,19 @@ class Row extends XotBaseComponent {
         $this->row = $row;
         $this->index = $index;
         //$this->fields = $fields;
-        //$this->setFormProperties($row);
+        $this->setFormProperties($row);
     }
 
-    public function getFieldsProperty() {
-        $panel_fields = $this->panel->editFields();
+    public function fields() {
+        $panel_fields = $this->panel->indexFields();
 
         $fields = [];
         foreach ($panel_fields as $field) {
             $fields[] = FieldService::make($field->name)
                 ->type($field->type)
-                ->setInputComponent('nolabel');
+                ->setInputComponent('nolabel')
+                //->set('form_data',$this->)
+                ;
         }
 
         return $fields;
@@ -52,7 +55,7 @@ class Row extends XotBaseComponent {
         return PanelService::getByParams($this->route_params);
     }
 
-    /*
+    //*
 
     public function setFormProperties($model = null) {
         //$this->model = $model;
@@ -60,7 +63,7 @@ class Row extends XotBaseComponent {
             $this->form_data = $model->toArray();
         }
 
-        foreach ($this->fields as $field) {
+        foreach ($this->fields() as $field) {
             if (! isset($this->form_data[$field->name])) {
                 $array = in_array($field->type, ['checkbox', 'file']);
                 $this->form_data[$field->name] = $field->default ?? ($array ? [] : null);
@@ -76,16 +79,21 @@ class Row extends XotBaseComponent {
                 }
             }
         }
+        $this->rows[$this->index] = $this->form_data; //???
     }
 
-     */
+    //*/
 
     public function render() {
         $view = $this->getView();
+        $view_params = [
+            'view' => $view,
+            'form_data' => $this->form_data,
+            'fields' => $this->fields(),
+        ];
+        //dddx(['view' => $view, 'view_params' => $view_params]);
 
-        //dddx($view);
-
-        return view($view);
+        return view($view, $view_params);
     }
 
     public function carica($index, $file_name, $file_type, $data) {

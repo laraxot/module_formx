@@ -88,7 +88,7 @@ class DatagridEditable extends Component {
     public function rowsUpdate() {
         $data = $this->validate();
         $data = $data['rows'];
-        //dddx($data);
+        dddx($data);
         $func = '\Modules\Xot\Jobs\PanelCrud\UpdateJob';
         foreach ($this->rows as $k => $row) {
             $func::dispatch($data[$k], PanelService::get($row));
