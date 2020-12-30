@@ -9,6 +9,28 @@ namespace Modules\FormX\Models;
 //--- bases ---
 use Modules\Xot\Models\XotBaseModel;
 
+/**
+ * Modules\FormX\Models\Input
+ *
+ * @property int $id
+ * @property string|null $type
+ * @property string|null $sub_type
+ * @property string|null $updated_by
+ * @property string|null $created_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Input newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Input newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Input query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Input whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Input whereCreatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Input whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Input whereSubType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Input whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Input whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Input whereUpdatedBy($value)
+ * @mixin \Eloquent
+ */
 class Input extends XotBaseModel
 {
     protected $fillable = ['id', 'type', 'sub_type'];
