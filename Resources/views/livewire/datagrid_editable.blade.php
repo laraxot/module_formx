@@ -32,7 +32,7 @@ count : {{ $rows->count() }}
         @if($loop->first)
 
 
-                <livewire:formx::datagrid_editable.head :row="$v" :index="$loop->index" :key="'head-'.$v->id"/>
+            <livewire:formx::datagrid_editable.head :row="$v" :index="$loop->index" :key="'head-'.$v->id"/>
             {{--
             <tr>
                 @foreach($fields as $field)
