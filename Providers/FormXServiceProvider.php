@@ -3,8 +3,9 @@
 namespace Modules\FormX\Providers;
 
 //---- bases ----
-use Modules\FormX\Services\FormXService;
+use Illuminate\Support\Facades\Blade;
 //---- services --
+use Modules\FormX\Services\FormXService;
 use Modules\Xot\Providers\XotBaseServiceProvider;
 
 class FormXServiceProvider extends XotBaseServiceProvider {
@@ -19,5 +20,7 @@ class FormXServiceProvider extends XotBaseServiceProvider {
         FormXService::registerComponents();
 
         FormXService::registerMacros();
+
+        Blade::componentNamespace(dirname($this->module_ns).'\View\Components', 'formx');
     }
 }

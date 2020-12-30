@@ -1,10 +1,4 @@
-@extends('adm_theme::layouts.app')
-@section('content')
-    {{--
-    <x-formx::input type="number" name="test" label="label1" class="form-control" />
-    --}}
-
-    <form class="upload-dragdrop" method="post" action="" enctype="multipart/form-data">
+<form class="upload-dragdrop" method="post" action="" enctype="multipart/form-data">
   <div class="upload-dragdrop-image">
     <img src="{{ asset('/dist/assets/upload-drag-drop-icon.svg') }}" alt="imagealt" aria-hidden="true">
     <div class="upload-dragdrop-loading">
