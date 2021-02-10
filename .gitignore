@@ -1,0 +1,4 @@
+node_modules
+/*.lock
+package-lock.json
+/Resources/views/includes/components/form_to_migrate/multi/package-lock.json
