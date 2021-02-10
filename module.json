@@ -1,0 +1,14 @@
+{
+    "name": "FormX",
+    "alias": "formx",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\FormX\\Providers\\FormXServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
