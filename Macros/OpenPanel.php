@@ -10,8 +10,7 @@ use Illuminate\Support\Str;
 //----- services -----
 
 /**
- * Class OpenPanel
- * @package Modules\FormX\Macros
+ * Class OpenPanel.
  */
 class OpenPanel {
     /**
@@ -43,9 +42,10 @@ class OpenPanel {
             if (isset($params['form_name'])) {
                 $form_name = $params['form_name'];
             }
-            $func = Str::camel($act).'Url';
+            //$func = Str::camel($act).'Url';
 
-            $url = $panel->$func();
+            //$url = $panel->$func();
+            $url = $panel->url(['act' => $act]);
 
             return Form::model($panel->row,
                 [

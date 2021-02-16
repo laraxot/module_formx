@@ -16,7 +16,7 @@ class FormSearchAddress {
      * @return \Closure
      */
     public function __invoke() {
-        return function ($params = []) {
+        return function (array $params = []) {
             $view_comp_dir = 'formx::includes.components.form_complete.search.address';
 
             return view($view_comp_dir)->with($params);

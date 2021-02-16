@@ -288,7 +288,12 @@ class FormXService {
         return view()->make($view, $view_params);
     }
 
-    public static function inputHtml(array $params): Renderable {
+    /**
+     * Undocumented function.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable|\Illuminate\Support\HtmlString
+     */
+    public static function inputHtml(array $params) {
         extract($params);
         if (! isset($field)) {
             throw new \Exception('field is missing');

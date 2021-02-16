@@ -7,7 +7,7 @@
         /**
          * @param $entry
          * @param $dateFieldName
-         * @return false|string|null
+         * @return bool|string|null
          */
         function formatDate($entry, $dateFieldName)
         {
