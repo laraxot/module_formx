@@ -8,6 +8,10 @@ $model=Form::getModel();
 
 
 $rows=$model->$name();
+
+
+
+
 //$val=$model->$name;
 $val=$rows->get();
 $related=$rows->getRelated();
@@ -17,12 +21,16 @@ $_panel->setRows($related);
 $all=$_panel->options();
 */
 $all=$related->all();
+
+//dddx($all);
+
+
 //ddd($rows);
 //$all=$model->{'all_'.$name};
 //$model_linked=Theme::xotModel(Str::singular($name));
 //$_panel=Theme::panelModel($model_linked);
 //$all=$model_linked->get();
-//ddd($_panel);
+//echo '<h3>'.get_class($_panel).'</h3>';
 @endphp
 <fieldset class="form-group container-fluid border p-2">
     <legend class="col-form-label col-sm-2 pt-0 w-auto">
