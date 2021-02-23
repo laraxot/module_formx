@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="dropdown">
   <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     {{ LaravelLocalization::getCurrentLocaleName() }}
@@ -14,21 +13,4 @@
             @endif
         @endforeach 
   </div>
-=======
-<div class="dropdown">
-  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    {{ LaravelLocalization::getCurrentLocaleName() }}
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-       @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-            @if($localeCode!=$lang)
-            @php
-                //$url_panel='#';
-                $url_lang=$_panel->langUrl($localeCode);
-            @endphp
-                <a class="dropdown-item" href="{{ $url_lang }}"  rel="alternate" hreflang="{{ $localeCode }}">{{ $properties['native'] }}</a>
-            @endif
-        @endforeach 
-  </div>
->>>>>>> 1200272d778a2826f908f04c7e5060dc0a04f291
 </div>

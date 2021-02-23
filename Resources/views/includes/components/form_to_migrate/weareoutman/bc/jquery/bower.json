@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "name": "jquery",
   "main": "dist/jquery.js",
@@ -12,19 +11,4 @@
     "browser",
     "library"
   ]
-=======
-{
-  "name": "jquery",
-  "main": "dist/jquery.js",
-  "license": "MIT",
-  "ignore": [
-    "package.json"
-  ],
-  "keywords": [
-    "jquery",
-    "javascript",
-    "browser",
-    "library"
-  ]
->>>>>>> 1200272d778a2826f908f04c7e5060dc0a04f291
 }

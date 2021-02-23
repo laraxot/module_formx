@@ -179,11 +179,7 @@ class FormXService {
                 //$field->value = $row->{$field->name_dot};
                 //$field->value = 'test['.$field->name_dot.']'.Arr::get($row, 'nome_diri');
             } catch (\Exception $e) {
-<<<<<<< HEAD
                 $field->value = '---['.$field->name_dot.']--';
-=======
-                $field->value = '---['.$field->name_dot.']['.$e->getMessage().']--';
->>>>>>> 1200272d778a2826f908f04c7e5060dc0a04f291
             }
         }
 

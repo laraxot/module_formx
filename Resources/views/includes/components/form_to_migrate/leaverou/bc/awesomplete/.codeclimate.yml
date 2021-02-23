@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 engines:
   eslint:
     enabled: true
@@ -13,19 +12,3 @@ exclude_paths:
 - prism/**/*
 - test/**/*
 - .*
-=======
-engines:
-  eslint:
-    enabled: true
-  fixme:
-    enabled: true
-ratings:
-  paths:
-  - "**.js"
-exclude_paths:
-- "**.min.js"
-- karma*.conf.js
-- prism/**/*
-- test/**/*
-- .*
->>>>>>> 1200272d778a2826f908f04c7e5060dc0a04f291

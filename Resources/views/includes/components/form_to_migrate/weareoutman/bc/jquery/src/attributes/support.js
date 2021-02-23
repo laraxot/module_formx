@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 define( [
 	"../var/document",
 	"../var/support"
@@ -32,38 +31,3 @@ define( [
 return support;
 
 } );
-=======
-define( [
-	"../var/document",
-	"../var/support"
-], function( document, support ) {
-
-"use strict";
-
-( function() {
-	var input = document.createElement( "input" ),
-		select = document.createElement( "select" ),
-		opt = select.appendChild( document.createElement( "option" ) );
-
-	input.type = "checkbox";
-
-	// Support: Android <=4.3 only
-	// Default value for a checkbox should be "on"
-	support.checkOn = input.value !== "";
-
-	// Support: IE <=11 only
-	// Must access selectedIndex to make default options select
-	support.optSelected = opt.selected;
-
-	// Support: IE <=11 only
-	// An input loses its value after becoming a radio
-	input = document.createElement( "input" );
-	input.value = "t";
-	input.type = "radio";
-	support.radioValue = input.value === "t";
-} )();
-
-return support;
-
-} );
->>>>>>> 1200272d778a2826f908f04c7e5060dc0a04f291
