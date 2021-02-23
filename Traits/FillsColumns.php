@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 namespace Modules\FormX\Traits;
@@ -21,3 +22,28 @@ trait FillsColumns {
         return Schema::getColumnListing($this->getTable());
     }
 }
+=======
+<?php
+
+namespace Modules\FormX\Traits;
+
+/*
+ * https://github.com/kdion4891/laravel-livewire-forms/blob/master/src/Traits/FillsColumns.php
+
+ */
+
+use Illuminate\Support\Facades\Schema;
+
+/**
+ * Trait FillsColumns
+ * @package Modules\FormX\Traits
+ */
+trait FillsColumns {
+    /**
+     * @return array
+     */
+    public function getFillable() {
+        return Schema::getColumnListing($this->getTable());
+    }
+}
+>>>>>>> 1200272d778a2826f908f04c7e5060dc0a04f291

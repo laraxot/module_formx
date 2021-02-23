@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 https://github.com/jerrytohvan/grapesjsproject
 
 
@@ -23,3 +24,30 @@ https://grapesjs.com/demo-mjml.html
 
 
 
+=======
+https://github.com/jerrytohvan/grapesjsproject
+
+
+https://github.com/ohanspace/page-builder
+
+
+//-- A Gutenberg implementation for Laravel
+https://github.com/VanOns/laraberg
+
+
+
+https://libs.garden/laravel/search?q=builder+page
+
+https://github.com/HansSchouten/Laravel-Pagebuilder
+
+https://github.com/HansSchouten/PHPageBuilder
+
+
+
+
+
+https://grapesjs.com/demo-mjml.html
+
+
+
+>>>>>>> 1200272d778a2826f908f04c7e5060dc0a04f291

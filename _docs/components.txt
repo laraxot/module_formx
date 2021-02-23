@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 altri "componenti" da prendere ed utilizzare
+=======
+altri "componenti" da prendere ed utilizzare
+>>>>>>> 1200272d778a2826f908f04c7e5060dc0a04f291
 https://italia.github.io/bootstrap-italia/docs/form/input-numerico/

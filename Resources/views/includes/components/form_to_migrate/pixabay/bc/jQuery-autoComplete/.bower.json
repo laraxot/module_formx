@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "jQuery-autoComplete",
   "_cacheHeaders": {
@@ -10,4 +11,18 @@
   "_target": "*",
   "_originalSource": "https://github.com/Pixabay/jQuery-autoComplete",
   "_direct": true
+=======
+{
+  "name": "jQuery-autoComplete",
+  "_cacheHeaders": {
+    "ETag": "W/\"df6d50e9ee950b93b0e28f31afec073a\"",
+    "Content-Type": "text/html; charset=utf-8"
+  },
+  "_release": "e-tag:W/\"df6d50e",
+  "main": "index",
+  "_source": "https://github.com/Pixabay/jQuery-autoComplete",
+  "_target": "*",
+  "_originalSource": "https://github.com/Pixabay/jQuery-autoComplete",
+  "_direct": true
+>>>>>>> 1200272d778a2826f908f04c7e5060dc0a04f291
 }

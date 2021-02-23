@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "name": "laraxot/module_formx",
     "description": "",
@@ -23,3 +24,30 @@
         }
     }
 }
+=======
+{
+    "name": "laraxot/module_formx",
+    "description": "",
+    "authors": [
+        {
+            "name": "Laraxot",
+            "email": "marco.sottana@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\FormX\\Providers\\FormXServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\FormX\\": ""
+        }
+    }
+}
+>>>>>>> 1200272d778a2826f908f04c7e5060dc0a04f291

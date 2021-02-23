@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 namespace Modules\FormX\Macros;
@@ -32,3 +33,39 @@ class BtnCrud {
 
     //end invoke
 }//end class
+=======
+<?php
+
+namespace Modules\FormX\Macros;
+
+//use Illuminate\Http\Request;
+
+use Collective\Html\FormFacade as Form;
+
+//----- services -----
+
+/**
+ * Class BtnCrud
+ * @package Modules\FormX\Macros
+ */
+class BtnCrud {
+    /**
+     * @return \Closure
+     */
+    public function __invoke() {
+        return function ($extra) {
+            $btns = '<div class="btn-group btn-group-sm" role="group" aria-label="Actions">';
+            $btns .= Form::bsBtnEdit($extra);
+            $btns .= Form::bsBtnDelete($extra);
+            $btns .= Form::bsBtnDetach($extra);
+            $btns .= Form::bsBtnShow($extra);
+            //$btns.=Form::bsBtnClone($extra);
+            $btns .= '</div>';
+
+            return $btns;
+        }; //end function
+    }
+
+    //end invoke
+}//end class
+>>>>>>> 1200272d778a2826f908f04c7e5060dc0a04f291
