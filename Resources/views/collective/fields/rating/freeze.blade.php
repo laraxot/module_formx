@@ -1,7 +1,11 @@
 @php
 	//ddd(get_defined_vars());
+    if(!isset($rows)){
+        return ;
+    }
 	$count=$rows->count();
 	$avg=$rows->avg('pivot.rating');
+
 	//ddd($rows->max('rating'));
 	/*
 	$curr=0;
