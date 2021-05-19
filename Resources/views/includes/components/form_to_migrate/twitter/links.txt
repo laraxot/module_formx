@@ -1,1 +1,0 @@
-https://hdtuto.com/article/laravel-autocomplete-typeahead-search-example-from-scratch
