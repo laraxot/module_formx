@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 //use Illuminate\Http\Request;
 
 /*
@@ -17,7 +19,7 @@ Route::middleware('auth:api')->get('/formx', function (Request $request) {
     return $request->user();
 });
 */
-/*
+/* test spostato dentro livewire
 Route::get('calendar/events', function (Request $request) {
     $name = $request->get('name');
 
@@ -32,4 +34,4 @@ Route::get('calendar/events', function (Request $request) {
 
     return $events;
 });
-*/
+//*/
