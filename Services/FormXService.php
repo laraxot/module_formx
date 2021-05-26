@@ -108,7 +108,7 @@ class FormXService {
             ->reject(function ($macro) {
                 return Collection::hasMacro($macro);
             })
-            ->each(function ($macro, $path) {
+            ->each(function ($macro, $path): void {
                 $class = '\\Modules\\FormX\\Macros\\'.$macro;
                 if ('BaseFormBtnMacro' != $macro) {
                     Form::macro('bs'.Str::studly($macro), app($class)());
@@ -379,6 +379,8 @@ class FormXService {
 
         if (! Gate::allows($method, $panel)) {
             //Strict comparison using === between false and string will always evaluate to false.
+            return '';
+            /*
             if (false == $error_label) {
                 return null;
             }
@@ -388,6 +390,7 @@ class FormXService {
             $policy_class = PolicyService::get($panel)->createIfNotExists()->getClass();
 
             return '['.$policy_class.']['.$method.']';
+            */
         }
 
         if (isset($modal)) {
