@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Services;
 
 /*
@@ -19,7 +21,7 @@ class BaseFieldService {
 
     protected string $input_type;
 
-    protected int $textarea_rows;
+    protected int $textarea_rows = 5;
 
     protected array $options;
 
@@ -29,14 +31,15 @@ class BaseFieldService {
      * @var mixed
      */
     protected $default;
+
     /**
      * @var mixed
      */
     protected $autocomplete;
 
-    protected string $placeholder;
+    protected string $placeholder = '';
 
-    protected string $help;
+    protected string $help = '';
 
     protected array $rules;
 

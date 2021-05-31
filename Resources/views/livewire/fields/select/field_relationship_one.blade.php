@@ -1,24 +1,26 @@
 @php
 
-    //dddx(get_defined_vars());
-    $model = $this->panel->row;
-    $rel = $model->{$field->name}();
-    //dddx(get_class_methods($rel));
-     if(method_exists($rel,'getLocalKeyName')){
-        $field_key='form_data.'.$rel->getLocalKeyName();
-    }else{
-        $field_key='form_data.'.$rel->getForeignKeyName();
-    }
+//dddx(get_defined_vars());
+//$model = $this->panel->row;
+$model = $_panel->row;
+$rel = $model->{$field->name}();
+//dddx(get_class_methods($rel));
+if (method_exists($rel, 'getLocalKeyName')) {
+    $field_key = 'form_data.' . $rel->getLocalKeyName();
+} else {
+    $field_key = 'form_data.' . $rel->getForeignKeyName();
+}
 
-    $val=$rel->first();
+$val = $rel->first();
 
-    $related=$rel->getRelated();
-    $related_panel=Panel::get($related);
-    $val_id=$related_panel->optionId($val);
-    $all=$related->all();
+$related = $rel->getRelated();
+$related_panel = Panel::get($related);
+$val_id = $related_panel->optionId($val);
+$all = $related->all();
 
-    //$field->key='form_data.';
-    //dddx([$val,$all]);
+//$field->key='form_data.';
+//dddx([$val,$all]);
+
 @endphp
 
 <div class="form-group row">
@@ -27,16 +29,15 @@
     </label>
 
     <div class="col-md">
-        <select
-            id="{{ $field->name }}"
-            class="custom-select @error($field_key) is-invalid @enderror"
+        <select id="{{ $field->name }}" class="custom-select @error($field_key) is-invalid @enderror"
             wire:model.lazy="{{ $field_key }}">
 
             <option value="">{{ $field->placeholder }}</option>
 
-            @foreach($all as $value )
-                
-                <option value="{{ $related_panel->optionId($value) }}" {{-- ($related_panel->optionId($value)==$val_id)?'selected':'' --}}>{{ $related_panel->optionLabel($value) }}</option>
+            @foreach ($all as $value)
+
+                <option value="{{ $related_panel->optionId($value) }}" {{-- ($related_panel->optionId($value)==$val_id)?'selected':'' --}}>
+                    {{ $related_panel->optionLabel($value) }}</option>
             @endforeach
         </select>
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Services;
 
 use Illuminate\Contracts\Support\Renderable;
@@ -42,6 +44,22 @@ class FieldService extends BaseFieldService {
         return new self($label, $name);
     }
 
+    public function getName(): string {
+        return $this->name;
+    }
+
+    public function getLabel(): string {
+        return $this->label;
+    }
+
+    public function getKey(): string {
+        return $this->key;
+    }
+
+    public function getType(): string {
+        return $this->type;
+    }
+
     public function type(string $type): self {//@XOT
         $this->type = Str::snake($type);
 
@@ -58,6 +76,10 @@ class FieldService extends BaseFieldService {
         $this->input_component = 'formx::components.label_input.'.$input_component;
 
         return $this;
+    }
+
+    public function toArray() {
+        return ['name' => $this->name, 'type' => $this->type];
     }
 
     public function html(array $form_data = [], ?Model $row = null): Renderable {//@XOT //$form_data non dovrebbe servire
