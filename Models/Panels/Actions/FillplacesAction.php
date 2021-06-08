@@ -28,7 +28,9 @@ class FillplacesAction extends XotBasePanelAction {
             $row = Input::query()->firstOrCreate($parz);
         }
         */
-        $rows = Place::get();
+        $rows = Place::factory()->count(10)->create();
+
+        //$rows = Place::get();
 
         return $rows->count();
     }
