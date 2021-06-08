@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Models\Panels;
 
 use Modules\Xot\Models\Panels\XotBasePanel;
@@ -14,6 +16,7 @@ class HomePanel extends XotBasePanel {
         return [
             new Actions\FullcalendarAction(),
             new Actions\TestAction(),
+            new Actions\FillplacesAction(),
         ];
     }
 }

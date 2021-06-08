@@ -9,6 +9,7 @@ namespace Modules\FormX\Http\Livewire;
 
  */
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -25,7 +26,7 @@ class FullCalendar extends Component {
 
     public array $form_data = [];
 
-    public function mount() {
+    public function mount(): void {
         /*$name = 'Barry';
         $events = [];
         foreach (range(0, 6) as $i) {
@@ -39,7 +40,7 @@ class FullCalendar extends Component {
         */
     }
 
-    public function updatedName() {
+    public function updatedName(): void {
         $this->emit('refreshCalendar');
     }
 
@@ -106,21 +107,32 @@ class FullCalendar extends Component {
         return view('formx::livewire.full_calendar');
     }
 
-    public function edit(array $calEvent) {
+    public function edit(array $calEvent): void {
+        /*dddx($calEvent['event']);
+         array:4 [▼
+    "title" => "IDE Helper"
+    "start" => "2021-06-08T08:30:00+02:00"
+    "end" => "2021-06-08T11:30:00+02:00"
+    "id" => "60bf2b8e12802"
+  ]
+  */
         $this->form_data = $calEvent['event'];
+        //yyyy-MM-ddThh:mm
+        //$this->form_data['start'] = Carbon::parse($this->form_data['start'])->format('Y-m-d\TH:i');
+        //$this->form_data['end'] = Carbon::parse($this->form_data['end'])->format('Y-m-d\TH:i');
     }
 
-    public function update() {
-        session()->flash('message', 'Users Updated Successfully.');
+    public function update(): void {
+        session()->flash('message', 'Updated Successfully.');
         $this->resetInputFields();
     }
 
-    public function cancel() {
+    public function cancel(): void {
         //$this->updateMode = false;
         $this->resetInputFields();
     }
 
-    private function resetInputFields() {
+    private function resetInputFields(): void {
         $this->form_data = [];
     }
 }

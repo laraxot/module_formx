@@ -7,16 +7,18 @@
                 <input type="text" class="form-control" wire:model="form_data.title">
                 Start time:
                 <br />
-                <input type="text" class="form-control" wire:model="form_data.start">
+                <input type="datetime-local" class="form-control" wire:model="form_data.start">
 
                 End time:
                 <br />
-                <input type="text" class="form-control" wire:model="form_data.end">
+                <input type="datetime-local" class="form-control" wire:model="form_data.end">
             </div>
 
             <div class="modal-footer">
-                <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary"
+                    data-dismiss="modal">Close</button>
+                <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal">Save
+                    changes</button>
             </div>
         </div>
     </div>

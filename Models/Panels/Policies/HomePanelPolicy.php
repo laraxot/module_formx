@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Models\Panels\Policies;
 
 use Modules\Xot\Contracts\PanelContract;
@@ -15,6 +17,10 @@ class HomePanelPolicy extends XotBasePanelPolicy {
     }
 
     public function test(UserContract $user, PanelContract $panel): bool {
+        return true;
+    }
+
+    public function fillplaces(UserContract $user, PanelContract $panel): bool {
         return true;
     }
 }
