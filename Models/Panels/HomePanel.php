@@ -17,6 +17,7 @@ class HomePanel extends XotBasePanel {
             new Actions\FullcalendarAction(),
             new Actions\TestAction(),
             new Actions\FillplacesAction(),
+            new Actions\FilleventsAction(),
         ];
     }
 }

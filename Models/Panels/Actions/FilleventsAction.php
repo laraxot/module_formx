@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Modules\FormX\Models\Panels\Actions;
 
 //-------- models -----------
-use Modules\Blog\Models\Place;
+use Modules\Blog\Models\Event;
 //-------- services --------
-use Modules\FormX\Models\Input;
 //-------- bases -----------
+use Modules\FormX\Models\Input;
 use Modules\FormX\Services\FormXService;
 use Modules\Xot\Models\Panels\Actions\XotBasePanelAction;
 
 /**
  * Class SyncInputs.
  */
-class FillplacesAction extends XotBasePanelAction {
+class FilleventsAction extends XotBasePanelAction {
     public bool $onContainer = true; //onlyContainer
 
     public string $icon = '<i class="fas fa-sync"></i>';
@@ -28,11 +28,11 @@ class FillplacesAction extends XotBasePanelAction {
             $row = Input::query()->firstOrCreate($parz);
         }
         */
-        Place::whereRaw('1=1')->delete();
-        $rows = Place::factory()->count(10)->create();
+        //Event::whereRaw('1=1')->delete();
+        //Event::whereRaw('1=1')->delete();
+        $rows = Event::factory()->count(10)->create();
 
-        $rows = Place::get();
-        dddx($rows);
+        $rows = Event::get();
 
         return $rows->count();
     }

@@ -23,4 +23,8 @@ class HomePanelPolicy extends XotBasePanelPolicy {
     public function fillplaces(UserContract $user, PanelContract $panel): bool {
         return true;
     }
+
+    public function fillevents(UserContract $user, PanelContract $panel): bool {
+        return true;
+    }
 }
