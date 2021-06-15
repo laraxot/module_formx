@@ -1,3 +1,5 @@
+{{-- https://bootsnipp.com/snippets/yPOp4 --}}
+
 <div @if ($pollMillis !== null && $pollAction !== null) wire:poll.{{ $pollMillis }}ms="{{ $pollAction }}"
 @elseif($pollMillis !== null)
         wire:poll.{{ $pollMillis }}ms @endif>
@@ -15,8 +17,7 @@
                 href="#" wire:click="goToPreviousMonth">Prev</a>
         </li>
         <li class="mr-3">
-            <span
-                class="inline-block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            <span class="inline-block  text-blue-500 hover:bg-gray-200 py-2 px-4"
                 href="#">{{ $startsAt->monthName }}</span>
         </li>
         <li class="mr-3">
