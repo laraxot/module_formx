@@ -14,12 +14,15 @@ use Modules\Xot\View\Components\XotBaseComponent;
  * Class Input.
  */
 class Input extends XotBaseComponent {
-    /**
-     * The alert type.
-     */
     public string $type;
+    public string $name;
+    public ?string $label;
+    //public ?string $class;
+    //public ?string $input_id;
+    public ?string $value;
+    public ?string $placeholder;
 
-    public string $label;
+    public array $attrs = [];
 
     public string $comp_ns;
 
@@ -28,24 +31,24 @@ class Input extends XotBaseComponent {
     /**
      * Create a new component instance.
      *
-     * @param string $type
      * @param string $label
      */
-    public function __construct($type, $label = null) {
-        //dddx(func_get_args());
-        //dddx(get_class_methods($this));
-
+    public function __construct(
+        string $type,
+        string $name,
+        ?string $label = null,
+        ?string $class = null,
+        //?string $id = null,
+        ?string $value = null,
+        ?string $placeholder = null
+        ) {
         $this->type = $type;
-        /*
-        if (isset($label)) {
-            $this->label = $label;
-        } else {
-            $this->label = 'No-Set-Label';
-        }
-        */
-        $this->label = $label ?? 'No-Set-Label';
-        //$this->name = $name ?? 'No-Set-Name';
-        //dddx($this->data());
+        $this->name = $name;
+        $this->label = $label;
+        $this->class = $class;
+        //$this->input_id = $id;
+        $this->value = $value;
+        $this->placeholder = $placeholder;
     }
 
     public function getView(): string {
@@ -92,6 +95,11 @@ class Input extends XotBaseComponent {
         $view = $this->getView();
 
         $this->comp_ns = Str::beforeLast($view, '.');
+        $this->attrs = [
+            'name' => $this->name,
+            'value' => $this->value,
+            'class' => $this->class,
+        ];
         /*
         $view_params = [
             'view' => $view,

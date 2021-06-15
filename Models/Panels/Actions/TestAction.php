@@ -20,7 +20,11 @@ class TestAction extends XotBasePanelAction {
 
     public function handle() {
         $input = request()->input('input');
-        $existings = ['full_calendar', 'full_calendar.event', 'datepicker', 'datetimepicker'];
+        $existings = [
+            'calendar.v1', 'calendar.v2',
+            'full_calendar', 'full_calendar.event',
+            'datepicker', 'datetimepicker',
+        ];
         $exists = in_array($input, $existings);
 
         $view = ThemeService::getView(); //vew che dovrebbe essere
