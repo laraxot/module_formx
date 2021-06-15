@@ -6,10 +6,24 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <div>
         @includeIf($beforeCalendarView)
-        <button wire:click="goToPreviousMonth">PREV</button>
-        <h1>{{ $startsAt->monthName }}</h1>
-        <button wire:click="goToNextMonth">NEXT</button>
+
     </div>
+
+    <ul class="flex justify-between">
+        <li class="mr-3">
+            <a class="inline-block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white"
+                href="#" wire:click="goToPreviousMonth">Prev</a>
+        </li>
+        <li class="mr-3">
+            <span
+                class="inline-block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+                href="#">{{ $startsAt->monthName }}</span>
+        </li>
+        <li class="mr-3">
+            <a class="inline-block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white"
+                href="#" wire:click="goToNextMonth">Next</a>
+        </li>
+    </ul>
 
 
     <div class="flex">
