@@ -53,14 +53,19 @@ class Field extends Component {
 
     public function render() {
         $type = str_replace('._', '.', Str::snake($this->type));
+
+        if(Str::startsWith($type,'select_')){
+            $type='select.'.Str::after($type,'select_');
+        }
         $view = 'formx::components.fields.'.$type.'.field';
+
         $view_params = [
             'view' => $view,
         ];
         //$view_params = array_merge($view_params, $this->vars);
-        //if(!view()->exists($view)){
-
-        //}
+        if(!view()->exists($view)){
+            dddx(['view'=>$view,'type'=>$type]);
+        }
         return view($view, $view_params);
     }
 }
