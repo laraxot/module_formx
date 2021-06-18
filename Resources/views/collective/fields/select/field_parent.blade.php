@@ -1,4 +1,9 @@
 @php
+/*
+NOTA BENE: 
+per utilizzare questo componente, la tabella/modello utilizzato deve avere un/il campo "parent_id"
+*/
+
 $options = [];
 extract($attributes);
 $field = transFields(get_defined_vars());
