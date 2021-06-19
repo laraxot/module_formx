@@ -49,7 +49,7 @@ $field->attributes['name'] = $name1;
 $related = $rows->getRelated();
 $related_panel = Panel::get($related);
 $opts = $related_panel->optionsSelect();
-//dddx($field->attributes);
+//dddx([$related_panel, $opts]);
 @endphp
 
 
