@@ -20,7 +20,7 @@ $related = $rows
     ->all()
     ->groupBy($field->group_by);
 */
-$model_related = $rows->getRelated(); //non restituisce una collezione, ma il modello TAG
+$model_related = $rows->getRelated(); //non restituisce una collezione, ma il modello della relazione
 $model_related_panel = Panel::get($model_related)->setParent($row_panel); //TAG_PANEL
 $options = $model_related_panel->options()->groupBy($field->group_by);
 
