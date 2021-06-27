@@ -4,7 +4,7 @@
     //'type' => 'checkboxRelationshipMulti',
     'type' => 'checkboxRelationshipMultiGrouped',
     'name' => 'tags',
-    'group_by'=>'tagCat.title', //tagCat è la relazione del modello utilizzato per la relazione tags
+    'group_by'=>'tagCat.title', //tagCat è la relazione del modello Tag (derivato da tags)
     'comment' => null,
     'col_bs_size' => 6,
 ],
@@ -25,7 +25,7 @@ $model_related_panel = Panel::get($model_related)->setParent($row_panel); //TAG_
 $options = $model_related_panel->options()->groupBy($field->group_by);
 
 $value = $row->{$name}->modelKeys();
-//dddx([$rows, $related, $value]);
+//dddx([$row->tags]);
 @endphp
 
 
