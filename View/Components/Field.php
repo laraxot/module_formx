@@ -57,6 +57,9 @@ class Field extends Component {
         if(Str::startsWith($type,'select_')){
             $type='select.'.Str::after($type,'select_');
         }
+        /*
+        valutare se spostare sta logica in collective
+        */
         $view = 'formx::components.fields.'.$type.'.field';
 
         $view_params = [
