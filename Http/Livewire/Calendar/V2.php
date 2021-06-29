@@ -1,6 +1,7 @@
 <?php
 /**
  * https://github.com/asantibanez/livewire-calendar/blob/master/src/LivewireCalendar.php.
+ * https://marcocaggiano.medium.com/creating-a-popup-modal-with-laravel-livewire-and-no-jquery-1806736acd82.
 */
 
 declare(strict_types=1);
@@ -258,14 +259,29 @@ class V2 extends Component {
         */
         foreach ($fields as $field) {
             $value = Arr::get($row, $field->name);
+            if (is_object($value)) {
+                switch (get_class($value)) {
+                    case 'Illuminate\Support\Carbon':
+                        $value = $value->format('Y-m-d\TH:i');
+                        break;
+                    default:
+                        dddx(get_class($value));
+                    break;
+                }
+            }
             Arr::set($this->form_data, $field->name, $value);
         }
+
+        //dddx($this->form_data);
     }
 
     public function update(): void {
         $row = app($this->model)->find($this->event_id);
         $panel = PanelService::get($row);
         $panel->update($this->form_data);
+    }
+
+    public function cancel(): void {
     }
 
     public function onEventDropped($eventId, $year, $month, $day): void {
