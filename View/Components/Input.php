@@ -79,6 +79,7 @@ class Input extends XotBaseComponent {
                     'file' => __FILE__,
                     'pub_theme' => config('xra.pub_theme'),
                     'adm_theme' => config('xra.adm_theme'),
+                    'view_base' => $view_base,
                     'view0_dir' => FileService::viewNamespaceToDir($views[0]),
                     'views' => $views,
                 ];
@@ -98,8 +99,9 @@ class Input extends XotBaseComponent {
         $this->attrs = [
             'name' => $this->name,
             'value' => $this->value,
-            'class' => $this->class,
+            'class' => $this->class ?? 'form-control',
         ];
+
         /*
         $view_params = [
             'view' => $view,

@@ -1,4 +1,7 @@
 <?php
+/**
+ * https://github.com/asantibanez/livewire-calendar/blob/master/src/LivewireCalendar.php.
+*/
 
 declare(strict_types=1);
 
@@ -7,9 +10,11 @@ namespace Modules\FormX\Http\Livewire\Calendar;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
+use Modules\Xot\Services\PanelService;
 
 /**
  * Class LivewireCalendar.
@@ -60,6 +65,14 @@ class V2 extends Component {
     public $dayClickEnabled;
     public $eventClickEnabled;
 
+    public array $form_data = [];
+
+    public string $model;
+
+    public string $form_edit;
+
+    public int $event_id;
+
     protected $casts = [
         'startsAt' => 'date',
         'endsAt' => 'date',
@@ -108,6 +121,12 @@ class V2 extends Component {
         $this->eventClickEnabled = $eventClickEnabled;
 
         $this->afterMount($extras);
+
+        $this->model = 'Modules\Blog\Models\Event';
+        //$this->fields = PanelService::get(app($this->model))->fields();
+        //dddx($this->fields);
+        $panel = PanelService::get(app($this->model));
+        $this->form_edit = $panel->formLivewireEdit();
     }
 
     public function afterMount($extras = []): void {
@@ -190,7 +209,26 @@ class V2 extends Component {
     }
 
     public function events(): Collection {
-        return collect();
+        $this->model = 'Modules\Blog\Models\Event';
+        $events = app($this->model)->with('post')
+            ->whereDate('date_start', '>=', $this->gridStartsAt)
+            ->whereDate('date_start', '<=', $this->gridEndsAt)
+            ->get()
+            ->map(function ($model) {
+                return [
+                    'id' => $model->id,
+                    'title' => $model->title,
+                    'description' => '', //$model->note,
+                    'date' => $model->date_start->toDateTimeLocalString(),
+                    'start' => $model->date_start->toDateTimeLocalString(),
+                    'end' => $model->date_end->toDateTimeLocalString(),
+                    //'start' => '2020-12-09T12:30:00',
+                ];
+            }); //->all();
+
+        return $events;
+
+        //return collect();
     }
 
     public function getEventsForDay($day, Collection $events): Collection {
@@ -204,6 +242,30 @@ class V2 extends Component {
     }
 
     public function onEventClick($eventId): void {
+        $this->event_id = (int) $eventId;
+        $row = app($this->model)->find($eventId);
+        $panel = PanelService::get($row);
+        $fields = $panel->editFields();
+        /*
+        $this->form_data = collect($fields)
+            ->keyBy('name')
+            ->map(
+                function ($item) use ($row) {
+                    return Arr::get($row, $item->name);
+                }
+            )
+            ->all();
+        */
+        foreach ($fields as $field) {
+            $value = Arr::get($row, $field->name);
+            Arr::set($this->form_data, $field->name, $value);
+        }
+    }
+
+    public function update(): void {
+        $row = app($this->model)->find($this->event_id);
+        $panel = PanelService::get($row);
+        $panel->update($this->form_data);
     }
 
     public function onEventDropped($eventId, $year, $month, $day): void {

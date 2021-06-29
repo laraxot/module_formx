@@ -11,7 +11,8 @@
 
                 End time:
                 <br />
-                <input type="datetime-local" class="form-control" wire:model="form_data.end">
+                {{-- <input type="datetime-local" class="form-control" wire:model="form_data.end"> --}}
+                <x-formx::input type="date_time" name="form_data.end" wire:model="form_data.end" />
             </div>
 
             <div class="modal-footer">

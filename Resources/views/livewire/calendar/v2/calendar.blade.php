@@ -10,7 +10,16 @@
         @includeIf($beforeCalendarView)
 
     </div>
-
+    <x-theme::modal.simple guid="modal1" title="modal1">
+        @slot('content')
+            {!! $form_edit !!}
+        @endslot
+        @slot('btns')
+            <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary"
+                data-dismiss="modal">Close</button>
+            <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal">Save</button>
+        @endslot
+    </x-theme::modal.simple>
     <ul class="flex justify-between">
         <li class="mr-3">
             <a class="inline-block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white"

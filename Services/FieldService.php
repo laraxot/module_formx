@@ -24,6 +24,8 @@ class FieldService extends BaseFieldService {
 
     protected string $input_component = 'formx::components.label_input.default';
 
+    protected int $col_size = 12;
+
     /**
      * FieldService constructor.
      *
@@ -60,6 +62,12 @@ class FieldService extends BaseFieldService {
         return $this->type;
     }
 
+    public function setColSize(?int $col_size): self {
+        $this->col_size = $col_size;
+
+        return $this;
+    }
+
     public function type(string $type): self {//@XOT
         $this->type = Str::snake($type);
 
@@ -80,6 +88,49 @@ class FieldService extends BaseFieldService {
 
     public function toArray() {
         return ['name' => $this->name, 'type' => $this->type];
+    }
+
+    public function getView() {
+        $type = Str::snake($this->type);
+        $start = 'formx::livewire.fields.';
+        $views = [];
+        $pieces = explode('_', $type);
+        $pieces_count = count($pieces);
+        for ($i = $pieces_count; $i > 0; --$i) {
+            $a = array_slice($pieces, 0, $i);
+            $b = array_slice($pieces, $i);
+            $views[] = $start.implode('_', $a).'.'.implode('_', array_merge(['field'], $b));
+        }
+        $view = collect($views)->first(function ($view_check) {
+            return \View::exists($view_check);
+        });
+        if (false == $view) {
+            $ddd_msg =
+                [
+                    'err' => 'Not Exists ..',
+                    'line' => __LINE__,
+                    'file' => __FILE__,
+                    'pub_theme' => config('xra.pub_theme'),
+                    'adm_theme' => config('xra.adm_theme'),
+                    //'view0_dir' => self::viewNamespaceToDir($views[0]),
+                    'views' => $views,
+                ];
+            dddx($ddd_msg);
+        }
+
+        return $view;
+    }
+
+    public function toHtml() {
+        $view = $this->getView();
+        $view_params = [
+            'view' => $view,
+            'field' => $this,
+            //'form_data' => $form_data,
+            //'row' => $row,
+        ];
+
+        return view($view, $view_params);
     }
 
     public function html(array $form_data = [], ?Model $row = null): Renderable {//@XOT //$form_data non dovrebbe servire
