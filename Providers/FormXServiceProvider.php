@@ -28,6 +28,6 @@ class FormXServiceProvider extends XotBaseServiceProvider {
 
         FormXService::registerMacros();
 
-        Blade::componentNamespace('Modules\Formx\View\Components', 'formx');
+        Blade::componentNamespace('Modules\FormX\View\Components', 'formx');
     }
 }
