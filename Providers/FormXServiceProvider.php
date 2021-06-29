@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Providers;
 
 //---- bases ----
@@ -9,24 +11,16 @@ use Modules\FormX\Services\FormXService;
 use Modules\Xot\Providers\XotBaseServiceProvider;
 
 /**
- * Class FormXServiceProvider
- * @package Modules\FormX\Providers
+ * Class FormXServiceProvider.
  */
 class FormXServiceProvider extends XotBaseServiceProvider {
-    /**
-     * @var string
-     */
     protected string $module_dir = __DIR__;
-    /**
-     * @var string
-     */
+
     protected string $module_ns = __NAMESPACE__;
-    /**
-     * @var string
-     */
+
     public string $module_name = 'formx'; //lower del nome
 
-    public function bootCallback():void {
+    public function bootCallback(): void {
         //\Debugbar::addMeasure('now', LARAVEL_START, microtime(true));
         //\Debugbar::addMessage('Another message', 'mylabel');
 
@@ -34,6 +28,6 @@ class FormXServiceProvider extends XotBaseServiceProvider {
 
         FormXService::registerMacros();
 
-        Blade::componentNamespace(dirname($this->module_ns).'\View\Components', 'formx');
+        Blade::componentNamespace('Modules\Formx\View\Components', 'formx');
     }
 }
