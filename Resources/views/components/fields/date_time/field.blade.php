@@ -6,7 +6,8 @@
     @endslot
     @slot('input')
 
-        <input type="datetime-local" {{ $attributes->merge($attrs) }} />
+        <input type="datetime-local" {{ $attributes->merge($attrs) }} step="15" />
+
         {{-- <div class="datetime_flatpickr input-group mb-3">
             <input type="datetime-local" {{ $attributes->merge($attrs) }}  />
 
