@@ -82,6 +82,7 @@
 </div>
 @endforeach
 
-<input type='text' wire:model="date_list" name='{{$input_name}}'>
-            
+{{-- ma questo ce lo teniamo qui? --}}
+<input type='text' wire:model="date_list" name='{{ $input_name }}'>
+
 </div>
