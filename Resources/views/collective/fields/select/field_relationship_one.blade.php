@@ -7,7 +7,7 @@
     'attributes' => ['placeholder' => 'metti quello che vuoi'],
 ],
 */
-
+//dddx(get_defined_vars());
 $model = Form::getModel();
 $field = transFields(get_defined_vars());
 $rows = $model->$name();
@@ -49,6 +49,7 @@ $field->attributes['name'] = $name1;
 $related = $rows->getRelated();
 $related_panel = Panel::get($related);
 $opts = $related_panel->optionsSelect();
+//dddx($blade_component);
 //dddx([$related_panel, $opts]);
 @endphp
 

@@ -311,9 +311,6 @@ class FormXService {
         $col_bs_size = isset($field->col_bs_size) ? $field->col_bs_size : 12;
         $field->col_bs_size = $col_bs_size;
 
-        $div_row = isset($field->div_row) ? $field->div_row : false;
-        $field->div_row = $div_row; //se si apre in un componente, bisogna chiuderlo in un altro
-
         if (! isset($field->attributes) || ! is_array($field->attributes)) {
             $field->attributes = [];
         }

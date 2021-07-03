@@ -3,10 +3,11 @@
 NOTA BENE: 
 per utilizzare questo componente, la tabella/modello utilizzato deve avere un/il campo "parent_id"
 */
-
-$options = [];
+//dddx(get_defined_vars());
+//$options = [];
 extract($attributes);
 $field = transFields(get_defined_vars());
+//dddx($field);
 $row = Form::getModel();
 $row_panel = Panel::get($row);
 $row_panel->setRows($row);
@@ -35,6 +36,7 @@ $row_panel->setRows($row);
  $options=collect($tmp)->pluck('title','id')->prepend('Root',0);
  */
 $options = $row_panel->optionsTree();
+//dddx($blade_component);
 //dddx($options);
 @endphp
 
