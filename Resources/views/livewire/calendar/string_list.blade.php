@@ -84,5 +84,6 @@
 
 {{-- ma questo ce lo teniamo qui? --}}
 <input type='text' wire:model="date_list" name='{{ $input_name }}'>
+{{-- Form::text($name,$val1,['data-input','class'=>"form-control"]) --}}
 
 </div>

@@ -30,23 +30,34 @@ class Stringlist extends Component {
     public $currentMonth;
 
     public $currentYear;
-     
+
     public $date_list;
 
     public $input_name;
 
-    public function mount(SessionManager $session, string $minDate = null, string $maxDate = null, string $date_list=null, string $input_name): void {
-        $first_date=collect(explode(',',$date_list))->filter(function($value){return !empty($value); })->first();
-        if($first_date==null){
-            $first_date=Carbon::now();
-        }else{
-            $first_date=Carbon::createFromFormat('d/m/Y',$first_date);
+    public function mount(SessionManager $session, string $minDate = null, string $maxDate = null, string $date_list = null, string $input_name): void {
+        /*
+        $first_date = collect(explode(',', $date_list))->filter(function ($value) {
+            return ! empty($value);
+        })->first();
+        if (null == $first_date) {
+            $first_date = Carbon::now();
+        } else {
+            $first_date = Carbon::createFromFormat('d/m/Y', $first_date);
+        }
+        */
+
+        $first_date = collect(explode(',', $date_list))->filter(function ($value) {
+            return ! empty($value);
+        })->first();
+        if (null == $first_date) {
+            $first_date = Carbon::now();
+        } else {
+            $first_date = Carbon::createFromFormat('d/m/Y', $first_date);
         }
 
-        
-        
         $session->put('calendar.now', $first_date);
-        $this->date_list=$date_list;
+        $this->date_list = $date_list;
         $this->input_name = $input_name;
         $this->minDate = $minDate;
         $this->maxDate = $maxDate;
@@ -109,8 +120,9 @@ class Stringlist extends Component {
 
     // mi evidenzia i giorni
     private function isDaySelected(int $day = null): bool {
-        $date_selected=$day.'/'.$this->currentMonth.'/'.$this->currentYear;
-        return in_array($date_selected,explode(',',$this->date_list));
+        $date_selected = $day.'/'.$this->currentMonth.'/'.$this->currentYear;
+
+        return in_array($date_selected, explode(',', $this->date_list));
         /*
         if ($day !== $this->selectedDay) {
             return false;
@@ -181,21 +193,21 @@ class Stringlist extends Component {
         $this->selectedMonth = $this->currentMonth;
         $this->selectedDay = $day;
         */
-        $arr=explode(',',$this->date_list);
-        $collect=collect($arr);
-        $date=$day.'/'.$this->currentMonth.'/'.$this->currentYear;
-        $i=$collect->search($date);
-        if($i!==false){
-            $collect=$collect->forget($i);
-        }else{
-            $collect=$collect->merge($date);
+        $arr = explode(',', $this->date_list);
+        $collect = collect($arr);
+        $date = $day.'/'.$this->currentMonth.'/'.$this->currentYear;
+        $i = $collect->search($date);
+        if (false !== $i) {
+            $collect = $collect->forget($i);
+        } else {
+            $collect = $collect->merge($date);
         }
-        $collect=$collect->filter(
-            function($value){ 
-                return !empty($value);
+        $collect = $collect->filter(
+            function ($value) {
+                return ! empty($value);
             }
             )->unique();
-        $this->date_list=$collect->implode(',');
+        $this->date_list = $collect->implode(',');
     }
 
     public function showPreviousArrow(): bool {
@@ -230,6 +242,7 @@ class Stringlist extends Component {
 
     public function render() {
         $view = 'formx::livewire.calendar.string_list';
+        //dddx($this->date_list);
         $view_params = [
             'view' => $view,
             'calendar' => $this->calendar(),
