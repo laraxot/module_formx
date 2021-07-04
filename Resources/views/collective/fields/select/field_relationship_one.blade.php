@@ -48,9 +48,9 @@ if (method_exists($rows, 'getLocalKeyName')) {
 $field->attributes['name'] = $name1;
 $related = $rows->getRelated();
 $related_panel = Panel::get($related);
+//dddx($related_panel->optionsSelect());
 $opts = $related_panel->optionsSelect();
 //dddx($blade_component);
-//dddx([$related_panel, $opts]);
 @endphp
 
 
