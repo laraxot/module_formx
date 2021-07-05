@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
  * https://github.com/stijnvanouplines/livewire-calendar/blob/master/app/Http/Livewire/Calendar.php
  */
 
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 /**
@@ -36,7 +37,6 @@ class Stringlist extends Component {
     public $input_name;
 
     public function mount(SessionManager $session, string $minDate = null, string $maxDate = null, string $date_list = null, string $input_name): void {
-        /*
         $first_date = collect(explode(',', $date_list))->filter(function ($value) {
             return ! empty($value);
         })->first();
@@ -45,16 +45,17 @@ class Stringlist extends Component {
         } else {
             $first_date = Carbon::createFromFormat('d/m/Y', $first_date);
         }
-        */
 
-        $first_date = collect(explode(',', $date_list))->filter(function ($value) {
-            return ! empty($value);
-        })->first();
-        if (null == $first_date) {
-            $first_date = Carbon::now();
-        } else {
-            $first_date = Carbon::createFromFormat('d/m/Y', $first_date);
+        // aggiusto le date, gli 0 avanti ai giorni e mesi non vengono renderizzati, ergo...
+        $date_list = str_replace(',0', ',', $date_list);
+        $date_list = str_replace('/0', '/', $date_list);
+        //$date_list = Str::start($date_list, '');
+        $date_list = Str::startsWith($date_list, '0');
+        if (Str::startsWith($date_list, '0')) {
+            Str::replaceFirst('0', '', $date_list);
         }
+
+        dddx($date_list);
 
         $session->put('calendar.now', $first_date);
         $this->date_list = $date_list;
