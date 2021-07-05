@@ -83,7 +83,7 @@
 @endforeach
 
 {{-- ma questo ce lo teniamo qui? --}}
-<input type='text' wire:model="date_list" name='{{ $input_name }}'>
-{{-- Form::text($name,$val1,['data-input','class'=>"form-control"]) --}}
+<input type='text' wire:model="date_list" name='{{ $input_name }}' class='form-control' disabled>
+
 
 </div>
