@@ -20,6 +20,7 @@
             <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal">Save</button>
         @endslot
     </x-theme::modal.simple>
+
     <ul class="flex justify-between">
         <li class="mr-3">
             <a class="inline-block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white"
@@ -67,3 +68,39 @@
         @includeIf($afterCalendarView)
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        function onLivewireCalendarEventDragStart(event, eventId) {
+            event.dataTransfer.setData('id', eventId);
+        }
+
+        function onLivewireCalendarEventDragEnter(event, componentId, dateString, dragAndDropClasses) {
+            event.stopPropagation();
+            event.preventDefault();
+            let element = document.getElementById(`${componentId}-${dateString}`);
+            element.className = element.className + ` ${dragAndDropClasses} `;
+        }
+
+        function onLivewireCalendarEventDragLeave(event, componentId, dateString, dragAndDropClasses) {
+            event.stopPropagation();
+            event.preventDefault();
+            let element = document.getElementById(`${componentId}-${dateString}`);
+            element.className = element.className.replace(dragAndDropClasses, '');
+        }
+
+        function onLivewireCalendarEventDragOver(event) {
+            event.stopPropagation();
+            event.preventDefault();
+        }
+
+        function onLivewireCalendarEventDrop(event, componentId, dateString, year, month, day, dragAndDropClasses) {
+            event.stopPropagation();
+            event.preventDefault();
+            let element = document.getElementById(`${componentId}-${dateString}`);
+            element.className = element.className.replace(dragAndDropClasses, '');
+            const eventId = event.dataTransfer.getData('id');
+            window.Livewire.find(componentId).call('onEventDropped', eventId, year, month, day);
+        }
+    </script>
+@endpush
