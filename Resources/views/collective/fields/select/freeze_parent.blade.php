@@ -10,4 +10,4 @@
 		}
 	}
 @endphp
-{{ $field->value }}] {{ $field->title }}
+{{ $field->value }} {{ $field->title }}
