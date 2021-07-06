@@ -13,7 +13,7 @@ $val=$rows->get();
 $related=$rows->getRelated();
 $_panel=Panel::get($related);
 /*
-$_panel->setRows($related);
+$_panel->setRowzs($related);
 $all=$_panel->options();
 */
 $all=$related->all();

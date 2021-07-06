@@ -18,9 +18,15 @@ class OpenPanel {
      */
     public function __invoke() {
         return function ($panel, $act = '', $params = []) {
-            $route_params = \Route::current()->parameters();
-            $req_params = \Request::all();
-
+            //$route_params = \Route::current()->parameters();
+            //$req_params = \Request::all();
+            $methods=[
+                'store'=>'POST',
+                'update'=>'PUT',//PUT/PATCH
+                'destroy'=>'DELETE',
+            ];
+            $method=isset($methods[$act])?$methods[$act]:'POST';
+            /*
             switch ($act) {
                 case 'store':
                     $method = 'POST';
@@ -35,6 +41,7 @@ class OpenPanel {
                     $method = 'POST';
                 break;
             }
+            */
             if (isset($params['method'])) {
                 $method = $params['method'];
             }
@@ -46,6 +53,7 @@ class OpenPanel {
 
             //$url = $panel->$func();
             $url = $panel->url(['act' => $act]);
+
 
             return Form::model($panel->row,
                 [
