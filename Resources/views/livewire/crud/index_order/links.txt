@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 https://previews.customer.envatousercontent.com/files/188465190/index.html
 
 https://codecanyon.net/item/node-dynamic-menu-made-easy/101754
 
+=======
+https://previews.customer.envatousercontent.com/files/188465190/index.html
+
+https://codecanyon.net/item/node-dynamic-menu-made-easy/101754
+
+>>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
 https://js.devexpress.com/Demos/WidgetsGallery/Demo/TreeView/DragAndDropHierarchicalDataStructure/jQuery/GreenMist/

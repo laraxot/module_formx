@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @extends('adm_theme::layouts.app')
 @section('content')
     {{-- 
@@ -94,3 +95,11 @@
 
 </script>
 @endpush
+=======
+@extends('adm_theme::layouts.app')
+@section('content')
+    {{--  --}}
+    <x-formx::input type="number" name="inputNumber" label="number" value="100" />
+    {{-- <livewire:formx::input type="number" name="inputNumber" label="number" value="100" /> --}}
+@endsection
+>>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b

@@ -1,4 +1,14 @@
+<<<<<<< HEAD
 node_modules
 /*.lock
 package-lock.json
 /Resources/views/includes/components/form_to_migrate/multi/package-lock.json
+=======
+*.lock
+*.phar
+.git-rewrite
+node_modules
+package-lock.json
+
+
+>>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b

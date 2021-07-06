@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "leaverou",
   "homepage": "https://github.com/laraxot/package_extend",
@@ -19,3 +20,26 @@
     "awesomplete": "https://github.com/LeaVerou/awesomplete"
   }
 }
+=======
+{
+  "name": "leaverou",
+  "homepage": "https://github.com/laraxot/package_extend",
+  "authors": [
+    "marco xot <marco.sottana@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./bc",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "awesomplete": "https://github.com/LeaVerou/awesomplete"
+  }
+}
+>>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b

@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 //-- Switchery, per il boolean, questo molto bello se tradotto in livewire
 https://www.larashout.com/update-model-status-using-toggles-in-laravel
+=======
+//-- Switchery, per il boolean, questo molto bello se tradotto in livewire
+https://www.larashout.com/update-model-status-using-toggles-in-laravel
+>>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b

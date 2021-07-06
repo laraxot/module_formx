@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "jquery-flexselect",
   "_cacheHeaders": {
@@ -10,4 +11,18 @@
   "_target": "*",
   "_originalSource": "https://github.com/rmm5t/jquery-flexselect",
   "_direct": true
+=======
+{
+  "name": "jquery-flexselect",
+  "_cacheHeaders": {
+    "ETag": "W/\"03b3667be530c6311bde162e9dd4cf37\"",
+    "Content-Type": "text/html; charset=utf-8"
+  },
+  "_release": "e-tag:W/\"03b3667",
+  "main": "index",
+  "_source": "https://github.com/rmm5t/jquery-flexselect",
+  "_target": "*",
+  "_originalSource": "https://github.com/rmm5t/jquery-flexselect",
+  "_direct": true
+>>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
 }

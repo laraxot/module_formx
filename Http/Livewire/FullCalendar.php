@@ -9,6 +9,10 @@ namespace Modules\FormX\Http\Livewire;
 
  */
 
+<<<<<<< HEAD
+=======
+use Carbon\Carbon;
+>>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -25,7 +29,11 @@ class FullCalendar extends Component {
 
     public array $form_data = [];
 
+<<<<<<< HEAD
     public function mount() {
+=======
+    public function mount(): void {
+>>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
         /*$name = 'Barry';
         $events = [];
         foreach (range(0, 6) as $i) {
@@ -39,7 +47,11 @@ class FullCalendar extends Component {
         */
     }
 
+<<<<<<< HEAD
     public function updatedName() {
+=======
+    public function updatedName(): void {
+>>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
         $this->emit('refreshCalendar');
     }
 
@@ -106,6 +118,7 @@ class FullCalendar extends Component {
         return view('formx::livewire.full_calendar');
     }
 
+<<<<<<< HEAD
     public function edit(array $calEvent) {
         $this->form_data = $calEvent['event'];
     }
@@ -116,11 +129,41 @@ class FullCalendar extends Component {
     }
 
     public function cancel() {
+=======
+    public function edit(array $calEvent): void {
+        /*dddx($calEvent['event']);
+         array:4 [▼
+    "title" => "IDE Helper"
+    "start" => "2021-06-08T08:30:00+02:00"
+    "end" => "2021-06-08T11:30:00+02:00"
+    "id" => "60bf2b8e12802"
+  ]
+  */
+        $this->form_data = $calEvent['event'];
+        //yyyy-MM-ddThh:mm
+        //$this->form_data['start'] = Carbon::parse($this->form_data['start'])->format('Y-m-d\TH:i');
+        //$this->form_data['end'] = Carbon::parse($this->form_data['end'])->format('Y-m-d\TH:i');
+    }
+
+    public function update(): void {
+        session()->flash('message', 'Updated Successfully.');
+        $this->resetInputFields();
+    }
+
+    public function cancel(): void {
+>>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
         //$this->updateMode = false;
         $this->resetInputFields();
     }
 
+<<<<<<< HEAD
     private function resetInputFields() {
         $this->form_data = [];
     }
 }
+=======
+    private function resetInputFields(): void {
+        $this->form_data = [];
+    }
+}
+>>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
