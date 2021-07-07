@@ -108,11 +108,7 @@ class FormXService {
             ->reject(function ($macro) {
                 return Collection::hasMacro($macro);
             })
-<<<<<<< HEAD
-            ->each(function ($macro, $path) {
-=======
             ->each(function ($macro, $path): void {
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
                 $class = '\\Modules\\FormX\\Macros\\'.$macro;
                 if ('BaseFormBtnMacro' != $macro) {
                     Form::macro('bs'.Str::studly($macro), app($class)());
@@ -183,11 +179,7 @@ class FormXService {
                 //$field->value = $row->{$field->name_dot};
                 //$field->value = 'test['.$field->name_dot.']'.Arr::get($row, 'nome_diri');
             } catch (\Exception $e) {
-<<<<<<< HEAD
-                $field->value = '---['.$field->name_dot.']--';
-=======
                 $field->value = '---['.$field->name_dot.']['.$e->getMessage().']['.__LINE__.'-'.basename(__FILE__).']['.$row->{$field->name_dot}.']--';
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
             }
         }
 
@@ -296,16 +288,12 @@ class FormXService {
         return view()->make($view, $view_params);
     }
 
-<<<<<<< HEAD
-    public static function inputHtml(array $params): Renderable {
-=======
     /**
      * Undocumented function.
      *
      * @return \Illuminate\Contracts\Support\Renderable|\Illuminate\Support\HtmlString
      */
     public static function inputHtml(array $params) {
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
         extract($params);
         if (! isset($field)) {
             throw new \Exception('field is missing');
@@ -323,12 +311,6 @@ class FormXService {
         $col_bs_size = isset($field->col_bs_size) ? $field->col_bs_size : 12;
         $field->col_bs_size = $col_bs_size;
 
-<<<<<<< HEAD
-        $div_row = isset($field->div_row) ? $field->div_row : false;
-        $field->div_row = $div_row; //se si apre in un componente, bisogna chiuderlo in un altro
-
-=======
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
         if (! isset($field->attributes) || ! is_array($field->attributes)) {
             $field->attributes = [];
         }
@@ -394,13 +376,10 @@ class FormXService {
 
         if (! Gate::allows($method, $panel)) {
             //Strict comparison using === between false and string will always evaluate to false.
-<<<<<<< HEAD
-=======
             //dddx([$method.'policy non esiste', ! Gate::allows($method, $panel), $method, $panel]);
 
             return '';
             /*
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
             if (false == $error_label) {
                 return null;
             }
@@ -410,10 +389,7 @@ class FormXService {
             $policy_class = PolicyService::get($panel)->createIfNotExists()->getClass();
 
             return '['.$policy_class.']['.$method.']';
-<<<<<<< HEAD
-=======
             */
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
         }
 
         if (isset($modal)) {
@@ -460,8 +436,4 @@ class FormXService {
                     '.$icon.' '.$title.'
                 </a>';
     }
-<<<<<<< HEAD
 }//end class
-=======
-}//end class
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b

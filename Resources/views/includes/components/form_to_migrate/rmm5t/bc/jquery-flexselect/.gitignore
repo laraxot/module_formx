@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 pkg
 .DS_Store
 notes.txt
@@ -6,13 +5,4 @@ notes.txt
 vendor/ruby
 vendor/cache
 public
-=======
-pkg
-.DS_Store
-notes.txt
-.bundle
-vendor/ruby
-vendor/cache
-public
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
 .project

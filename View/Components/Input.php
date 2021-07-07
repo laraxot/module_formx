@@ -14,14 +14,6 @@ use Modules\Xot\View\Components\XotBaseComponent;
  * Class Input.
  */
 class Input extends XotBaseComponent {
-<<<<<<< HEAD
-    /**
-     * The alert type.
-     */
-    public string $type;
-
-    public string $label;
-=======
     public string $type;
     public string $name;
     public ?string $label;
@@ -31,7 +23,6 @@ class Input extends XotBaseComponent {
     public ?string $placeholder;
 
     public array $attrs = [];
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
 
     public string $comp_ns;
 
@@ -40,26 +31,6 @@ class Input extends XotBaseComponent {
     /**
      * Create a new component instance.
      *
-<<<<<<< HEAD
-     * @param string $type
-     * @param string $label
-     */
-    public function __construct($type, $label = null) {
-        //dddx(func_get_args());
-        //dddx(get_class_methods($this));
-
-        $this->type = $type;
-        /*
-        if (isset($label)) {
-            $this->label = $label;
-        } else {
-            $this->label = 'No-Set-Label';
-        }
-        */
-        $this->label = $label ?? 'No-Set-Label';
-        //$this->name = $name ?? 'No-Set-Name';
-        //dddx($this->data());
-=======
      * @param string $label
      */
     public function __construct(
@@ -78,7 +49,6 @@ class Input extends XotBaseComponent {
         //$this->input_id = $id;
         $this->value = $value;
         $this->placeholder = $placeholder;
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
     }
 
     public function getView(): string {
@@ -109,10 +79,7 @@ class Input extends XotBaseComponent {
                     'file' => __FILE__,
                     'pub_theme' => config('xra.pub_theme'),
                     'adm_theme' => config('xra.adm_theme'),
-<<<<<<< HEAD
-=======
                     'view_base' => $view_base,
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
                     'view0_dir' => FileService::viewNamespaceToDir($views[0]),
                     'views' => $views,
                 ];
@@ -129,15 +96,12 @@ class Input extends XotBaseComponent {
         $view = $this->getView();
 
         $this->comp_ns = Str::beforeLast($view, '.');
-<<<<<<< HEAD
-=======
         $this->attrs = [
             'name' => $this->name,
             'value' => $this->value,
             'class' => $this->class ?? 'form-control',
         ];
 
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
         /*
         $view_params = [
             'view' => $view,
@@ -151,8 +115,4 @@ class Input extends XotBaseComponent {
 
         return view($view);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b

@@ -1,10 +1,7 @@
 <?php
 
-<<<<<<< HEAD
-=======
 declare(strict_types=1);
 
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
 namespace Modules\FormX\Services;
 
 use Illuminate\Contracts\Support\Renderable;
@@ -27,11 +24,8 @@ class FieldService extends BaseFieldService {
 
     protected string $input_component = 'formx::components.label_input.default';
 
-<<<<<<< HEAD
-=======
     protected int $col_size = 12;
 
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
     /**
      * FieldService constructor.
      *
@@ -52,8 +46,6 @@ class FieldService extends BaseFieldService {
         return new self($label, $name);
     }
 
-<<<<<<< HEAD
-=======
     public function getName(): string {
         return $this->name;
     }
@@ -76,7 +68,6 @@ class FieldService extends BaseFieldService {
         return $this;
     }
 
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
     public function type(string $type): self {//@XOT
         $this->type = Str::snake($type);
 
@@ -95,8 +86,6 @@ class FieldService extends BaseFieldService {
         return $this;
     }
 
-<<<<<<< HEAD
-=======
     public function toArray() {
         return ['name' => $this->name, 'type' => $this->type];
     }
@@ -144,7 +133,6 @@ class FieldService extends BaseFieldService {
         return view($view, $view_params);
     }
 
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
     public function html(array $form_data = [], ?Model $row = null): Renderable {//@XOT //$form_data non dovrebbe servire
         //$view = 'formx::livewire.fields.'.$this->type.'.field';
         $type = Str::snake($this->type);

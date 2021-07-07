@@ -11,6 +11,7 @@ namespace Modules\FormX\Http\Livewire\Calendar;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -71,7 +72,7 @@ class V2 extends Component {
 
     public string $form_edit;
 
-    public ?int $event_id = null;
+    public int $event_id;
 
     protected $casts = [
         'startsAt' => 'date',
@@ -239,36 +240,51 @@ class V2 extends Component {
     }
 
     public function onDayClick($year, $month, $day): void {
-        /*
-        if (null == $this->event_id) { //non sto clikkando un evento
-            dddx('preso '.$this->event_id);
-        }
-        */
     }
 
     public function onEventClick($eventId): void {
         $this->event_id = (int) $eventId;
         $row = app($this->model)->find($eventId);
         $panel = PanelService::get($row);
-        $this->form_data = $panel->getFormData(['act' => 'edit']);
+        $fields = $panel->editFields();
+        /*
+        $this->form_data = collect($fields)
+            ->keyBy('name')
+            ->map(
+                function ($item) use ($row) {
+                    return Arr::get($row, $item->name);
+                }
+            )
+            ->all();
+        */
+        foreach ($fields as $field) {
+            $value = Arr::get($row, $field->name);
+            if (is_object($value)) {
+                switch (get_class($value)) {
+                    case 'Illuminate\Support\Carbon':
+                        $value = $value->format('Y-m-d\TH:i');
+                        break;
+                    default:
+                        dddx(get_class($value));
+                    break;
+                }
+            }
+            Arr::set($this->form_data, $field->name, $value);
+        }
+
+        //dddx($this->form_data);
     }
 
     public function update(): void {
         $row = app($this->model)->find($this->event_id);
         $panel = PanelService::get($row);
         $panel->update($this->form_data);
-
-        $this->form_data = [];
-        $this->event_id = null;
     }
 
     public function cancel(): void {
-        $this->form_data = [];
-        $this->event_id = null;
     }
 
     public function onEventDropped($eventId, $year, $month, $day): void {
-        dddx('dropped');
     }
 
     /**

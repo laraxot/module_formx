@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
     "name": "jquery-auto-complete",
 	"description": "A lightweight autocomplete plugin for jQuery.",
@@ -34,40 +33,3 @@
         "readme.md"
     ]
 }
-=======
-{
-    "name": "jquery-auto-complete",
-	"description": "A lightweight autocomplete plugin for jQuery.",
-    "version": "1.0.7",
-    "dependencies": {
-        "jquery": ">=1.7"
-    },
-    "homepage": "https://github.com/Pixabay/jQuery-autoComplete",
-    "authors": [{
-        "name": "Simon Steinberger",
-        "url": "https://pixabay.com/users/Simon/",
-        "email": "simon@pixabay.com"
-    }],
-    "keywords": [
-        "autocomplete",
-        "autosuggest",
-        "autosuggester",
-        "suggest",
-        "suggester",
-        "completer",
-        "select",
-        "dropdown",
-        "ajax"
-    ],
-    "licenses": [{
-        "type": "MIT",
-        "url": "http://www.opensource.org/licenses/mit-license.php"
-    }],
-    "ignore": [
-        "bower.json",
-        "demo.html",
-        "auto-complete.jquery.json",
-        "readme.md"
-    ]
-}
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b

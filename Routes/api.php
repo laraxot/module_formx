@@ -1,10 +1,7 @@
 <?php
 
-<<<<<<< HEAD
-=======
 declare(strict_types=1);
 
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
 //use Illuminate\Http\Request;
 
 /*
@@ -22,11 +19,7 @@ Route::middleware('auth:api')->get('/formx', function (Request $request) {
     return $request->user();
 });
 */
-<<<<<<< HEAD
-/*
-=======
 /* test spostato dentro livewire
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
 Route::get('calendar/events', function (Request $request) {
     $name = $request->get('name');
 
@@ -41,8 +34,4 @@ Route::get('calendar/events', function (Request $request) {
 
     return $events;
 });
-<<<<<<< HEAD
-*/
-=======
 //*/
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b

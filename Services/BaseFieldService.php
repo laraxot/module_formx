@@ -1,10 +1,7 @@
 <?php
 
-<<<<<<< HEAD
-=======
 declare(strict_types=1);
 
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
 namespace Modules\FormX\Services;
 
 /*
@@ -24,11 +21,7 @@ class BaseFieldService {
 
     protected string $input_type;
 
-<<<<<<< HEAD
-    protected int $textarea_rows;
-=======
     protected int $textarea_rows = 5;
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
 
     protected array $options;
 
@@ -38,24 +31,15 @@ class BaseFieldService {
      * @var mixed
      */
     protected $default;
-<<<<<<< HEAD
-=======
 
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
     /**
      * @var mixed
      */
     protected $autocomplete;
 
-<<<<<<< HEAD
-    protected string $placeholder;
-
-    protected string $help;
-=======
     protected string $placeholder = '';
 
     protected string $help = '';
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
 
     protected array $rules;
 
@@ -211,8 +195,4 @@ class BaseFieldService {
 
         return $this;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b

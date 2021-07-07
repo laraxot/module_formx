@@ -254,21 +254,14 @@ class IndexOrder extends Component {
 
         $model_name = $container0;
         $model = TenantService::model($model_name);
-<<<<<<< HEAD
-
-=======
         /*
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
         if (in_array('id_tbl_lingua', $model->getFillable())) {
             $nodes = $this->panel->rows()->where('id_tbl_lingua', 4);
         } else {
             $nodes = $this->panel->rows()->first();
         }
-<<<<<<< HEAD
-=======
         */
         $nodes = $this->panel->rows();
->>>>>>> 84b1e510c2e9ebc238a2d8cf0355c08037f3cc0b
         $nodes = $nodes
             //->orderBy('posizione')
             ->get()
