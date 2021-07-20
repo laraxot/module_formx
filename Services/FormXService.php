@@ -402,7 +402,8 @@ class FormXService {
             $url = $guest_url;
         }
         if (isset($guest_notice) && $guest_notice && ! \Auth::check()) {
-            $url = route('login.notice', ['lang' => $lang, 'referrer' => $url]);
+            //$url = route('login.notice', ['lang' => $lang, 'referrer' => $url]);
+            $url = route('login', ['lang' => $lang, 'referrer' => $url]);
         }
 
         if (isset($modal)) {
