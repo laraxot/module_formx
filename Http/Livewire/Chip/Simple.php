@@ -7,6 +7,7 @@ use Livewire\Component;
 class Simple extends Component {
     public $row;
     public $elements;
+    public $tag = 'test';
 
     /*
      * Undocumented function.
@@ -16,7 +17,7 @@ class Simple extends Component {
 
     public function mount($row, $name) {
         //$this->row = $row;
-        $this->elements = $row->{$name};
+        //$this->elements = $row->{$name};
         //$this->content = $post->content;
     }
 
@@ -32,5 +33,9 @@ class Simple extends Component {
         ];
 
         return view($view, $view_params);
+    }
+
+    public function add() {
+        dddx('preso');
     }
 }

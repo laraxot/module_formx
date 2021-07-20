@@ -1,32 +1,10 @@
 <div>
-
-<style>
-.chip {
-  display: inline-block;
-  padding: 0 25px;
-  height: 50px;
-  font-size: 16px;
-  line-height: 50px;
-  border-radius: 25px;
-  background-color: #f1f1f1;
-}
-
-.chip img {
-  float: left;
-  margin: 0 10px 0 -25px;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-}
-</style>
-
-
-<div class="chip">
-  <img src="img_avatar.png" alt="Person" width="96" height="96">
-  John Doe
-</div>
-
-
-
-
+  {{--  
+  [[
+<input type="text" class="form-control" wire:model.lazy="tag" wire:keydown.enter="add()">{{ $tag }}
+  ]] 
+  --}}
+  <form wire:submit.prevent="add">
+    <input type="text" class="form-control" wire:model="tag">{{ $tag }}
+  </form>
 </div>
