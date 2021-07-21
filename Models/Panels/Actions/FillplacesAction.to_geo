@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Modules\FormX\Models\Panels\Actions;
 
 //-------- models -----------
-use Modules\Blog\Models\Place;
-//-------- services --------
 use Modules\FormX\Models\Input;
-//-------- bases -----------
+//-------- services --------
 use Modules\FormX\Services\FormXService;
+//-------- bases -----------
+use Modules\Geo\Models\Place;
 use Modules\Xot\Models\Panels\Actions\XotBasePanelAction;
 
 /**
