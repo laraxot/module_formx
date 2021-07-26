@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Macros;
 
 //use Illuminate\Http\Request;
@@ -10,8 +12,7 @@ use Modules\Xot\Services\PanelService as Panel;
 //----- services -----
 
 /**
- * Class Open
- * @package Modules\FormX\Macros
+ * Class Open.
  */
 class Open {
     /**
@@ -49,10 +50,11 @@ class Open {
             }
             */
             $panel = Panel::get($model);
+            $act = $to;
+            //$func = Str::camel($to).'Url';
 
-            $func = Str::camel($to).'Url';
-
-            $url = $panel->$func();
+            //$url = $panel->$func();
+            $url = $panel->url(['act' => $act]);
 
             switch ($to) {
                 case 'store':
