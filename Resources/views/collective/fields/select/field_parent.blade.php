@@ -2,6 +2,16 @@
 /*
 NOTA BENE: 
 per utilizzare questo componente, la tabella/modello utilizzato deve avere un/il campo "parent_id"
+
+
+esempio di utilizzo
+(object) [
+    'type' => 'SelectParent',
+    'name' => 'parent_id',
+    'comment' => null,
+    'col_bs_size' => 2,
+],
+
 */
 //dddx(get_defined_vars());
 //$options = [];
