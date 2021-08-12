@@ -24,8 +24,9 @@ $model_related = $rows->getRelated(); //non restituisce una collezione, ma il mo
 $model_related_panel = Panel::get($model_related)->setParent($row_panel); //TAG_PANEL
 $options = $model_related_panel->options()->groupBy($field->group_by);
 
+//([$row,$name]);
 $value = $row->{$name}->modelKeys();
-//dddx([$row->tags]);
+
 @endphp
 
 
