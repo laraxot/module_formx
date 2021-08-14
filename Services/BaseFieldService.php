@@ -41,9 +41,9 @@ class BaseFieldService {
 
     protected string $help = '';
 
-    protected array $rules;
+    protected array $rules = [];
 
-    protected string $view;
+    protected string $view = '';
 
     /**
      * @param mixed $property
