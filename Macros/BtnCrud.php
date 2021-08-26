@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Macros;
 
 //use Illuminate\Http\Request;
@@ -9,8 +11,7 @@ use Collective\Html\FormFacade as Form;
 //----- services -----
 
 /**
- * Class BtnCrud
- * @package Modules\FormX\Macros
+ * Class BtnCrud.
  */
 class BtnCrud {
     /**

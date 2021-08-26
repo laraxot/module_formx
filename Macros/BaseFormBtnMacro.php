@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Macros;
 
 use Illuminate\Support\Facades\Request;
@@ -10,12 +12,12 @@ use Modules\Xot\Services\PanelService as Panel;
 use Modules\Xot\Services\StubService;
 
 /**
- * Class BaseFormBtnMacro
- * @package Modules\FormX\Macros
+ * Class BaseFormBtnMacro.
  */
 abstract class BaseFormBtnMacro {
     /**
      * @param array $params
+     *
      * @return array|void
      */
     public static function before($params) {

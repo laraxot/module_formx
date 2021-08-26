@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Macros;
 
 //use Illuminate\Http\Request;
@@ -11,8 +13,7 @@ use Collective\Html\FormFacade as Form;
 //--- azioni container
 
 /**
- * Class BtnCreateAttach
- * @package Modules\FormX\Macros
+ * Class BtnCreateAttach.
  */
 class BtnCreateAttach {
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Macros;
 
 //use Illuminate\Http\Request;
@@ -8,8 +10,7 @@ namespace Modules\FormX\Macros;
 //--- BASE ---
 
 /**
- * Class BtnDetach
- * @package Modules\FormX\Macros
+ * Class BtnDetach.
  */
 class BtnDetach extends BaseFormBtnMacro {
     /**
@@ -22,6 +23,7 @@ class BtnDetach extends BaseFormBtnMacro {
             if ($vars['error']) {
                 return '';
             }// $vars['error_msg'];
+
             return $vars['btn'];
         }; //end function
     }

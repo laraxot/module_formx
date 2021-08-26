@@ -54,8 +54,8 @@ class Field extends Component {
     public function render() {
         $type = str_replace('._', '.', Str::snake($this->type));
 
-        if(Str::startsWith($type,'select_')){
-            $type='select.'.Str::after($type,'select_');
+        if (Str::startsWith($type, 'select_')) {
+            $type = 'select.'.Str::after($type, 'select_');
         }
         /*
         valutare se spostare sta logica in collective
@@ -66,9 +66,10 @@ class Field extends Component {
             'view' => $view,
         ];
         //$view_params = array_merge($view_params, $this->vars);
-        if(!view()->exists($view)){
-            dddx(['view'=>$view,'type'=>$type]);
+        if (! view()->exists($view)) {
+            dddx(['view' => $view, 'type' => $type]);
         }
+
         return view($view, $view_params);
     }
 }

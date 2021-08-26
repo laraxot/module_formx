@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Models;
 
 //------services---------
@@ -10,15 +12,16 @@ namespace Modules\FormX\Models;
 use Modules\Xot\Models\XotBaseModel;
 
 /**
- * Modules\FormX\Models\Input
+ * Modules\FormX\Models\Input.
  *
- * @property int $id
- * @property string|null $type
- * @property string|null $sub_type
- * @property string|null $updated_by
- * @property string|null $created_by
+ * @property int                             $id
+ * @property string|null                     $type
+ * @property string|null                     $sub_type
+ * @property string|null                     $updated_by
+ * @property string|null                     $created_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Input newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Input newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Input query()
@@ -31,8 +34,7 @@ use Modules\Xot\Models\XotBaseModel;
  * @method static \Illuminate\Database\Eloquent\Builder|Input whereUpdatedBy($value)
  * @mixin \Eloquent
  */
-class Input extends XotBaseModel
-{
+class Input extends XotBaseModel {
     /**
      * @var string[]
      */

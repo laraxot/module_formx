@@ -1,9 +1,8 @@
 <?php
-namespace Modules\FormX\Models\Panels\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
-use Modules\LU\Models\User as User;
-use Modules\FormX\Models\Panels\Policies\InputPanelPolicy as Panel;
+declare(strict_types=1);
+
+namespace Modules\FormX\Models\Panels\Policies;
 
 use Modules\Xot\Models\Panels\Policies\XotBasePanelPolicy;
 

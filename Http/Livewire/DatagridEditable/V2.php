@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Http\Livewire\DatagridEditable;
 
 use Illuminate\Contracts\View\View as ViewContract;
@@ -97,8 +99,6 @@ class V2 extends Component {
 
     /**
      * @param string $err
-     *
-     * @return string
      */
     public static function errorMessage($err): string {
         session()->flash('error_message', $err);

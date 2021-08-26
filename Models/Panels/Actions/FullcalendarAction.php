@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Models\Panels\Actions;
 
 //-------- models -----------
@@ -8,17 +10,11 @@ namespace Modules\FormX\Models\Panels\Actions;
 use Modules\Xot\Models\Panels\Actions\XotBasePanelAction;
 
 /**
- * Class FullcalendarAction
- * @package Modules\FormX\Models\Panels\Actions
+ * Class FullcalendarAction.
  */
 class FullcalendarAction extends XotBasePanelAction {
-    /**
-     * @var bool
-     */
     public bool $onContainer = true; //onlyContainer
-    /**
-     * @var string
-     */
+
     public string $icon = '<i class="fas fa-sync"></i>';
 
     /**

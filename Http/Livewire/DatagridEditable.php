@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Http\Livewire;
 
 use Illuminate\Support\Collection;
@@ -96,8 +98,6 @@ class DatagridEditable extends Component {
 
     /**
      * @param string $err
-     *
-     * @return string
      */
     public static function errorMessage($err): string {
         session()->flash('error_message', $err);

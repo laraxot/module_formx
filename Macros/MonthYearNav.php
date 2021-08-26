@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Macros;
 
 //use Illuminate\Http\Request;
@@ -7,8 +9,7 @@ namespace Modules\FormX\Macros;
 //----- services -----
 
 /**
- * Class MonthYearNav
- * @package Modules\FormX\Macros
+ * Class MonthYearNav.
  */
 class MonthYearNav {
     /**

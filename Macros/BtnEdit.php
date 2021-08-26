@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Macros;
 
 //use Illuminate\Http\Request;
@@ -8,8 +10,7 @@ namespace Modules\FormX\Macros;
 //--- BASE ---
 
 /**
- * Class BtnEdit
- * @package Modules\FormX\Macros
+ * Class BtnEdit.
  */
 class BtnEdit extends BaseFormBtnMacro {
     /**

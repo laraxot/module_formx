@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Macros;
 
 use Illuminate\Contracts\View\View as ViewContract;
@@ -13,8 +15,7 @@ use Illuminate\View\View;
 //--- BASE ---
 
 /**
- * Class BtnGear
- * @package Modules\FormX\Macros
+ * Class BtnGear.
  */
 class BtnGear extends BaseFormBtnMacro {
     /**

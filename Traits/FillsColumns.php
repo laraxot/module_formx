@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\FormX\Traits;
 
 /*
@@ -10,8 +12,7 @@ namespace Modules\FormX\Traits;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Trait FillsColumns
- * @package Modules\FormX\Traits
+ * Trait FillsColumns.
  */
 trait FillsColumns {
     /**
