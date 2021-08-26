@@ -39,6 +39,9 @@ $rows = $model->$name();
       "getQualifiedOwnerKeyName" => "stabi_dirigente.id"
       "getRelationName" => "valutatore"
     */
+
+    //dddx($rows);
+
 if (method_exists($rows, 'getLocalKeyName')) {
     $name1 = $rows->getLocalKeyName();
 } else {
@@ -54,11 +57,18 @@ $opts = $related_panel->optionsSelect();
 @endphp
 
 
+
+
+
 @component($blade_component, get_defined_vars())
     @slot('label')
         {{ Form::label($name1, $field->label, ['class' => 'control-label form-label']) }} {{-- $field->label_attributes --}}
     @endslot
     @slot('input')
+        @php
+        /*dddx($field->attributes);*/
+        @endphp
+
         {{ Form::select($name1, $opts, $value, $field->attributes) }}
     @endslot
 @endcomponent
