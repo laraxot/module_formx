@@ -359,7 +359,7 @@ class FormXService {
         if (null == $data_title) {
             $data_title = $title;
         }
-        $row = $panel->row;
+        $row = $panel->getRow();
         if ('default' == $error_label) {
             $error_label = '['.get_class($row).']['.$method.']';
         }

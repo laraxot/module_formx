@@ -222,7 +222,7 @@ class IndexOrder extends Component {
         //dddx($panel);
 
         $model_name = $panel->postType();
-        $model = $panel->row;
+        $model = $panel->getRow();
         $item['nome'] = $model->treeLabel();
         $item['model_name'] = $model_name;
         $icon = TenantService::config('icons.tree.'.$model_name);
@@ -258,12 +258,12 @@ class IndexOrder extends Component {
         $model = TenantService::model($model_name);
         /*
         if (in_array('id_tbl_lingua', $model->getFillable())) {
-            $nodes = $this->panel->rows()->where('id_tbl_lingua', 4);
+            $nodes = $this->panel->getRows()->where('id_tbl_lingua', 4);
         } else {
-            $nodes = $this->panel->rows()->first();
+            $nodes = $this->panel->getRows()->first();
         }
         */
-        $nodes = $this->panel->rows();
+        $nodes = $this->panel->getRows();
         $nodes = $nodes
             //->orderBy('posizione')
             ->get()
@@ -354,8 +354,8 @@ class IndexOrder extends Component {
         $view = 'formx::livewire.crud.index_order.'.$opts[0];
         $view_params = [
             'view' => $view,
-            //'rows' => $this->panel->rows()->get(),
-            'tree_nodes' => [$this->panel->postType() => $this->panel->rows()->get()],
+            //'rows' => $this->panel->getRows()->get(),
+            'tree_nodes' => [$this->panel->postType() => $this->panel->getRows()->get()],
             'parent' => '0',
         ];
         //dddx($view_params);

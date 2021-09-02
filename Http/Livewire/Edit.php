@@ -26,7 +26,7 @@ class Edit extends XotBaseFormComponent {
     public function mount(?Model $model = null): void {
         $this->route_params = request()->route()->parameters();
         $this->data = request()->all();
-        $this->setFormProperties($this->panel->row);
+        $this->setFormProperties($this->panel->getRow());
     }
 
     /**

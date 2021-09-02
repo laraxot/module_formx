@@ -49,7 +49,7 @@ class OpenPanel {
             //$url = $panel->$func();
             $url = $panel->url(['act' => $act]);
 
-            return Form::model($panel->row,
+            return Form::model($panel->getRow(),
                 [
                     'url' => $url,
                     'name' => $form_name,

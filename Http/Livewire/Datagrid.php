@@ -34,10 +34,10 @@ class Datagrid extends Component {
      * @param PanelContract $_panel
      */
     public function mount($_panel) {
-        $this->model_class = get_class($_panel->row);
+        $this->model_class = get_class($_panel->getRow());
         $index_fields = $_panel->indexFields();
         $this->index_fields = $index_fields;
-        $rows = $_panel->rows();
+        $rows = $_panel->getRows();
         $sql = $rows->toSql();
         $bindings = collect($rows->getBindings())->map(function ($item) {
             return "'".$item."'";

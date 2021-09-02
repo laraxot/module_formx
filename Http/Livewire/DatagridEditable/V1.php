@@ -79,7 +79,7 @@ class V1 extends Component {
      * @return mixed
      */
     public function query() {
-        //dddx([$this->panel->rows($this->data), $this->panel->rows, $this->panel, $this->data]);
+        //dddx([$this->panel->rows($this->data), $this->panel->getRows(), $this->panel, $this->data]);
         //dddx($this->panel->rows($this->data)->with('post')->get());
 
         //return $this->panel->rows($this->data);
