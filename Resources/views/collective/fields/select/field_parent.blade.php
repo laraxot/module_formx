@@ -19,8 +19,9 @@ extract($attributes);
 $field = transFields(get_defined_vars());
 //dddx($field);
 $row = Form::getModel();
+//dddx([$row, $row->whereRaw('1=1'), $row->getQuery(), $row->query()]);
 $row_panel = Panel::get($row);
-$row_panel->setRows($row);
+$row_panel->setRows($row->query());
 //dddx([get_defined_vars(), $row_panel->setRows($row)]);
 /*
  $options=$row->get()->map(function($item) use ($row_panel){
