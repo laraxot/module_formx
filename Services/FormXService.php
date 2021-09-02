@@ -25,10 +25,8 @@ use Modules\Xot\Services\RouteService;
 class FormXService {
     /**
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     *
-     * @return array|mixed
      */
-    public static function getComponents() {
+    public static function getComponents(): array {
         $view_path = realpath(__DIR__.'/../Resources/views/collective/fields');
         $components_json = $view_path.'/components.json';
         $components_json = str_replace(['/', '\\'], [DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR], $components_json);
@@ -332,7 +330,7 @@ class FormXService {
         return Form::$input_type($input_name, $input_value, $input_attrs, $input_opts);
     }
 
-    public static function btnHtml(array $params): ?string {
+    public static function btnHtml(array $params): string {
         $class = 'btn btn-primary mb-2';
         $icon = null;       // icona a sx del titolo
         $label = null;
