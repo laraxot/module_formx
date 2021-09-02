@@ -23,9 +23,8 @@ $row = Form::getModel();
 //$rows=$row->$name; //risultati per l'edit ..
 $related = $row->$name()->getRelated();
 $related_panel = Panel::get($related);
-$rows = $related->get()->load('post');
-dddx($rows);
-$related_panel->setRows($rows->toQuery());
+$rows = $related->with('post');
+$related_panel->setRows($rows);
 $opts = $related_panel->optionsSelect();
 //dddx($opts);
 $field = transFields(get_defined_vars());
