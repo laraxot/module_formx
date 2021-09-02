@@ -21,7 +21,7 @@ class Open {
     public function __invoke() {
         return function ($model, $from, $to = '', $params = null, $formName = 'theForm') {
             if (null == $params) {
-                $params = \Route::current()->parameters();
+                $params = optional(\Route::current())->parameters();
             }
             $req_params = \Request::all();
 

@@ -19,7 +19,7 @@ class MonthYearNav {
         return function ($paramz) {
             $routename = \Route::currentRouteName();
             extract($paramz);
-            $params = \Route::current()->parameters();
+            $params = optional(\Route::current())->parameters();
             if (isset($params['mese'])) {
                 $mese = $params['mese'];
             } else {

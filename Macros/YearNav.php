@@ -19,7 +19,7 @@ class YearNav {
         return function ($paramz) {
             $routename = \Route::currentRouteName();
             extract($paramz);
-            $params = \Route::current()->parameters();
+            $params = optional(\Route::current())->parameters();
             if (isset($params['anno'])) {
                 $anno = $params['anno'];
             } else {

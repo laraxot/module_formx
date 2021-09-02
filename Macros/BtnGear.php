@@ -47,7 +47,7 @@ class BtnGear extends BaseFormBtnMacro {
                     break;
             }
             $routename_gear = $routetmp.$act;
-            $route_params = \Route::current()->parameters();
+            $route_params = optional(\Route::current())->parameters();
             try {
                 $route_gear = route($routename_gear, $route_params);
             } catch (\Exception $e) {

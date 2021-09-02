@@ -21,7 +21,7 @@ class BtnCreateRelated {
             if (! $user->can('create', $related)) {
                 return '[not can create]';
             }
-            $params = \Route::current()->parameters();
+            $params = optional(\Route::current())->parameters();
             $routename = $row->routename;
 
             if ('' == $routename) {

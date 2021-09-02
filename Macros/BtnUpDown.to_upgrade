@@ -12,7 +12,7 @@ class BtnUpDown {
     public function __invoke() {
         return function ($extra) {
             extract($extra);
-            //$params=\Route::current()->parameters();
+            //$params=optional(\Route::current())->parameters();
             //$params=array_merge($params, $extra);
             //$routename=Request::route()->getName();
             return '<a href="'.$row->moveup_url.'" class="btn btn-xs btn-warning">
