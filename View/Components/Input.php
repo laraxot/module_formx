@@ -15,11 +15,16 @@ use Modules\Xot\View\Components\XotBaseComponent;
  */
 class Input extends XotBaseComponent {
     public string $type;
+
     public string $name;
+
     public ?string $label;
-    //public ?string $class;
+
+    public ?string $class;
+
     //public ?string $input_id;
     public ?string $value;
+
     public ?string $placeholder;
 
     public array $attrs = [];
