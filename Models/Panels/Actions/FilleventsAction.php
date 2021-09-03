@@ -28,8 +28,6 @@ class FilleventsAction extends XotBasePanelAction {
             $row = Input::query()->firstOrCreate($parz);
         }
         */
-        //Event::whereRaw('1=1')->delete();
-        //Event::whereRaw('1=1')->delete();
         $rows = Event::factory()->count(10)->create();
 
         $rows = Event::get();
