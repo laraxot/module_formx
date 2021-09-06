@@ -28,7 +28,7 @@ class Field extends Component {
         $this->field_arr = $field->toArray();
     }
 
-    public function setFormData($formData) {
+    public function setFormData($formData): void {
         //$this->form_data = $form_data;
         dddx($this->form_data);
     }
