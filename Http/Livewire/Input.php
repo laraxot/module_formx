@@ -47,7 +47,7 @@ class Input extends Component {
             'view' => $view,
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 
     /*

@@ -41,6 +41,11 @@ class FormXService {
         }
 
         $comps = [];
+
+        if (! $view_path) {
+            throw new \Exception('$view_path is false');
+        }
+
         $dirs = File::directories($view_path);
         foreach ($dirs as $k => $v) {
             $comp = new \StdClass();
@@ -67,6 +72,9 @@ class FormXService {
             }
         }
         $content = json_encode($comps);
+        if (! $content) {
+            throw new \Exception('$content is false');
+        }
         File::put($components_json, $content);
 
         return $comps;

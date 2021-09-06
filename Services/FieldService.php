@@ -62,7 +62,7 @@ class FieldService extends BaseFieldService {
         return $this->type;
     }
 
-    public function setColSize(?int $col_size): self {
+    public function setColSize(int $col_size): self {
         $this->col_size = $col_size;
 
         return $this;
@@ -86,11 +86,11 @@ class FieldService extends BaseFieldService {
         return $this;
     }
 
-    public function toArray() {
+    public function toArray(): array {
         return ['name' => $this->name, 'type' => $this->type];
     }
 
-    public function getView() {
+    public function getView(): Renderable {
         $type = Str::snake($this->type);
         $start = 'formx::livewire.fields.';
         $views = [];
@@ -121,8 +121,8 @@ class FieldService extends BaseFieldService {
         return $view;
     }
 
-    public function toHtml() {
-        $view = $this->getView();
+    public function toHtml(): Renderable {
+        $view = strval($this->getView());
         $view_params = [
             'view' => $view,
             'field' => $this,

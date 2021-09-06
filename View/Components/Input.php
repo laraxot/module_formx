@@ -118,6 +118,6 @@ class Input extends XotBaseComponent {
 
         //return view($view, $view_params);
 
-        return view($view);
+        return view()->make($view);
     }
 }

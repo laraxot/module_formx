@@ -54,9 +54,9 @@ abstract class BaseFormBtnMacro {
         }
         $act_route = Str::snake($act);
 
-        $route_action = \Route::currentRouteAction();
+        $route_action = optional(\Route::currentRouteAction());
         $old_act = Str::snake(Str::after($route_action, '@'));
-        $routename = Request::route()->getName();
+        $routename = optional(Request::route())->getName();
         $old_act_route = last(explode('.', $routename));
 
         if (! isset($panel)) {
@@ -87,7 +87,7 @@ abstract class BaseFormBtnMacro {
         ];
         //ddd($generate_btn);
         //if ($generate_btn) {
-        $data['btn'] = view($view_comp, $data);
+        $data['btn'] = view()->make($view_comp, $data);
         //}
 
         return $data;

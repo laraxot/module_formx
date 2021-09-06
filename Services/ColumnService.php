@@ -69,12 +69,12 @@ class ColumnService {
     */
 
     /**
-     * @param string|null $heading
-     * @param string|null $attribute
+     * @param string $heading
+     * @param string $attribute
      *
      * @return ColumnService
      */
-    public static function make($heading = null, $attribute = null) {
+    public static function make($heading = '', $attribute = '') {
         return new self($heading, $attribute);
     }
 

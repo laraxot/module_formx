@@ -29,7 +29,7 @@ class BtnGear extends BaseFormBtnMacro {
             if ($vars['error']) {
                 return $vars['error_msg'];
             }
-            $routename = Request::route()->getName();
+            $routename = optional(Request::route())->getName();
             $routetmp = Str::before($routename, $vars['old_act_route']);
             $act = 'no-set';
             switch ($vars['old_act_route']) {
@@ -56,7 +56,11 @@ class BtnGear extends BaseFormBtnMacro {
             $func = Str::camel($act);
             $row = $extra['row'];
             $btns = [];
-            if (\Auth::user()->can($func, $row)) {
+            $user = \Auth::user();
+            if (null == $user) {
+                throw new \Exception('$user is null');
+            }
+            if ($user->can($func, $row)) {
                 $tmp = [];
                 $tmp['title'] = $act;
                 $tmp['url'] = $route_gear;

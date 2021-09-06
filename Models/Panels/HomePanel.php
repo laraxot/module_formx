@@ -16,7 +16,7 @@ class HomePanel extends XotBasePanel {
         return [
             new Actions\FullcalendarAction(),
             new Actions\TestAction(),
-            new Actions\FillplacesAction(),
+            new \Modules\Geo\Models\Panels\Actions\FillplacesAction(),
             new Actions\FilleventsAction(),
         ];
     }
