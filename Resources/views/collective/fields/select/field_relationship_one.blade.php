@@ -40,7 +40,7 @@ $rows = $model->$name();
       "getRelationName" => "valutatore"
     */
 
-    //dddx($rows);
+//dddx($rows);
 
 if (method_exists($rows, 'getLocalKeyName')) {
     $name1 = $rows->getLocalKeyName();
@@ -51,6 +51,11 @@ if (method_exists($rows, 'getLocalKeyName')) {
 $field->attributes['name'] = $name1;
 $related = $rows->getRelated();
 $related_panel = Panel::get($related);
+//must be an instance of Illuminate\Database\Eloquent\Builder, instance of Illuminate\Database\Eloquent\Collection given,
+//$related_panel->setRows($related->whereRaw('1=1'));
+
+$related_panel->setRows($related->query());
+
 //dddx($related_panel->optionsSelect());
 $opts = $related_panel->optionsSelect();
 //dddx($blade_component);
