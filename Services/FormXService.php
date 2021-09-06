@@ -128,17 +128,10 @@ class FormXService {
     When the element is displayed after the call to freeze(), only its value is displayed without the input tags, thus the element cannot be edited. If persistant freeze is set, then hidden field containing the element value will be output, too.
     */
 
-    /**
-     * @param array $params
-     *
-     * @return array
-     */
-    public static function fieldsExclude($params) {
+    public static function fieldsExclude(array $params): array {
         extract($params);
         if (! isset($rows)) {
-            dddx(['err' => 'rows is missing']);
-
-            return [];
+            throw new \Exception('rows is missing ['.__LINE__.']['.__FILE__.']');
         }
 
         $fields_exclude = [];
