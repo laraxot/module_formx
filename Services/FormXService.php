@@ -136,16 +136,16 @@ class FormXService {
 
         $fields_exclude = [];
         $fields_exclude[] = 'id';
-        if (method_exists($rows, 'getForeignKeyName')) {
+        if (method_exists((object) $rows, 'getForeignKeyName')) {
             $fields_exclude[] = $rows->getForeignKeyName();
         }
-        if (method_exists($rows, 'getForeignPivotKeyName')) {
+        if (method_exists((object) $rows, 'getForeignPivotKeyName')) {
             $fields_exclude[] = $rows->getForeignPivotKeyName();
         }
-        if (method_exists($rows, 'getRelatedPivotKeyName')) {
+        if (method_exists((object) $rows, 'getRelatedPivotKeyName')) {
             $fields_exclude[] = $rows->getRelatedPivotKeyName();
         }
-        if (method_exists($rows, 'getMorphType')) {
+        if (method_exists((object) $rows, 'getMorphType')) {
             $fields_exclude[] = $rows->getMorphType();
         }
         $fields_exclude[] = 'related_type'; //-- ??
@@ -264,7 +264,7 @@ class FormXService {
 
             $view_params['manage_url'] = $url;
 
-            if (method_exists($rows, 'getPivotClass')) {
+            if (method_exists((object) $rows, 'getPivotClass')) {
                 $pivot_class = $rows->getPivotClass();
                 $pivot = new $pivot_class();
                 $pivot_panel = ThemeService::panelModel($pivot);

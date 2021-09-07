@@ -22,13 +22,8 @@ class Index extends XotBaseTableComponent {
 
     public array $data = [];
 
-    /**
-     * Undocumented function.
-     *
-     * @return void
-     */
-    public function mount() {
-        $this->route_params = request()->route()->parameters();
+    public function mount(): void {
+        $this->route_params = optional(request()->route())->parameters();
         $this->data = request()->all();
         $this->setTableProperties();
         $this->sort_attribute = $this->panel->getRow()->getKeyName();
@@ -48,10 +43,7 @@ class Index extends XotBaseTableComponent {
         return $this->panel->rows($this->data);
     }
 
-    /**
-     * @return array
-     */
-    public function columns() {
+    public function columns(): array {
         $columns = [];
         $this->index_fields = $this->panel->indexFields();
 

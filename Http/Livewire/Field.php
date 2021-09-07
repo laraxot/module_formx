@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\FormX\Http\Livewire;
 
+use Illuminate\Contracts\Support\Renderable;
 use Livewire\Component;
 use Modules\FormX\Services\FieldService;
 
@@ -17,26 +18,18 @@ class Field extends Component {
 
     protected $listeners = ['setFormData'];
 
-    /**
-     * Undocumented function.
-     *
-     * @return void
-     */
-    public function mount($field) {
+    public function mount(object $field): void {
         //$this->field = FieldService::make($field->name)->type($field->type);
         //$this->field_arr = (array) $field;
         $this->field_arr = $field->toArray();
     }
 
-    public function setFormData($formData): void {
+    public function setFormData(/*$formData*/): void {
         //$this->form_data = $form_data;
         dddx($this->form_data);
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function render() {
+    public function render(): Renderable {
         $view = 'formx::livewire.fields.text.field';
 
         $view_params = [
@@ -47,6 +40,6 @@ class Field extends Component {
 
         //return '<div>A</div>';
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 }

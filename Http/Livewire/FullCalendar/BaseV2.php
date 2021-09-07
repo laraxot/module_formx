@@ -10,6 +10,7 @@ namespace Modules\FormX\Http\Livewire\FullCalendar;
 
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
@@ -38,33 +39,33 @@ use Livewire\Component;
  * @property bool   $eventClickEnabled
  */
 abstract class BaseV2 extends Component {
-    public $startsAt;
+    public Carbon $startsAt;
 
-    public $endsAt;
+    public Carbon $endsAt;
 
-    public $gridStartsAt;
+    public Carbon $gridStartsAt;
 
-    public $gridEndsAt;
+    public Carbon $gridEndsAt;
 
-    public $weekStartsAt;
+    public ?int $weekStartsAt;
 
-    public $weekEndsAt;
+    public int $weekEndsAt;
 
-    public $calendarView;
+    public ?string $calendarView;
 
-    public $dayView;
+    public ?string $dayView;
 
-    public $eventView;
+    public ?string $eventView;
 
-    public $dayOfWeekView;
+    public ?string $dayOfWeekView;
 
-    public $dragAndDropClasses;
+    public ?string $dragAndDropClasses;
 
-    public $beforeCalendarView;
+    public ?string $beforeCalendarView;
 
-    public $afterCalendarView;
+    public ?string $afterCalendarView;
 
-    public $pollMillis;
+    public ?int $pollMillis;
 
     public string $pollAction;
 
@@ -178,8 +179,8 @@ abstract class BaseV2 extends Component {
     }
 
     /**
-     * @param int    $pollMillis
-     * @param string $pollAction
+     * @param int|null $pollMillis
+     * @param string   $pollAction
      */
     public function setupPoll($pollMillis, $pollAction): void {
         $this->pollMillis = $pollMillis;
@@ -266,7 +267,7 @@ abstract class BaseV2 extends Component {
     public function getEventsForDay(int $day, Collection $events): Collection {
         return $events
             ->filter(function ($event) use ($day) {
-                return Carbon::parse($event['date'])->isSameDay($day);
+                return Carbon::parse($event['date'])->isSameDay((string) $day);
             });
     }
 
@@ -290,12 +291,16 @@ abstract class BaseV2 extends Component {
     /**
      * @throws Exception
      *
-     * @return Factory|View
+     * return Factory|View
      */
-    public function render() {
+    public function render(): Renderable {
         $events = $this->events();
 
-        return view($this->calendarView)
+        if (null == $this->calendarView) {
+            throw new \Exception('$this->calendarView is null ['.__LINE__.']['.__FILE__.']');
+        }
+
+        return view()->make($this->calendarView)
             ->with([
                 'componentId' => $this->id,
                 'monthGrid' => $this->monthGrid(),
