@@ -134,21 +134,23 @@ class FormXService {
             throw new \Exception('rows is missing ['.__LINE__.']['.__FILE__.']');
         }
 
-        $fields_exclude = [];
-        $fields_exclude[] = 'id';
-        if (method_exists((object) $rows, 'getForeignKeyName')) {
-            $fields_exclude[] = $rows->getForeignKeyName();
+        $fields_exclude = array();
+
+        array_push($fields_exclude , 'id');
+
+        if (method_exists($rows, 'getForeignKeyName')) {
+            array_push($fields_exclude , $rows->getForeignKeyName());
         }
-        if (method_exists((object) $rows, 'getForeignPivotKeyName')) {
-            $fields_exclude[] = $rows->getForeignPivotKeyName();
+        if (method_exists($rows, 'getForeignPivotKeyName')) {
+            array_push($fields_exclude ,$rows->getForeignPivotKeyName());
         }
-        if (method_exists((object) $rows, 'getRelatedPivotKeyName')) {
-            $fields_exclude[] = $rows->getRelatedPivotKeyName();
+        if (method_exists($rows, 'getRelatedPivotKeyName')) {
+            array_push($fields_exclude , $rows->getRelatedPivotKeyName());
         }
-        if (method_exists((object) $rows, 'getMorphType')) {
-            $fields_exclude[] = $rows->getMorphType();
+        if (method_exists($rows, 'getMorphType')) {
+            array_push($fields_exclude , $rows->getMorphType());
         }
-        $fields_exclude[] = 'related_type'; //-- ??
+        array_push($fields_exclude , 'related_type'); //-- ??
 
         return $fields_exclude;
     }
