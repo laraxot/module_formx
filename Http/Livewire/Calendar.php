@@ -16,38 +16,38 @@ use Livewire\Component;
  * https://github.com/stijnvanouplines/livewire-calendar/blob/master/app/Http/Livewire/Calendar.php.
  */
 class Calendar extends Component {
-    public $minDate;
+    public mixed $minDate;
 
-    public $maxDate;
+    public mixed $maxDate;
 
-    public $selectedDay;
+    public mixed $selectedDay;
 
-    public $selectedMonth;
+    public mixed $selectedMonth;
 
-    public $selectedYear;
+    public mixed $selectedYear;
 
-    public $selectedDate;
+    public mixed $selectedDate;
 
-    public $weekDay;
+    public mixed $weekDay;
 
-    public $selectedTime;
+    public mixed $selectedTime;
 
-    public $currentMonth;
+    public mixed $currentMonth;
 
-    public $currentYear;
+    public mixed $currentYear;
     //----------------------------------
 
-    public $guest_num;
+    public int $guest_num;
 
-    public $containers;
+    public mixed $containers;
 
-    public $items;
+    public mixed $items;
 
-    public $shop;
+    public mixed $shop;
 
-    public $opening_hours;
+    public mixed $opening_hours;
 
-    public function mount(SessionManager $session, string $minDate = null, string $maxDate = null) {
+    public function mount(SessionManager $session, string $minDate = null, string $maxDate = null):void {
         $session->put('calendar.now', now());
 
         $this->minDate = $minDate;
@@ -76,17 +76,17 @@ class Calendar extends Component {
     public function calendar(): array {
         $days = [];
 
-        $startOfMonthDay = (int) Carbon::createFromDate($this->currentYear, $this->currentMonth)->startOfMonth()->isoWeekday();
+        $startOfMonthDay = intval(Carbon::createFromDate($this->currentYear, $this->currentMonth)->startOfMonth()->isoWeekday());
         for ($i = 1; $i < $startOfMonthDay; ++$i) {
             $days[] = null;
         }
 
-        $daysInMonth = (int) Carbon::createFromDate($this->currentYear, $this->currentMonth)->daysInMonth;
+        $daysInMonth = intval(Carbon::createFromDate($this->currentYear, $this->currentMonth)->daysInMonth);
         for ($i = 1; $i <= $daysInMonth; ++$i) {
             $days[] = $i;
         }
 
-        $endOfMonthDay = (int) Carbon::createFromDate($this->currentYear, $this->currentMonth)->endOfMonth()->isoWeekday();
+        $endOfMonthDay = intval(Carbon::createFromDate($this->currentYear, $this->currentMonth)->endOfMonth()->isoWeekday());
         for ($i = 7; $i > $endOfMonthDay; --$i) {
             $days[] = null;
         }
