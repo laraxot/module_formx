@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\FormX\Http\Livewire\Calendar;
 
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Session\SessionManager;
 use Illuminate\Support\Carbon;
 /*
@@ -17,19 +18,20 @@ use Livewire\Component;
  * Modules\FormX\Http\Livewire\Calendar\V1.
  */
 class V1 extends Component {
-    public $minDate;
+    
+    public ?string $minDate;
 
-    public $maxDate;
+    public ?string $maxDate;
 
-    public $selectedDay;
+    public mixed $selectedDay;
 
-    public $selectedMonth;
+    public mixed $selectedMonth;
 
-    public $selectedYear;
+    public mixed $selectedYear;
 
-    public $currentMonth;
+    public mixed $currentMonth;
 
-    public $currentYear;
+    public mixed $currentYear;
 
     public function mount(SessionManager $session, string $minDate = null, string $maxDate = null): void {
         $session->put('calendar.now', now());
@@ -193,7 +195,7 @@ class V1 extends Component {
         return true;
     }
 
-    public function render() {
+    public function render():Renderable {
         $view = 'formx::livewire.calendar.v1';
         $view_params = [
             'view' => $view,

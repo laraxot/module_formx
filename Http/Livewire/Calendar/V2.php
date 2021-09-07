@@ -40,31 +40,31 @@ use Modules\Xot\Services\PanelService;
  * @property bool   $eventClickEnabled
  */
 class V2 extends Component {
-    public $startsAt;
-    public $endsAt;
+    public Carbon $startsAt;
+    public Carbon $endsAt;
 
-    public $gridStartsAt;
-    public $gridEndsAt;
+    public Carbon $gridStartsAt;
+    public Carbon $gridEndsAt;
 
-    public $weekStartsAt;
-    public $weekEndsAt;
+    public int $weekStartsAt;
+    public int $weekEndsAt;
 
-    public $calendarView;
-    public $dayView;
-    public $eventView;
-    public $dayOfWeekView;
+    public string $calendarView;
+    public string $dayView;
+    public string $eventView;
+    public string $dayOfWeekView;
 
-    public $dragAndDropClasses;
+    public string $dragAndDropClasses;
 
-    public $beforeCalendarView;
-    public $afterCalendarView;
+    public string $beforeCalendarView;
+    public string $afterCalendarView;
 
-    public $pollMillis;
-    public $pollAction;
+    public int $pollMillis;
+    public string $pollAction;
 
-    public $dragAndDropEnabled;
-    public $dayClickEnabled;
-    public $eventClickEnabled;
+    public bool $dragAndDropEnabled;
+    public bool $dayClickEnabled;
+    public bool $eventClickEnabled;
 
     public array $form_data = [];
 
@@ -74,7 +74,7 @@ class V2 extends Component {
 
     public int $event_id;
 
-    protected $casts = [
+    protected array $casts = [
         'startsAt' => 'date',
         'endsAt' => 'date',
         'gridStartsAt' => 'date',

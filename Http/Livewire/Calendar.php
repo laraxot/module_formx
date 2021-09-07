@@ -16,9 +16,10 @@ use Livewire\Component;
  * https://github.com/stijnvanouplines/livewire-calendar/blob/master/app/Http/Livewire/Calendar.php.
  */
 class Calendar extends Component {
-    public mixed $minDate;
 
-    public mixed $maxDate;
+    public ?string $minDate;
+
+    public ?string $maxDate;
 
     public mixed $selectedDay;
 
@@ -192,7 +193,11 @@ class Calendar extends Component {
         $this->selectedDate = Carbon::create($this->selectedYear, $this->selectedMonth, $this->selectedDay);
         //Carbon::weekday Get/set the weekday from 0 (Sunday) to 6 (Saturday).
         //Carbon::isoWeekday Get/set the ISO weekday from 1 (Monday) to 7 (Sunday).
-        $this->weekDay = $this->selectedDate->weekday();
+        if($this->selectedDate===false){
+            throw new \Exception("Can not convert selectedDate to false");
+        }else{
+            $this->weekDay = $this->selectedDate->weekday();
+        }
     }
 
     /**
