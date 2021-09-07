@@ -30,11 +30,11 @@ class Row extends XotBaseComponent {
     public array $route_params = [];
     public array $data = [];
 
-    public $in_admin;
+    public bool $in_admin;
 
-    public $row;
+    public object $row;
 
-    public $index;
+    public string $index;
 
     public array $form_data = [];
 
@@ -44,7 +44,7 @@ class Row extends XotBaseComponent {
      * @param object $row
      * @param string $index
      */
-    public function mount($row, $index) {
+    public function mount($row, $index):void {
         $this->route_params = request()->route()->parameters();
         $this->data = request()->all();
         $this->in_admin = inAdmin();
@@ -142,7 +142,7 @@ class Row extends XotBaseComponent {
         return view($view, $view_params);
     }
 
-    public function rowUpdate() {
+    public function rowUpdate():void {
         $data = $this->validate();
         $data = $data['form_data'];
         $func = '\Modules\Xot\Jobs\PanelCrud\UpdateJob';
@@ -157,7 +157,7 @@ class Row extends XotBaseComponent {
      * @param string $file_type
      * @param array  $data
      */
-    public function carica($index, $file_name, $file_type, $data) {
+    public function carica($index, $file_name, $file_type, $data):void {
         //dddx('funzione carica di row');
 
         //dddx($this->form_data['tmp']);
@@ -171,7 +171,7 @@ class Row extends XotBaseComponent {
     /**
      * @param mixed $a
      */
-    public function updated($a) {
+    public function updated($a):void {
         dddx($a);
     }
 }

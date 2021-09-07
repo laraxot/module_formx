@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\FormX\Http\Livewire;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -32,7 +33,7 @@ class DatagridEditable extends Component {
     public int $page;
     public Collection $rows;
 
-    public function mount() {
+    public function mount():void {
         $this->route_params = request()->route()->parameters();
         $this->data = request()->all();
         $this->in_admin = inAdmin();
@@ -40,7 +41,7 @@ class DatagridEditable extends Component {
         $this->total = $this->query()->count();
         $this->page = request()->input('page', 1);
         $offset = ($this->page - 1) * $this->per_page;
-        $rows = $this->query()->offset($offset)->limit($this->per_page)->get();
+        $rows = $this->query()->offset((int)$offset)->limit($this->per_page)->get();
         //$rows = collect($rows->toArray());
         //dddx($rows);
         $this->rows = $rows;
@@ -62,14 +63,8 @@ class DatagridEditable extends Component {
         return PanelService::getByParams($this->route_params);
     }
 
-    /**
-     * @return mixed
-     */
-    public function query() {
-        //dddx([$this->panel->rows($this->data), $this->panel->getRows(), $this->panel, $this->data]);
-        //dddx($this->panel->rows($this->data)->with('post')->get());
-
-        //return $this->panel->rows($this->data);
+    
+    public function query():Builder {
         return $this->panel->rows($this->data)->with('post');
     }
 
@@ -105,7 +100,7 @@ class DatagridEditable extends Component {
         return $err;
     }
 
-    public function rowsUpdate() {
+    public function rowsUpdate():void {
         $data = $this->validate();
         $data = $data['rows'];
         dddx($data);
@@ -116,8 +111,8 @@ class DatagridEditable extends Component {
         session()->flash('message', 'Post successfully updated.');
     }
 
-    public function carica() {
-        dddx('funzione carica di datatable');
+    public function carica():void {
+        dddx(['funzione carica di datatable']);
         //dddx($this->rows);
     }
 }

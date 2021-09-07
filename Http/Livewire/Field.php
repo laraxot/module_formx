@@ -12,10 +12,13 @@ use Modules\FormX\Services\FieldService;
  * Class Field.
  */
 class Field extends Component {
-    public $field_arr;
+    public array $field_arr;
 
     public array $form_data = [];
 
+    /**
+     * @var array $listeners
+     */
     protected $listeners = ['setFormData'];
 
     public function mount(object $field): void {

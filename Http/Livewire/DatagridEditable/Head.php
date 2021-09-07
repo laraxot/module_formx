@@ -28,9 +28,9 @@ class Head extends XotBaseComponent {
     //public $data =  [];
     //public $in_admin;
 
-    public $row;
+    public object $row;
 
-    public $index;
+    public string $index;
     //public $fields;
 
     public array $form_data = [];
@@ -39,7 +39,7 @@ class Head extends XotBaseComponent {
      * @param object $row
      * @param string $index
      */
-    public function mount($row, $index) {
+    public function mount($row, $index):void {
         /*
         $this->route_params = request()->route()->parameters();
         $this->data = request()->all();

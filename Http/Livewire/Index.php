@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\FormX\Http\Livewire;
 
+use Illuminate\Database\Eloquent\Builder;
 use Modules\FormX\Services\ColumnService;
+use Modules\Xot\Contracts\PanelContract;
 use Modules\Xot\Models\Panels\XotBasePanel;
 use Modules\Xot\Services\PanelService;
 
@@ -29,17 +31,11 @@ class Index extends XotBaseTableComponent {
         $this->sort_attribute = $this->panel->getRow()->getKeyName();
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\Response|mixed|null
-     */
-    public function getPanelProperty() {
+    public function getPanelProperty():PanelContract {
         return PanelService::getByParams($this->route_params);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Builder|\Modules\LU\Models\User|null
-     */
-    public function query() {
+    public function query():Builder {
         return $this->panel->rows($this->data);
     }
 

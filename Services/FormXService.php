@@ -19,6 +19,18 @@ use Modules\Theme\Services\ThemeService;
 use Modules\Xot\Services\PolicyService;
 use Modules\Xot\Services\RouteService;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphOneOrMany;
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+
+
+
+
 /**
  * Class FormXService.
  */
@@ -127,6 +139,31 @@ class FormXService {
     /*
     When the element is displayed after the call to freeze(), only its value is displayed without the input tags, thus the element cannot be edited. If persistant freeze is set, then hidden field containing the element value will be output, too.
     */
+    /**
+     * @param BelongsTo|HasManyThrough|HasOneOrMany|BelongsToMany|MorphOneOrMany|MorphPivot|MorphTo|MorphToMany $rows
+     */
+    public static function fieldsExcludeRows($rows): array {
+
+        $fields_exclude = array();
+
+        array_push($fields_exclude , 'id');
+
+        if (method_exists($rows, 'getForeignKeyName')) {
+            array_push($fields_exclude , $rows->getForeignKeyName());
+        }
+        if (method_exists($rows, 'getForeignPivotKeyName')) {
+            array_push($fields_exclude ,$rows->getForeignPivotKeyName());
+        }
+        if (method_exists($rows, 'getRelatedPivotKeyName')) {
+            array_push($fields_exclude , $rows->getRelatedPivotKeyName());
+        }
+        if (method_exists($rows, 'getMorphType')) {
+            array_push($fields_exclude , $rows->getMorphType());
+        }
+        array_push($fields_exclude , 'related_type'); //-- ??
+
+        return $fields_exclude;
+    }
 
     public static function fieldsExclude(array $params): array {
         extract($params);
@@ -235,7 +272,7 @@ class FormXService {
             //$view_params['rows']=$rows->get();
             $view_params['rows'] = $field->value;
 
-            $fields_exclude = FormXService::fieldsExclude($params);
+            $fields_exclude = FormXService::fieldsExcludeRows($rows);
             $related_panel = ThemeService::panelModel($related);
             if (is_object($related_panel)) {
                 $related_fields = $related_panel->fields();

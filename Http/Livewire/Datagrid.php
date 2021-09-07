@@ -26,14 +26,14 @@ class Datagrid extends Component {
 
     public string $where = '';
 
-    public $model_class;
+    public string $model_class;
 
     /**
      * Livewire component's [modules.form-x.http.livewire.datagrid] public property [rows] must be of type: [numeric, string, array, null, or boolean]. Only protected or private properties can be set as other types because JavaScript doesn't need to access them.
      *
      * @param PanelContract $_panel
      */
-    public function mount($_panel) {
+    public function mount($_panel):void {
         $this->model_class = get_class($_panel->getRow());
         $index_fields = $_panel->indexFields();
         $this->index_fields = $index_fields;

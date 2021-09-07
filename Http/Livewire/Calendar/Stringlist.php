@@ -54,12 +54,13 @@ class Stringlist extends Component {
         }
 
         // aggiusto le date, gli 0 avanti ai giorni e mesi non vengono renderizzati, ergo...
-        $date_list = str_replace(',0', ',', $date_list);
-        $date_list = str_replace('/0', '/', $date_list);
-        //$date_list = Str::start($date_list, '');
-        //$date_list = Str::startsWith($date_list, '0');
-        if (Str::startsWith($date_list, '0')) {
-            $date_list = Str::replaceFirst('0', '', $date_list);
+        if(!is_null($date_list)){
+            $date_list = str_replace(',0', ',', $date_list);
+            $date_list = str_replace('/0', '/', $date_list);
+        
+            if (Str::startsWith($date_list, '0')) {
+                $date_list = Str::replaceFirst('0', '', $date_list);
+            }
         }
         //dddx($date_list);
 

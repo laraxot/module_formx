@@ -1,4 +1,5 @@
 <?php
+
 /**
  * https://github.com/asantibanez/livewire-calendar/blob/master/src/LivewireCalendar.php.
  * https://marcocaggiano.medium.com/creating-a-popup-modal-with-laravel-livewire-and-no-jquery-1806736acd82.
@@ -81,6 +82,25 @@ class V2 extends Component {
         'gridEndsAt' => 'date',
     ];
 
+    /**
+     * @param int $initialYear
+     * @param int $initialMonth
+     * @param int|mixed $weekStartsAt
+     * @param mixed $calendarView
+     * @param mixed $dayView
+     * @param mixed $eventView
+     * @param mixed $dayOfWeekView 
+     * @param mixed $dragAndDropClasses
+     * @param mixed $beforeCalendarView
+     * @param mixed $afterCalendarView
+     * @param mixed $pollMillis
+     * @param mixed $pollAction
+     * @param mixed $dragAndDropEnabled
+     * @param mixed $dayClickEnabled
+     * @param mixed $eventClickEnabled
+     * @param mixed $eventClickEnabled
+     * @param array $extras
+     */
     public function mount($initialYear = null,
         $initialMonth = null,
         $weekStartsAt = null,
@@ -130,9 +150,20 @@ class V2 extends Component {
         $this->form_edit = $panel->formLivewireEdit();
     }
 
+    /**
+     * @param array $extras
+     */
     public function afterMount($extras = []): void {
     }
 
+    /**
+     * @param mixed $calendarView
+     * @param mixed $dayView
+     * @param mixed $eventView
+     * @param mixed $dayOfWeekView
+     * @param mixed $beforeCalendarView
+     * @param mixed $afterCalendarView
+     */
     public function setupViews($calendarView = null,
         $dayView = null,
         $eventView = null,
@@ -148,6 +179,10 @@ class V2 extends Component {
         $this->afterCalendarView = $afterCalendarView ?? null;
     }
 
+    /**
+     * @param mixed $pollMillis
+     * @param mixed $pollAction
+     */
     public function setupPoll($pollMillis, $pollAction): void {
         $this->pollMillis = $pollMillis;
         $this->pollAction = $pollAction;
@@ -179,9 +214,7 @@ class V2 extends Component {
         $this->gridEndsAt = $this->endsAt->clone()->endOfWeek($this->weekEndsAt);
     }
 
-    /**
-     * @throws Exception
-     */
+    
     public function monthGrid() {
         $firstDayOfGrid = $this->gridStartsAt;
         $lastDayOfGrid = $this->gridEndsAt;
@@ -232,18 +265,18 @@ class V2 extends Component {
         //return collect();
     }
 
-    public function getEventsForDay($day, Collection $events): Collection {
+    public function getEventsForDay(mixed $day, Collection $events): Collection {
         return $events
             ->filter(function ($event) use ($day) {
                 return Carbon::parse($event['date'])->isSameDay($day);
             });
     }
 
-    public function onDayClick($year, $month, $day): void {
-    }
+    /*public function onDayClick($year, $month, $day): void {
+    }*/
 
-    public function onEventClick($eventId): void {
-        $this->event_id = (int) $eventId;
+    public function onEventClick(int $eventId): void {
+        $this->event_id = $eventId;
         $row = app($this->model)->find($eventId);
         $panel = PanelService::get($row);
         $fields = $panel->editFields();
@@ -265,7 +298,7 @@ class V2 extends Component {
                         $value = $value->format('Y-m-d\TH:i');
                         break;
                     default:
-                        dddx(get_class($value));
+                        dddx([get_class($value)]);
                     break;
                 }
             }
@@ -284,8 +317,8 @@ class V2 extends Component {
     public function cancel(): void {
     }
 
-    public function onEventDropped($eventId, $year, $month, $day): void {
-    }
+    /*public function onEventDropped($eventId, $year, $month, $day): void {
+    }*/
 
     /**
      * @throws Exception

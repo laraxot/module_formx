@@ -25,9 +25,9 @@ class IndexOrder extends Component {
     //public $rows = [];
     //public $groups = [];
 
-    public $route_params;
+    public array $route_params;
 
-    public $data;
+    public array $data;
 
     public array $tree_nodes = [];
 
@@ -35,25 +35,12 @@ class IndexOrder extends Component {
 
     public array $tree_types = [];
 
-    //protected $listeners = ['check_callback' => 'checkCallback'];
-
-    /*
-
-    public function fix($arr) {
-        return collect($arr)->map(
-            function ($item) {
-                return (object) $item;
-            }
-        ); //->all();
-    }
-    */
-
     /**
      * @param array $node
      * @param array $node_parent
      * @param int   $node_position
      */
-    public function save($node, $node_parent, $node_position) {
+    public function save($node, $node_parent, $node_position):void {
         //dddx(['node' => $node, 'node_parent' => $node_parent, 'node_position' => $node_position]);
         if ('#' == $node_parent['type']) {
             $model = TenantService::model($node['type']);
