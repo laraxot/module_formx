@@ -165,7 +165,7 @@ class FormXService {
         return $fields_exclude;
     }
 
-    public static function fieldsExclude(array $params): array {
+    /*public static function fieldsExclude(array $params): array {
         extract($params);
         if (! isset($rows)) {
             throw new \Exception('rows is missing ['.__LINE__.']['.__FILE__.']');
@@ -190,7 +190,7 @@ class FormXService {
         array_push($fields_exclude , 'related_type'); //-- ??
 
         return $fields_exclude;
-    }
+    }*/
 
     //ret \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|string|void
 

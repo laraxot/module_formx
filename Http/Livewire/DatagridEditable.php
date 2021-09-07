@@ -10,6 +10,7 @@ use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Modules\FormX\Services\FieldService;
+use Modules\Xot\Contracts\PanelContract;
 //use Modules\FormX\Traits\HandlesArrays;
 //use Modules\FormX\Traits\UploadsFiles;
 use Modules\Xot\Models\Panels\XotBasePanel;
@@ -34,7 +35,7 @@ class DatagridEditable extends Component {
     public Collection $rows;
 
     public function mount():void {
-        $this->route_params = request()->route()->parameters();
+        $this->route_params = getRouteParameters();
         $this->data = request()->all();
         $this->in_admin = inAdmin();
         $this->route_params['in_admin'] = $this->in_admin;
@@ -59,7 +60,7 @@ class DatagridEditable extends Component {
         return $rules;
     }
 
-    public function getPanelProperty(): XotBasePanel {
+    public function getPanelProperty(): PanelContract {
         return PanelService::getByParams($this->route_params);
     }
 

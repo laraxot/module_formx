@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\FormX\Http\Livewire;
 
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -60,10 +61,8 @@ class Datagrid extends Component {
     }
     */
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function render() {
+    
+    public function render():Renderable {
         $view = 'formx::livewire.datagrid';
         $model = new $this->model_class();
         $join_on = '';

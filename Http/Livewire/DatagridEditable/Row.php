@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\FormX\Http\Livewire\DatagridEditable;
 
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -45,7 +46,7 @@ class Row extends XotBaseComponent {
      * @param string $index
      */
     public function mount($row, $index):void {
-        $this->route_params = request()->route()->parameters();
+        $this->route_params = optional(request()->route())->parameters();
         $this->data = request()->all();
         $this->in_admin = inAdmin();
         $this->route_params['in_admin'] = $this->in_admin;
@@ -127,10 +128,8 @@ class Row extends XotBaseComponent {
 
     //*/
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function render() {
+   
+    public function render():Renderable {
         $view = $this->getView();
         $view_params = [
             'view' => $view,
@@ -139,7 +138,7 @@ class Row extends XotBaseComponent {
         ];
         //dddx(['view' => $view, 'view_params' => $view_params]);
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 
     public function rowUpdate():void {
