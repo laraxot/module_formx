@@ -20,7 +20,7 @@ abstract class BaseFormBtnMacro {
      *
      * @return array|void
      */
-    public static function before($params) {
+    public static function before(array $params){
         $generate_btn = 1;
         $user = \Auth::user();
         if (null == $user) {
