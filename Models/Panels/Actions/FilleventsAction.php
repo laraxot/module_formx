@@ -28,9 +28,16 @@ class FilleventsAction extends XotBasePanelAction {
             $row = Input::query()->firstOrCreate($parz);
         }
         */
-        $rows = Event::factory()->count(10)->create();
 
-        $rows = Event::get();
+        $rows=0;
+
+        if(class_exists('\Modules\Blog\Models\Event')){
+
+            $rows = Event::factory()->count(10)->create();
+
+            $rows = Event::get();
+
+        }
 
         return $rows->count();
     }
