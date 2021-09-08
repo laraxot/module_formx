@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use Modules\FormX\Services\FieldService;
 //use Modules\FormX\Traits\HandlesArrays;
 //use Modules\FormX\Traits\UploadsFiles;
-use Modules\Xot\Contracts\ModelContract;
+
 use Modules\Xot\Http\Livewire\XotBaseComponent;
 use Modules\Xot\Models\Panels\XotBasePanel;
 use Modules\Xot\Services\PanelService;
@@ -80,7 +80,7 @@ class Head extends XotBaseComponent {
         return PanelService::get($this->row);
     }
 
-    public function setFormProperties(?ModelContract $model = null): void {
+    public function setFormProperties(?Model $model = null): void {
         //$this->model = $model;
         if ($model) {
             $this->form_data = $model->toArray();
