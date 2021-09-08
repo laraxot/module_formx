@@ -54,7 +54,8 @@ $related_panel = Panel::get($related);
 //must be an instance of Illuminate\Database\Eloquent\Builder, instance of Illuminate\Database\Eloquent\Collection given,
 //$related_panel->setRows($related->whereRaw('1=1'));
 
-$related_panel->setRows($related->query());
+//$related_panel->setRows($related->query());
+$related_panel->setBuilder($related->query());
 
 //dddx($related_panel->optionsSelect());
 $opts = $related_panel->optionsSelect();
