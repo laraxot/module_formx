@@ -46,7 +46,7 @@ class Edit extends XotBaseFormComponent {
     }
 
     public function fields(): array {
-        $panel_fields = $this->panel->editFields();
+        $panel_fields = $this->panel->getFields(['act'=>'edit']);
         $fields = [];
         foreach ($panel_fields as $field) {
             $fields[] = FieldService::make($field->name)->type($field->type);

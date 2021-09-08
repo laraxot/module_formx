@@ -41,7 +41,7 @@ class Index extends XotBaseTableComponent {
 
     public function columns(): array {
         $columns = [];
-        $this->index_fields = $this->panel->indexFields();
+        $this->index_fields = $this->panel->getFields(['act'=>'index']);
 
         foreach ($this->index_fields as $field) {
             if (is_array($field)) {

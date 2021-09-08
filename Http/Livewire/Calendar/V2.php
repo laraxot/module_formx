@@ -277,7 +277,7 @@ class V2 extends Component {
         $this->event_id = $eventId;
         $row = app($this->model)->find($eventId);
         $panel = PanelService::get($row);
-        $fields = $panel->editFields();
+        $fields = $panel->getFields(['act'=>'edit']);
         /*
         $this->form_data = collect($fields)
             ->keyBy('name')

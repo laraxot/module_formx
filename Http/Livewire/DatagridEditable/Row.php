@@ -78,7 +78,7 @@ class Row extends XotBaseComponent {
     }
 
     public function fields(): array {
-        $panel_fields = $this->panel->indexFields();
+        $panel_fields = $this->panel->getFields(['act'=>'index']);
 
         $fields = [];
         foreach ($panel_fields as $field) {
@@ -128,7 +128,7 @@ class Row extends XotBaseComponent {
 
     //*/
 
-   
+
     public function render():Renderable {
         $view = $this->getView();
         $view_params = [

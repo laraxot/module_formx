@@ -15,8 +15,24 @@ $row = Form::getModel();
 $related = $row->$name()->getRelated(); // model cuisineCat
 $related_panel = Panel::get($related);
 //$rows = $related->get()->load('post');
+/*
+dddx([
+    'related_class' => get_class($related), //Modules\Food\Models\CuisineCat
+    'related_with_class' => get_class($related->with(['post'])), //Illuminate\Database\Eloquent\Builder
+
+    '1' => get_class($related->query()), //Illuminate\Database\Eloquent\Builder
+    '2' => get_class($related->newQuery()), //Illuminate\Database\Eloquent\Builder
+    '3' => get_class($related->newModelQuery()), //Illuminate\Database\Eloquent\Builder
+    // '4' => $related->getRelation(),//Too few arguments to function Illuminate\Database\Eloquent\Model::getRelation(), 0
+    '5' => $related->getRelations(),//[]
+    'get_class_methods' => get_class_methods($related),
+]);
+*/
+
 $rows = $related->with('post');
-$related_panel->setRows($rows);
+//$related_panel->setRows($rows);
+$related_panel->setBuilder($rows);
+$opts = collect([]);
 $opts = $related_panel->optionsSelect();
 //dddx($rows->pluck('post.title','id'));
 $field = transFields(get_defined_vars()); //in xot helper

@@ -41,14 +41,14 @@ class Head extends XotBaseComponent {
      * @param string $index
      */
     public function mount($row, $index):void {
-        
+
         $this->row = $row;
         $this->index = $index;
-        
+
         $this->setFormProperties($row);
     }
 
-    
+
     public function render():Renderable {
         $view = $this->getView();
         $view_params = [
@@ -61,7 +61,7 @@ class Head extends XotBaseComponent {
     }
 
     public function fields(): array {
-        $index_fields = $this->panel->indexFields();
+        $index_fields = $this->panel->getFields(['act'=>'index']);
 
         $fields = [];
         foreach ($index_fields as $field) {

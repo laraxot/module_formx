@@ -38,7 +38,7 @@ class Datagrid extends Component {
      */
     public function mount($_panel) {
         $this->model_class = get_class($_panel->getRow());
-        $index_fields = $_panel->indexFields();
+        $index_fields = $_panel->getFields(['act'=>'index']);
         $this->index_fields = $index_fields;
         $rows = $_panel->getRows();
         // 42     Call to an undefined method Illuminate\Database\Eloquent\Builder|Illuminate\Database\Eloquent\Relations\Relation::toSql().
