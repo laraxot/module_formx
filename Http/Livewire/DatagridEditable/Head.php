@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Modules\FormX\Http\Livewire\DatagridEditable;
 
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
 //use Livewire\WithFileUploads;
-use Modules\FormX\Services\FieldService;
+use Illuminate\Support\Str;
 //use Modules\FormX\Traits\HandlesArrays;
 //use Modules\FormX\Traits\UploadsFiles;
 
+use Modules\FormX\Services\FieldService;
 use Modules\Xot\Http\Livewire\XotBaseComponent;
 use Modules\Xot\Models\Panels\XotBasePanel;
 use Modules\Xot\Services\PanelService;
@@ -32,6 +33,7 @@ class Head extends XotBaseComponent {
     public object $row;
 
     public string $index;
+
     //public $fields;
 
     public array $form_data = [];
@@ -40,16 +42,14 @@ class Head extends XotBaseComponent {
      * @param object $row
      * @param string $index
      */
-    public function mount($row, $index):void {
-
+    public function mount($row, $index): void {
         $this->row = $row;
         $this->index = $index;
 
         $this->setFormProperties($row);
     }
 
-
-    public function render():Renderable {
+    public function render(): Renderable {
         $view = $this->getView();
         $view_params = [
             'view' => $view,
@@ -61,7 +61,7 @@ class Head extends XotBaseComponent {
     }
 
     public function fields(): array {
-        $index_fields = $this->panel->getFields(['act'=>'index']);
+        $index_fields = $this->panel->getFields(['act' => 'index']);
 
         $fields = [];
         foreach ($index_fields as $field) {

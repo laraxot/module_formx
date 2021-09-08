@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Modules\FormX\Http\Livewire\DatagridEditable;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Livewire\WithFileUploads;
 use Modules\FormX\Services\FieldService;
-use Modules\FormX\Traits\HandlesArrays;
 //use Modules\FormX\Traits\UploadsFiles;
 
+use Modules\FormX\Traits\HandlesArrays;
 use Modules\Xot\Http\Livewire\XotBaseComponent;
 use Modules\Xot\Models\Panels\XotBasePanel;
 use Modules\Xot\Services\PanelService;
@@ -28,7 +29,9 @@ class Row extends XotBaseComponent {
     use HandlesArrays;
 
     public array $index_fields = [];
+
     public array $route_params = [];
+
     public array $data = [];
 
     public bool $in_admin;
@@ -45,7 +48,7 @@ class Row extends XotBaseComponent {
      * @param object $row
      * @param string $index
      */
-    public function mount($row, $index):void {
+    public function mount($row, $index): void {
         $this->route_params = optional(request()->route())->parameters();
         $this->data = request()->all();
         $this->in_admin = inAdmin();
@@ -78,7 +81,7 @@ class Row extends XotBaseComponent {
     }
 
     public function fields(): array {
-        $panel_fields = $this->panel->getFields(['act'=>'index']);
+        $panel_fields = $this->panel->getFields(['act' => 'index']);
 
         $fields = [];
         foreach ($panel_fields as $field) {
@@ -128,8 +131,7 @@ class Row extends XotBaseComponent {
 
     //*/
 
-
-    public function render():Renderable {
+    public function render(): Renderable {
         $view = $this->getView();
         $view_params = [
             'view' => $view,
@@ -141,7 +143,7 @@ class Row extends XotBaseComponent {
         return view()->make($view, $view_params);
     }
 
-    public function rowUpdate():void {
+    public function rowUpdate(): void {
         $data = $this->validate();
         $data = $data['form_data'];
         $func = '\Modules\Xot\Jobs\PanelCrud\UpdateJob';
@@ -156,7 +158,7 @@ class Row extends XotBaseComponent {
      * @param string $file_type
      * @param array  $data
      */
-    public function carica($index, $file_name, $file_type, $data):void {
+    public function carica($index, $file_name, $file_type, $data): void {
         //dddx('funzione carica di row');
 
         //dddx($this->form_data['tmp']);
@@ -170,7 +172,7 @@ class Row extends XotBaseComponent {
     /**
      * @param mixed $a
      */
-    public function updated($a):void {
+    public function updated($a): void {
         dddx($a);
     }
 }

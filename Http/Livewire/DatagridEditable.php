@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\FormX\Http\Livewire;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Modules\FormX\Services\FieldService;
 use Modules\Xot\Contracts\PanelContract;
+use Modules\Xot\Contracts\RowsContract;
 //use Modules\FormX\Traits\HandlesArrays;
 //use Modules\FormX\Traits\UploadsFiles;
 use Modules\Xot\Models\Panels\XotBasePanel;
@@ -23,18 +23,25 @@ use Modules\Xot\Services\PanelService;
  */
 class DatagridEditable extends Component {
     use WithFileUploads;
+
     //use UploadsFiles;
     //use HandlesArrays;
     //protected $paginationTheme = 'bootstrap';
     public array $route_params = [];
+
     public array $data = [];
+
     public bool $in_admin;
+
     public int $per_page = 10;
+
     public int $total;
+
     public int $page;
+
     public Collection $rows;
 
-    public function mount():void {
+    public function mount(): void {
         $this->route_params = getRouteParameters();
         $this->data = request()->all();
         $this->in_admin = inAdmin();
@@ -42,7 +49,7 @@ class DatagridEditable extends Component {
         $this->total = $this->query()->count();
         $this->page = request()->input('page', 1);
         $offset = ($this->page - 1) * $this->per_page;
-        $rows = $this->query()->offset((int)$offset)->limit($this->per_page)->get();
+        $rows = $this->query()->offset((int) $offset)->limit($this->per_page)->get();
         //$rows = collect($rows->toArray());
         //dddx($rows);
         $this->rows = $rows;
@@ -64,8 +71,7 @@ class DatagridEditable extends Component {
         return PanelService::getByParams($this->route_params);
     }
 
-    
-    public function query():Builder {
+    public function query(): RowsContract {
         return $this->panel->rows($this->data)->with('post');
     }
 
@@ -101,7 +107,7 @@ class DatagridEditable extends Component {
         return $err;
     }
 
-    public function rowsUpdate():void {
+    public function rowsUpdate(): void {
         $data = $this->validate();
         $data = $data['rows'];
         dddx($data);
@@ -112,7 +118,7 @@ class DatagridEditable extends Component {
         session()->flash('message', 'Post successfully updated.');
     }
 
-    public function carica():void {
+    public function carica(): void {
         dddx(['funzione carica di datatable']);
         //dddx($this->rows);
     }

@@ -9,7 +9,6 @@ namespace Modules\FormX\Http\Livewire\DatagridEditable;
  */
 
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -20,6 +19,7 @@ use Modules\FormX\Services\FieldService;
 use Modules\Xot\Contracts\PanelContract;
 //use Modules\FormX\Traits\HandlesArrays;
 //use Modules\FormX\Traits\UploadsFiles;
+use Modules\Xot\Contracts\RowsContract;
 use Modules\Xot\Models\Panels\XotBasePanel;
 use Modules\Xot\Services\PanelService;
 
@@ -57,7 +57,7 @@ class V1 extends Component {
         $this->page = request()->input('page', 1);
         $offset = ($this->page - 1) * $this->per_page;
 
-        $rows = $this->query()->offset((int)$offset)->limit($this->per_page)->get();
+        $rows = $this->query()->offset((int) $offset)->limit($this->per_page)->get();
         //$rows = collect($rows->toArray());
         //dddx($rows);
         $this->rows = $rows;
@@ -79,11 +79,8 @@ class V1 extends Component {
         return PanelService::getByParams($this->route_params);
     }
 
-    
-    public function query():Builder {
-
+    public function query(): RowsContract {
         return $this->panel->rows($this->data)->with('post');
-
     }
 
     public function render(): Renderable {
