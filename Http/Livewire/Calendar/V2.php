@@ -3,7 +3,7 @@
 /**
  * https://github.com/asantibanez/livewire-calendar/blob/master/src/LivewireCalendar.php.
  * https://marcocaggiano.medium.com/creating-a-popup-modal-with-laravel-livewire-and-no-jquery-1806736acd82.
-*/
+ */
 
 declare(strict_types=1);
 
@@ -11,7 +11,6 @@ namespace Modules\FormX\Http\Livewire\Calendar;
 
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
@@ -83,23 +82,23 @@ class V2 extends Component {
     ];
 
     /**
-     * @param int $initialYear
-     * @param int $initialMonth
+     * @param int       $initialYear
+     * @param int       $initialMonth
      * @param int|mixed $weekStartsAt
-     * @param mixed $calendarView
-     * @param mixed $dayView
-     * @param mixed $eventView
-     * @param mixed $dayOfWeekView 
-     * @param mixed $dragAndDropClasses
-     * @param mixed $beforeCalendarView
-     * @param mixed $afterCalendarView
-     * @param mixed $pollMillis
-     * @param mixed $pollAction
-     * @param mixed $dragAndDropEnabled
-     * @param mixed $dayClickEnabled
-     * @param mixed $eventClickEnabled
-     * @param mixed $eventClickEnabled
-     * @param array $extras
+     * @param mixed     $calendarView
+     * @param mixed     $dayView
+     * @param mixed     $eventView
+     * @param mixed     $dayOfWeekView
+     * @param mixed     $dragAndDropClasses
+     * @param mixed     $beforeCalendarView
+     * @param mixed     $afterCalendarView
+     * @param mixed     $pollMillis
+     * @param mixed     $pollAction
+     * @param mixed     $dragAndDropEnabled
+     * @param mixed     $dayClickEnabled
+     * @param mixed     $eventClickEnabled
+     * @param mixed     $eventClickEnabled
+     * @param array     $extras
      */
     public function mount($initialYear = null,
         $initialMonth = null,
@@ -214,8 +213,7 @@ class V2 extends Component {
         $this->gridEndsAt = $this->endsAt->clone()->endOfWeek($this->weekEndsAt);
     }
 
-    
-    public function monthGrid() {
+    public function monthGrid(): Collection {
         $firstDayOfGrid = $this->gridStartsAt;
         $lastDayOfGrid = $this->gridEndsAt;
 
@@ -323,19 +321,20 @@ class V2 extends Component {
     /**
      * @throws Exception
      *
-     * @return Factory|View
+     * @return \Illuminate\Contracts\View\View
      */
     public function render() {
         $events = $this->events();
+        $view = $this->calendarView;
+        $view_params = [
+            'componentId' => $this->id,
+            'monthGrid' => $this->monthGrid(),
+            'events' => $events,
+            'getEventsForDay' => function ($day) use ($events) {
+                return $this->getEventsForDay($day, $events);
+            },
+        ];
 
-        return view($this->calendarView)
-            ->with([
-                'componentId' => $this->id,
-                'monthGrid' => $this->monthGrid(),
-                'events' => $events,
-                'getEventsForDay' => function ($day) use ($events) {
-                    return $this->getEventsForDay($day, $events);
-                },
-            ]);
+        return view()->make($view, $view_params);
     }
 }

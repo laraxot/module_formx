@@ -33,17 +33,37 @@ class Datagrid extends Component {
      * Livewire component's [modules.form-x.http.livewire.datagrid] public property [rows] must be of type: [numeric, string, array, null, or boolean]. Only protected or private properties can be set as other types because JavaScript doesn't need to access them.
      *
      * @param PanelContract $_panel
+     *
+     * @return void
      */
-    public function mount($_panel):void {
+    public function mount($_panel) {
         $this->model_class = get_class($_panel->getRow());
         $index_fields = $_panel->indexFields();
         $this->index_fields = $index_fields;
         $rows = $_panel->getRows();
+        // 42     Call to an undefined method Illuminate\Database\Eloquent\Builder|Illuminate\Database\Eloquent\Relations\Relation::toSql().
+        if (! method_exists($rows, 'toSql')) {
+            throw new \Exception('in ['.get_class($rows).'] method [toSql] is missing ['.__LINE__.']['.__FILE__.']');
+        }
+        if (! method_exists($rows, 'getBindings')) {
+            throw new \Exception('in ['.get_class($rows).'] method [getBindings] is missing ['.__LINE__.']['.__FILE__.']');
+        }
+
         $sql = $rows->toSql();
-        $bindings = collect($rows->getBindings())->map(function ($item) {
-            return "'".$item."'";
-        })->all();
-        $this->sql = str_replace(explode(',', str_repeat('?,', 10)), $bindings, $sql);
+        //if (is_array($sql)) {
+        //    throw new \Exception('sql is an array ['.__LINE__.']['.__FILE__.']');
+        //}
+        $bindings = collect($rows->getBindings())
+            ->map(
+                function ($item) {
+                    return "'".$item."'";
+                }
+            )->all();
+        $sql = str_replace(explode(',', str_repeat('?,', 10)), $bindings, $sql);
+        if(is_array($sql)){
+            $sql = implode(' ', $sql);
+        }
+        $this->sql = $sql;
         /*
 
         $sql = str_replace(['?'], ['\'%s\''], $sql);
@@ -61,8 +81,7 @@ class Datagrid extends Component {
     }
     */
 
-    
-    public function render():Renderable {
+    public function render(): Renderable {
         $view = 'formx::livewire.datagrid';
         $model = new $this->model_class();
         $join_on = '';

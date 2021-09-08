@@ -12,6 +12,7 @@ use Modules\Ew\Models\Menu;
 use Modules\Ew\Models\NotiziaCat;
 use Modules\Ew\Models\PhotoCat;
 use Modules\Theme\Services\ThemeService;
+use Modules\Xot\Contracts\PanelContract;
 use Modules\Xot\Models\Panels\XotBasePanel;
 use Modules\Xot\Services\PanelService;
 use Modules\Xot\Services\TenantService;
@@ -40,13 +41,16 @@ class IndexOrder extends Component {
      * @param array $node_parent
      * @param int   $node_position
      */
-    public function save($node, $node_parent, $node_position):void {
+    public function save($node, $node_parent, $node_position): void {
         //dddx(['node' => $node, 'node_parent' => $node_parent, 'node_position' => $node_position]);
         if ('#' == $node_parent['type']) {
             $model = TenantService::model($node['type']);
             [$type,$id] = explode('-', $node['id']);
-            $row = $model->query()->find($id);
+            $row = $model->query()->findOrFail($id);
+            //$row = $model->find($id);
+            //50     Call to an undefined method Illuminate\Database\Eloquent\Collection<Illuminate\Database\Eloquent\Model>|Illuminate\Database\Eloquent\Model::setAttribute().
             $row->setAttribute('posizione', $node_position);
+            //51     Call to an undefined method Illuminate\Database\Eloquent\Collection<Illuminate\Database\Eloquent\Model>|Illuminate\Database\Eloquent\Model::save().
             $row->save();
 
             return;
@@ -58,7 +62,7 @@ class IndexOrder extends Component {
 
         $model = TenantService::model($node['type']);
         [$type,$id] = explode('-', $node['id']);
-        $row = $model->find($id);
+        $row = $model->query()->findOrFail($id);
 
         if (null == $row_parent) {
             $msg = (['node' => $node, 'node_parent' => $node_parent, 'node_position' => $node_position]);
@@ -75,9 +79,11 @@ class IndexOrder extends Component {
             'posizione' => $node_position,
             //$rows->getForeignKeyName() => $parent_id,
         ];
-        if (method_exists($rows, 'getForeignKeyName')) {
+        // 82     Cannot call method getForeignKeyName() on class-string|object.
+
+        if (is_object($rows) && method_exists($rows, 'getForeignKeyName')) {
             $k = $rows->getForeignKeyName();
-            $up[$k] = $parent_id;
+            $up[(string) $k] = $parent_id;
         }
 
         if (in_array('id_padre', $row->getFillable()) && $node_parent['type'] != $node['type']) {
@@ -87,6 +93,8 @@ class IndexOrder extends Component {
         //dddx([get_class_methods($rows), $rows->getParentKey(), $rows->getForeignKeyName(), $rows->getLocalKeyName()]);
 
         //dddx($up);
+        //95     Parameter #1 $attributes of method Illuminate\Database\Eloquent\Model::update() expects array<string, mixed>, array<int|string, int|string> given.
+
         $row->update($up);
         /*
         $row->posizione = $node_position;
@@ -101,7 +109,7 @@ class IndexOrder extends Component {
      * @param array  $node_parent
      * @param int    $node_position
      */
-    public function test($operation, $node, $node_parent, $node_position) {
+    public function test($operation, $node, $node_parent, $node_position): void {
         session()->flash('message', 'Users Created Successfully.');
         dddx([$operation, $node, $node_parent, $node_position]);
     }
@@ -111,10 +119,8 @@ class IndexOrder extends Component {
      * @param array  $node
      * @param array  $node_parent
      * @param int    $node_position
-     *
-     * @return bool
      */
-    public function checkCallback($operation, $node, $node_parent, $node_position) {
+    public function checkCallback($operation, $node, $node_parent, $node_position): bool {
         if ('move_node' != $operation) {
             session()->flash('message', 'posizione ['.$node_position.'] '.
                 ' operation ['.$operation.']'.
@@ -210,6 +216,18 @@ class IndexOrder extends Component {
 
         $model_name = $panel->postType();
         $model = $panel->getRow();
+
+        //219    Call to an undefined method Illuminate\Database\Eloquent\Model::treeLabel().
+        // NON NEL MODEL SPOSTARE NEL PANEL ... il panel diventa un paneltree .. boh
+        if (! method_exists($model, 'treeLabel')) {
+            throw new \Exception('in ['.get_class($model).'] method [treeLabel] is missing ['.__LINE__.']['.__FILE__.']');
+        }
+        if (! method_exists($model, 'treeSons')) {
+            throw new \Exception('in ['.get_class($model).'] method [treeSons] is missing ['.__LINE__.']['.__FILE__.']');
+        }
+        if (! method_exists($model, 'treeSonsCount')) {
+            throw new \Exception('in ['.get_class($model).'] method [treeSonsCount] is missing ['.__LINE__.']['.__FILE__.']');
+        }
         $item['nome'] = $model->treeLabel();
         $item['model_name'] = $model_name;
         $icon = TenantService::config('icons.tree.'.$model_name);
@@ -218,11 +236,12 @@ class IndexOrder extends Component {
         $item['dropdown_submenu'] = false;
         $item['tree_id'] = $model->getKey();
 
-        //$item['sons'] = [];
-
+        //229    Call to an undefined method Illuminate\Database\Eloquent\Model::treeSons().
+        // NON NEL MODEL SPOSTARE NEL PANEL ... il panel diventa un paneltree .. boh
         $item['sons'] = $model->treeSons();
-        //dddx($item['sons']);
 
+        // 232    Call to an undefined method Illuminate\Database\Eloquent\Model::treeSonsCount().
+        // NON NEL MODEL SPOSTARE NEL PANEL ... il panel diventa un paneltree .. boh
         $item['have_sons'] = $model->treeSonsCount();
 
         return $item;
@@ -230,9 +249,12 @@ class IndexOrder extends Component {
 
     /**
      * @param object $model
+     *
+     * @return void
      */
     public function mount(SessionManager $session, $model = null) {
-        $this->route_params = request()->route()->parameters();
+        //$this->route_params = request()->route()->parameters();
+        $this->route_params = getRouteParameters();
         $this->data = request()->all();
 
         extract($this->route_params);
@@ -352,6 +374,8 @@ class IndexOrder extends Component {
 
     /**
      * @param mixed $arr
+     *
+     * @return void
      */
     public function updateOrder($arr) {
         dddx($arr);
@@ -364,6 +388,8 @@ class IndexOrder extends Component {
 
     /**
      * @param mixed $a
+     *
+     * @return void
      */
     public function updateGroupOrder($a) {
         dddx($a);
