@@ -22,6 +22,7 @@ https://www.nicesnippets.com/blog/laravel-livewire-fullcalendar-integration-tuto
 
 use Carbon\Carbon;
 //use Modules\Customer\Models\Customer;
+use Illuminate\Contracts\Support\Renderable;
 use Modules\Xot\Http\Livewire\XotBaseComponent;
 use Modules\Xot\Services\PanelService;
 
@@ -141,9 +142,9 @@ class Event extends XotBaseComponent {
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * Render the component.
      */
-    public function render() {
+    public function render(): Renderable {
         $view = $this->getView();
         $view_params = [
             'view' => $view,

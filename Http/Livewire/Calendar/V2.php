@@ -277,7 +277,7 @@ class V2 extends Component {
         $this->event_id = $eventId;
         $row = app($this->model)->find($eventId);
         $panel = PanelService::get($row);
-        $fields = $panel->getFields(['act'=>'edit']);
+        $fields = $panel->getFields(['act' => 'edit']);
         /*
         $this->form_data = collect($fields)
             ->keyBy('name')
@@ -319,6 +319,8 @@ class V2 extends Component {
     }*/
 
     /**
+     * Render the component.
+     *
      * @throws Exception
      *
      * @return \Illuminate\Contracts\View\View

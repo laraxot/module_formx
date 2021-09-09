@@ -51,6 +51,11 @@ class Field extends Component {
     }
     */
 
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function render() {
         $type = str_replace('._', '.', Str::snake($this->type));
 

@@ -13,11 +13,16 @@ class Simple extends Component {
 
 
     /*public function mount($row, $name):void {
-       
+
     }*/
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function render() {
         $view = 'formx::livewire.chip.simple';

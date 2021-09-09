@@ -285,6 +285,11 @@ class Calendar extends Component {
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function render() {
         $guest_num = (int) $this->guest_num;
         //-- da vedere come passare i parametri

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\FormX\Http\Livewire;
 
+use Illuminate\Contracts\Support\Renderable;
 use Livewire\Component;
 
 /**
@@ -16,17 +17,15 @@ class Numberer extends Component {
 
     /**
      * Undocumented function.
-     *
-     * @return void
      */
-    public function mount() {
+    public function mount(): void {
         $this->count = 0;
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * Render the component.
      */
-    public function render() {
+    public function render(): Renderable {
         return view()->make('formx::livewire.numberer');
     }
 

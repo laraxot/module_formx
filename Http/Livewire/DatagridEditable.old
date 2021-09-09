@@ -23,7 +23,7 @@ class DatagridEditable extends Component {
     public int $page;
     public Collection $rows;
 
-    public function mount() {
+    public function mount():void {
         $this->route_params = request()->route()->parameters();
         $this->data = request()->all();
         $this->in_admin = inAdmin();

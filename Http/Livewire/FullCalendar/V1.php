@@ -9,8 +9,9 @@ namespace Modules\FormX\Http\Livewire\FullCalendar;
 
  */
 
-use Illuminate\Support\Str;
+use Illuminate\Contracts\Support\Renderable;
 //use Modules\Customer\Models\Customer;
+use Illuminate\Support\Str;
 use Modules\FormX\Contracts\ModelLangContract;
 use Modules\Xot\Http\Livewire\XotBaseComponent;
 
@@ -132,10 +133,11 @@ class V1 extends XotBaseComponent {
         $row->save();
     }
 
+
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * Render the component.
      */
-    public function render() {
+    public function render(): Renderable {
         $view = $this->getView();
         $view_params = [
             'view' => $view,

@@ -36,6 +36,11 @@ class Row extends XotBaseComponent {
         $this->setFormProperties($row);
     }
 
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\View\View
+     */
     public function render() {
         $view = $this->getView();
         $view_params = [

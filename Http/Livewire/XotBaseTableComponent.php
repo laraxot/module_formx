@@ -54,7 +54,7 @@ abstract class XotBaseTableComponent extends Component {
     public int $per_page;
 
     /*
-    public function mount() {
+    public function mount():void {
         $this->setTableProperties();
     }
     */
@@ -66,14 +66,16 @@ abstract class XotBaseTableComponent extends Component {
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * Render the component.
+     *
+     * @return \Illuminate\Contracts\View\View
      */
     public function render() {
         return $this->tableView();
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\View
      */
     public function tableView() {
         $view = 'formx::livewire.xot_base_table_component';
