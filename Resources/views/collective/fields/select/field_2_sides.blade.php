@@ -16,7 +16,7 @@ $val = $model->$name;
 //$auth_user_id=is_object($user)?$user->auth_user_id:'NO-SET';
 $model_linked = $model->$name()->getRelated();
 $_panel = Theme::panelModel($model_linked);
-$_panel->setRows($model_linked);
+$_panel->setBuilder($model_linked->query());
 //$all=$_panel->options();
 /*
 

@@ -24,7 +24,7 @@ $row = Form::getModel();
 $related = $row->$name()->getRelated();
 $related_panel = Panel::get($related);
 $rows = $related->with('post');
-$related_panel->setRows($rows);
+$related_panel->setBuilder($rows);
 $opts = $related_panel->optionsSelect();
 //dddx($opts);
 $field = transFields(get_defined_vars());

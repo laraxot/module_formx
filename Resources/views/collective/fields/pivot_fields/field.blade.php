@@ -6,7 +6,6 @@ if (!method_exists($model, $name)) {
 $user = Auth::user();
 $auth_user_id = is_object($user) ? $user->auth_user_id : 'NO-SET';
 $rows = $model->$name();
-//debug_getter_obj(['obj'=>$rows]);
 
 $pivot_class = $rows->getPivotClass();
 $pivot = new $pivot_class();
@@ -34,7 +33,7 @@ $all = $related->get();
                     if (isset($pf->sub_type)) {
                         $input_type .= $pf->sub_type;
                     }
-
+                    
                     //$input_value=(isset($field->value)?$field->value:null);
                     if (!isset($pf->col_bs_size)) {
                         $pf->col_bs_size = 12;
@@ -53,14 +52,14 @@ $all = $related->get();
                     } else {
                         $vv = $vv->toArray();
                     }
-
+                    
                     $input_value = Arr::get($vv, 'pivot.' . $pf->name);
-
+                    
                     if ($vv == [] && $input_value == '') {
                         //forzatura
                         $input_value = $v->{$pf->name};
                     }
-
+                    
                 @endphp
 
                 @if ($input_type == 'bsHidden')

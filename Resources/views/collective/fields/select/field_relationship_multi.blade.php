@@ -30,7 +30,6 @@ dddx([
 */
 
 $rows = $related->with('post');
-//$related_panel->setRows($rows);
 $related_panel->setBuilder($rows);
 $opts = collect([]);
 $opts = $related_panel->optionsSelect();
