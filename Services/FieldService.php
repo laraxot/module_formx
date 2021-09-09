@@ -130,7 +130,7 @@ class FieldService extends BaseFieldService {
             //'row' => $row,
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 
     public function html(array $form_data = [], ?Model $row = null): Renderable {//@XOT //$form_data non dovrebbe servire
