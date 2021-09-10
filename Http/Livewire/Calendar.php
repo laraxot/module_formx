@@ -296,7 +296,7 @@ class Calendar extends Component {
         $this->items = $this->shop->bookingItems()->whereRaw($guest_num.' between min_capacity and max_capacity')->get();
         $this->opening_hours = $this->shop->openingHours()->where('day_of_week', $this->weekDay)->get();
 
-        return view('formx::livewire.calendar', [
+        return view()->make('formx::livewire.calendar', [
             'calendar' => $this->calendar(),
             'items' => $this->items,
             'opening_hours' => $this->opening_hours,

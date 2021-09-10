@@ -39,7 +39,7 @@ class TestAction extends XotBasePanelAction {
             $view .= '.'.$input;
         }
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
 
         //return $this->panel->view()->with($view_params);
     }

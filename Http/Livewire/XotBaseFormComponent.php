@@ -114,7 +114,7 @@ abstract class XotBaseFormComponent extends Component {
             'fields' => $this->fields(),
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 
     public function fields(): array {

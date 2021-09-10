@@ -85,7 +85,7 @@ abstract class XotBaseTableComponent extends Component {
             'models' => $this->models()->paginate($this->per_page),
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 
     /**

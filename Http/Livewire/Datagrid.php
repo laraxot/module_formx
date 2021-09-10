@@ -116,7 +116,7 @@ class Datagrid extends Component {
             'rows' => $rows,
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 
     /**
