@@ -32,7 +32,7 @@ class Simple extends Component {
             'elements' => $this->elements,
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 
     public function add():void {

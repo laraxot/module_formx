@@ -256,6 +256,6 @@ class Stringlist extends Component {
             'calendar' => $this->calendar(),
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 }

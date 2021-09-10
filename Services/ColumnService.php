@@ -159,7 +159,7 @@ class ColumnService {
             //'field' => $this,
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
 
         //return $value;
     }
