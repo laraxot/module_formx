@@ -7,11 +7,11 @@
 $options = [];
 extract($attributes);
 $field = transFields(get_defined_vars());
-//ddd(get_defined_vars());
+//dddx(get_defined_vars());
 
 $model = Form::getModel();
 $val = $model->$name;
-//ddd($model);
+//dddx($model);
 //$user=Auth::user();
 //$auth_user_id=is_object($user)?$user->auth_user_id:'NO-SET';
 $model_linked = $model->$name()->getRelated();
@@ -24,7 +24,7 @@ $_panel->setBuilder($model_linked->query());
  $all=$_panel->rows($data)->get();
  //*/
 $all = $_panel->options();
-//ddd(get_class($_panel));//Modules\Progressioni\Models\Panels\SchedePanel
+//dddx(get_class($_panel));//Modules\Progressioni\Models\Panels\SchedePanel
 @endphp
 {{-- @component($blade_component, get_defined_vars())
 	@slot('label')

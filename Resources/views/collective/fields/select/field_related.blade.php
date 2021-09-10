@@ -5,7 +5,7 @@ $panel_related = Panel::get(new $related_class());
 //$rows=with(new $related_class)->get();
 $rows = app($related_class)->query();
 $panel_related->setBuilder($rows);
-//ddd(get_defined_vars());
+//dddx(get_defined_vars());
 $field = transFields(get_defined_vars());
 //Category::pluck('name', 'id')
 //$opts=['1'=>'test','2'=>'prova'];

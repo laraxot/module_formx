@@ -8,16 +8,16 @@ $rows = $row->{$field->relationship}();
 $related = $rows->getRelated();
 $related_panel = Panel::get($related);
 $related_panel->setBuilder($related->query());
-//ddd($related_panel->optionsSelect());
-//ddd($related->all());
+//dddx($related_panel->optionsSelect());
+//dddx($related->all());
 /*
- ddd($related);
+ dddx($related);
  $opts=$rows->all();
  */
 $opts = $related_panel->optionsSelect();
 $field = transFields(get_defined_vars());
 //$field=transFields(get_defined_vars());
-//ddd($field);
+//dddx($field);
 @endphp
 
 @component($blade_component, get_defined_vars())

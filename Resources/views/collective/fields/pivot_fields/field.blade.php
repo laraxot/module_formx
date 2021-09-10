@@ -1,7 +1,7 @@
 @php
 $model = Form::getModel(); //Modules\Food\Models\Profile
 if (!method_exists($model, $name)) {
-    ddd('create relationship [' . $name . '] on [' . get_class($model) . ']');
+    dddx('create relationship [' . $name . '] on [' . get_class($model) . ']');
 }
 $user = Auth::user();
 $auth_user_id = is_object($user) ? $user->auth_user_id : 'NO-SET';

@@ -42,7 +42,7 @@ abstract class BaseFormBtnMacro {
         if (! $user->can($act, $row) && ! in_array($act, ['gear'])) {
             $policy = StubService::getByModel($row, 'policy', $create = true);
             $error_msg = '[not can '.$act.']['.get_class($row).']';
-            //ddd(App::environment('local'));
+            //dddx(App::environment('local'));
             if ('local' == env('APP_ENV')) {
                 return ['error' => 1, 'error_msg' => $error_msg];
             } else {
@@ -85,7 +85,7 @@ abstract class BaseFormBtnMacro {
             'view_comp' => $view_comp,
             'view_comp_dir' => $view_comp_dir,
         ];
-        //ddd($generate_btn);
+        //dddx($generate_btn);
         //if ($generate_btn) {
         $data['btn'] = view()->make($view_comp, $data);
         //}

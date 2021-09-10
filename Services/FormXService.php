@@ -316,7 +316,7 @@ class FormXService {
                 $view_params['pivot_fields'] = $pivot_fields;
             }
 
-            //ddd($field->fields);
+            //dddx($field->fields);
             //$field->fields=$field->value;
         }
 
@@ -462,7 +462,7 @@ class FormXService {
                     </span>';
         }
         // data-href serve per le chiamate ajax
-        //ddd($params, $title, $data_title);
+        //dddx($params, $title, $data_title);
         //$title = trans(strtolower($module_name.'::'.class_basename($row)).'.act.'.$title);
         //$data_title = $title;
 

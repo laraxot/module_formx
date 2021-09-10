@@ -16,12 +16,12 @@ $_panel->setBuilder($related->query()); //in teoria non viene chiamato
 $all=$_panel->options();
 */
 $all = $related->all();
-//ddd($rows);
+//dddx($rows);
 //$all=$model->{'all_'.$name};
 //$model_linked=Theme::xotModel(Str::singular($name));
 //$_panel=Theme::panelModel($model_linked);
 //$all=$model_linked->get();
-//ddd($_panel);
+//dddx($_panel);
 @endphp
 <fieldset class="form-group container-fluid border p-2">
     <legend class="col-form-label col-sm-2 pt-0 w-auto">
