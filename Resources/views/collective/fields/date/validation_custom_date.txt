@@ -1,9 +1,1 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 http://www.expertphp.in/article/how-to-validate-custom-date-format-with-laravel-validator-
-=======
-http://www.expertphp.in/article/how-to-validate-custom-date-format-with-laravel-validator-
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
-=======
-http://www.expertphp.in/article/how-to-validate-custom-date-format-with-laravel-validator-
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea

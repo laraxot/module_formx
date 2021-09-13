@@ -1,10 +1,2 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 https://longbill.github.io/jquery-date-range-picker/
-=======
-https://longbill.github.io/jquery-date-range-picker/
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
-=======
-https://longbill.github.io/jquery-date-range-picker/
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 bello ma orologio troppo complesso

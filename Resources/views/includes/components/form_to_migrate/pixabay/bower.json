@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 {
   "name": "pixabay",
   "homepage": "https://github.com/laraxot/package_extend",
@@ -21,49 +19,3 @@
     "jQuery-autoComplete": "https://github.com/Pixabay/jQuery-autoComplete"
   }
 }
-=======
-{
-  "name": "pixabay",
-  "homepage": "https://github.com/laraxot/package_extend",
-  "authors": [
-    "marco xot <marco.sottana@gmail.com>"
-  ],
-  "description": "",
-  "main": "",
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "./bc",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "jQuery-autoComplete": "https://github.com/Pixabay/jQuery-autoComplete"
-  }
-}
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
-=======
-{
-  "name": "pixabay",
-  "homepage": "https://github.com/laraxot/package_extend",
-  "authors": [
-    "marco xot <marco.sottana@gmail.com>"
-  ],
-  "description": "",
-  "main": "",
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "./bc",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "jQuery-autoComplete": "https://github.com/Pixabay/jQuery-autoComplete"
-  }
-}
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea

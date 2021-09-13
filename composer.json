@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 {
     "name": "laraxot/module_formx",
     "description": "",
@@ -25,57 +23,3 @@
         }
     }
 }
-=======
-{
-    "name": "laraxot/module_formx",
-    "description": "",
-    "authors": [
-        {
-            "name": "Laraxot",
-            "email": "marco.sottana@gmail.com"
-        }
-    ],
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Modules\\FormX\\Providers\\FormXServiceProvider"
-            ],
-            "aliases": {
-
-            }
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "Modules\\FormX\\": ""
-        }
-    }
-}
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
-=======
-{
-    "name": "laraxot/module_formx",
-    "description": "",
-    "authors": [
-        {
-            "name": "Laraxot",
-            "email": "marco.sottana@gmail.com"
-        }
-    ],
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Modules\\FormX\\Providers\\FormXServiceProvider"
-            ],
-            "aliases": {
-
-            }
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "Modules\\FormX\\": ""
-        }
-    }
-}
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea

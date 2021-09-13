@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 {
   "name": "jQuery-autoComplete",
   "_cacheHeaders": {
@@ -12,32 +10,4 @@
   "_target": "*",
   "_originalSource": "https://github.com/Pixabay/jQuery-autoComplete",
   "_direct": true
-=======
-{
-  "name": "jQuery-autoComplete",
-  "_cacheHeaders": {
-    "ETag": "W/\"df6d50e9ee950b93b0e28f31afec073a\"",
-    "Content-Type": "text/html; charset=utf-8"
-  },
-  "_release": "e-tag:W/\"df6d50e",
-  "main": "index",
-  "_source": "https://github.com/Pixabay/jQuery-autoComplete",
-  "_target": "*",
-  "_originalSource": "https://github.com/Pixabay/jQuery-autoComplete",
-  "_direct": true
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
-=======
-{
-  "name": "jQuery-autoComplete",
-  "_cacheHeaders": {
-    "ETag": "W/\"df6d50e9ee950b93b0e28f31afec073a\"",
-    "Content-Type": "text/html; charset=utf-8"
-  },
-  "_release": "e-tag:W/\"df6d50e",
-  "main": "index",
-  "_source": "https://github.com/Pixabay/jQuery-autoComplete",
-  "_target": "*",
-  "_originalSource": "https://github.com/Pixabay/jQuery-autoComplete",
-  "_direct": true
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 }

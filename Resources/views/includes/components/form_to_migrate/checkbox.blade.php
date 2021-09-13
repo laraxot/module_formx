@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 @php
 	if(isset($attributes['label']))
 		$label=$attributes['label'];
@@ -15,38 +13,4 @@
 		</span>
 	@endif
 	<small class="form-text text-muted">{{ trans($view.'.field.'.$name.'_help') }} </small> 
-=======
-@php
-	if(isset($attributes['label']))
-		$label=$attributes['label'];
-	else
-		$label=trans($view.'.field.'.$name);
-@endphp
-<div class="form-group{{ $errors->has($name) ? ' has-error' : '' }}">
-	{{ Form::label($name, $label , ['class' => 'control-label']) }}
-	{{ Form::checkbox($name, $value, array_merge(['class' => 'form-control','placeholder'=>trans($view.'.field.'.$name.'_placeholder')], $attributes)) }}
-	@if ( $errors->has($name) )
-		<span class="help-block">
-			<strong>{{ $errors->first($name) }}</strong>
-		</span>
-	@endif
-	<small class="form-text text-muted">{{ trans($view.'.field.'.$name.'_help') }} </small> 
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
-=======
-@php
-	if(isset($attributes['label']))
-		$label=$attributes['label'];
-	else
-		$label=trans($view.'.field.'.$name);
-@endphp
-<div class="form-group{{ $errors->has($name) ? ' has-error' : '' }}">
-	{{ Form::label($name, $label , ['class' => 'control-label']) }}
-	{{ Form::checkbox($name, $value, array_merge(['class' => 'form-control','placeholder'=>trans($view.'.field.'.$name.'_placeholder')], $attributes)) }}
-	@if ( $errors->has($name) )
-		<span class="help-block">
-			<strong>{{ $errors->first($name) }}</strong>
-		</span>
-	@endif
-	<small class="form-text text-muted">{{ trans($view.'.field.'.$name.'_help') }} </small> 
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 </div>

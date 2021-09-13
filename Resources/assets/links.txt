@@ -1,12 +1,2 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 https://medium.com/@mscherrenberg/laravel-5-6-vue-js-simple-form-submission-using-components-92b6d5fd4434
 
-=======
-https://medium.com/@mscherrenberg/laravel-5-6-vue-js-simple-form-submission-using-components-92b6d5fd4434
-
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
-=======
-https://medium.com/@mscherrenberg/laravel-5-6-vue-js-simple-form-submission-using-components-92b6d5fd4434
-
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea

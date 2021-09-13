@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 @php
 	$field=transFields(get_defined_vars());
 	//$field->attributes['class'].=' custom-control-input';
@@ -12,32 +10,4 @@
 	@slot('input')
 		{{ Form::select($name,['0'=>'No','1'=>'Si'],$value,$field->attributes) }}
 	@endslot
-=======
-@php
-	$field=transFields(get_defined_vars());
-	//$field->attributes['class'].=' custom-control-input';
-
-@endphp
-@component($blade_component,get_defined_vars())
-	@slot('label')
-		{{ Form::label($name, $field->label , ['class' => 'control-label']) }}
-	@endslot
-	@slot('input')
-		{{ Form::select($name,['0'=>'No','1'=>'Si'],$value,$field->attributes) }}
-	@endslot
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
-=======
-@php
-	$field=transFields(get_defined_vars());
-	//$field->attributes['class'].=' custom-control-input';
-
-@endphp
-@component($blade_component,get_defined_vars())
-	@slot('label')
-		{{ Form::label($name, $field->label , ['class' => 'control-label']) }}
-	@endslot
-	@slot('input')
-		{{ Form::select($name,['0'=>'No','1'=>'Si'],$value,$field->attributes) }}
-	@endslot
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 @endcomponent

@@ -1,18 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 source "http://rubygems.org"
 
 gem "rake"
 gem "highline"
-=======
-source "http://rubygems.org"
-
-gem "rake"
-gem "highline"
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
-=======
-source "http://rubygems.org"
-
-gem "rake"
-gem "highline"
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea

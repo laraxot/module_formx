@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 pkg
 .DS_Store
 notes.txt
@@ -7,22 +5,4 @@ notes.txt
 vendor/ruby
 vendor/cache
 public
-=======
-pkg
-.DS_Store
-notes.txt
-.bundle
-vendor/ruby
-vendor/cache
-public
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
-=======
-pkg
-.DS_Store
-notes.txt
-.bundle
-vendor/ruby
-vendor/cache
-public
->>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 .project
