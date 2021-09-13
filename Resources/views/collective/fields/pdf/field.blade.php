@@ -16,11 +16,11 @@ $field->attributes['id'] = 'post_image_src_' . $field->label;
     @endslot
     @slot('input')
         <!--<div class="card mb-3">
-                                                                                                                                    <div class="row no-gutters">
+                                                                                                                                            <div class="row no-gutters">
 
 
-                                                                                                                                        <div class="col-md-9">
-                                                                                                                                            <div class="card-body">-->
+                                                                                                                                                <div class="col-md-9">
+                                                                                                                                                    <div class="card-body">-->
         <div class="input-group">
             <span class="input-group-btn">
                 <a data-input="{{ $field->attributes['id'] }}" data-preview="holder"
@@ -29,12 +29,12 @@ $field->attributes['id'] = 'post_image_src_' . $field->label;
                     @lang('formx::txt.select')
                 </a>
             </span>
-            {{ Form::hidden('path', $value, $field->attributes) }}
+            {{ Form::hidden('path[]', $value, $field->attributes) }}
         </div>
         <!--</div>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                                </div>-->
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                        </div>-->
 
 
 
