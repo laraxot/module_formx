@@ -6,7 +6,7 @@ $field = transFields(get_defined_vars());
 @component($blade_component, get_defined_vars())
 
     @slot('label')
-        {{ Form::label($name, $field->label, ['class' => 'control-label']) }}
+        {{-- Form::label($name,$field->label,['class'=>'control-label']) --}}
     @endslot
     @slot('input')
         @php
@@ -15,11 +15,11 @@ $field = transFields(get_defined_vars());
             echo Form::text($name, $value, $field->attributes);
         } catch (\Exception $e) {
             /*
-                                dddx(['field_name'=>$name,
-                                'value'=>$value,
-                                'err'=>$e->getMessage()
-                                ]);
-                                */
+                                        dddx(['field_name'=>$name,
+                                        'value'=>$value,
+                                        'err'=>$e->getMessage()
+                                        ]);
+                                        */
             echo $e->getMessage();
         }
         @endphp
