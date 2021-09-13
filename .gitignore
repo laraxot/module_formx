@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 *.lock
 *.phar
 .git-rewrite
@@ -7,6 +8,15 @@ package-lock.json
 *.lock
 
 
+=======
+*.lock
+*.phar
+.git-rewrite
+node_modules
+package-lock.json
+
+
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 =======
 *.lock
 *.phar

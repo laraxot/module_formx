@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
   "name": "jquery-flexselect",
   "version": "0.9.0",
@@ -13,6 +14,22 @@
   "dependencies": {
     "jquery": ">=1.4"
   }
+=======
+{
+  "name": "jquery-flexselect",
+  "version": "0.9.0",
+  "main": [
+    "jquery.flexselect.js",
+    "flexselect.css"
+  ],
+  "ignore": [
+    "test",
+    "vendor"
+  ],
+  "dependencies": {
+    "jquery": ">=1.4"
+  }
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 =======
 {
   "name": "jquery-flexselect",

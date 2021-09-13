@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
   "name": "clockpicker",
   "description": "A clock-style timepicker for Bootstrap (or jQuery)",
@@ -31,6 +32,40 @@
   "dependencies": {
     "jquery" : ">=1.7"
   }
+=======
+{
+  "name": "clockpicker",
+  "description": "A clock-style timepicker for Bootstrap (or jQuery)",
+  "version": "0.0.7",
+  "main": [
+    "dist/jquery-clockpicker.js",
+    "dist/jquery-clockpicker.css"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "*",
+    "!dist/*",
+    "!bower.json",
+    "!LICENSE",
+    "!README.md"
+  ],
+  "keywords": ["timepicker", "jquery"],
+  "authors": [
+    {
+      "name": "Wang Shenwei",
+      "email": "wangshenwei@qq.com",
+      "homepage": "http://wangshenwei.com/"
+    }
+  ],
+  "homepage": "http://weareoutman.github.io/clockpicker/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/weareoutman/clockpicker.git"
+  },
+  "dependencies": {
+    "jquery" : ">=1.7"
+  }
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 =======
 {
   "name": "clockpicker",

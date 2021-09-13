@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const mix = require('laravel-mix');
 //require('laravel-mix-merge-manifest');
 
@@ -15,6 +16,24 @@ if (mix.inProduction()) {
 }
 
 
+=======
+const mix = require('laravel-mix');
+//require('laravel-mix-merge-manifest');
+
+//mix.setPublicPath('../../../public_html').mergeManifest();
+
+var src=__dirname + '/Resources/assets';
+var dest=__dirname + '/Resources/views/dist';
+
+mix.js(src+'/js/app.js', dest+'/js')
+    .sass( src+'/sass/app.scss', dest+'/css');
+
+if (mix.inProduction()) {
+    mix.version();
+}
+
+
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 =======
 const mix = require('laravel-mix');
 //require('laravel-mix-merge-manifest');

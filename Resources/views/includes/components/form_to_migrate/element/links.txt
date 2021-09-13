@@ -1,7 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 http://element.eleme.io/#/en-US/component/datetime-picker
 
 http://element.eleme.io/#/en-US/component/installation
+=======
+http://element.eleme.io/#/en-US/component/datetime-picker
+
+http://element.eleme.io/#/en-US/component/installation
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 =======
 http://element.eleme.io/#/en-US/component/datetime-picker
 

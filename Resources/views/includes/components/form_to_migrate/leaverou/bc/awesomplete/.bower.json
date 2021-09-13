@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
   "name": "awesomplete",
   "_cacheHeaders": {
@@ -11,6 +12,20 @@
   "_target": "*",
   "_originalSource": "https://github.com/LeaVerou/awesomplete",
   "_direct": true
+=======
+{
+  "name": "awesomplete",
+  "_cacheHeaders": {
+    "ETag": "W/\"047d34c587f948dd94c82c5897a239f5\"",
+    "Content-Type": "text/html; charset=utf-8"
+  },
+  "_release": "e-tag:W/\"047d34c",
+  "main": "index",
+  "_source": "https://github.com/LeaVerou/awesomplete",
+  "_target": "*",
+  "_originalSource": "https://github.com/LeaVerou/awesomplete",
+  "_direct": true
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 =======
 {
   "name": "awesomplete",

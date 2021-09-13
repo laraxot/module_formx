@@ -1,6 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <!-- html5 datetime input -->
 
+=======
+<!-- html5 datetime input -->
+
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 =======
 <!-- html5 datetime input -->
 
@@ -12,6 +17,7 @@ if (isset($field['value']) && ($field['value'] instanceof \Carbon\CarbonInterfac
     $field['value'] = $field['value']->toDateTimeString();
 }
 ?>
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 <div @include('crud::inc.field_wrapper_attributes') >
@@ -29,6 +35,24 @@ if (isset($field['value']) && ($field['value'] instanceof \Carbon\CarbonInterfac
         <p class="help-block">{!! $field['hint'] !!}</p>
     @endif
 </div>
+=======
+
+<div @include('crud::inc.field_wrapper_attributes') >
+    <label>{!! $field['label'] !!}</label>
+    @include('crud::inc.field_translatable_icon')
+    <input
+        type="datetime-local"
+        name="{{ $field['name'] }}"
+        value="{{ strftime('%Y-%m-%dT%H:%M:%S', strtotime(old(square_brackets_to_dots($field['name'])) ? old(square_brackets_to_dots($field['name'])) : (isset($field['value']) ? $field['value'] : (isset($field['default']) ? $field['default'] : '' )))) }}"
+        @include('crud::inc.field_attributes')
+        >
+
+    {{-- HINT --}}
+    @if (isset($field['hint']))
+        <p class="help-block">{!! $field['hint'] !!}</p>
+    @endif
+</div>
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 =======
 
 <div @include('crud::inc.field_wrapper_attributes') >

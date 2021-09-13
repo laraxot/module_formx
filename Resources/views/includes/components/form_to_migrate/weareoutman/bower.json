@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
   "name": "weareoutman",
   "authors": [
@@ -20,6 +21,29 @@
     "clockpicker": "weareoutman/clockpicker#^0.0.7"
   }
 }
+=======
+{
+  "name": "weareoutman",
+  "authors": [
+    "marco xot <marco.sottana@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./bc",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "clockpicker": "weareoutman/clockpicker#^0.0.7"
+  }
+}
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 =======
 {
   "name": "weareoutman",

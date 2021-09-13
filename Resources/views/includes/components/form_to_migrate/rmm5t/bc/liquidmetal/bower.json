@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
   "name": "liquidmetal",
   "version": "1.3.0",
@@ -9,6 +10,18 @@
     "vendor"
   ]
 }
+=======
+{
+  "name": "liquidmetal",
+  "version": "1.3.0",
+  "license": "MIT",
+  "main": "liquidmetal.js",
+  "ignore": [
+    "test",
+    "vendor"
+  ]
+}
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 =======
 {
   "name": "liquidmetal",
