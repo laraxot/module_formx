@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "algolia-autocomplete.js",
   "main": "dist/autocomplete.js",
@@ -19,3 +20,26 @@
     "test"
   ]
 }
+=======
+{
+  "name": "algolia-autocomplete.js",
+  "main": "dist/autocomplete.js",
+  "version": "0.36.0",
+  "homepage": "https://github.com/algolia/autocomplete.js",
+  "authors": [
+    "Algolia Team <support@algolia.com>"
+  ],
+  "description": "Fast and fully-featured autocomplete library",
+  "keywords": [
+    "autocomplete",
+    "typeahead"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
+}
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea

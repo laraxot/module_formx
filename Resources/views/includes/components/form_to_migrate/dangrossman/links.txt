@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 https://github.com/dangrossman/bootstrap-daterangepicker
+=======
+https://github.com/dangrossman/bootstrap-daterangepicker
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 http://www.daterangepicker.com/

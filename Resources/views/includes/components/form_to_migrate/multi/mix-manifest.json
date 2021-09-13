@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 {
     "/dist/js/field.js": "/dist/js/field.js",
     "/dist/css/field.css": "/dist/css/field.css"
 }
+=======
+{
+    "/dist/js/field.js": "/dist/js/field.js",
+    "/dist/css/field.css": "/dist/css/field.css"
+}
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea

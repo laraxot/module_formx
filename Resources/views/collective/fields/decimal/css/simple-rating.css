@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 .simple-rating{
@@ -8,4 +9,16 @@
 	display: inline-block;
 	padding: 1px 2px;
 	cursor: pointer;
+=======
+
+
+.simple-rating{
+}
+
+.simple-rating i{
+	color: #f5ba00;
+	display: inline-block;
+	padding: 1px 2px;
+	cursor: pointer;
+>>>>>>> 2393d3fda39ca4bd5aa64102bc85e8ce40f6b5ea
 }
