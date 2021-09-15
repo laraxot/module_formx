@@ -365,8 +365,11 @@ class FormXService {
             $input_attrs['label'] = $field->label;
             //$input_attrs['field'] = $field;
         }
-
-        return Form::$input_type($input_name, $input_value, $input_attrs, $input_opts);
+        try {
+            return Form::$input_type($input_name, $input_value, $input_attrs, $input_opts);
+        } catch (\Exception $e) {
+            dddx([$e->getMessage()]);
+        }
     }
 
     public static function btnHtml(array $params): string {

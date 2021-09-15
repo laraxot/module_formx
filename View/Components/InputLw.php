@@ -13,6 +13,8 @@ class InputLw extends Component {
     public string $input_component = 'formx::components.label_input.with_size';
     public string $label = 'test';
     public string $name = 'name';
+    public string $comp_view = '';
+    public string $comp_ns = '';
 
     /*
     $converted = Str::kebab('fooBar');// foo-bar
@@ -27,6 +29,7 @@ class InputLw extends Component {
         }
         $this->attrs['class'] = 'form-control';
         $this->attrs['wire:model'] = 'form_data.'.$props['name'];
+        $this->attrs['name'] = $props['name'];
 
         $this->props = $props;
         //$this->label = $props['type'].'['.Str::snake($props['type'], '.').']';
@@ -37,10 +40,13 @@ class InputLw extends Component {
     public function render() {
         //return '<div>'.print_r($this->props, true).'</div>';
         $view = Str::snake($this->props['type'], '.');
-        $view = 'formx::components.fields.'.$view.'.field';
+        $this->comp_ns = 'formx::components.fields.'.$view;
+        $view = $this->comp_ns.'.field';
+
         if (! view()->exists($view)) {
-            return '<h3>view not exists ['.$view.']</h3>';
+            return '<div>view not exists ['.$view.']</div>';
         }
+        $this->comp_view = $view;
 
         return view($view);
     }
