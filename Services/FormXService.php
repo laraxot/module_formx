@@ -7,35 +7,35 @@ namespace Modules\FormX\Services;
 use Collective\Html\FormFacade as Form;
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+use Illuminate\Database\Eloquent\Relations\MorphOneOrMany;
+//---- services ---
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
-//---- services ---
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Modules\Theme\Services\ThemeService;
 use Modules\Xot\Services\PolicyService;
 use Modules\Xot\Services\RouteService;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\MorphOneOrMany;
-use Illuminate\Database\Eloquent\Relations\MorphPivot;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
-
-
-
-
 /**
  * Class FormXService.
  */
 class FormXService {
     /**
+     * ora selectRelationshipOne
+     * da select/field_relationship_one.blade.php
+     * a  select/relationship/one/field.blade.php.
+     *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public static function getComponents(): array {
@@ -43,11 +43,11 @@ class FormXService {
         $components_json = $view_path.'/components.json';
         $components_json = str_replace(['/', '\\'], [DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR], $components_json);
         //dddx([$components_json, DIRECTORY_SEPARATOR]);
+
         $exists = File::exists($components_json);
         if ($exists) {
             $content = File::get($components_json);
             $json = json_decode($content);
-            //dddx($json);
 
             return $json;
         }
@@ -59,9 +59,9 @@ class FormXService {
         }
 
         $dirs = File::directories($view_path);
+
         foreach ($dirs as $k => $v) {
             $comp = new \StdClass();
-            //$comp->dir = $v;
             $name = Str::after($v, $view_path.DIRECTORY_SEPARATOR);
             $comp->view = 'formx::collective.fields.'.$name.'.field';
             //$comp->view = 'formx::includes.components.input.'.$name.'.field';
@@ -75,7 +75,6 @@ class FormXService {
                 $filename = $file->getRelativePathname();
                 if (Str::startsWith($filename, 'field_') && Str::endsWith($filename, '.blade.php')) {
                     $comp = new \StdClass();
-                    //$comp->dir = $parent->dir;
                     $comp->view = $parent->view.Str::after(Str::before($filename, '.blade.php'), 'field');
                     $sub_name = Str::before(Str::after($filename, 'field_'), '.blade.php');
                     $comp->name = $parent->name.Str::studly($sub_name);
@@ -139,28 +138,28 @@ class FormXService {
     /*
     When the element is displayed after the call to freeze(), only its value is displayed without the input tags, thus the element cannot be edited. If persistant freeze is set, then hidden field containing the element value will be output, too.
     */
+
     /**
      * @param BelongsTo|HasManyThrough|HasOneOrMany|BelongsToMany|MorphOneOrMany|MorphPivot|MorphTo|MorphToMany $rows
      */
     public static function fieldsExcludeRows($rows): array {
+        $fields_exclude = [];
 
-        $fields_exclude = array();
-
-        array_push($fields_exclude , 'id');
+        array_push($fields_exclude, 'id');
 
         if (method_exists($rows, 'getForeignKeyName')) {
-            array_push($fields_exclude , $rows->getForeignKeyName());
+            array_push($fields_exclude, $rows->getForeignKeyName());
         }
         if (method_exists($rows, 'getForeignPivotKeyName')) {
-            array_push($fields_exclude ,$rows->getForeignPivotKeyName());
+            array_push($fields_exclude, $rows->getForeignPivotKeyName());
         }
         if (method_exists($rows, 'getRelatedPivotKeyName')) {
-            array_push($fields_exclude , $rows->getRelatedPivotKeyName());
+            array_push($fields_exclude, $rows->getRelatedPivotKeyName());
         }
         if (method_exists($rows, 'getMorphType')) {
-            array_push($fields_exclude , $rows->getMorphType());
+            array_push($fields_exclude, $rows->getMorphType());
         }
-        array_push($fields_exclude , 'related_type'); //-- ??
+        array_push($fields_exclude, 'related_type'); //-- ??
 
         return $fields_exclude;
     }
