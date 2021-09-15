@@ -2,6 +2,7 @@
 
 $field = transFields(get_defined_vars());
 //dddx($field);
+//dddx($blade_component);
 @endphp
 @component($blade_component, get_defined_vars())
 
