@@ -11,7 +11,7 @@
 $model = Form::getModel();
 $field = transFields(get_defined_vars());
 $rows = $model->{$name}();
-$value= optional($model->{$name})->getKey();
+$value = optional($model->{$name})->getKey();
 
 $related = $rows->getRelated();
 $related_panel = Panel::get($related);
