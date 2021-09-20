@@ -71,7 +71,6 @@
                 if (!$this.val().length) {
                     $field.val("");
                 }
-                $extra_fields.empty();
             });
 
 
