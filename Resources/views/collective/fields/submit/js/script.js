@@ -1,6 +1,6 @@
-$("#mainForm input").on('input', () => {
+$('#mainForm input').not('#mainForm input[type="checkbox"]').on('input', () => {
 
-    let emptyInputsNumber = $("#mainForm input").filter(function () {
+    let emptyInputsNumber = $('#mainForm input').not('#mainForm input[type="checkbox"]').filter(function () {
         return !this.value;
     });
 
@@ -12,9 +12,9 @@ $("#mainForm input").on('input', () => {
 
 });
 
-$("#mainForm input").on('change', () => {
+$('#mainForm input').not('#mainForm input[type="checkbox"]').on('change', () => {
 
-    let emptyInputsNumber = $("#mainForm input").filter(function () {
+    let emptyInputsNumber = $('#mainForm input').not('#mainForm input[type="checkbox"]').filter(function () {
         return !this.value;
     });
 
