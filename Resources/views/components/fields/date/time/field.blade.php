@@ -5,9 +5,12 @@
         </label>
     @endslot
     @slot('input')
-        {{-- <input type="date" {{ $attributes->merge($attrs) }} /> --}}
-        <div class="date_flatpickr input-group mb-3">
-            <input type="date" {{ $attributes->merge($attrs)->merge(['data-input' => '']) }} />
+
+        <input type="datetime-local" {{ $attributes->merge($attrs) }} step="15" />
+
+        {{-- <div class="datetime_flatpickr input-group mb-3">
+            <input type="datetime-local" {{ $attributes->merge($attrs) }}  />
+
             <div class="input-group-append">
                 <a class="btn btn-outline-secondary" title="toggle" data-toggle>
                     <i class="far fa-calendar-alt"></i>
@@ -19,7 +22,7 @@
                 </a>
             </div>
 
-        </div>
+        </div> --}}
 
     @endslot
 @endcomponent

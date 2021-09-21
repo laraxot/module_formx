@@ -16,6 +16,11 @@ class InputLw extends Component {
     public string $comp_view = '';
     public string $comp_ns = '';
 
+    /**
+     * @var mixed
+     */
+    public $value;
+
     /*
     $converted = Str::kebab('fooBar');// foo-bar
     $converted = Str::snake('fooBar'); // foo_bar
@@ -35,6 +40,7 @@ class InputLw extends Component {
         //$this->label = $props['type'].'['.Str::snake($props['type'], '.').']';
         $this->name = $props['name'];
         $this->label = $props['label'] ?? $props['name'];
+        $this->value = $props['value'] ?? null;
     }
 
     public function render() {

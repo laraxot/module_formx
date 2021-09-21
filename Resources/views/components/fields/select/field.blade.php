@@ -1,7 +1,7 @@
-@component($input_component)
+@component($input_component, get_defined_vars())
     @slot('label')
         <label>
-            {{ $label }} 
+            {{ $label }}
         </label>
     @endslot
     @slot('input')
@@ -9,7 +9,7 @@
             <select {{ $attributes->merge($attrs) }}>
                 <option value="">---</option>
                 @foreach ($props['options'] as $k => $v)
-                    <option value="{{ $k }}" {!! $k==$value?'selected':'' !!} >
+                    <option value="{{ $k }}" {!! $k == $value ? 'selected' : '' !!}>
                         {{ $v }}
                     </option>
                 @endforeach
