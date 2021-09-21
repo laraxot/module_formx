@@ -1,5 +1,7 @@
 @php
-$options = $options['field']->options;
+if(isset($options['field'])){
+    $options = $options['field']->options;
+}
 extract($attributes);
 $field = transFields(get_defined_vars());
 @endphp
