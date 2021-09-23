@@ -20,7 +20,7 @@ abstract class BaseFormBtnMacro {
      *
      * @return array|void
      */
-    public static function before($params) {
+    public static function before(array $params){
         $generate_btn = 1;
         $user = \Auth::user();
         if (null == $user) {
@@ -42,7 +42,7 @@ abstract class BaseFormBtnMacro {
         if (! $user->can($act, $row) && ! in_array($act, ['gear'])) {
             $policy = StubService::getByModel($row, 'policy', $create = true);
             $error_msg = '[not can '.$act.']['.get_class($row).']';
-            //ddd(App::environment('local'));
+            //dddx(App::environment('local'));
             if ('local' == env('APP_ENV')) {
                 return ['error' => 1, 'error_msg' => $error_msg];
             } else {
@@ -54,9 +54,9 @@ abstract class BaseFormBtnMacro {
         }
         $act_route = Str::snake($act);
 
-        $route_action = \Route::currentRouteAction();
+        $route_action = optional(\Route::currentRouteAction());
         $old_act = Str::snake(Str::after($route_action, '@'));
-        $routename = Request::route()->getName();
+        $routename = optional(Request::route())->getName();
         $old_act_route = last(explode('.', $routename));
 
         if (! isset($panel)) {
@@ -85,9 +85,9 @@ abstract class BaseFormBtnMacro {
             'view_comp' => $view_comp,
             'view_comp_dir' => $view_comp_dir,
         ];
-        //ddd($generate_btn);
+        //dddx($generate_btn);
         //if ($generate_btn) {
-        $data['btn'] = view($view_comp, $data);
+        $data['btn'] = view()->make($view_comp, $data);
         //}
 
         return $data;

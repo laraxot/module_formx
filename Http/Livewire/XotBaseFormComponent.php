@@ -96,14 +96,16 @@ abstract class XotBaseFormComponent extends Component {
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * Render the component.
+     *
+     * @return \Illuminate\Contracts\View\View
      */
     public function render() {
         return $this->formView();
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\View
      */
     public function formView() {
         $view = 'formx::livewire.form';
@@ -112,7 +114,7 @@ abstract class XotBaseFormComponent extends Component {
             'fields' => $this->fields(),
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 
     public function fields(): array {

@@ -1,6 +1,6 @@
 
 @php
     //dddx(get_defined_vars());
-    //dddx($_panel->row->{$name});
+    //dddx($_panel->getRow()->{$name});
 @endphp
-@livewire('formx::chip.simple', ['row' => $_panel->row,'name' => $name])
+@livewire('formx::chip.simple', ['row' => $_panel->getRow(),'name' => $name])

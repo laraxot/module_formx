@@ -9,8 +9,9 @@ namespace Modules\FormX\Http\Livewire\FullCalendar;
 
  */
 
-use Illuminate\Support\Str;
+use Illuminate\Contracts\Support\Renderable;
 //use Modules\Customer\Models\Customer;
+use Illuminate\Support\Str;
 use Modules\FormX\Contracts\ModelLangContract;
 use Modules\Xot\Http\Livewire\XotBaseComponent;
 
@@ -18,7 +19,7 @@ use Modules\Xot\Http\Livewire\XotBaseComponent;
  * Modules\FormX\Http\Livewire\FullCalendar\V1.
  */
 class V1 extends XotBaseComponent {
-    private $model; //Customer::class;
+    private object $model; //Customer::class;
 
     /**
      * @var string
@@ -29,7 +30,7 @@ class V1 extends XotBaseComponent {
 
     public array $form_data = [];
 
-    public function mount() {
+    public function mount(): void {
         /*$name = 'Barry';
         $events = [];
         foreach (range(0, 6) as $i) {
@@ -43,14 +44,11 @@ class V1 extends XotBaseComponent {
         */
     }
 
-    public function updatedName() {
+    public function updatedName(): void {
         $this->emit('refreshCalendar');
     }
 
-    /**
-     * @return string[]
-     */
-    public function getNamesProperty() {
+    public function getNamesProperty(): array {
         return [
             'Barry',
             'Taylor',
@@ -123,18 +121,11 @@ class V1 extends XotBaseComponent {
         return [];
     }
 
-    /**
-     * @param array $event
-     */
-    public function eventReceive($event) {
+    public function eventReceive(array $event): void {
         $this->events[] = 'eventReceive: '.print_r($event, true);
     }
 
-    /**
-     * @param array $event
-     * @param array $oldEvent
-     */
-    public function eventDrop($event, $oldEvent) {
+    public function eventDrop(array $event, array $oldEvent): void {
         //$this->events[] = 'eventDrop: '.print_r($oldEvent, true).' -> '.print_r($event, true);
         session()->flash('message', '['.$event['id'].'] '.$event['title'].' spostato da '.$oldEvent['start'].' a '.$event['start']);
         $row = app($this->model)->find($event['id']);
@@ -142,36 +133,37 @@ class V1 extends XotBaseComponent {
         $row->save();
     }
 
+
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * Render the component.
      */
-    public function render() {
+    public function render(): Renderable {
         $view = $this->getView();
         $view_params = [
             'view' => $view,
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 
     /**
      * @param array $calEvent
      */
-    public function edit($calEvent) {
+    public function edit($calEvent): void {
         $this->form_data = $calEvent['event'];
     }
 
-    public function update() {
+    public function update(): void {
         session()->flash('message', 'Users Updated Successfully.');
         $this->resetInputFields();
     }
 
-    public function cancel() {
+    public function cancel(): void {
         //$this->updateMode = false;
         $this->resetInputFields();
     }
 
-    private function resetInputFields() {
+    private function resetInputFields(): void {
         $this->form_data = [];
     }
 }

@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Modules\FormX\Http\Livewire\DatagridEditable;
 
-use Illuminate\Support\Str;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Model;
 //use Livewire\WithFileUploads;
-use Modules\FormX\Services\FieldService;
+use Illuminate\Support\Str;
 //use Modules\FormX\Traits\HandlesArrays;
 //use Modules\FormX\Traits\UploadsFiles;
-use Modules\Xot\Contracts\ModelContract;
+
+use Modules\FormX\Services\FieldService;
 use Modules\Xot\Http\Livewire\XotBaseComponent;
 use Modules\Xot\Models\Panels\XotBasePanel;
 use Modules\Xot\Services\PanelService;
@@ -28,9 +30,10 @@ class Head extends XotBaseComponent {
     //public $data =  [];
     //public $in_admin;
 
-    public $row;
+    public object $row;
 
-    public $index;
+    public string $index;
+
     //public $fields;
 
     public array $form_data = [];
@@ -39,23 +42,14 @@ class Head extends XotBaseComponent {
      * @param object $row
      * @param string $index
      */
-    public function mount($row, $index) {
-        /*
-        $this->route_params = request()->route()->parameters();
-        $this->data = request()->all();
-        $this->in_admin = inAdmin();
-        $this->route_params['in_admin'] = $this->in_admin;
-        */
+    public function mount($row, $index): void {
         $this->row = $row;
         $this->index = $index;
-        //$this->fields = $fields;
+
         $this->setFormProperties($row);
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function render() {
+    public function render(): Renderable {
         $view = $this->getView();
         $view_params = [
             'view' => $view,
@@ -63,11 +57,11 @@ class Head extends XotBaseComponent {
             'fields' => $this->fields(),
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 
     public function fields(): array {
-        $index_fields = $this->panel->indexFields();
+        $index_fields = $this->panel->getFields(['act' => 'index']);
 
         $fields = [];
         foreach ($index_fields as $field) {
@@ -86,7 +80,7 @@ class Head extends XotBaseComponent {
         return PanelService::get($this->row);
     }
 
-    public function setFormProperties(?ModelContract $model = null): void {
+    public function setFormProperties(?Model $model = null): void {
         //$this->model = $model;
         if ($model) {
             $this->form_data = $model->toArray();

@@ -1,28 +1,27 @@
 @php
 /**
-* https://github.com/crlcu/multiselect
-* bower install multiselect-two-sides
-*/
+ * https://github.com/crlcu/multiselect
+ * bower install multiselect-two-sides
+ */
 //Theme::addScript('/theme/bc/multiselect/dist/js/multiselect.js');
-$model=Form::getModel();
+$model = Form::getModel();
 
-
-$rows=$model->$name();
+$rows = $model->$name();
 //$val=$model->$name;
-$val=$rows->get();
-$related=$rows->getRelated();
-$_panel=Panel::get($related);
+$val = $rows->get();
+$related = $rows->getRelated();
+$_panel = Panel::get($related);
+$_panel->setBuilder($related->query()); //in teoria non viene chiamato
 /*
-$_panel->setRows($related);
 $all=$_panel->options();
 */
-$all=$related->all();
-//ddd($rows);
+$all = $related->all();
+//dddx($rows);
 //$all=$model->{'all_'.$name};
 //$model_linked=Theme::xotModel(Str::singular($name));
 //$_panel=Theme::panelModel($model_linked);
 //$all=$model_linked->get();
-//ddd($_panel);
+//dddx($_panel);
 @endphp
 <fieldset class="form-group container-fluid border p-2">
     <legend class="col-form-label col-sm-2 pt-0 w-auto">
@@ -35,59 +34,54 @@ $all=$related->all();
         </div>
         <br style="clear:both" />
         <div class="col-sm-5">
-            <select name="{{$name}}[from][]" id="multiselect{{$name}}" class="form-control multiselect" size="8" multiple="multiple">
-                @foreach($all as $k => $v)
-                {{--
-			<option value="{{ $v->opt_key }}" >{{ $v->opt_label }}</option>
-                --}}
-                <option value="{{ $_panel->optionId($v) }}">{{ $_panel->optionLabel($v) }}</option>
+            <select name="{{ $name }}[from][]" id="multiselect{{ $name }}"
+                class="form-control multiselect" size="8" multiple="multiple">
+                @foreach ($all as $k => $v)
+                    {{-- <option value="{{ $v->opt_key }}" >{{ $v->opt_label }}</option> --}}
+                    <option value="{{ $_panel->optionId($v) }}">{{ $_panel->optionLabel($v) }}</option>
                 @endforeach
             </select>
         </div>
         <div class="col-sm-2">
-            <button type="button" id="multiselect{{$name}}_rightAll" class="btn btn-block">
+            <button type="button" id="multiselect{{ $name }}_rightAll" class="btn btn-block">
                 <i class="fas fa-angle-double-right"></i>
             </button>
-            <button type="button" id="multiselect{{$name}}_rightSelected" class="btn btn-block">
+            <button type="button" id="multiselect{{ $name }}_rightSelected" class="btn btn-block">
                 <i class="fas fa-chevron-right"></i>
             </button>
-            <button type="button" id="multiselect{{$name}}_leftSelected" class="btn btn-block">
+            <button type="button" id="multiselect{{ $name }}_leftSelected" class="btn btn-block">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <button type="button" id="multiselect{{$name}}_leftAll" class="btn btn-block">
+            <button type="button" id="multiselect{{ $name }}_leftAll" class="btn btn-block">
                 <i class="fas fa-angle-double-left"></i>
             </button>
         </div>
         <div class="col-sm-5">
-            <select name="{{$name}}[to][]" id="multiselect{{$name}}_to" class="form-control" size="8" multiple="multiple">
-                @foreach($val as $k => $v)
-                {{--
-			<option value="{{ $v->opt_key }}" >{{ $v->opt_label }}</option>
-                --}}
-                <option value="{{ $_panel->optionId($v) }}">{{ $_panel->optionLabel($v) }}</option>
+            <select name="{{ $name }}[to][]" id="multiselect{{ $name }}_to" class="form-control"
+                size="8" multiple="multiple">
+                @foreach ($val as $k => $v)
+                    {{-- <option value="{{ $v->opt_key }}" >{{ $v->opt_label }}</option> --}}
+                    <option value="{{ $_panel->optionId($v) }}">{{ $_panel->optionLabel($v) }}</option>
                 @endforeach
             </select>
         </div>
     </div>
 </fieldset>
-{{--
-@push('scripts')
+{{-- @push('scripts')
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 	    $('#multiselect').multiselect();
 	});
 </script>
-@endpush
---}}
+@endpush --}}
 
 @push('scripts')
-<script type="text/javascript">
-    //jQuery is not a function
-    //jQuery(document).ready(function($) {
-    $(function() {
-        $('.multiselect').multiselect();
+    <script type="text/javascript">
+        //jQuery is not a function
+        //jQuery(document).ready(function($) {
+        $(function() {
+            $('.multiselect').multiselect();
 
-    });
-
-</script>
+        });
+    </script>
 @endpush

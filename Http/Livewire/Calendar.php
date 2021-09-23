@@ -16,38 +16,39 @@ use Livewire\Component;
  * https://github.com/stijnvanouplines/livewire-calendar/blob/master/app/Http/Livewire/Calendar.php.
  */
 class Calendar extends Component {
-    public $minDate;
 
-    public $maxDate;
+    public ?string $minDate;
 
-    public $selectedDay;
+    public ?string $maxDate;
 
-    public $selectedMonth;
+    public mixed $selectedDay;
 
-    public $selectedYear;
+    public mixed $selectedMonth;
 
-    public $selectedDate;
+    public mixed $selectedYear;
 
-    public $weekDay;
+    public mixed $selectedDate;
 
-    public $selectedTime;
+    public mixed $weekDay;
 
-    public $currentMonth;
+    public mixed $selectedTime;
 
-    public $currentYear;
+    public mixed $currentMonth;
+
+    public mixed $currentYear;
     //----------------------------------
 
-    public $guest_num;
+    public int $guest_num;
 
-    public $containers;
+    public mixed $containers;
 
-    public $items;
+    public mixed $items;
 
-    public $shop;
+    public mixed $shop;
 
-    public $opening_hours;
+    public mixed $opening_hours;
 
-    public function mount(SessionManager $session, string $minDate = null, string $maxDate = null) {
+    public function mount(SessionManager $session, string $minDate = null, string $maxDate = null):void {
         $session->put('calendar.now', now());
 
         $this->minDate = $minDate;
@@ -76,17 +77,17 @@ class Calendar extends Component {
     public function calendar(): array {
         $days = [];
 
-        $startOfMonthDay = (int) Carbon::createFromDate($this->currentYear, $this->currentMonth)->startOfMonth()->isoWeekday();
+        $startOfMonthDay = intval(Carbon::createFromDate($this->currentYear, $this->currentMonth)->startOfMonth()->isoWeekday());
         for ($i = 1; $i < $startOfMonthDay; ++$i) {
             $days[] = null;
         }
 
-        $daysInMonth = (int) Carbon::createFromDate($this->currentYear, $this->currentMonth)->daysInMonth;
+        $daysInMonth = intval(Carbon::createFromDate($this->currentYear, $this->currentMonth)->daysInMonth);
         for ($i = 1; $i <= $daysInMonth; ++$i) {
             $days[] = $i;
         }
 
-        $endOfMonthDay = (int) Carbon::createFromDate($this->currentYear, $this->currentMonth)->endOfMonth()->isoWeekday();
+        $endOfMonthDay = intval(Carbon::createFromDate($this->currentYear, $this->currentMonth)->endOfMonth()->isoWeekday());
         for ($i = 7; $i > $endOfMonthDay; --$i) {
             $days[] = null;
         }
@@ -192,7 +193,11 @@ class Calendar extends Component {
         $this->selectedDate = Carbon::create($this->selectedYear, $this->selectedMonth, $this->selectedDay);
         //Carbon::weekday Get/set the weekday from 0 (Sunday) to 6 (Saturday).
         //Carbon::isoWeekday Get/set the ISO weekday from 1 (Monday) to 7 (Sunday).
-        $this->weekDay = $this->selectedDate->weekday();
+        if($this->selectedDate===false){
+            throw new \Exception("Can not convert selectedDate to false");
+        }else{
+            $this->weekDay = $this->selectedDate->weekday();
+        }
     }
 
     /**
@@ -280,13 +285,18 @@ class Calendar extends Component {
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function render() {
         $guest_num = (int) $this->guest_num;
         //-- da vedere come passare i parametri
         $this->items = $this->shop->bookingItems()->whereRaw($guest_num.' between min_capacity and max_capacity')->get();
         $this->opening_hours = $this->shop->openingHours()->where('day_of_week', $this->weekDay)->get();
 
-        return view('formx::livewire.calendar', [
+        return view()->make('formx::livewire.calendar', [
             'calendar' => $this->calendar(),
             'items' => $this->items,
             'opening_hours' => $this->opening_hours,

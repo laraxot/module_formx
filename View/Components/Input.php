@@ -15,11 +15,16 @@ use Modules\Xot\View\Components\XotBaseComponent;
  */
 class Input extends XotBaseComponent {
     public string $type;
+
     public string $name;
+
     public ?string $label;
-    //public ?string $class;
+
+    public ?string $class;
+
     //public ?string $input_id;
     public ?string $value;
+
     public ?string $placeholder;
 
     public array $attrs = [];
@@ -27,6 +32,8 @@ class Input extends XotBaseComponent {
     public string $comp_ns;
 
     public string $input_component = 'formx::components.label_input.default';
+
+    public $props;
 
     /**
      * Create a new component instance.
@@ -40,25 +47,35 @@ class Input extends XotBaseComponent {
         ?string $class = null,
         //?string $id = null,
         ?string $value = null,
-        ?string $placeholder = null
+        ?string $placeholder = null,
+        ?iterable $options = null,
+        ?string $id = null
         ) {
         $this->type = $type;
         $this->name = $name;
-        $this->label = $label;
+        $this->label = $label ?? $name;
         $this->class = $class;
         //$this->input_id = $id;
         $this->value = $value;
         $this->placeholder = $placeholder;
+        $this->props['type'] = $type;
+        $this->props['options'] = $options;
+
+        $this->attrs['id'] = $id ?? $this->name;
+        $this->attrs['name'] = $this->name;
+        $this->attrs['value'] = $this->value;
+        $this->attrs['class'] = $this->class ?? 'form-control';
     }
 
+    /*
     public function getView(): string {
         $view_base = 'formx::components.fields.';
         $views = [];
-        /*
-        password => password.field
-        password_strengh => password.field_strengh
-        password_multi_check => password.field_multi_check
-        */
+
+        //password => password.field
+        //password_strengh => password.field_strengh
+        //password_multi_check => password.field_multi_check
+
         $pieces = explode('_', $this->type);
         for ($i = 1; $i <= count($pieces); ++$i) {
             $before = implode('_', array_slice($pieces, 0, $i));
@@ -102,16 +119,30 @@ class Input extends XotBaseComponent {
             'class' => $this->class ?? 'form-control',
         ];
 
-        /*
-        $view_params = [
-            'view' => $view,
-            'comp_ns' => $this->comp_ns,
-        ];
-        */
+
+        //$view_params = [
+        //    'view' => $view,
+        //    'comp_ns' => $this->comp_ns,
+        //];
+
 
         //dddx($view_params);
 
         //return view($view, $view_params);
+
+        return view()->make($view);
+    }
+    */
+    public function render(): Renderable {
+        //return '<div>'.print_r($this->props, true).'</div>';
+        $view = Str::snake($this->props['type'], '.');
+        $this->comp_ns = 'formx::components.fields.'.$view;
+        $view = $this->comp_ns.'.field';
+
+        if (! view()->exists($view)) {
+            return '<div>view not exists ['.$view.']</div>';
+        }
+        $this->comp_view = $view;
 
         return view($view);
     }

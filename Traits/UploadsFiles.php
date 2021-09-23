@@ -22,17 +22,19 @@ trait UploadsFiles {
         $storage_path = self::$storage_path ?? config('laravel-livewire-forms.storage_path');
         $files = [];
 
-        foreach (request()->file('files') as $file) {
-            $files[] = [
-                'file' => $file->store($storage_path, $storage_disk),
-                'disk' => $storage_disk,
-                'name' => $file->getClientOriginalName(),
-                'size' => $file->getSize(),
-                'mime_type' => $file->getMimeType(),
-            ];
+        if(is_iterable(request()->file('files'))){
+            foreach (request()->file('files') as $file) {
+                $files[] = [
+                    'file' => $file->store($storage_path, $storage_disk),
+                    'disk' => $storage_disk,
+                    'name' => $file->getClientOriginalName(),
+                    'size' => $file->getSize(),
+                    'mime_type' => $file->getMimeType(),
+                ];
+            }
         }
 
-        return ['field_name' => request()->input('field_name'), 'uploaded_files' => $files];
+        return ['field_name' => request()->input('field_name'), 'uploaded_files' => $files];    
     }
 
     public function fileUpdate(string $field_name, array $uploaded_files): void {

@@ -24,9 +24,9 @@ class Edit extends XotBaseFormComponent {
     public array $data = [];
 
     public function mount(?Model $model = null): void {
-        $this->route_params = request()->route()->parameters();
+        $this->route_params = optional(request()->route())->parameters();
         $this->data = request()->all();
-        $this->setFormProperties($this->panel->row);
+        $this->setFormProperties($this->panel->getRow());
     }
 
     /**
@@ -46,7 +46,7 @@ class Edit extends XotBaseFormComponent {
     }
 
     public function fields(): array {
-        $panel_fields = $this->panel->editFields();
+        $panel_fields = $this->panel->getFields(['act'=>'edit']);
         $fields = [];
         foreach ($panel_fields as $field) {
             $fields[] = FieldService::make($field->name)->type($field->type);

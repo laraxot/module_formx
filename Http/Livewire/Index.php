@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Modules\FormX\Http\Livewire;
 
 use Modules\FormX\Services\ColumnService;
+use Modules\Xot\Contracts\PanelContract;
+use Modules\Xot\Contracts\RowsContract;
 use Modules\Xot\Models\Panels\XotBasePanel;
 use Modules\Xot\Services\PanelService;
 
@@ -22,38 +24,24 @@ class Index extends XotBaseTableComponent {
 
     public array $data = [];
 
-    /**
-     * Undocumented function.
-     *
-     * @return void
-     */
-    public function mount() {
-        $this->route_params = request()->route()->parameters();
+    public function mount(): void {
+        $this->route_params = optional(request()->route())->parameters();
         $this->data = request()->all();
         $this->setTableProperties();
-        $this->sort_attribute = $this->panel->row->getKeyName();
+        $this->sort_attribute = $this->panel->getRow()->getKeyName();
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\Response|mixed|null
-     */
-    public function getPanelProperty() {
+    public function getPanelProperty(): PanelContract {
         return PanelService::getByParams($this->route_params);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Builder|\Modules\LU\Models\User|null
-     */
-    public function query() {
+    public function query(): RowsContract {
         return $this->panel->rows($this->data);
     }
 
-    /**
-     * @return array
-     */
-    public function columns() {
+    public function columns(): array {
         $columns = [];
-        $this->index_fields = $this->panel->indexFields();
+        $this->index_fields = $this->panel->getFields(['act' => 'index']);
 
         foreach ($this->index_fields as $field) {
             if (is_array($field)) {

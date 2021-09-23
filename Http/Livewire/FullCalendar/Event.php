@@ -22,6 +22,7 @@ https://www.nicesnippets.com/blog/laravel-livewire-fullcalendar-integration-tuto
 
 use Carbon\Carbon;
 //use Modules\Customer\Models\Customer;
+use Illuminate\Contracts\Support\Renderable;
 use Modules\Xot\Http\Livewire\XotBaseComponent;
 use Modules\Xot\Services\PanelService;
 
@@ -42,7 +43,7 @@ class Event extends XotBaseComponent {
 
     public array $form_data = [];
 
-    public function mount($model_class): void {
+    public function mount(mixed $model_class): void {
         //$this->model = app($model_class);
         $this->model = $model_class;
     }
@@ -62,16 +63,17 @@ class Event extends XotBaseComponent {
         ];
     }
 
-    /**
+    /*
      * @param string|null $info
      *
      * @throws \Exception
      *
      * @return array
      */
-    public function getEvents($info) {
+    public function getEvents(array $info): array {
         $this->info = $info;
         //$name = 'Barry'; // $request->get('name');
+
         $events = app($this->model)->with('post')
             ->whereDate('date_start', '>=', $info['startStr'])
             ->whereDate('date_start', '<=', $info['endStr'])
@@ -117,7 +119,7 @@ class Event extends XotBaseComponent {
         $this->events[] = 'eventReceive: '.print_r($event, true);
     }
 
-    public function eventResize($event): void {
+    public function eventResize(array $event): void {
         //$this->events[] = 'eventResize: '.print_r($event, true);
         session()->flash('message', '['.$event['id'].'] Aggiornato');
         $row = app($this->model)->find($event['id']);
@@ -140,15 +142,15 @@ class Event extends XotBaseComponent {
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * Render the component.
      */
-    public function render() {
+    public function render(): Renderable {
         $view = $this->getView();
         $view_params = [
             'view' => $view,
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 
     /**

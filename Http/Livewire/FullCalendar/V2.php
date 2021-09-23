@@ -39,9 +39,9 @@ use Modules\FormX\Contracts\ModelLangContract;
  * @property XotBasePanel           $panel
  */
 class V2 extends BaseV2 {
-    private $model; // = Customer::class;
+    private object $model; // = Customer::class;
 
-    public $events;
+    public array $events;
 
     public function events(): Collection {
         $name = 'Barry'; // $request->get('name');
@@ -78,13 +78,13 @@ class V2 extends BaseV2 {
      * @param int $month
      * @param int $day
      */
-    public function onDayClick($year, $month, $day) {
+    public function onDayClick($year, $month, $day): void {
     }
 
     /**
      * @param int $eventId
      */
-    public function onEventClick($eventId) {
+    public function onEventClick($eventId): void {
     }
 
     /**
@@ -93,7 +93,7 @@ class V2 extends BaseV2 {
      * @param int $month
      * @param int $day
      */
-    public function onEventDropped($eventId, $year, $month, $day) {
+    public function onEventDropped($eventId, $year, $month, $day): void {
         $row = app($this->model)->find($eventId);
         $row->date_next_check = $year.'-'.$month.'-'.$day;
         $row->save();

@@ -48,10 +48,8 @@ class InputPanel extends XotBasePanel {
 
     /**
      * Get the actions available for the resource.
-     *
-     * @return array
      */
-    public function actions(Request $request = null) {
+    public function actions(Request $request = null): array {
         return [
             new Actions\SyncInputs(),
         ];

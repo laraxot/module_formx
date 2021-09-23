@@ -1,4 +1,4 @@
-@component($input_component)
+@component($input_component, get_defined_vars())
     @slot('label')
         <label>
             {{ $label }}

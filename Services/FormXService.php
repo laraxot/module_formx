@@ -4,71 +4,77 @@ declare(strict_types=1);
 
 namespace Modules\FormX\Services;
 
-use Collective\Html\FormFacade as Form;
 use Exception;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
-//---- services ---
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
-use Modules\Theme\Services\ThemeService;
-use Modules\Xot\Services\PolicyService;
+//---- services ---
 use Modules\Xot\Services\RouteService;
+use Collective\Html\FormFacade as Form;
+use Illuminate\Support\Facades\Storage;
+use Modules\Xot\Services\PolicyService;
+use Modules\Theme\Services\ThemeService;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphOneOrMany;
+use Modules\Xot\Services\FileService;
 
 /**
  * Class FormXService.
  */
 class FormXService {
     /**
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * ora selectRelationshipOne
+     * da select/field_relationship_one.blade.php
+     * a  select/relationship/one/field.blade.php.
      *
-     * @return array|mixed
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public static function getComponents() {
+    public static function getComponents(): array {
         $view_path = realpath(__DIR__.'/../Resources/views/collective/fields');
-        $components_json = $view_path.'/components.json';
+        $components_json = $view_path.'/_components.json';
         $components_json = str_replace(['/', '\\'], [DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR], $components_json);
-        //dddx([$components_json, DIRECTORY_SEPARATOR]);
+
+
         $exists = File::exists($components_json);
         if ($exists) {
             $content = File::get($components_json);
             $json = json_decode($content);
-            //dddx($json);
 
             return $json;
         }
 
+
         $comps = [];
-        $dirs = File::directories($view_path);
-        foreach ($dirs as $k => $v) {
-            $comp = new \StdClass();
-            //$comp->dir = $v;
-            $name = Str::after($v, $view_path.DIRECTORY_SEPARATOR);
-            $comp->view = 'formx::collective.fields.'.$name.'.field';
-            //$comp->view = 'formx::includes.components.input.'.$name.'.field';
-            $name = 'bs'.Str::studly($name);
-            $comp->name = $name;
-            $comps[] = $comp;
-            //--- 2' LEVEL ---
-            $parent = $comp;
-            $files = File::files($v);
-            foreach ($files as $file) {
-                $filename = $file->getRelativePathname();
-                if (Str::startsWith($filename, 'field_') && Str::endsWith($filename, '.blade.php')) {
-                    $comp = new \StdClass();
-                    //$comp->dir = $parent->dir;
-                    $comp->view = $parent->view.Str::after(Str::before($filename, '.blade.php'), 'field');
-                    $sub_name = Str::before(Str::after($filename, 'field_'), '.blade.php');
-                    $comp->name = $parent->name.Str::studly($sub_name);
-                    $comps[] = $comp;
-                }
-            }
+
+        if (! $view_path) {
+            throw new \Exception('$view_path is false');
         }
+
+        $dirs = FileService::allDirectories($view_path,['css','js']);
+        $comps=collect($dirs)->map(function($item){
+            $ris=new \StdClass();
+            $tmp=str_replace(DIRECTORY_SEPARATOR,' ',$item);
+            $tmp_dot=str_replace(DIRECTORY_SEPARATOR,'.',$item);
+            $ris->name='bs'.Str::studly($tmp);
+            $ris->view='formx::collective.fields.'.$tmp_dot.'.field';
+            return $ris;
+        })->all();
+
         $content = json_encode($comps);
+        if (! $content) {
+            throw new \Exception('$content is false');
+        }
         File::put($components_json, $content);
 
         return $comps;
@@ -123,36 +129,56 @@ class FormXService {
     */
 
     /**
-     * @param array $params
-     *
-     * @return array
+     * @param BelongsTo|HasManyThrough|HasOneOrMany|BelongsToMany|MorphOneOrMany|MorphPivot|MorphTo|MorphToMany $rows
      */
-    public static function fieldsExclude($params) {
-        extract($params);
-        if (! isset($rows)) {
-            dddx(['err' => 'rows is missing']);
-
-            return [];
-        }
-
+    public static function fieldsExcludeRows($rows): array {
         $fields_exclude = [];
-        $fields_exclude[] = 'id';
+
+        array_push($fields_exclude, 'id');
+
         if (method_exists($rows, 'getForeignKeyName')) {
-            $fields_exclude[] = $rows->getForeignKeyName();
+            array_push($fields_exclude, $rows->getForeignKeyName());
         }
         if (method_exists($rows, 'getForeignPivotKeyName')) {
-            $fields_exclude[] = $rows->getForeignPivotKeyName();
+            array_push($fields_exclude, $rows->getForeignPivotKeyName());
         }
         if (method_exists($rows, 'getRelatedPivotKeyName')) {
-            $fields_exclude[] = $rows->getRelatedPivotKeyName();
+            array_push($fields_exclude, $rows->getRelatedPivotKeyName());
         }
         if (method_exists($rows, 'getMorphType')) {
-            $fields_exclude[] = $rows->getMorphType();
+            array_push($fields_exclude, $rows->getMorphType());
         }
-        $fields_exclude[] = 'related_type'; //-- ??
+        array_push($fields_exclude, 'related_type'); //-- ??
 
         return $fields_exclude;
     }
+
+    /*public static function fieldsExclude(array $params): array {
+        extract($params);
+        if (! isset($rows)) {
+            throw new \Exception('rows is missing ['.__LINE__.']['.__FILE__.']');
+        }
+
+        $fields_exclude = array();
+
+        array_push($fields_exclude , 'id');
+
+        if (method_exists($rows, 'getForeignKeyName')) {
+            array_push($fields_exclude , $rows->getForeignKeyName());
+        }
+        if (method_exists($rows, 'getForeignPivotKeyName')) {
+            array_push($fields_exclude ,$rows->getForeignPivotKeyName());
+        }
+        if (method_exists($rows, 'getRelatedPivotKeyName')) {
+            array_push($fields_exclude , $rows->getRelatedPivotKeyName());
+        }
+        if (method_exists($rows, 'getMorphType')) {
+            array_push($fields_exclude , $rows->getMorphType());
+        }
+        array_push($fields_exclude , 'related_type'); //-- ??
+
+        return $fields_exclude;
+    }*/
 
     //ret \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|string|void
 
@@ -234,7 +260,7 @@ class FormXService {
             //$view_params['rows']=$rows->get();
             $view_params['rows'] = $field->value;
 
-            $fields_exclude = FormXService::fieldsExclude($params);
+            $fields_exclude = FormXService::fieldsExcludeRows($rows);
             $related_panel = ThemeService::panelModel($related);
             if (is_object($related_panel)) {
                 $related_fields = $related_panel->fields();
@@ -265,7 +291,7 @@ class FormXService {
 
             $view_params['manage_url'] = $url;
 
-            if (method_exists($rows, 'getPivotClass')) {
+            if (method_exists((object) $rows, 'getPivotClass')) {
                 $pivot_class = $rows->getPivotClass();
                 $pivot = new $pivot_class();
                 $pivot_panel = ThemeService::panelModel($pivot);
@@ -278,7 +304,7 @@ class FormXService {
                 $view_params['pivot_fields'] = $pivot_fields;
             }
 
-            //ddd($field->fields);
+            //dddx($field->fields);
             //$field->fields=$field->value;
         }
 
@@ -329,10 +355,17 @@ class FormXService {
             //$input_attrs['field'] = $field;
         }
 
-        return Form::$input_type($input_name, $input_value, $input_attrs, $input_opts);
+        //return Form::$input_type($input_name, $input_value, $input_attrs, $input_opts);
+        //*
+        try {
+            return Form::$input_type($input_name, $input_value, $input_attrs, $input_opts);
+        } catch (\Exception $e) {
+            dddx([$e->getMessage()]);
+        }
+        //*/
     }
 
-    public static function btnHtml(array $params): ?string {
+    public static function btnHtml(array $params): string {
         $class = 'btn btn-primary mb-2';
         $icon = null;       // icona a sx del titolo
         $label = null;
@@ -359,7 +392,7 @@ class FormXService {
         if (null == $data_title) {
             $data_title = $title;
         }
-        $row = $panel->row;
+        $row = $panel->getRow();
         if ('default' == $error_label) {
             $error_label = '['.get_class($row).']['.$method.']';
         }
@@ -402,7 +435,6 @@ class FormXService {
             $url = $guest_url;
         }
         if (isset($guest_notice) && $guest_notice && ! \Auth::check()) {
-            //$url = route('login.notice', ['lang' => $lang, 'referrer' => $url]);
             $url = route('login', ['lang' => $lang, 'referrer' => $url]);
         }
 
@@ -424,7 +456,7 @@ class FormXService {
                     </span>';
         }
         // data-href serve per le chiamate ajax
-        //ddd($params, $title, $data_title);
+        //dddx($params, $title, $data_title);
         //$title = trans(strtolower($module_name.'::'.class_basename($row)).'.act.'.$title);
         //$data_title = $title;
 

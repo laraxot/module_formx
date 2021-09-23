@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\FormX\Http\Livewire\Calendar;
 
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Session\SessionManager;
 use Illuminate\Support\Carbon;
 /*
@@ -18,23 +19,24 @@ use Livewire\Component;
  * Modules\FormX\Http\Livewire\Calendar\V1.
  */
 class Stringlist extends Component {
-    public $minDate;
+    
+    public ?string $minDate;
 
-    public $maxDate;
+    public ?string $maxDate;
 
-    public $selectedDay;
+    public mixed $selectedDay;
 
-    public $selectedMonth;
+    public mixed $selectedMonth;
 
-    public $selectedYear;
+    public mixed $selectedYear;
 
-    public $currentMonth;
+    public mixed $currentMonth;
 
-    public $currentYear;
+    public mixed $currentYear;
 
-    public $date_list;
+    public mixed $date_list;
 
-    public $input_name;
+    public mixed $input_name;
 
     public function mount(SessionManager $session, string $minDate = null, string $maxDate = null, string $date_list = null, string $input_name): void {
         //dddx($date_list);
@@ -52,12 +54,13 @@ class Stringlist extends Component {
         }
 
         // aggiusto le date, gli 0 avanti ai giorni e mesi non vengono renderizzati, ergo...
-        $date_list = str_replace(',0', ',', $date_list);
-        $date_list = str_replace('/0', '/', $date_list);
-        //$date_list = Str::start($date_list, '');
-        //$date_list = Str::startsWith($date_list, '0');
-        if (Str::startsWith($date_list, '0')) {
-            $date_list = Str::replaceFirst('0', '', $date_list);
+        if(!is_null($date_list)){
+            $date_list = str_replace(',0', ',', $date_list);
+            $date_list = str_replace('/0', '/', $date_list);
+        
+            if (Str::startsWith($date_list, '0')) {
+                $date_list = Str::replaceFirst('0', '', $date_list);
+            }
         }
         //dddx($date_list);
 
@@ -245,7 +248,7 @@ class Stringlist extends Component {
         return true;
     }
 
-    public function render() {
+    public function render():Renderable{
         $view = 'formx::livewire.calendar.string_list';
         //dddx($this->date_list);
         $view_params = [
@@ -253,6 +256,6 @@ class Stringlist extends Component {
             'calendar' => $this->calendar(),
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 }

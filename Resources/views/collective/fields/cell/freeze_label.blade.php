@@ -8,7 +8,7 @@ foreach ($field->fields as $k => $v) {
     echo Theme::inputFreeze(['row' => $row, 'field' => $v]);
     echo '</div>';
     //}catch(\Exception $e){
-    //	ddd($e);
+    //	dddx($e);
     //}
 }
 */

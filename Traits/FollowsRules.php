@@ -52,8 +52,9 @@ trait FollowsRules {
             $field_rules = array_udiff(
                 $field_rules,
                 $rules_ignore,
-                function ($a, $b) {
-                    return $a != $b;
+                function ($a, $b):int {
+                    $returned_variable=intval($a != $b);
+                    return $returned_variable;
                 }
             );
         }

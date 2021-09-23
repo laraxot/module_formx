@@ -69,12 +69,12 @@ class ColumnService {
     */
 
     /**
-     * @param string|null $heading
-     * @param string|null $attribute
+     * @param string $heading
+     * @param string $attribute
      *
      * @return ColumnService
      */
-    public static function make($heading = null, $attribute = null) {
+    public static function make($heading = '', $attribute = '') {
         return new self($heading, $attribute);
     }
 
@@ -159,7 +159,7 @@ class ColumnService {
             //'field' => $this,
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
 
         //return $value;
     }

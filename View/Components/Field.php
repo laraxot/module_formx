@@ -21,17 +21,17 @@ class Field extends Component {
         'type' => '',
     ];
     */
-    public $input_component = 'formx::components.label_input.default';
+    public string $input_component = 'formx::components.label_input.default';
 
-    public $name = '';
+    public string $name = '';
 
-    public $label = '';
+    public string $label = '';
 
-    public $type = '';
+    public string $type = '';
 
-    public $attrs = [];
+    public array $attrs = [];
 
-    public function __construct($field) {
+    public function __construct(object $field) {
         $this->name = $field->getName();
         $this->attrs['name'] = $field->getName();
         $this->attrs['wire:model.lazy'] = $field->getKey();
@@ -51,6 +51,11 @@ class Field extends Component {
     }
     */
 
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function render() {
         $type = str_replace('._', '.', Str::snake($this->type));
 
@@ -70,6 +75,6 @@ class Field extends Component {
             dddx(['view' => $view, 'type' => $type]);
         }
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 }

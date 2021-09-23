@@ -2,6 +2,7 @@
 
 $field = transFields(get_defined_vars());
 //dddx($field);
+//dddx($blade_component);
 @endphp
 @component($blade_component, get_defined_vars())
 
@@ -15,11 +16,11 @@ $field = transFields(get_defined_vars());
             echo Form::text($name, $value, $field->attributes);
         } catch (\Exception $e) {
             /*
-                        dddx(['field_name'=>$name,
-                        'value'=>$value,
-                        'err'=>$e->getMessage()
-                        ]);
-                        */
+                                dddx(['field_name'=>$name,
+                                'value'=>$value,
+                                'err'=>$e->getMessage()
+                                ]);
+                                */
             echo $e->getMessage();
         }
         @endphp

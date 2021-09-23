@@ -7,24 +7,22 @@ namespace Modules\FormX\Http\Livewire\Chip;
 use Livewire\Component;
 
 class Simple extends Component {
-    public $row;
-    public $elements;
-    public $tag = 'test';
+    /*public $row;*/
+    public mixed $elements;
+    public string $tag = 'test';
 
-    /*
-     * Undocumented function.
-     *
-     * @return void
-     */
 
-    public function mount($row, $name) {
-        //$this->row = $row;
-        //$this->elements = $row->{$name};
-        //$this->content = $post->content;
-    }
+    /*public function mount($row, $name):void {
+
+    }*/
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function render() {
         $view = 'formx::livewire.chip.simple';
@@ -34,10 +32,10 @@ class Simple extends Component {
             'elements' => $this->elements,
         ];
 
-        return view($view, $view_params);
+        return view()->make($view, $view_params);
     }
 
-    public function add() {
-        dddx('preso');
+    public function add():void {
+        dddx(['preso']);
     }
 }

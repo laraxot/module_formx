@@ -103,8 +103,13 @@ class FullCalendar extends Component {
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function render() {
-        return view('formx::livewire.full_calendar');
+        return view()->make('formx::livewire.full_calendar');
     }
 
     public function edit(array $calEvent): void {

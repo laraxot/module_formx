@@ -1,8 +1,8 @@
 @php
 
 //dddx(get_defined_vars());
-//$model = $this->panel->row;
-$model = $_panel->row;
+//$model = $this->panel->getRow();
+$model = $_panel->getRow();
 $rel = $model->{$field->name}();
 //dddx(get_class_methods($rel));
 if (method_exists($rel, 'getLocalKeyName')) {

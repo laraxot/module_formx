@@ -34,6 +34,11 @@ class Head extends XotBaseComponent {
         $this->setFormProperties($row);
     }
 
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\View\View
+     */
     public function render() {
         $view = $this->getView();
         $view_params = [
@@ -46,7 +51,7 @@ class Head extends XotBaseComponent {
     }
 
     public function fields():array {
-        $this->panel_fields = $this->panel->editFields();
+        $this->panel_fields = $this->panel->getFields(['act'=>'edit']);
 
         $fields = [];
         foreach ($this->panel_fields as $field) {
