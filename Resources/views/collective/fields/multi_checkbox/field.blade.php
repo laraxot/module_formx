@@ -3,7 +3,7 @@
  * https://github.com/crlcu/multiselect
  * bower install multiselect-two-sides
  */
-//Theme::addScript('/theme/bc/multiselect/dist/js/multiselect.js');
+Theme::addScript($comp_ns.'/js/multiselect.js');
 $model = Form::getModel();
 
 $rows = $model->$name();
