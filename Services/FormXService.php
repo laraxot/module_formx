@@ -4,30 +4,29 @@ declare(strict_types=1);
 
 namespace Modules\FormX\Services;
 
+use Collective\Html\FormFacade as Form;
 use Exception;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+use Illuminate\Database\Eloquent\Relations\MorphOneOrMany;
+//---- services ---
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
-//---- services ---
-use Modules\Xot\Services\RouteService;
-use Collective\Html\FormFacade as Form;
-use Illuminate\Support\Facades\Storage;
-use Modules\Xot\Services\PolicyService;
+use Illuminate\Support\Str;
 use Modules\Theme\Services\ThemeService;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphPivot;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\MorphOneOrMany;
 use Modules\Xot\Services\FileService;
+use Modules\Xot\Services\PolicyService;
+use Modules\Xot\Services\RouteService;
 
 /**
  * Class FormXService.
@@ -45,7 +44,6 @@ class FormXService {
         $components_json = $view_path.'/_components.json';
         $components_json = str_replace(['/', '\\'], [DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR], $components_json);
 
-
         $exists = File::exists($components_json);
         if ($exists) {
             $content = File::get($components_json);
@@ -54,20 +52,20 @@ class FormXService {
             return $json;
         }
 
-
         $comps = [];
 
         if (! $view_path) {
             throw new \Exception('$view_path is false');
         }
 
-        $dirs = FileService::allDirectories($view_path,['css','js']);
-        $comps=collect($dirs)->map(function($item){
-            $ris=new \StdClass();
-            $tmp=str_replace(DIRECTORY_SEPARATOR,' ',$item);
-            $tmp_dot=str_replace(DIRECTORY_SEPARATOR,'.',$item);
-            $ris->name='bs'.Str::studly($tmp);
-            $ris->view='formx::collective.fields.'.$tmp_dot.'.field';
+        $dirs = FileService::allDirectories($view_path, ['css', 'js']);
+        $comps = collect($dirs)->map(function ($item) {
+            $ris = new \StdClass();
+            $tmp = str_replace(DIRECTORY_SEPARATOR, ' ', $item);
+            $tmp_dot = str_replace(DIRECTORY_SEPARATOR, '.', $item);
+            $ris->name = 'bs'.Str::studly($tmp);
+            $ris->view = 'formx::collective.fields.'.$tmp_dot.'.field';
+
             return $ris;
         })->all();
 
@@ -218,6 +216,7 @@ class FormXService {
         $tmp = Str::snake($field->type);
 
         //$view = 'formx::includes.components.input.'.$tmp.'.freeze';
+        /*
         $view = 'formx::collective.fields.'.$tmp.'.freeze';
 
         if (isset($field->sub_type)) {
@@ -232,11 +231,32 @@ class FormXService {
             $view1 = 'formx::collective.fields.'.$tmp1.'.freeze_'.$tmp2;
 
             if (! View::exists($view1)) {
-                //return '<span style="color:#d60021">['.$view.']['.$view1.'] NOT EXISTS !!</span>';
+                dddx([
+                    'type' => $field->type,
+                    'getComponents' => Arr::first(
+                        self::getComponents(),
+                        function ($item) use ($field) {
+                            return $item->name == 'bs'.$field->type;
+                        }
+                    ),
+                ]); //Select2Sides
+
                 return view()->make('formx::collective.fields.error.err1', ['msg' => '['.$view.']['.$view1.'] NOT EXISTS !!']);
             }
 
             $view = $view1;
+        }
+        */
+        $comp_field = Arr::first(
+            self::getComponents(),
+            function ($item) use ($field) {
+                return $item->name == 'bs'.$field->type;
+            }
+        );
+
+        $view = Str::beforeLast($comp_field->view, '.field').'.freeze';
+        if (! View::exists($view)) {
+            return view()->make('formx::collective.fields.error.err1', ['msg' => '['.$view.'] NOT EXISTS !!']);
         }
 
         $view_params = $params;
