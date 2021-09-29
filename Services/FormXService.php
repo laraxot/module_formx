@@ -253,8 +253,9 @@ class FormXService {
                 return $item->name == 'bs'.$field->type;
             }
         );
-        if($comp_field==null){
-            $msg='not registered component [bs.'.$field->type.']';
+        if (null == $comp_field) {
+            $msg = 'not registered component [bs'.$field->type.']';
+
             return view()->make('formx::collective.fields.error.err1', ['msg' => $msg]);
         }
 
