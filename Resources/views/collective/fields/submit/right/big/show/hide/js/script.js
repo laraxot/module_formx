@@ -5,9 +5,9 @@ $('#mainForm input').not('#mainForm input[type="checkbox"]').on('input', () => {
     });
 
     if (emptyInputsNumber.length === 0) {
-        $("#submitButton").show();
+        $("#submitButton").removeAttr('disabled');
     } else {
-        $("#submitButton").hide();
+        $("#submitButton").attr('disabled', 'disabled');
     }
 
 });
@@ -19,9 +19,9 @@ $('#mainForm input').not('#mainForm input[type="checkbox"]').on('change', () => 
     });
 
     if (emptyInputsNumber.length === 0) {
-        $("#submitButton").show();
+        $("#submitButton").removeAttr('disabled');
     } else {
-        $("#submitButton").hide();
+        $("#submitButton").attr('disabled', 'disabled');
     }
 
 });
