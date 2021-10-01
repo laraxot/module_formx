@@ -12,9 +12,10 @@ if ($src == '') {
 $field->attributes['id'] = 'file_src_src_' . $field->label;
 @endphp
 
-<div id="filelist_{{ $field->label }}">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
+<div id="filelist_{{ $field->label }}">loading file manager plugin...</div>
 <br />
 
+{{ Form::hidden('path[]', '', ['id' => 'path_' . $field->label]) }}
 
 <!--div id="container" -->
 <a id="pickfiles_{{ $field->label }}" data-input="{{ $field->attributes['id'] }}" class="btn btn-danger text-white">

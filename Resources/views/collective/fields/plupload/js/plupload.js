@@ -1,3 +1,5 @@
+let generalUploader = [];
+
 function createUploader(id) {
 
 
@@ -40,8 +42,11 @@ function createUploader(id) {
                 }
                 plupload.each(files, function (file) {
                     document.getElementById('filelist_' + id).innerHTML = '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+
+                    document.getElementById('path_' + id).value = file.name;
+                    $('#path_' + id).trigger('change');
+
                 });
-                uploader.start();
             },
 
             UploadProgress: function (up, file) {
@@ -54,8 +59,8 @@ function createUploader(id) {
         }
     });
 
-
-
     uploader.init();
+
+    generalUploader.push(uploader);
 
 }
