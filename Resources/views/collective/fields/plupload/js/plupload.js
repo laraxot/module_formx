@@ -1,12 +1,12 @@
-$(function () {
-    // Custom example logic
+function createUploader(id) {
 
-    var uploader = new plupload.Uploader({
+
+    let uploader = new plupload.Uploader({
         runtimes: 'html5,flash,silverlight,html4',
         chunk_size: '1024kb',
-        browse_button: 'pickfiles', // you can pass in id...
-        container: document.getElementById('container'), // ... or DOM Element itself
-
+        browse_button: 'pickfiles_' + id, // you can pass in id...
+        container: document.getElementById('mainForm'), // ... or DOM Element itself
+        multi_selection: false,
         url: "/upload?_token=" + $('meta[name="csrf-token"]').attr('content'),
 
         filters: {
@@ -26,18 +26,22 @@ $(function () {
 
         init: {
             PostInit: function () {
-                document.getElementById('filelist').innerHTML = '';
+                document.getElementById('filelist_' + id).innerHTML = '';
 
-                document.getElementById('uploadfiles').onclick = function () {
+                /*document.getElementById('uploadfiles_' + id).onclick = function () {
                     uploader.start();
                     return false;
-                };
+                };*/
             },
 
             FilesAdded: function (up, files) {
+                while (up.files.length > 1) {
+                    up.removeFile(up.files[0]);
+                }
                 plupload.each(files, function (file) {
-                    document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+                    document.getElementById('filelist_' + id).innerHTML = '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
                 });
+                uploader.start();
             },
 
             UploadProgress: function (up, file) {
@@ -45,10 +49,13 @@ $(function () {
             },
 
             Error: function (up, err) {
-                document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+                document.getElementById('console_' + id).innerHTML += "\nError #" + err.code + ": " + err.message;
             }
         }
     });
 
+
+
     uploader.init();
-});
+
+}

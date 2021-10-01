@@ -12,21 +12,27 @@ if ($src == '') {
 $field->attributes['id'] = 'file_src_src_' . $field->label;
 @endphp
 
-<div id="filelist">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
+<div id="filelist_{{ $field->label }}">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
 <br />
 
 
-<div id="container">
-    <a id="pickfiles" data-input="{{ $field->attributes['id'] }}" class="btn btn-danger text-white">
-        Seleziona
-    </a>
-    <a id="uploadfiles" href="javascript:;" class="btn btn-danger text-white">
-        Upload
-    </a>
-</div>
+<!--div id="container" -->
+<a id="pickfiles_{{ $field->label }}" data-input="{{ $field->attributes['id'] }}" class="btn btn-danger text-white">
+    Seleziona
+</a>
+<!--a id="uploadfiles_{{ $field->label }}" href="javascript:;" class="btn btn-danger text-white">
+    Upload
+</a-->
+<!-- /div -->
 
 {{-- <ahref="javascript:;">[Selectfiles]</a> --}}
 
 
 <br />
-<pre id="console"></pre>
+<pre id="console_{{ $field->label }}"></pre>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        createUploader({{ $field->label }});
+    });
+</script>
