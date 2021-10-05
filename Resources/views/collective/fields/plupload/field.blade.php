@@ -12,7 +12,9 @@ if ($src == '') {
 $field->attributes['id'] = 'file_src_src_' . $field->label;
 @endphp
 
-<div id="filelist_{{ $field->label }}">loading file manager plugin...</div>
+<div id="filelist_{{ $field->label }}">loading...
+    <!-- LOADING PLUGIN -->
+</div>
 <br />
 
 {{ Form::hidden('path[]', '', ['id' => 'path_' . $field->label]) }}

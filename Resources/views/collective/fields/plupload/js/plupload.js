@@ -5,7 +5,8 @@ function createUploader(id) {
 
     let uploader = new plupload.Uploader({
         runtimes: 'html5,flash,silverlight,html4',
-        chunk_size: '1024kb',
+        /* il chunk size va impostato su moxie */
+        chunk_size: '500kb',
         browse_button: 'pickfiles_' + id, // you can pass in id...
         container: document.getElementById('mainForm'), // ... or DOM Element itself
         multi_selection: false,
