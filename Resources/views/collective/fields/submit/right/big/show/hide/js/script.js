@@ -45,6 +45,13 @@ function upload_files_old(form) {
 
             generalUploader[i].bind('UploadComplete', function (up, file) {
 
+                let percentage = 8.33 * (i + 1);
+
+                percentage = percentage.toFixed(2);
+
+                $('.progress-bar').css('width', percentage + "%");
+                $('.progress-bar').html(percentage + "%");
+
                 i++;
 
                 run();
@@ -54,6 +61,18 @@ function upload_files_old(form) {
             form.unbind('submit').submit();
         }
     }
+
+
+    $("#submitButton").addClass('d-none');
+    $('#upload_progress').removeClass('d-none');
+    $('#upload_tab').addClass('d-none');
+
+    let percentage = 8.33;
+
+    percentage = percentage.toFixed(2);
+
+    $('.progress-bar').css('width', percentage + "%");
+    $('.progress-bar').html(percentage + "%");
 
     run();
 }
