@@ -21,7 +21,9 @@ $opts = $related_panel->optionsSelect();
 
 @component($blade_component, get_defined_vars())
     @slot('label')
-        [{{ $value }}]
+        @php
+        //[{{ $value }}]
+        @endphp
         {{ Form::label($name, $field->label, ['class' => 'control-label form-label']) }} {{-- $field->label_attributes --}}
     @endslot
     @slot('input')

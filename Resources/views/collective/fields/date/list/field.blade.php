@@ -15,7 +15,10 @@
 $field = transFields(get_defined_vars());
 //dddx([get_defined_vars(),$field]);
 $date_list = $_panel->getRow()->{$name};
-//dddx($lista_data);
+//dddx([$_panel, $_panel->getRow(), $_panel->getRow()->{$name}, $_panel->row]);
+if (is_null($date_list)) {
+    $date_list = '';
+}
 @endphp
 {{-- <livewire:formx::calendar.stringlist  :date_list="$date_list" /> --}}
 

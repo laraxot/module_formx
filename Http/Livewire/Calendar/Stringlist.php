@@ -19,24 +19,23 @@ use Livewire\Component;
  * Modules\FormX\Http\Livewire\Calendar\V1.
  */
 class Stringlist extends Component {
-    
     public ?string $minDate;
 
     public ?string $maxDate;
 
-    public mixed $selectedDay;
+    public int $selectedDay;
 
-    public mixed $selectedMonth;
+    public int $selectedMonth;
 
-    public mixed $selectedYear;
+    public int $selectedYear;
 
-    public mixed $currentMonth;
+    public int $currentMonth;
 
-    public mixed $currentYear;
+    public int $currentYear;
 
-    public mixed $date_list;
+    public string $date_list;
 
-    public mixed $input_name;
+    public string $input_name;
 
     public function mount(SessionManager $session, string $minDate = null, string $maxDate = null, string $date_list = null, string $input_name): void {
         //dddx($date_list);
@@ -54,14 +53,17 @@ class Stringlist extends Component {
         }
 
         // aggiusto le date, gli 0 avanti ai giorni e mesi non vengono renderizzati, ergo...
-        if(!is_null($date_list)){
+        if (! is_null($date_list)) {
             $date_list = str_replace(',0', ',', $date_list);
             $date_list = str_replace('/0', '/', $date_list);
-        
+
             if (Str::startsWith($date_list, '0')) {
                 $date_list = Str::replaceFirst('0', '', $date_list);
             }
+        } else {
+            $date_list = '';
         }
+
         //dddx($date_list);
 
         $session->put('calendar.now', $first_date);
@@ -248,7 +250,7 @@ class Stringlist extends Component {
         return true;
     }
 
-    public function render():Renderable{
+    public function render(): Renderable {
         $view = 'formx::livewire.calendar.string_list';
         //dddx($this->date_list);
         $view_params = [
