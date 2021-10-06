@@ -1,5 +1,5 @@
 @php
-if(isset($options['field'])){
+if (isset($options['field'])) {
     $options = $options['field']->options;
 }
 extract($attributes);
