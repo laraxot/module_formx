@@ -399,7 +399,6 @@ class FormXService {
         $lang = app()->getLocale();
         $error_label = 'default';
         $tooltip = null;
-
         extract($params);
         if (! isset($panel)) {
             throw new Exception('panel is missing');
@@ -472,13 +471,13 @@ class FormXService {
             }
 
             return
-                    '<span data-toggle="tooltip" title="'.$tooltip.'">
-                    <button type="button" data-title="'.$tooltip.'"
-                    data-href="'.$url.'" data-toggle="modal" class="'.$class.'"
-                    data-target="#'.$target.'">
-                    '.$icon.' '.$title.'
-                    </button>
-                    </span>';
+            '<span data-toggle="tooltip" title="'.$tooltip.'">
+            <button type="button" data-title="'.$tooltip.'"
+            data-href="'.$url.'" data-toggle="modal" class="'.$class.'"
+            data-target="#'.$target.'">
+            '.$icon.' '.$title.'
+            </button>
+            </span>';
         }
         // data-href serve per le chiamate ajax
         //dddx($params, $title, $data_title);
