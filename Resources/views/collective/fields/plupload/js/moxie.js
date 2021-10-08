@@ -6394,7 +6394,7 @@ var MXI_DEBUG = true;
                     },
                     summon_file_dialog: function () { // yeah... some dirty sniffing here...
                         return I.can('select_file') && (
-                            (Env.browser === 'Firefox' && Env.version >= 4) ||
+                            (Env.browser === 'Firefox' /*&& Env.version >= 4*/ ) ||
                             (Env.browser === 'Opera' && Env.version >= 12) ||
                             (Env.browser === 'IE' && Env.version >= 10) ||
                             !!~Basic.inArray(Env.browser, ['Chrome', 'Safari'])
@@ -10567,7 +10567,7 @@ var MXI_DEBUG = true;
                 },
                 summon_file_dialog: function () { // yeah... some dirty sniffing here...
                     return I.can('select_file') && (
-                        (Env.browser === 'Firefox' && Env.version >= 4) ||
+                        (Env.browser === 'Firefox' /*&& Env.version >= 4*/ ) ||
                         (Env.browser === 'Opera' && Env.version >= 12) ||
                         (Env.browser === 'IE' && Env.version >= 10) ||
                         !!~Basic.inArray(Env.browser, ['Chrome', 'Safari'])

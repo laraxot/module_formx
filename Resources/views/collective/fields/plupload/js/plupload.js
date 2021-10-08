@@ -29,7 +29,9 @@ function createUploader(id) {
 
         init: {
             PostInit: function () {
-                document.getElementById('filelist_' + id).innerHTML = '';
+                document.getElementById('filelist_' + id).innerHTML = 'File non selezionato';
+
+                document.getElementById('pickfiles_' + id).innerHTML = 'Seleziona';
 
                 /*document.getElementById('uploadfiles_' + id).onclick = function () {
                     uploader.start();
@@ -42,7 +44,10 @@ function createUploader(id) {
                     up.removeFile(up.files[0]);
                 }
                 plupload.each(files, function (file) {
-                    document.getElementById('filelist_' + id).innerHTML = '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+                    document.getElementById('filelist_' + id).innerHTML = '<div id="' + file.id + '">File: ' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+
+                    $('#pickfiles_' + id).removeClass("btn-danger");
+                    $('#pickfiles_' + id).addClass("btn-secondary");
 
                     document.getElementById('path_' + id).value = file.name;
                     $('#path_' + id).trigger('change');

@@ -12,24 +12,17 @@ if ($src == '') {
 $field->attributes['id'] = 'file_src_src_' . $field->label;
 @endphp
 
-<div id="filelist_{{ $field->label }}">loading...
-    <!-- LOADING PLUGIN -->
-</div>
-<br />
+{{-- <div id="filelist_$field->label">
+</div> --}}
+
 
 {{ Form::hidden('path[]', '', ['id' => 'path_' . $field->label]) }}
 
 <!--div id="container" -->
-<a id="pickfiles_{{ $field->label }}" data-input="{{ $field->attributes['id'] }}" class="btn btn-danger text-white">
-    Seleziona
-</a>
-<!--a id="uploadfiles_{{ $field->label }}" href="javascript:;" class="btn btn-danger text-white">
-    Upload
-</a-->
-<!-- /div -->
-
-{{-- <ahref="javascript:;">[Selectfiles]</a> --}}
-
+<button type="button" id="pickfiles_{{ $field->label }}" data-input="{{ $field->attributes['id'] }}"
+    class="btn btn-danger text-white">
+    loading...
+</button>
 
 <br />
 <pre id="console_{{ $field->label }}"></pre>

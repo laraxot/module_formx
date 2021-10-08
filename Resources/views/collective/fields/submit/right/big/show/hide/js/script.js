@@ -1,30 +1,28 @@
-$('#mainForm input').not('#mainForm input[type="checkbox"]').on('input', () => {
+function checkInput() {
 
-    let emptyInputsNumber = $('#mainForm input').not('#mainForm input[type="checkbox"]').not('[id^=html5]').filter(function () {
-        return !this.value;
-    });
+    /* let emptyInputsNumber = $('#mainForm input').not('#mainForm input[type="checkbox"]').not('[id^=html5]').filter(function () {
+         return !this.value;
+     });*/
 
-    if (emptyInputsNumber.length === 0) {
+
+    let passForm = false;
+
+    if ($("#upload_date").val() !== '' && $("#description").val() !== '' &&
+        $('#territorial_level').val() !== '' && $("#path_14").val() !== '') {
+        passForm = true;
+    }
+
+    if (passForm === true) {
         $("#submitButton").removeAttr('disabled');
     } else {
         $("#submitButton").attr('disabled', 'disabled');
     }
 
-});
+}
 
-$('#mainForm input').not('#mainForm input[type="checkbox"]').on('change', () => {
+$('#mainForm input').not('#mainForm input[type="checkbox"]').on('input', checkInput);
 
-    let emptyInputsNumber = $('#mainForm input').not('#mainForm input[type="checkbox"]').not('[id^=html5]').filter(function () {
-        return !this.value;
-    });
-
-    if (emptyInputsNumber.length === 0) {
-        $("#submitButton").removeAttr('disabled');
-    } else {
-        $("#submitButton").attr('disabled', 'disabled');
-    }
-
-});
+$('#mainForm input').not('#mainForm input[type="checkbox"]').on('change', checkInput);
 
 $('#mainForm').submit(function (event) {
 
