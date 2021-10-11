@@ -1,9 +1,18 @@
 @php
     $field=transFields(get_defined_vars());
     $label_class='control-label';
+	$class="form-control border-0 shadow-0";
+	$placeholder = "";
     if(isset($attributes['label_class'])){
         $label_class=$attributes['label_class'];
     }
+	if(isset($attributes['class'])){
+        $class=$attributes['class'];
+    }
+	if(isset($attributes['placeholder'])){
+        $placeholder=$attributes['placeholder'];
+    }
+
 @endphp
 @component($blade_component,get_defined_vars())
     @slot('label')
@@ -11,7 +20,7 @@
         @endslot
 	@slot('input')
 		{{ Form::hidden($name, $value) }}
-		<input type="text" data-address="{&quot;field&quot;: &quot;{{$name}}&quot;}"  class="form-control border-0 shadow-0" autocomplete="off" />
+		<input type="text" data-address="{&quot;field&quot;: &quot;{{$name}}&quot;}"  class="{{ $class }}" autocomplete="off" id="autocomplete" placeholder="{{ $placeholder }}"/>
 	@endslot
 @endcomponent
 @push('styles')
