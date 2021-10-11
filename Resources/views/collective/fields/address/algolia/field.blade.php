@@ -12,7 +12,7 @@
 	if(isset($attributes['placeholder'])){
         $placeholder=$attributes['placeholder'];
     }
-
+	//dddx(get_defined_vars());
 @endphp
 @component($blade_component,get_defined_vars())
     @slot('label')
