@@ -15,7 +15,7 @@ use Modules\Theme\Services\ThemeService;
 use Modules\Xot\Contracts\PanelContract;
 use Modules\Xot\Models\Panels\XotBasePanel;
 use Modules\Xot\Services\PanelService;
-use Modules\Xot\Services\TenantService;
+use Modules\Tenant\Services\TenantService;
 
 /**
  *  Modules\FormX\Http\Livewire\Crud\IndexOrder.
