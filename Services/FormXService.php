@@ -385,7 +385,21 @@ class FormXService {
         try {
             return Form::$input_type($input_name, $input_value, $input_attrs, $input_opts);
         } catch (\Exception $e) {
-            dddx([$e->getMessage()]);
+            /*
+            return '<div style="border:red">
+                ERRORE
+            </div>';
+            */
+            dddx(
+                [
+                    'message' => $e->getMessage(),
+                    'code' => $e->getCode(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    //'methods' => get_class_methods($e),
+                    'e' => $e,
+                ]
+            );
         }
         //*/
     }

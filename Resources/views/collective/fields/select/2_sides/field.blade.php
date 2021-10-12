@@ -3,6 +3,8 @@
  * https://github.com/crlcu/multiselect
  * bower install multiselect-two-sides
  */
+
+ //strani errori jquery
 $field=transFields(get_defined_vars());
 
 Theme::addScript($comp_ns.'/js/multiselect.js');
@@ -13,6 +15,9 @@ $rows = $model->$name();
 //$rows=$model->user->rights();
 //$val = $rows->get();
 $val=$field->value;
+if($val==null){
+    $val=[];
+}
 
 $related = $rows->getRelated();
 $_panel = Panel::get($related);
