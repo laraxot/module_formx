@@ -4,19 +4,19 @@
  * bower install multiselect-two-sides
  */
 
- //strani errori jquery
-$field=transFields(get_defined_vars());
+//strani errori jquery
+$field = transFields(get_defined_vars());
 
-Theme::addScript($comp_ns.'/js/multiselect.js');
-$field_options=$options['field']->options;
+Theme::addScript($comp_ns . '/js/multiselect.js');
+$field_options = $options['field']->options;
 
 $model = Form::getModel();
 $rows = $model->$name();
 //$rows=$model->user->rights();
 //$val = $rows->get();
-$val=$field->value;
-if($val==null){
-    $val=[];
+$val = $field->value;
+if ($val == null) {
+    $val = [];
 }
 
 $related = $rows->getRelated();
@@ -55,29 +55,29 @@ $_panel = Panel::get($related);
                 <i class="fas fa-angle-double-left"></i>
             </button>
         </div>
-          
+
         <div class="col-sm-5">
             <select name="{{ $name }}[to][]" id="multiselect{{ $name }}_to" class="form-control"
                 size="8" multiple="multiple">
                 @foreach ($val as $k => $v)
-                    
+
                     <option value="{{ $_panel->optionId($v) }}">{{ $_panel->optionLabel($v) }}</option>
                 @endforeach
             </select>
         </div>
-        
+
     </div>
 </fieldset>
 
 @once
-@push('scripts')
-    <script type="text/javascript">
-        //jQuery is not a function
-        //jQuery(document).ready(function($) {
-        $(function() {
-            $('.multiselect').multiselect();
+    @push('scripts')
+        <script type="text/javascript">
+            //jQuery is not a function
+            //jQuery(document).ready(function($) {
+            $(function() {
+                $('.multiselect').multiselect();
 
-        });
-    </script>
-@endpush
+            });
+        </script>
+    @endpush
 @endonce
