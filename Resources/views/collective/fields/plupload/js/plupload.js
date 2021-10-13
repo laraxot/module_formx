@@ -52,6 +52,9 @@ function createUploader(id) {
                     document.getElementById('path_' + id).value = file.name;
                     $('#path_' + id).trigger('change');
 
+                    $('input#purposal_flag_' + id).removeAttr('disabled');
+                    //$('input[name="purposal_flag[]"][type="checkbox"]').removeAttr('disabled');
+
                 });
             },
 

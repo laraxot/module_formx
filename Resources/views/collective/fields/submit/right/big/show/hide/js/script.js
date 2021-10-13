@@ -55,12 +55,17 @@ function upload_files_old(form) {
                 run();
 
             });
+        } else if (i < 11) {
+            i++;
+
+            run();
         } else {
+            //TOGLIERE
             form.unbind('submit').submit();
         }
     }
 
-
+    //TOGLIERE
     $("#submitButton").addClass('d-none');
     $('#upload_progress').removeClass('d-none');
     $('#upload_tab').addClass('d-none');
