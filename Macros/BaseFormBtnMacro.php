@@ -16,11 +16,9 @@ use Modules\Xot\Services\StubService;
  */
 abstract class BaseFormBtnMacro {
     /**
-     * @param array $params
-     *
      * @return array|void
      */
-    public static function before(array $params){
+    public static function before(array $params) {
         $generate_btn = 1;
         $user = \Auth::user();
         if (null == $user) {
@@ -55,7 +53,10 @@ abstract class BaseFormBtnMacro {
         $act_route = Str::snake($act);
 
         $route_action = optional(\Route::currentRouteAction());
-        $old_act = Str::snake(Str::after($route_action, '@'));
+        $old_act = '';
+        if (! is_null(optional(\Route::currentRouteAction())->value)) {
+            $old_act = Str::snake(Str::after($route_action, '@'));
+        }
         $routename = optional(Request::route())->getName();
         $old_act_route = last(explode('.', $routename));
 
