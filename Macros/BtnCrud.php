@@ -18,12 +18,23 @@ class BtnCrud {
      * @return \Closure
      */
     public function __invoke() {
-        return function ($extra) {
+        return function ($extra, array $params = []) {
+            extract($params);
+
             $btns = '<div class="btn-group btn-group-sm" role="group" aria-label="Actions">';
-            $btns .= Form::bsBtnEdit($extra);
-            $btns .= Form::bsBtnDelete($extra);
-            $btns .= Form::bsBtnDetach($extra);
-            $btns .= Form::bsBtnShow($extra);
+
+            if (empty($params) || isset($edit)) {
+                $btns .= Form::bsBtnEdit($extra);
+            }
+            if (empty($params) || isset($delete)) {
+                $btns .= Form::bsBtnDelete($extra);
+            }
+            if (empty($params) || isset($detach)) {
+                $btns .= Form::bsBtnDetach($extra);
+            }
+            if (empty($params) || isset($show)) {
+                $btns .= Form::bsBtnShow($extra);
+            }
             //$btns.=Form::bsBtnClone($extra);
             $btns .= '</div>';
 
