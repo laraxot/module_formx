@@ -7,7 +7,12 @@ $field = transFields(get_defined_vars());
 @component($blade_component, get_defined_vars())
 
     @slot('label')
-        @if ($field->label !== 'false')
+        @php
+        //dddx([$field->attributes, $field->attributes['style'], !empty($field->attributes['style']) && strpos($field->attributes['style'], 'display:none') !== false]);
+        @endphp
+
+        @if (!empty($field->attributes['style']) && strpos($field->attributes['style'], 'display:none') !== false)
+        @else
             {{ Form::label($name, $field->label, ['class' => 'control-label']) }}
         @endif
     @endslot
@@ -18,11 +23,11 @@ $field = transFields(get_defined_vars());
             echo Form::text($name, $value, $field->attributes);
         } catch (\Exception $e) {
             /*
-                                                                        dddx(['field_name'=>$name,
-                                                                        'value'=>$value,
-                                                                        'err'=>$e->getMessage()
-                                                                        ]);
-                                                                        */
+                                                                                                                                                                                                                                                                        dddx(['field_name'=>$name,
+                                                                                                                                                                                                                                                                        'value'=>$value,
+                                                                                                                                                                                                                                                                        'err'=>$e->getMessage()
+                                                                                                                                                                                                                                                                        ]);
+                                                                                                                                                                                                                                                                        */
             echo $e->getMessage();
         }
         @endphp
