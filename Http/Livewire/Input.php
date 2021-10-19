@@ -9,7 +9,8 @@ use Livewire\Component;
 /**
  * Class Numberer.
  */
-class Input extends Component {
+class Input extends Component
+{
     public string $type;
     public string $name;
     public ?string $label;
@@ -28,7 +29,8 @@ class Input extends Component {
         ?string $class = null,
         ?string $id = null,
         ?string $value = null,
-        ?string $placeholder = null): void {
+        ?string $placeholder = null
+    ): void {
         $this->type = $type;
         $this->name = $name;
         $this->label = $label;
@@ -46,11 +48,13 @@ class Input extends Component {
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function render() {
+    public function render()
+    {
         $view = 'formx::livewire.fields.'.$this->type.'.field';
         $view_params = [
             'view' => $view,
         ];
+        //return '<div>'.$view.'</div>';
 
         return view()->make($view, $view_params);
     }
