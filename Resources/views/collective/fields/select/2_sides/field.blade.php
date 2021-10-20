@@ -8,6 +8,8 @@
 $field = transFields(get_defined_vars());
 
 Theme::addScript($comp_ns . '/js/multiselect.js');
+
+//dddx(get_defined_vars());
 $field_options = $options['field']->options;
 
 $model = Form::getModel();
