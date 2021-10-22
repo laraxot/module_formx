@@ -64,7 +64,9 @@ abstract class BaseFormBtnMacro {
             $panel = Panel::get($row);
         }
 
-        $route = $panel->{$act.'Url'}();
+        //$route = $panel->{$act.'Url'}();
+
+        $route = $panel->url([/*'panel' => $this, */ 'act' => $act]);
 
         $view_comp_dir = 'formx::includes.components.btn';
         $view_comp = $view_comp_dir.'.'.$act_route;
