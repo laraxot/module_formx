@@ -64,9 +64,27 @@ abstract class BaseFormBtnMacro {
             $panel = Panel::get($row);
         }
 
-        //$route = $panel->{$act.'Url'}();
+        /*PROVA SE COSI TI TROVI MEGLIO,
+           PERCHE SU FRONTEND SE SEI SU UNA REGIONE E VUOI MODIFICARE UNA SOTTO PROVINCIA
+           NON TE LO FA CON IL METODO CORRENTE */
 
-        $route = $panel->url([/*'panel' => $this, */ 'act' => $act]);
+        $route_params = \Request::route()->parameters;
+
+        $route = '';
+
+        if (true === array_key_exists('container1', $route_params)) {
+            //dddx(route('container0.container1.'.$act, array_merge($route_params, ['item1' => $row->{$row->getRouteKeyName()}])));
+            $route = route('container0.container1.'.$act, array_merge($route_params, ['item1' => $row->{$row->getRouteKeyName()}]));
+        } elseif (true === array_key_exists('container0', $route_params)) {
+            //dddx(route('container0.'.$act, array_merge($route_params, ['item0' => $row->{$row->getRouteKeyName()}])));
+            $route = route('container0.'.$act, array_merge($route_params, ['item0' => $row->{$row->getRouteKeyName()}]));
+        } else {
+            throw new \Exception('Invalid route');
+        }
+
+        //dddx($route);
+
+        //$route = $panel->url(['act' => $act]);
 
         $view_comp_dir = 'formx::includes.components.btn';
         $view_comp = $view_comp_dir.'.'.$act_route;
