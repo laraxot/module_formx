@@ -64,7 +64,52 @@ abstract class BaseFormBtnMacro {
             $panel = Panel::get($row);
         }
 
-        $route = $panel->{$act.'Url'}();
+        /*PROVA SE COSI TI TROVI MEGLIO,
+        PERCHE SU FRONTEND SE SEI SU UNA REGIONE E VUOI MODIFICARE UNA SOTTO PROVINCIA
+        NON TE LO FA CON IL METODO CORRENTE */
+
+        $route_params = \Request::route()->parameters;
+
+        $route = '';
+
+        /* if (true === array_key_exists('container2', $route_params)) {
+         } elseif (true === array_key_exists('container1', $route_params)) {
+             //dddx();
+             $route = route('container0.container1.'.$act, array_merge($route_params, ['item1' => $row->{$row->getRouteKeyName()}]));
+         } elseif (true === array_key_exists('container0', $route_params)) {
+             //dddx(route('container0.'.$act, array_merge($route_params, ['item0' => $row->{$row->getRouteKeyName()}])));
+             $route = route('container0.'.$act, array_merge($route_params, ['item0' => $row->{$row->getRouteKeyName()}]));
+         } else {
+             throw new \Exception('Invalid route');
+         }*/
+
+        $route_name = [];
+
+        $count = 0;
+        foreach ($route_params as $key => $value) {
+            if (strpos($key, 'item') > -1) {
+                ++$count;
+            } else {
+                array_push($route_name, $key);
+            }
+        }
+
+        //dddx([join('.', array_keys($route_params)).'.'.$act, array_merge($route_params, ['item'.$count => $row->{$row->getRouteKeyName()}])]);
+
+        unset($route_name[0]);
+
+        //dddx($route_name);
+
+        $route = route(join('.', array_values($route_name)).'.'.$act,
+            array_merge($route_params, ['item'.$count => $row->{$row->getRouteKeyName()}]));
+
+        //dddx([get_defined_vars(), $routename]); // route($routename.$act, array_merge($route_params, ['item1' => $row->{$row->getRouteKeyName()}]))]);
+
+        //dddx($route);
+
+        //$route = $panel->url(['act' => $act]);
+
+        //dddx($route);
 
         $view_comp_dir = 'formx::includes.components.btn';
         $view_comp = $view_comp_dir.'.'.$act_route;
