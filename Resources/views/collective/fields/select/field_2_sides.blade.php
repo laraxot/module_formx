@@ -13,7 +13,7 @@ $model = Form::getModel();
 $val = $model->$name;
 //dddx($model);
 //$user=Auth::user();
-//$auth_user_id=is_object($user)?$user->auth_user_id:'NO-SET';
+//$user_id=is_object($user)?$user->user_id:'NO-SET';
 $model_linked = $model->$name()->getRelated();
 $_panel = Theme::panelModel($model_linked);
 $_panel->setBuilder($model_linked->query());

@@ -14,6 +14,6 @@ $rating_objectives = $model->ratingObjectives;
     @endphp
     <rating-one name="{{ $input_name }}" value="{{ $ro->rating_my }}" title="{{ $ro->title }}"></rating-one>
     {{-- nel update e' una repitizione, ma nella creazione cosa obbligatoria --}}
-    <input type="hidden" name="{{ $name }}[{{ $ro->id }}][pivot][auth_user_id]"
+    <input type="hidden" name="{{ $name }}[{{ $ro->id }}][pivot][user_id]"
         value="{{ Auth::id() }}" />
 @endforeach
