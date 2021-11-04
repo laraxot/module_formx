@@ -42,7 +42,7 @@ $all = !is_null($model_linked) ? $model_linked->get() : [];
             {{-- {{ Form::checkbox($input_name.'[value]', $input_value, $checked,$options) }}
 	{{ Form::text($input_name.'[value]', $checked ) }}
 	{{ Form::text($input_name.'[title]',$v->title) }}
-	{{ Form::text($input_name.'[user_id]',\Auth::user()->user_id) }} --}}
+	{{ Form::text($input_name.'[user_id]',\Auth::user()->id) }} --}}
             @foreach ($pivot_fields as $pf)
                 {{ $pf->name }}
                 {{-- @if ($loop->first)
