@@ -6,7 +6,7 @@ if (!method_exists($model, $name)) {
     dddx('create relationship [' . $name . '] on [' . get_class($model) . ']');
 }
 $user = Auth::user();
-$auth_user_id = is_object($user) ? $user->auth_user_id : 'NO-SET';
+$user_id = is_object($user) ? $user->user_id : 'NO-SET';
 
 $pivot_class = $model->$name()->getPivotClass();
 $pivot = new $pivot_class();
@@ -42,7 +42,7 @@ $all = !is_null($model_linked) ? $model_linked->get() : [];
             {{-- {{ Form::checkbox($input_name.'[value]', $input_value, $checked,$options) }}
 	{{ Form::text($input_name.'[value]', $checked ) }}
 	{{ Form::text($input_name.'[title]',$v->title) }}
-	{{ Form::text($input_name.'[auth_user_id]',\Auth::user()->auth_user_id) }} --}}
+	{{ Form::text($input_name.'[user_id]',\Auth::user()->id) }} --}}
             @foreach ($pivot_fields as $pf)
                 {{ $pf->name }}
                 {{-- @if ($loop->first)
@@ -51,7 +51,7 @@ $all = !is_null($model_linked) ? $model_linked->get() : [];
                 {{ Form::text($input_name . '[pivot][' . $pf->name . ']') }}
             @endforeach
 
-            {{ $_panel->optionId($v) }} - {{ $_panel->optionLabel($v) }} [user_id: {{ $auth_user_id }}]
+            {{ $_panel->optionId($v) }} - {{ $_panel->optionLabel($v) }} [user_id: {{ $user_id }}]
         </li>
     @endforeach
 </ul>

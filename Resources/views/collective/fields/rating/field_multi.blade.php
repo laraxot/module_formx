@@ -10,7 +10,7 @@
         $rows_arr=$rows->keyBy('post_id')->toArray();
     }
 
-	$auth_user_id=Auth::id();
+	$user_id=Auth::id();
 @endphp
 @foreach($rating_objectives as $ro)
 	@isset($ro->post)
@@ -22,6 +22,6 @@
 			$input_attrs=['label'=>$ro->title,'help'=>''];
         @endphp
 		{{ Form::bsRatingOne($input_name,$input_value,$input_attrs) }}
-		<input type="hidden" name="{{ $name }}[{{ $ro->post_id }}][pivot][auth_user_id]" value="{{ $auth_user_id }}" />
+		<input type="hidden" name="{{ $name }}[{{ $ro->post_id }}][pivot][user_id]" value="{{ $user_id }}" />
 	@endisset
 @endforeach

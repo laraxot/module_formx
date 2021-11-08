@@ -16,5 +16,5 @@
     {{--
         nel update e' una repitizione, ma nella creazione cosa obbligatoria
         --}}
-    <input type="hidden" name="{{ $name }}[{{ $ro->id }}][pivot][auth_user_id]" value="{{ Auth::id() }}" />
+    <input type="hidden" name="{{ $name }}[{{ $ro->id }}][pivot][user_id]" value="{{ Auth::id() }}" />
 @endforeach

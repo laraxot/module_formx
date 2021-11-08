@@ -4,7 +4,7 @@ if (!method_exists($model, $name)) {
     dddx('create relationship [' . $name . '] on [' . get_class($model) . ']');
 }
 $user = Auth::user();
-$auth_user_id = is_object($user) ? $user->auth_user_id : 'NO-SET';
+$user_id = is_object($user) ? $user->user_id : 'NO-SET';
 $rows = $model->$name();
 //debug_getter_obj(['obj'=>$rows]);
 
