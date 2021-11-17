@@ -38,8 +38,8 @@ abstract class BaseFormBtnMacro {
             return;
         }
         if (! $user->can($act, $row) && ! in_array($act, ['gear'])) {
-            $policy = StubService::getByModel($row, 'policy', $create = true);
-            $error_msg = '[not can '.$act.']['.get_class($row).']';
+            $policy = StubService::setModelAndName($row, 'policy')->get();
+            $error_msg = '[not can '.$act.']['.$policy.']';
             //dddx(App::environment('local'));
             if ('local' == env('APP_ENV')) {
                 return ['error' => 1, 'error_msg' => $error_msg];
