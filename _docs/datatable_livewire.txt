@@ -1,3 +1,0 @@
-//-- campi da prendere
-https://xpertphp.com/laravel-8-livewire-datatable-example-tutorial/
-
