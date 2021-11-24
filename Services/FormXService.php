@@ -320,6 +320,12 @@ class FormXService {
                 $pivot_class = $rows->getPivotClass();
                 $pivot = new $pivot_class();
                 $pivot_panel = ThemeService::panelModel($pivot);
+                //ogni tanto ThemeService::panelModel($pivot) rilascia una stringa e non un oggetto
+                //ci ho messo una pezza, ma forse dovrebbe aggiornare morph_map?
+                if (! is_object($pivot_panel)) {
+                    $pivot_panel = app($pivot_panel);
+                    //dddx($pivot_panel);
+                }
                 $pivot_fields = $pivot_panel->fields();
                 $pivot_fields = collect($pivot_fields)->filter(function ($item) use ($fields_exclude) {
                     return ! in_array($item->name, $fields_exclude);
