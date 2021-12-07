@@ -27,7 +27,7 @@ class BtnCreateRelated {
             if ('' == $routename) {
                 $routename = Request::route()->getName();
                 if ('' == $routename) {
-                    $routename = 'container0.index';
+                    $routename = 'containers.index';
                 }
             }
             $routename_arr = explode('.', $routename);

@@ -5,7 +5,7 @@ Theme::add($view_comp_dir . '/css/gear.css');
 //------- da uri a view ..
 //dddx($view);//pub_theme::restaurant.cuisine.index
 //dddx($_SERVER['REQUEST_URI']);///it/restaurant/pizzeria-cicala-messina/cuisine
-//$url_t=route('container0.index',['container0'=>'translation','uri'=>$_SERVER['REQUEST_URI'] ]);
+//$url_t=route('containers.index',['container0'=>'translation','uri'=>$_SERVER['REQUEST_URI'] ]);
 @endphp
 
 <div class="color-palate">
@@ -23,7 +23,7 @@ Theme::add($view_comp_dir . '/css/gear.css');
 		@lang($view_default.'.view_page')<i class="fa fa-show"></i>
 		</a>
 		@else
-		<a href="{{ route('container0.container1.show',$params) }}" class="btn theme-btn" >
+		<a href="{{ route('containers.show',$params) }}" class="btn theme-btn" >
 		@lang($view_default.'.view_page')<i class="fa fa-show"></i>
 		</a>
 		@endif
