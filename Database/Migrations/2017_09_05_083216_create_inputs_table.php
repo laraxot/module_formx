@@ -10,7 +10,12 @@ use Modules\FormX\Models\Input as MyModel;
 /**
  * Class CreateInputsTable.
  */
-class CreateInputsTable extends Migration {
+use Modules\Xot\Database\Migrations\XotBaseMigration;
+
+/**
+* Class CreateInputsTable
+*/
+class CreateInputsTable extends XotBaseMigration {
     public function getTable(): string {
         return with(new MyModel())->getTable();
     }
