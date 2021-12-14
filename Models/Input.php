@@ -21,6 +21,7 @@ use Modules\Xot\Models\XotBaseModel;
  * @property string|null                     $created_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Input newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Input newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Input query()
@@ -55,4 +56,6 @@ class Input extends XotBaseModel {
      * @var bool
      */
     public $incrementing = true;
+
+    protected $connection = 'form_x';
 }
