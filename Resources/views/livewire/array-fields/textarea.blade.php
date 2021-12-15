@@ -5,5 +5,5 @@
         placeholder="{{ $array_field->placeholder }}"
         wire:model.lazy="{{ $field->key . '.' . $key . '.' . $array_field->name }}"></textarea>
 
-    @include('laravel-livewire-forms::array-fields.error-help')
+    @include('formx::livewire.array-fields.error-help')
 </div>
