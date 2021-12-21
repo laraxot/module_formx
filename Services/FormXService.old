@@ -94,7 +94,7 @@ class FormXService {
     public static function registerComponents(): void {
         $comps = self::getComponents();
         $blade_component = 'components.blade.input';
-        if (in_admin()) {
+        if (inAdmin()) {
             $blade_component = 'adm_theme::layouts.'.$blade_component;
         } else {
             $blade_component = 'pub_theme::layouts.'.$blade_component;
