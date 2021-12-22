@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Modules\Theme\Services\ThemeService;
+use Modules\Xot\Services\CollectiveService;
 use Modules\Xot\Services\PolicyService;
 use Modules\Xot\Services\RouteService;
 
@@ -41,6 +42,17 @@ class FormXService {
     /*
     When the element is displayed after the call to freeze(), only its value is displayed without the input tags, thus the element cannot be edited. If persistant freeze is set, then hidden field containing the element value will be output, too.
     */
+
+    /**
+     * retrocompatibilita.
+     */
+    public static function getComponents() {
+        $view_path = __DIR__.'/../Resources/views/collective/fields';
+        $namespace = '';
+        $prefix = 'formx::';
+
+        return CollectiveService::getComponents($view_path, $namespace, $prefix);
+    }
 
     /**
      * @param BelongsTo|HasManyThrough|HasOneOrMany|BelongsToMany|MorphOneOrMany|MorphPivot|MorphTo|MorphToMany $rows
