@@ -8,8 +8,6 @@ namespace Modules\FormX\Models\Panels\Actions;
 use Modules\Blog\Models\Event;
 //-------- services --------
 //-------- bases -----------
-use Modules\FormX\Models\Input;
-use Modules\FormX\Services\FormXService;
 use Modules\Xot\Models\Panels\Actions\XotBasePanelAction;
 
 /**
@@ -21,14 +19,6 @@ class FilleventsAction extends XotBasePanelAction {
     public string $icon = '<i class="fas fa-sync"></i>';
 
     public function handle() {
-        /*
-        $comps = FormXService::getComponents();
-        foreach ($comps as $comp) {
-            $parz = ['type' => $comp->name];
-            $row = Input::query()->firstOrCreate($parz);
-        }
-        */
-
         $count = 0;
 
         if (class_exists('\Modules\Blog\Models\Event')) {
