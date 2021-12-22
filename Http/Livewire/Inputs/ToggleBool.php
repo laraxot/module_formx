@@ -11,7 +11,7 @@ use Livewire\Component;
 /**
  * Class Field.
  */
-class ToggleDate extends Component {
+class ToggleBool extends Component {
     public Model $model;
     public string $field;
     public bool $isActive;
@@ -24,7 +24,7 @@ class ToggleDate extends Component {
     public function mount() {
         //$this->model = $model;
         //$this->field = $field;
-        $this->isActive = null !== $this->model->getAttribute($this->field);
+        $this->isActive = (bool) $this->model->getAttribute($this->field);
     }
 
     /**
@@ -47,8 +47,7 @@ class ToggleDate extends Component {
      * @return void
      */
     public function updating($field, $value) {
-        $val = $value ? now() : null;
-        $this->model->setAttribute($this->field, $val)->save();
-        $this->emit('updateField', $this->model->id, $this->field, $val);
+        $this->model->setAttribute($this->field, $value)->save();
+        $this->emit('updateField', $this->model->id, $this->field, $value);
     }
 }
