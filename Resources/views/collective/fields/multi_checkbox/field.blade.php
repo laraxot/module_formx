@@ -77,6 +77,9 @@ $all = $related->all();
 
 @push('scripts')
     <script type="text/javascript">
+        if (typeof $ == 'undefined') {
+            var $ = jQuery;
+        }
         //jQuery is not a function
         //jQuery(document).ready(function($) {
         $(function() {
