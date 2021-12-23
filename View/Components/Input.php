@@ -140,7 +140,7 @@ class Input extends XotBaseComponent {
         $view = $this->comp_ns.'.field';
 
         if (! view()->exists($view)) {
-            throw new \Exception ('<div>view not exists ['.$view.']</div>');
+            throw new \Exception('<div>view not exists ['.$view.']</div>');
         }
         $this->comp_view = $view;
 
