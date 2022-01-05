@@ -10,8 +10,6 @@ $field = transFields(get_defined_vars());
 Theme::addScript($comp_ns . '/js/multiselect.js');
 
 //dddx(get_defined_vars());
-$field_options = $options['field']->options;
-
 $model = Form::getModel();
 $rows = $model->$name();
 //$rows=$model->user->rights();
@@ -23,6 +21,28 @@ if ($val == null) {
 
 $related = $rows->getRelated();
 $_panel = Panel::get($related);
+
+
+
+
+if(isset($options['field'])){
+    $field_options = $options['field']->options;
+}else{
+    //dddx($_panel);
+    //dddx($rows->get());
+    $opts=[];
+    foreach($rows->get() as $row){
+        $k=$_panel->optionId($row);
+        $v=$_panel->optionLabel($row);
+        $opts[$k]=$v;
+
+    }
+    $opts=array_unique($opts);
+    $field_options = $opts;
+}
+
+
+
 @endphp
 
 <fieldset class="form-group container-fluid border p-2">
