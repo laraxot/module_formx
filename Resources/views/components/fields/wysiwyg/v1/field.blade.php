@@ -40,5 +40,5 @@
     </div>
     <textarea @keyup.prevent="expand($refs.editor, minHeight)" @load.window="expand($refs.editor, minHeight)"
         x-ref="editor" name="body" id="body"
-        class="editor rounded-t-none resize-none h-40 focus:outline-none">{{ old('body') ?: $value }}</textarea>
+        class="editor rounded-t-none resize-none h-40 focus:outline-none">{{ old('body') ?: $value ?? null }}</textarea>
 </div>
