@@ -1,1 +1,1 @@
-<div>aaa</div>
+<input type="number" {{ $attributes->merge($attrs) }} />
