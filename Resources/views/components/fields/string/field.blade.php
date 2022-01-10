@@ -19,13 +19,16 @@
         />
     */
 @endphp
-@component($input_component, get_defined_vars())
+{{-- 
+    @component($input_component, get_defined_vars())
     @slot('label')
-        <label>
-            {{ $label }}
-        </label>
+    <label>
+        {{ $label }}
+    </label>
     @endslot
     @slot('input')
-        <input type="text" {{ $attributes->merge($attrs) }} />
+    <input type="text" {{ $attributes->merge($attrs) }} />
     @endslot
-@endcomponent
+    @endcomponent
+--}}
+<input type="text" {{ $attributes->merge($attrs) }} />
