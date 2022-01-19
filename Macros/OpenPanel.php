@@ -47,7 +47,7 @@ class OpenPanel {
             //$func = Str::camel($act).'Url';
 
             //$url = $panel->$func();
-            $url = $panel->url(['act' => $act]);
+            $url = $panel->url($act);
 
             return Form::model($panel->getRow(),
                 [

@@ -54,7 +54,7 @@ class Open {
             //$func = Str::camel($to).'Url';
 
             //$url = $panel->$func();
-            $url = $panel->url(['act' => $act]);
+            $url = $panel->url($act);
 
             switch ($to) {
                 case 'store':

@@ -107,7 +107,7 @@ abstract class BaseFormBtnMacro {
 
         //dddx($route);
 
-        //$route = $panel->url(['act' => $act]);
+        //$route = $panel->url($act);
 
         //dddx($route);
 
