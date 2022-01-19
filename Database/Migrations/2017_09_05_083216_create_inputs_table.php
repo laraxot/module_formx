@@ -29,8 +29,8 @@ class CreateInputsTable extends XotBaseMigration {
         /*
         * create
         **/
-        if (! Schema::hasTable($this->getTable())) {
-            Schema::create($this->getTable(), function (Blueprint $table) {
+        $this->tableCreate(
+            function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('type', 50)->nullable();
                 $table->string('sub_type', 50)->nullable();
@@ -43,15 +43,16 @@ class CreateInputsTable extends XotBaseMigration {
         /*
         * update
         **/
-        Schema::table($this->getTable(), function (Blueprint $table) {
+        $this->tableUpdate(
+            function (Blueprint $table) {
             /*
-            if (! Schema::hasColumn($this->getTable(), 'updated_by')) {
+            if (! $this->hasColumn( 'updated_by')) {
                 $table->string('updated_by', 255)->nullable()->after('updated_at');
             }
-            if (! Schema::hasColumn($this->getTable(), 'created_by')) {
+            if (! $this->hasColumn( 'created_by')) {
                 $table->string('created_by', 255)->nullable()->after('created_at');
             }
-            if (! Schema::hasColumn($this->getTable(), 'parent_id')) {
+            if (! $this->hasColumn( 'parent_id')) {
                 $table->nullableMorphs('parent');
             }
             */
@@ -63,7 +64,5 @@ class CreateInputsTable extends XotBaseMigration {
      *
      * @return void
      */
-    public function down() {
-        Schema::dropIfExists($this->getTable());
-    }
+
 }
