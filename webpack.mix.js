@@ -4,7 +4,7 @@ const mix = require('laravel-mix');
 //mix.setPublicPath('../../../public_html').mergeManifest();
 
 var src=__dirname + '/Resources/assets';
-var dest=__dirname + '/Resources/views/dist';
+var dest=__dirname + '/Resources/dist';
 
 mix.js(src+'/js/app.js', dest+'/js')
     .sass( src+'/sass/app.scss', dest+'/css');
