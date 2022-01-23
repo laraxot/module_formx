@@ -8,5 +8,5 @@
         @endforeach
     </select>
 @else
-    controllare {{ $name }}
+    options is missing on {{ $name }}
 @endif
