@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Modules\Theme\Services\ThemeService;
-use Modules\Xot\Services\CollectiveService;
+use Modules\Theme\Services\CollectiveService;
 use Modules\Xot\Services\PolicyService;
 use Modules\Xot\Services\RouteService;
 

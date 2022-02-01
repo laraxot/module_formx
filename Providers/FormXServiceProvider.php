@@ -7,7 +7,7 @@ namespace Modules\FormX\Providers;
 //---- bases ----
 //---- services --
 use Modules\Xot\Providers\XotBaseServiceProvider;
-use Modules\Xot\Services\CollectiveService;
+use Modules\Theme\Services\CollectiveService;
 
 /**
  * Class FormXServiceProvider.
